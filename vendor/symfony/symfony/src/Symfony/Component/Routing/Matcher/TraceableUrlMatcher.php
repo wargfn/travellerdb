@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\Routing\Matcher;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Exception\ExceptionInterface;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
@@ -38,6 +39,15 @@ class TraceableUrlMatcher extends UrlMatcher
         }
 
         return $this->traces;
+    }
+
+    public function getTracesForRequest(Request $request)
+    {
+        $this->request = $request;
+        $traces = $this->getTraces($request->getPathInfo());
+        $this->request = null;
+
+        return $traces;
     }
 
     protected function matchCollection($pathinfo, RouteCollection $routes)
@@ -95,7 +105,7 @@ class TraceableUrlMatcher extends UrlMatcher
 
             // check condition
             if ($condition = $route->getCondition()) {
-                if (!$this->getExpressionLanguage()->evaluate($condition, array('context' => $this->context, 'request' => $this->request))) {
+                if (!$this->getExpressionLanguage()->evaluate($condition, array('context' => $this->context, 'request' => $this->request ?: $this->createRequest($pathinfo)))) {
                     $this->addTrace(sprintf('Condition "%s" does not evaluate to "true"', $condition), self::ROUTE_ALMOST_MATCHES, $name, $route);
 
                     continue;

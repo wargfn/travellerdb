@@ -14,8 +14,6 @@ namespace Symfony\Component\Security\Csrf;
 /**
  * Manages CSRF tokens.
  *
- * @since  2.4
- *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
 interface CsrfTokenManagerInterface
@@ -60,8 +58,6 @@ interface CsrfTokenManagerInterface
 
     /**
      * Returns whether the given CSRF token is valid.
-     *
-     * @param CsrfToken $token A CSRF token
      *
      * @return bool Returns true if the token is valid, false otherwise
      */

@@ -1,25 +1,9 @@
 {
-    "Version": "2.1.8.19",
+    "Version": "2.1.37.22",
     "Names": {
         "AMD": [
             "AMD",
-            "dram"
-        ],
-        "AWG": [
-            "AWG",
-            "florín arubeño"
-        ],
-        "BBD": [
-            "BBD",
-            "dólar barbadense"
-        ],
-        "BSD": [
-            "BSD",
-            "dólar bahameño"
-        ],
-        "BZD": [
-            "BZD",
-            "dólar beliceño"
+            "dram armenio"
         ],
         "CAD": [
             "CAD",
@@ -27,35 +11,11 @@
         ],
         "ERN": [
             "ERN",
-            "nakfa"
+            "nafka"
         ],
         "EUR": [
             "EUR",
             "euro"
-        ],
-        "HKD": [
-            "HKD",
-            "dólar hongkonés"
-        ],
-        "ILS": [
-            "ILS",
-            "nuevo sheqel israelí"
-        ],
-        "JMD": [
-            "JMD",
-            "dólar jamaicano"
-        ],
-        "KZT": [
-            "KZT",
-            "tenge kazako"
-        ],
-        "LKR": [
-            "LKR",
-            "rupia esrilanquesa"
-        ],
-        "MOP": [
-            "MOP",
-            "pataca"
         ],
         "THB": [
             "THB",
@@ -68,10 +28,6 @@
         "VND": [
             "VND",
             "dong"
-        ],
-        "ZMW": [
-            "ZMK",
-            "kuacha zambiano"
         ]
     }
 }

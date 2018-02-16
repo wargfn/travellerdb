@@ -43,13 +43,6 @@
 
     <div id="content" class="container">
         <div id="main">
-            <div id="collector-wrapper">
-                <div id="collector-content">
-                    {{ include('@WebProfiler/Profiler/base_js.html.twig') }}
-                    {% block panel '' %}
-                </div>
-            </div>
-
             <div id="sidebar">
                 <div id="sidebar-shortcuts">
                     <div class="shortcuts">
@@ -71,7 +64,13 @@
                 {% if templates is defined %}
                     <ul id="menu-profiler">
                         {% for name, template in templates %}
-                            {% set menu %}{{ template.renderBlock('menu', { collector: profile.getcollector(name), profiler_markup_version: profiler_markup_version }) }}{% endset %}
+                            {% set menu -%}
+                                {%- if block('menu', template) is defined -%}
+                                    {% with { collector: profile.getcollector(name), profiler_markup_version: profiler_markup_version } %}
+                                        {{- block('menu', template) -}}
+                                    {% endwith %}
+                                {%- endif -%}
+                            {%- endset %}
                             {% if menu is not empty %}
                                 <li class="{{ name }} {{ name == panel ? 'selected' : '' }}">
                                     <a href="{{ path('_profiler', { token: token, panel: name }) }}">{{ menu|raw }}</a>
@@ -80,6 +79,13 @@
                         {% endfor %}
                     </ul>
                 {% endif %}
+            </div>
+
+            <div id="collector-wrapper">
+                <div id="collector-content">
+                    {{ include('@WebProfiler/Profiler/base_js.html.twig') }}
+                    {% block panel '' %}
+                </div>
             </div>
         </div>
     </div>

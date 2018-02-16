@@ -22,9 +22,13 @@ class Validator
      */
     public static $validTypes = array(
         'date',
+        'date_immutable',
         'time',
+        'time_immutable',
         'datetime',
+        'datetime_immutable',
         'datetimetz',
+        'datetimetz_immutable',
         'timestamp',
         'zenddate',
     );
@@ -38,9 +42,11 @@ class Validator
         $fieldMapping = $meta->getFieldMapping($field);
 
         if (!in_array($fieldMapping['type'], self::$validTypes)) {
-            throw new InvalidMappingException(sprintf('Field "%s" must be of one of the following types: "%s"',
+            throw new InvalidMappingException(sprintf('Field "%s" (type "%s") must be of one of the following types: "%s" in entity %s',
+                $field,
                 $fieldMapping['type'],
-                implode(', ', self::$validTypes)));
+                implode(', ', self::$validTypes),
+                $meta->name));
         }
     }
 }

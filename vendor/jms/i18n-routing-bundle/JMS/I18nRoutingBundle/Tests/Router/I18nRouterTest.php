@@ -34,7 +34,6 @@ use JMS\I18nRoutingBundle\Router\I18nRouter;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\DependencyInjection\Scope;
 
 class I18nRouterTest extends \PHPUnit_Framework_TestCase
 {
@@ -275,9 +274,17 @@ class I18nRouterTest extends \PHPUnit_Framework_TestCase
         $ref = new \ReflectionProperty($router, 'container');
         $ref->setAccessible(true);
         $container = $ref->getValue($router);
-        $container->addScope(new Scope('request'));
-        $container->enterScope('request');
-        $container->set('request', $request = Request::create('/'));
+        $request = Request::create('/');
+
+        if (method_exists($container, 'addScope')) {
+            $container->addScope(new \Symfony\Component\DependencyInjection\Scope('request'));
+            $container->enterScope('request');
+            $container->set('request', $request);
+        } else {
+            $requestStack = new \Symfony\Component\HttpFoundation\RequestStack();
+            $requestStack->push($request);
+            $container->set('request_stack', $requestStack);
+        }
 
         $localeResolver->expects($this->once())
             ->method('resolveLocale')
@@ -295,7 +302,7 @@ class I18nRouterTest extends \PHPUnit_Framework_TestCase
 
         if (null === $translator) {
             $translator = new Translator('en', new MessageSelector());
-            $translator->setFallbackLocales(['en']);
+            $translator->setFallbackLocales(array('en'));
             $translator->addLoader('yml', new TranslationLoader());
             $translator->addResource('yml', __DIR__.'/Fixture/routes.de.yml', 'de', 'routes');
             $translator->addResource('yml', __DIR__.'/Fixture/routes.en.yml', 'en', 'routes');
@@ -322,7 +329,7 @@ class I18nRouterTest extends \PHPUnit_Framework_TestCase
         $container->set('routing.loader', new YamlFileLoader(new FileLocator(__DIR__.'/Fixture')));
 
         $translator = new Translator('en_UK', new MessageSelector());
-        $translator->setFallbackLocales(['en']);
+        $translator->setFallbackLocales(array('en'));
         $translator->addLoader('yml', new TranslationLoader());
         $translator->addResource('yml', __DIR__.'/Fixture/routes.en_UK.yml', 'en_UK', 'routes');
         $translator->addResource('yml', __DIR__.'/Fixture/routes.en_US.yml', 'en_US', 'routes');

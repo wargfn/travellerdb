@@ -36,12 +36,6 @@ class MainConfiguration implements ConfigurationInterface
     private $factories;
     private $userProviderFactories;
 
-    /**
-     * Constructor.
-     *
-     * @param array $factories
-     * @param array $userProviderFactories
-     */
     public function __construct(array $factories, array $userProviderFactories)
     {
         $this->factories = $factories;
@@ -242,7 +236,7 @@ class MainConfiguration implements ConfigurationInterface
                 ->beforeNormalization()
                     ->ifTrue(function ($v) { return isset($v['csrf_provider']); })
                     ->then(function ($v) {
-                        @trigger_error("Setting the 'csrf_provider' configuration key on a security firewall is deprecated since version 2.8 and will be removed in 3.0. Use the 'csrf_token_generator' configuration key instead.", E_USER_DEPRECATED);
+                        @trigger_error("Setting the 'csrf_provider' configuration key on a security firewall is deprecated since Symfony 2.8 and will be removed in 3.0. Use the 'csrf_token_generator' configuration key instead.", E_USER_DEPRECATED);
 
                         $v['csrf_token_generator'] = $v['csrf_provider'];
                         unset($v['csrf_provider']);
@@ -253,7 +247,7 @@ class MainConfiguration implements ConfigurationInterface
                 ->beforeNormalization()
                     ->ifTrue(function ($v) { return isset($v['intention']); })
                     ->then(function ($v) {
-                        @trigger_error("Setting the 'intention' configuration key on a security firewall is deprecated since version 2.8 and will be removed in 3.0. Use the 'csrf_token_id' key instead.", E_USER_DEPRECATED);
+                        @trigger_error("Setting the 'intention' configuration key on a security firewall is deprecated since Symfony 2.8 and will be removed in 3.0. Use the 'csrf_token_id' key instead.", E_USER_DEPRECATED);
 
                         $v['csrf_token_id'] = $v['intention'];
                         unset($v['intention']);
@@ -302,7 +296,7 @@ class MainConfiguration implements ConfigurationInterface
                             throw new \LogicException('Cannot set both key and secret options for security.firewall.anonymous, use only secret instead.');
                         }
 
-                        @trigger_error('security.firewall.anonymous.key is deprecated since version 2.8 and will be removed in 3.0. Use security.firewall.anonymous.secret instead.', E_USER_DEPRECATED);
+                        @trigger_error('security.firewall.anonymous.key is deprecated since Symfony 2.8 and will be removed in 3.0. Use security.firewall.anonymous.secret instead.', E_USER_DEPRECATED);
 
                         $v['secret'] = $v['key'];
 
@@ -413,11 +407,11 @@ class MainConfiguration implements ConfigurationInterface
 
         $providerNodeBuilder
             ->validate()
-                ->ifTrue(function ($v) {return count($v) > 1;})
+                ->ifTrue(function ($v) { return count($v) > 1; })
                 ->thenInvalid('You cannot set multiple provider types for the same provider')
             ->end()
             ->validate()
-                ->ifTrue(function ($v) {return count($v) === 0;})
+                ->ifTrue(function ($v) { return 0 === count($v); })
                 ->thenInvalid('You must set a provider definition for the provider.')
             ->end()
         ;
@@ -430,11 +424,10 @@ class MainConfiguration implements ConfigurationInterface
             ->children()
                 ->arrayNode('encoders')
                     ->example(array(
-                        'Acme\DemoBundle\Entity\User1' => 'sha512',
-                        'Acme\DemoBundle\Entity\User2' => array(
-                            'algorithm' => 'sha512',
-                            'encode_as_base64' => 'true',
-                            'iterations' => 5000,
+                        'AppBundle\Entity\User1' => 'bcrypt',
+                        'AppBundle\Entity\User2' => array(
+                            'algorithm' => 'bcrypt',
+                            'cost' => 13,
                         ),
                     ))
                     ->requiresAtLeastOneElement()

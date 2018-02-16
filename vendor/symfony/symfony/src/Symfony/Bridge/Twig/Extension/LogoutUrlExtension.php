@@ -11,15 +11,16 @@
 
 namespace Symfony\Bridge\Twig\Extension;
 
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Http\Logout\LogoutUrlGenerator;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
 /**
  * LogoutUrlHelper provides generator functions for the logout URL to Twig.
  *
  * @author Jeremy Mikola <jmikola@gmail.com>
  */
-class LogoutUrlExtension extends \Twig_Extension
+class LogoutUrlExtension extends AbstractExtension
 {
     private $generator;
 
@@ -34,8 +35,8 @@ class LogoutUrlExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('logout_url', array($this, 'getLogoutUrl')),
-            new \Twig_SimpleFunction('logout_path', array($this, 'getLogoutPath')),
+            new TwigFunction('logout_url', array($this, 'getLogoutUrl')),
+            new TwigFunction('logout_path', array($this, 'getLogoutPath')),
         );
     }
 
@@ -48,7 +49,7 @@ class LogoutUrlExtension extends \Twig_Extension
      */
     public function getLogoutPath($key = null)
     {
-        return $this->generator->getLogoutPath($key, UrlGeneratorInterface::ABSOLUTE_PATH);
+        return $this->generator->getLogoutPath($key);
     }
 
     /**
@@ -60,7 +61,7 @@ class LogoutUrlExtension extends \Twig_Extension
      */
     public function getLogoutUrl($key = null)
     {
-        return $this->generator->getLogoutUrl($key, UrlGeneratorInterface::ABSOLUTE_URL);
+        return $this->generator->getLogoutUrl($key);
     }
 
     /**

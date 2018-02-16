@@ -24,11 +24,6 @@ class ControllerNameParser
 {
     protected $kernel;
 
-    /**
-     * Constructor.
-     *
-     * @param KernelInterface $kernel A KernelInterface instance
-     */
     public function __construct(KernelInterface $kernel)
     {
         $this->kernel = $kernel;
@@ -46,11 +41,12 @@ class ControllerNameParser
      */
     public function parse($controller)
     {
-        $originalController = $controller;
-        if (3 !== count($parts = explode(':', $controller))) {
+        $parts = explode(':', $controller);
+        if (3 !== count($parts) || in_array('', $parts, true)) {
             throw new \InvalidArgumentException(sprintf('The "%s" controller is not a valid "a:b:c" controller string.', $controller));
         }
 
+        $originalController = $controller;
         list($bundle, $controller, $action) = $parts;
         $controller = str_replace('/', '\\', $controller);
         $bundles = array();
@@ -140,8 +136,9 @@ class ControllerNameParser
             }
 
             $lev = levenshtein($nonExistentBundleName, $bundleName);
-            if ($lev <= strlen($nonExistentBundleName) / 3 && ($alternative === null || $lev < $shortest)) {
+            if ($lev <= strlen($nonExistentBundleName) / 3 && (null === $alternative || $lev < $shortest)) {
                 $alternative = $bundleName;
+                $shortest = $lev;
             }
         }
 

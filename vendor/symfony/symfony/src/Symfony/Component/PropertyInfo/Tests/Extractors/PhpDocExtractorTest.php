@@ -11,20 +11,21 @@
 
 namespace Symfony\Component\PropertyInfo\Tests\PhpDocExtractors;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
 use Symfony\Component\PropertyInfo\Type;
 
 /**
  * @author Kévin Dunglas <dunglas@gmail.com>
  */
-class PhpDocExtractorTest extends \PHPUnit_Framework_TestCase
+class PhpDocExtractorTest extends TestCase
 {
     /**
      * @var PhpDocExtractor
      */
     private $extractor;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->extractor = new PhpDocExtractor();
     }
@@ -43,7 +44,7 @@ class PhpDocExtractorTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array('foo', null, 'Short description.', 'Long description.'),
-            array('bar', array(new Type(Type::BUILTIN_TYPE_STRING)), 'This is bar.', null),
+            array('bar', array(new Type(Type::BUILTIN_TYPE_STRING)), 'This is bar', null),
             array('baz', array(new Type(Type::BUILTIN_TYPE_INT)), 'Should be used.', null),
             array('foo2', array(new Type(Type::BUILTIN_TYPE_FLOAT)), null, null),
             array('foo3', array(new Type(Type::BUILTIN_TYPE_CALLABLE)), null, null),
@@ -67,6 +68,10 @@ class PhpDocExtractorTest extends \PHPUnit_Framework_TestCase
             array('d', array(new Type(Type::BUILTIN_TYPE_BOOL)), null, null),
             array('e', array(new Type(Type::BUILTIN_TYPE_ARRAY, false, null, true, new Type(Type::BUILTIN_TYPE_INT), new Type(Type::BUILTIN_TYPE_RESOURCE))), null, null),
             array('f', array(new Type(Type::BUILTIN_TYPE_ARRAY, false, null, true, new Type(Type::BUILTIN_TYPE_INT), new Type(Type::BUILTIN_TYPE_OBJECT, false, 'DateTime'))), null, null),
+            array('g', array(new Type(Type::BUILTIN_TYPE_ARRAY, true, null, true)), 'Nullable array.', null),
+            array('donotexist', null, null, null),
+            array('staticGetter', null, null, null),
+            array('staticSetter', null, null, null),
         );
     }
 }

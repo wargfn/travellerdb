@@ -60,16 +60,13 @@ class Annotation extends AbstractAnnotationDriver
 
         // property annotations
         foreach ($class->getProperties() as $property) {
-            if ($meta->isMappedSuperclass && !$property->isPrivate() ||
-                $meta->isInheritedField($property->name) ||
-                isset($meta->associationMappings[$property->name]['inherited'])
-            ) {
+            $field = $property->getName();
+            if ($meta->isMappedSuperclass && !$property->isPrivate()) {
                 continue;
             }
 
             // versioned property
             if ($this->reader->getPropertyAnnotation($property, self::VERSIONED)) {
-                $field = $property->getName();
                 if (!$this->isMappingValid($meta, $field)) {
                     throw new InvalidMappingException("Cannot versioned [{$field}] as it is collection in object - {$meta->name}");
                 }
@@ -78,7 +75,9 @@ class Annotation extends AbstractAnnotationDriver
                     continue;
                 }
                 // fields cannot be overrided and throws mapping exception
-                $config['versioned'][] = $field;
+                if (!(isset($config['versioned']) && in_array($field, $config['versioned']))) {
+                    $config['versioned'][] = $field;
+                }
             }
         }
 
@@ -129,7 +128,12 @@ class Annotation extends AbstractAnnotationDriver
         foreach ($сlass->getProperties() as $property) {
             // versioned property
             if ($this->reader->getPropertyAnnotation($property, self::VERSIONED)) {
-                $config['versioned'][] = $field . '.' . $property->getName();
+                $embeddedField = $field . '.' . $property->getName();
+                $config['versioned'][] = $embeddedField;
+
+                if (isset($meta->embeddedClasses[$embeddedField])) {
+                    $this->inspectEmbeddedForVersioned($embeddedField, $config, $meta);
+                }
             }
         }
     }

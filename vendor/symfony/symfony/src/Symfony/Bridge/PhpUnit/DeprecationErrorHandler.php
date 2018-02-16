@@ -32,16 +32,30 @@ class DeprecationErrorHandler
      * - use a number to define the upper bound of allowed deprecations,
      *   making the test suite fail whenever more notices are trigerred.
      *
-     * @param int|string|false $mode The reporting mode. Defaults to not allowing any deprecations.
+     * @param int|string|false $mode The reporting mode, defaults to not allowing any deprecations
      */
     public static function register($mode = 0)
     {
         if (self::$isRegistered) {
             return;
         }
-        if (self::MODE_WEAK !== $mode && (!isset($mode[0]) || '/' !== $mode[0])) {
-            $mode = preg_match('/^[1-9][0-9]*$/', $mode) ? (int) $mode : 0;
-        }
+
+        $getMode = function () use ($mode) {
+            static $memoizedMode = false;
+
+            if (false !== $memoizedMode) {
+                return $memoizedMode;
+            }
+            if (false === $mode) {
+                $mode = getenv('SYMFONY_DEPRECATIONS_HELPER');
+            }
+            if (DeprecationErrorHandler::MODE_WEAK !== $mode && (!isset($mode[0]) || '/' !== $mode[0])) {
+                $mode = preg_match('/^[1-9][0-9]*$/', $mode) ? (int) $mode : 0;
+            }
+
+            return $memoizedMode = $mode;
+        };
+
         $deprecations = array(
             'unsilencedCount' => 0,
             'remainingCount' => 0,
@@ -52,15 +66,17 @@ class DeprecationErrorHandler
             'legacy' => array(),
             'other' => array(),
         );
-        $deprecationHandler = function ($type, $msg, $file, $line, $context) use (&$deprecations, $mode) {
+        $deprecationHandler = function ($type, $msg, $file, $line, $context = array()) use (&$deprecations, $getMode) {
             if (E_USER_DEPRECATED !== $type) {
                 return \PHPUnit_Util_ErrorHandler::handleError($type, $msg, $file, $line, $context);
             }
 
-            $trace = debug_backtrace(PHP_VERSION_ID >= 50400 ? DEBUG_BACKTRACE_IGNORE_ARGS | DEBUG_BACKTRACE_PROVIDE_OBJECT : true);
+            $mode = $getMode();
+            $trace = debug_backtrace(true);
+            $group = 'other';
 
             $i = count($trace);
-            while (isset($trace[--$i]['class']) && ('ReflectionMethod' === $trace[$i]['class'] || 0 === strpos($trace[$i]['class'], 'PHPUnit_'))) {
+            while (1 < $i && (!isset($trace[--$i]['class']) || ('ReflectionMethod' === $trace[$i]['class'] || 0 === strpos($trace[$i]['class'], 'PHPUnit_')))) {
                 // No-op
             }
 
@@ -101,8 +117,7 @@ class DeprecationErrorHandler
                     $ref = &$deprecations[$group][$msg][$class.'::'.$method];
                     ++$ref;
                 }
-            } else {
-                $group = 'other';
+            } elseif (DeprecationErrorHandler::MODE_WEAK !== $mode) {
                 $ref = &$deprecations[$group][$msg]['count'];
                 ++$ref;
             }
@@ -116,7 +131,7 @@ class DeprecationErrorHandler
                 restore_error_handler();
                 self::register($mode);
             }
-        } elseif (!isset($mode[0]) || '/' !== $mode[0]) {
+        } else {
             self::$isRegistered = true;
             if (self::hasColorSupport()) {
                 $colorize = function ($str, $red) {
@@ -125,12 +140,19 @@ class DeprecationErrorHandler
                     return "\x1B[{$color}m{$str}\x1B[0m";
                 };
             } else {
-                $colorize = function ($str) {return $str;};
+                $colorize = function ($str) { return $str; };
             }
-            register_shutdown_function(function () use ($mode, &$deprecations, $deprecationHandler, $colorize) {
+            register_shutdown_function(function () use ($getMode, &$deprecations, $deprecationHandler, $colorize) {
+                $mode = $getMode();
+                if (isset($mode[0]) && '/' === $mode[0]) {
+                    return;
+                }
                 $currErrorHandler = set_error_handler('var_dump');
                 restore_error_handler();
 
+                if (DeprecationErrorHandler::MODE_WEAK === $mode) {
+                    $colorize = function ($str) { return $str; };
+                }
                 if ($currErrorHandler !== $deprecationHandler) {
                     echo "\n", $colorize('THE ERROR HANDLER HAS CHANGED!', true), "\n";
                 }
@@ -146,7 +168,7 @@ class DeprecationErrorHandler
                         uasort($deprecations[$group], $cmp);
 
                         foreach ($deprecations[$group] as $msg => $notices) {
-                            echo "\n", rtrim($msg, '.'), ': ', $notices['count'], "x\n";
+                            echo "\n  ", $notices['count'], 'x: ', $msg, "\n";
 
                             arsort($notices);
 
@@ -161,6 +183,7 @@ class DeprecationErrorHandler
                 if (!empty($notices)) {
                     echo "\n";
                 }
+
                 if (DeprecationErrorHandler::MODE_WEAK !== $mode && $mode < $deprecations['unsilencedCount'] + $deprecations['remainingCount'] + $deprecations['otherCount']) {
                     exit(1);
                 }
@@ -171,7 +194,11 @@ class DeprecationErrorHandler
     private static function hasColorSupport()
     {
         if ('\\' === DIRECTORY_SEPARATOR) {
-            return false !== getenv('ANSICON') || 'ON' === getenv('ConEmuANSI') || 'xterm' === getenv('TERM');
+            return
+                '10.0.10586' === PHP_WINDOWS_VERSION_MAJOR.'.'.PHP_WINDOWS_VERSION_MINOR.'.'.PHP_WINDOWS_VERSION_BUILD
+                || false !== getenv('ANSICON')
+                || 'ON' === getenv('ConEmuANSI')
+                || 'xterm' === getenv('TERM');
         }
 
         return defined('STDOUT') && function_exists('posix_isatty') && @posix_isatty(STDOUT);

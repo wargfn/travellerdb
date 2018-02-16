@@ -29,6 +29,7 @@ class HttpDigestFactory implements SecurityFactoryInterface
         $container
             ->setDefinition($provider, new DefinitionDecorator('security.authentication.provider.dao'))
             ->replaceArgument(0, new Reference($userProvider))
+            ->replaceArgument(1, new Reference('security.user_checker.'.$id))
             ->replaceArgument(2, $id)
         ;
 
@@ -65,7 +66,7 @@ class HttpDigestFactory implements SecurityFactoryInterface
                         throw new \LogicException('Cannot set both key and secret options for http_digest, use only secret instead.');
                     }
 
-                    @trigger_error('http_digest.key is deprecated since version 2.8 and will be removed in 3.0. Use http_digest.secret instead.', E_USER_DEPRECATED);
+                    @trigger_error('http_digest.key is deprecated since Symfony 2.8 and will be removed in 3.0. Use http_digest.secret instead.', E_USER_DEPRECATED);
 
                     $v['secret'] = $v['key'];
 

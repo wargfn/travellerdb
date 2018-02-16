@@ -38,7 +38,15 @@ class AnnotationDirectoryLoader extends AnnotationFileLoader
 
         $collection = new RouteCollection();
         $collection->addResource(new DirectoryResource($dir, '/\.php$/'));
-        $files = iterator_to_array(new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($dir), \RecursiveIteratorIterator::LEAVES_ONLY));
+        $files = iterator_to_array(new \RecursiveIteratorIterator(
+            new RecursiveCallbackFilterIterator(
+                new \RecursiveDirectoryIterator($dir),
+                function (\SplFileInfo $current) {
+                    return '.' !== substr($current->getBasename(), 0, 1);
+                }
+            ),
+            \RecursiveIteratorIterator::LEAVES_ONLY
+        ));
         usort($files, function (\SplFileInfo $a, \SplFileInfo $b) {
             return (string) $a > (string) $b ? 1 : -1;
         });
@@ -66,12 +74,47 @@ class AnnotationDirectoryLoader extends AnnotationFileLoader
      */
     public function supports($resource, $type = null)
     {
+        if (!is_string($resource)) {
+            return false;
+        }
+
         try {
             $path = $this->locator->locate($resource);
         } catch (\Exception $e) {
             return false;
         }
 
-        return is_string($resource) && is_dir($path) && (!$type || 'annotation' === $type);
+        return is_dir($path) && (!$type || 'annotation' === $type);
+    }
+}
+
+/**
+ * @internal To be removed as RecursiveCallbackFilterIterator is available since PHP 5.4
+ */
+class RecursiveCallbackFilterIterator extends \FilterIterator implements \RecursiveIterator
+{
+    private $iterator;
+    private $callback;
+
+    public function __construct(\RecursiveIterator $iterator, $callback)
+    {
+        $this->iterator = $iterator;
+        $this->callback = $callback;
+        parent::__construct($iterator);
+    }
+
+    public function accept()
+    {
+        return call_user_func($this->callback, $this->current(), $this->key(), $this->iterator);
+    }
+
+    public function hasChildren()
+    {
+        return $this->iterator->hasChildren();
+    }
+
+    public function getChildren()
+    {
+        return new static($this->iterator->getChildren(), $this->callback);
     }
 }

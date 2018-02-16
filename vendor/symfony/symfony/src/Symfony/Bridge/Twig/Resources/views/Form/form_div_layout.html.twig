@@ -15,7 +15,7 @@
 
 {%- block form_widget_compound -%}
     <div {{ block('widget_container_attributes') }}>
-        {%- if form.parent is empty -%}
+        {%- if form is rootform -%}
             {{ form_errors(form) }}
         {%- endif -%}
         {{- block('form_rows') -}}
@@ -52,7 +52,7 @@
 {%- endblock choice_widget_expanded -%}
 
 {%- block choice_widget_collapsed -%}
-    {%- if required and placeholder is none and not placeholder_in_choices and not multiple -%}
+    {%- if required and placeholder is none and not placeholder_in_choices and not multiple and (attr.size is not defined or attr.size <= 1) -%}
         {% set required = false %}
     {%- endif -%}
     <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}>
@@ -79,8 +79,7 @@
                 {{- block('choice_widget_options') -}}
             </optgroup>
         {%- else -%}
-            {% set attr = choice.attr %}
-            <option value="{{ choice.value }}" {{ block('attributes') }}{% if choice is selectedchoice(value) %} selected="selected"{% endif %}>{{ choice_translation_domain is same as(false) ? choice.label : choice.label|trans({}, choice_translation_domain) }}</option>
+            <option value="{{ choice.value }}"{% if choice.attr %} {% set attr = choice.attr %}{{ block('attributes') }}{% endif %}{% if choice is selectedchoice(value) %} selected="selected"{% endif %}>{{ choice_translation_domain is same as(false) ? choice.label : choice.label|trans({}, choice_translation_domain) }}</option>
         {%- endif -%}
     {% endfor %}
 {%- endblock choice_widget_options -%}
@@ -268,6 +267,7 @@
 {%- endblock form -%}
 
 {%- block form_start -%}
+    {%- do form.setMethodRendered() -%}
     {% set method = method|upper %}
     {%- if method in ["GET", "POST"] -%}
         {% set form_method = method %}
@@ -306,7 +306,21 @@
         {% if not child.rendered %}
             {{- form_row(child) -}}
         {% endif %}
-    {%- endfor %}
+    {%- endfor -%}
+
+    {% if not form.methodRendered and form is rootform %}
+        {%- do form.setMethodRendered() -%}
+        {% set method = method|upper %}
+        {%- if method in ["GET", "POST"] -%}
+            {% set form_method = method %}
+        {%- else -%}
+            {% set form_method = "POST" %}
+        {%- endif -%}
+
+        {%- if form_method != method -%}
+            <input type="hidden" name="_method" value="{{ method }}" />
+        {%- endif -%}
+    {% endif -%}
 {% endblock form_rest %}
 
 {# Support #}
@@ -319,9 +333,10 @@
 
 {%- block widget_attributes -%}
     id="{{ id }}" name="{{ full_name }}"
+    {%- if read_only %} readonly="readonly"{% endif -%}
     {%- if disabled %} disabled="disabled"{% endif -%}
     {%- if required %} required="required"{% endif -%}
-    {%- for attrname, attrvalue in attr -%}
+    {%- for attrname, attrvalue in attr if 'readonly' != attrname or not read_only -%}
         {{- " " -}}
         {%- if attrname in ['placeholder', 'title'] -%}
             {{- attrname }}="{{ translation_domain is same as(false) ? attrvalue : attrvalue|trans({}, translation_domain) }}"

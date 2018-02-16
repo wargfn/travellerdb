@@ -41,9 +41,9 @@ interface OptionsResolverInterface
      * The closures should return the lazily created option value.
      *
      * @param array $defaultValues A list of option names as keys and default
-     *                             values or closures as values.
+     *                             values or closures as values
      *
-     * @return OptionsResolverInterface The resolver instance.
+     * @return $this
      */
     public function setDefaults(array $defaultValues);
 
@@ -56,9 +56,9 @@ interface OptionsResolverInterface
      * closure.
      *
      * @param array $defaultValues A list of option names as keys and default
-     *                             values or closures as values.
+     *                             values or closures as values
      *
-     * @return OptionsResolverInterface The resolver instance.
+     * @return $this
      */
     public function replaceDefaults(array $defaultValues);
 
@@ -71,9 +71,9 @@ interface OptionsResolverInterface
      * if you want to determine whether an option has been set or not because otherwise
      * {@link resolve()} would trigger an exception for unknown options.
      *
-     * @param array $optionNames A list of option names.
+     * @param array $optionNames A list of option names
      *
-     * @return OptionsResolverInterface The resolver instance.
+     * @return $this
      */
     public function setOptional(array $optionNames);
 
@@ -83,9 +83,9 @@ interface OptionsResolverInterface
      * If these options are not passed to {@link resolve()} and no default has been set for
      * them, an exception will be thrown.
      *
-     * @param array $optionNames A list of option names.
+     * @param array $optionNames A list of option names
      *
-     * @return OptionsResolverInterface The resolver instance.
+     * @return $this
      */
     public function setRequired($optionNames);
 
@@ -94,13 +94,13 @@ interface OptionsResolverInterface
      *
      * @param array $allowedValues A list of option names as keys and arrays
      *                             with values acceptable for that option as
-     *                             values.
+     *                             values
      *
-     * @return OptionsResolverInterface The resolver instance.
+     * @return $this
      *
-     * @throws InvalidOptionsException If an option has not been defined
+     * @throws InvalidOptionsException if an option has not been defined
      *                                 (see {@link isKnown()}) for which
-     *                                 an allowed value is set.
+     *                                 an allowed value is set
      */
     public function setAllowedValues($allowedValues);
 
@@ -111,13 +111,13 @@ interface OptionsResolverInterface
      *
      * @param array $allowedValues A list of option names as keys and arrays
      *                             with values acceptable for that option as
-     *                             values.
+     *                             values
      *
-     * @return OptionsResolverInterface The resolver instance.
+     * @return $this
      *
-     * @throws InvalidOptionsException If an option has not been defined
+     * @throws InvalidOptionsException if an option has not been defined
      *                                 (see {@link isKnown()}) for which
-     *                                 an allowed value is set.
+     *                                 an allowed value is set
      */
     public function addAllowedValues($allowedValues);
 
@@ -125,12 +125,12 @@ interface OptionsResolverInterface
      * Sets allowed types for a list of options.
      *
      * @param array $allowedTypes A list of option names as keys and type
-     *                            names passed as string or array as values.
+     *                            names passed as string or array as values
      *
-     * @return OptionsResolverInterface The resolver instance.
+     * @return $this
      *
-     * @throws InvalidOptionsException If an option has not been defined for
-     *                                 which an allowed type is set.
+     * @throws InvalidOptionsException if an option has not been defined for
+     *                                 which an allowed type is set
      */
     public function setAllowedTypes($allowedTypes);
 
@@ -140,12 +140,12 @@ interface OptionsResolverInterface
      * The types are merged with the allowed types defined previously.
      *
      * @param array $allowedTypes A list of option names as keys and type
-     *                            names passed as string or array as values.
+     *                            names passed as string or array as values
      *
-     * @return OptionsResolverInterface The resolver instance.
+     * @return $this
      *
-     * @throws InvalidOptionsException If an option has not been defined for
-     *                                 which an allowed type is set.
+     * @throws InvalidOptionsException if an option has not been defined for
+     *                                 which an allowed type is set
      */
     public function addAllowedTypes($allowedTypes);
 
@@ -163,9 +163,9 @@ interface OptionsResolverInterface
      *
      * The closure should return the normalized value.
      *
-     * @param array $normalizers An array of closures.
+     * @param array $normalizers An array of closures
      *
-     * @return OptionsResolverInterface The resolver instance.
+     * @return $this
      */
     public function setNormalizers(array $normalizers);
 
@@ -175,9 +175,9 @@ interface OptionsResolverInterface
      * An option is known if it has been passed to either {@link setDefaults()},
      * {@link setRequired()} or {@link setOptional()} before.
      *
-     * @param string $option The name of the option.
+     * @param string $option The name of the option
      *
-     * @return bool Whether the option is known.
+     * @return bool Whether the option is known
      */
     public function isKnown($option);
 
@@ -188,25 +188,25 @@ interface OptionsResolverInterface
      * but not to {@link setDefaults()}. That is, the option has been declared
      * as required and no default value has been set.
      *
-     * @param string $option The name of the option.
+     * @param string $option The name of the option
      *
-     * @return bool Whether the option is required.
+     * @return bool Whether the option is required
      */
     public function isRequired($option);
 
     /**
      * Returns the combination of the default and the passed options.
      *
-     * @param array $options The custom option values.
+     * @param array $options The custom option values
      *
-     * @return array A list of options and their values.
+     * @return array A list of options and their values
      *
-     * @throws InvalidOptionsException   If any of the passed options has not
+     * @throws InvalidOptionsException   if any of the passed options has not
      *                                   been defined or does not contain an
-     *                                   allowed value.
-     * @throws MissingOptionsException   If a required option is missing.
-     * @throws OptionDefinitionException If a cyclic dependency is detected
-     *                                   between two lazy options.
+     *                                   allowed value
+     * @throws MissingOptionsException   if a required option is missing
+     * @throws OptionDefinitionException if a cyclic dependency is detected
+     *                                   between two lazy options
      */
     public function resolve(array $options = array());
 }

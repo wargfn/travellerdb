@@ -11,11 +11,13 @@
 
 namespace Symfony\Bridge\Twig\Tests\Extension;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Bridge\Twig\Extension\HttpFoundationExtension;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\RequestContext;
 
-class HttpFoundationExtensionTest extends \PHPUnit_Framework_TestCase
+class HttpFoundationExtensionTest extends TestCase
 {
     /**
      * @dataProvider getGenerateAbsoluteUrlData()
@@ -40,6 +42,58 @@ class HttpFoundationExtensionTest extends \PHPUnit_Framework_TestCase
             array('http://example.com/baz', 'http://example.com/baz', '/'),
             array('https://example.com/baz', 'https://example.com/baz', '/'),
             array('//example.com/baz', '//example.com/baz', '/'),
+
+            array('http://localhost/foo/bar?baz', '?baz', '/foo/bar'),
+            array('http://localhost/foo/bar?baz=1', '?baz=1', '/foo/bar?foo=1'),
+            array('http://localhost/foo/baz?baz=1', 'baz?baz=1', '/foo/bar?foo=1'),
+
+            array('http://localhost/foo/bar#baz', '#baz', '/foo/bar'),
+            array('http://localhost/foo/bar?0#baz', '#baz', '/foo/bar?0'),
+            array('http://localhost/foo/bar?baz=1#baz', '?baz=1#baz', '/foo/bar?foo=1'),
+            array('http://localhost/foo/baz?baz=1#baz', 'baz?baz=1#baz', '/foo/bar?foo=1'),
+        );
+    }
+
+    /**
+     * @dataProvider getGenerateAbsoluteUrlRequestContextData
+     */
+    public function testGenerateAbsoluteUrlWithRequestContext($path, $baseUrl, $host, $scheme, $httpPort, $httpsPort, $expected)
+    {
+        if (!class_exists('Symfony\Component\Routing\RequestContext')) {
+            $this->markTestSkipped('The Routing component is needed to run tests that depend on its request context.');
+        }
+
+        $requestContext = new RequestContext($baseUrl, 'GET', $host, $scheme, $httpPort, $httpsPort, $path);
+        $extension = new HttpFoundationExtension(new RequestStack(), $requestContext);
+
+        $this->assertEquals($expected, $extension->generateAbsoluteUrl($path));
+    }
+
+    /**
+     * @dataProvider getGenerateAbsoluteUrlRequestContextData
+     */
+    public function testGenerateAbsoluteUrlWithoutRequestAndRequestContext($path)
+    {
+        if (!class_exists('Symfony\Component\Routing\RequestContext')) {
+            $this->markTestSkipped('The Routing component is needed to run tests that depend on its request context.');
+        }
+
+        $extension = new HttpFoundationExtension(new RequestStack());
+
+        $this->assertEquals($path, $extension->generateAbsoluteUrl($path));
+    }
+
+    public function getGenerateAbsoluteUrlRequestContextData()
+    {
+        return array(
+            array('/foo.png', '/foo', 'localhost', 'http', 80, 443, 'http://localhost/foo.png'),
+            array('foo.png', '/foo', 'localhost', 'http', 80, 443, 'http://localhost/foo/foo.png'),
+            array('foo.png', '/foo/bar/', 'localhost', 'http', 80, 443, 'http://localhost/foo/bar/foo.png'),
+            array('/foo.png', '/foo', 'localhost', 'https', 80, 443, 'https://localhost/foo.png'),
+            array('foo.png', '/foo', 'localhost', 'https', 80, 443, 'https://localhost/foo/foo.png'),
+            array('foo.png', '/foo/bar/', 'localhost', 'https', 80, 443, 'https://localhost/foo/bar/foo.png'),
+            array('/foo.png', '/foo', 'localhost', 'http', 443, 80, 'http://localhost:443/foo.png'),
+            array('/foo.png', '/foo', 'localhost', 'https', 443, 80, 'https://localhost:80/foo.png'),
         );
     }
 

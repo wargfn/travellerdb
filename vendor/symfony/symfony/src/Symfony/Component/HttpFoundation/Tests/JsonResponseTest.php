@@ -11,9 +11,10 @@
 
 namespace Symfony\Component\HttpFoundation\Tests;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class JsonResponseTest extends \PHPUnit_Framework_TestCase
+class JsonResponseTest extends TestCase
 {
     public function testConstructorEmptyCreatesJsonObject()
     {
@@ -205,17 +206,28 @@ class JsonResponseTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException \Exception
      * @expectedExceptionMessage This error is expected
-     * @requires PHP 5.4
      */
     public function testSetContentJsonSerializeError()
     {
+        if (!interface_exists('JsonSerializable', false)) {
+            $this->markTestSkipped('JsonSerializable is required.');
+        }
+
         $serializable = new JsonSerializableObject();
 
         JsonResponse::create($serializable);
     }
+
+    public function testSetComplexCallback()
+    {
+        $response = JsonResponse::create(array('foo' => 'bar'));
+        $response->setCallback('ಠ_ಠ["foo"].bar[0]');
+
+        $this->assertEquals('/**/ಠ_ಠ["foo"].bar[0]({"foo":"bar"});', $response->getContent());
+    }
 }
 
-if (interface_exists('JsonSerializable')) {
+if (interface_exists('JsonSerializable', false)) {
     class JsonSerializableObject implements \JsonSerializable
     {
         public function jsonSerialize()

@@ -12,6 +12,11 @@ CHANGELOG
  * moved data trimming logic of TrimListener into StringUtil
  * [BC BREAK] When registering a type extension through the DI extension, the tag alias has to match the actual extended type.
 
+2.7.38
+------
+
+ * [BC BREAK] the `isFileUpload()` method was added to the `RequestHandlerInterface`
+
 2.7.0
 -----
 
@@ -73,7 +78,7 @@ CHANGELOG
 
  * moved CSRF implementation to the new Security CSRF sub-component
  * deprecated CsrfProviderInterface and its implementations
- * deprecated options "csrf_provider" and "intention" in favor of the new options "csrf_token_generator" and "csrf_token_id"
+ * deprecated options "csrf_provider" and "intention" in favor of the new options "csrf_token_manager" and "csrf_token_id"
 
 2.3.0
 -----

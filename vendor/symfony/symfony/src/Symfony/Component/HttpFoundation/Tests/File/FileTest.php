@@ -11,10 +11,11 @@
 
 namespace Symfony\Component\HttpFoundation\Tests\File;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesser;
 
-class FileTest extends \PHPUnit_Framework_TestCase
+class FileTest extends TestCase
 {
     protected $file;
 
@@ -63,7 +64,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructWhenFileNotExists()
     {
-        $this->setExpectedException('Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException');
+        $this->{method_exists($this, $_ = 'expectException') ? $_ : 'setExpectedException'}('Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException');
 
         new File(__DIR__.'/Fixtures/not_here');
     }
@@ -81,8 +82,8 @@ class FileTest extends \PHPUnit_Framework_TestCase
         $movedFile = $file->move($targetDir);
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\File\File', $movedFile);
 
-        $this->assertTrue(file_exists($targetPath));
-        $this->assertFalse(file_exists($path));
+        $this->assertFileExists($targetPath);
+        $this->assertFileNotExists($path);
         $this->assertEquals(realpath($targetPath), $movedFile->getRealPath());
 
         @unlink($targetPath);
@@ -100,8 +101,8 @@ class FileTest extends \PHPUnit_Framework_TestCase
         $file = new File($path);
         $movedFile = $file->move($targetDir, 'test.newname.gif');
 
-        $this->assertTrue(file_exists($targetPath));
-        $this->assertFalse(file_exists($path));
+        $this->assertFileExists($targetPath);
+        $this->assertFileNotExists($path);
         $this->assertEquals(realpath($targetPath), $movedFile->getRealPath());
 
         @unlink($targetPath);
@@ -135,8 +136,8 @@ class FileTest extends \PHPUnit_Framework_TestCase
         $movedFile = $file->move($targetDir, $filename);
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\File\File', $movedFile);
 
-        $this->assertTrue(file_exists($targetPath));
-        $this->assertFalse(file_exists($path));
+        $this->assertFileExists($targetPath);
+        $this->assertFileNotExists($path);
         $this->assertEquals(realpath($targetPath), $movedFile->getRealPath());
 
         @unlink($targetPath);
@@ -166,7 +167,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
     protected function createMockGuesser($path, $mimeType)
     {
-        $guesser = $this->getMock('Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesserInterface');
+        $guesser = $this->getMockBuilder('Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesserInterface')->getMock();
         $guesser
             ->expects($this->once())
             ->method('guess')

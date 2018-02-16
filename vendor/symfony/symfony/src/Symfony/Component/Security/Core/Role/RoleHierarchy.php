@@ -22,8 +22,6 @@ class RoleHierarchy implements RoleHierarchyInterface
     protected $map;
 
     /**
-     * Constructor.
-     *
      * @param array $hierarchy An array defining the hierarchy
      */
     public function __construct(array $hierarchy)
@@ -65,9 +63,17 @@ class RoleHierarchy implements RoleHierarchyInterface
                 }
 
                 $visited[] = $role;
-                $this->map[$main] = array_unique(array_merge($this->map[$main], $this->hierarchy[$role]));
-                $additionalRoles = array_merge($additionalRoles, array_diff($this->hierarchy[$role], $visited));
+
+                foreach ($this->hierarchy[$role] as $roleToAdd) {
+                    $this->map[$main][] = $roleToAdd;
+                }
+
+                foreach (array_diff($this->hierarchy[$role], $visited) as $additionalRole) {
+                    $additionalRoles[] = $additionalRole;
+                }
             }
+
+            $this->map[$main] = array_unique($this->map[$main]);
         }
     }
 }

@@ -11,9 +11,10 @@
 
 namespace Symfony\Component\HttpFoundation\Tests;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\HeaderBag;
 
-class HeaderBagTest extends \PHPUnit_Framework_TestCase
+class HeaderBagTest extends TestCase
 {
     public function testConstructor()
     {
@@ -190,6 +191,6 @@ class HeaderBagTest extends \PHPUnit_Framework_TestCase
         $headers = array('foo' => 'bar', 'HELLO' => 'WORLD');
         $headerBag = new HeaderBag($headers);
 
-        $this->assertEquals(count($headers), count($headerBag));
+        $this->assertCount(count($headers), $headerBag);
     }
 }

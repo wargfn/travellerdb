@@ -24,20 +24,40 @@ use Symfony\Component\Translation\Extractor\ExtractorInterface;
 class PhpExtractor extends AbstractFileExtractor implements ExtractorInterface
 {
     const MESSAGE_TOKEN = 300;
+    const METHOD_ARGUMENTS_TOKEN = 1000;
+    const DOMAIN_TOKEN = 1001;
 
     /**
      * Prefix for new found message.
-     *
-     * @var string
      */
     private $prefix = '';
 
     /**
      * The sequence that captures translation messages.
-     *
-     * @var array
      */
     protected $sequences = array(
+        array(
+            '->',
+            'trans',
+            '(',
+            self::MESSAGE_TOKEN,
+            ',',
+            self::METHOD_ARGUMENTS_TOKEN,
+            ',',
+            self::DOMAIN_TOKEN,
+        ),
+        array(
+            '->',
+            'transChoice',
+            '(',
+            self::MESSAGE_TOKEN,
+            ',',
+            self::METHOD_ARGUMENTS_TOKEN,
+            ',',
+            self::METHOD_ARGUMENTS_TOKEN,
+            ',',
+            self::DOMAIN_TOKEN,
+        ),
         array(
             '->',
             'trans',
@@ -60,6 +80,11 @@ class PhpExtractor extends AbstractFileExtractor implements ExtractorInterface
         $files = $this->extractFiles($resource);
         foreach ($files as $file) {
             $this->parseTokens(token_get_all(file_get_contents($file)), $catalog);
+
+            if (\PHP_VERSION_ID >= 70000) {
+                // PHP 7 memory manager will not release after token_get_all(), see https://bugs.php.net/70098
+                gc_mem_caches();
+            }
         }
     }
 
@@ -80,7 +105,7 @@ class PhpExtractor extends AbstractFileExtractor implements ExtractorInterface
      */
     protected function normalizeToken($token)
     {
-        if (is_array($token)) {
+        if (isset($token[1]) && 'b"' !== $token) {
             return $token[1];
         }
 
@@ -94,7 +119,28 @@ class PhpExtractor extends AbstractFileExtractor implements ExtractorInterface
     {
         for (; $tokenIterator->valid(); $tokenIterator->next()) {
             $t = $tokenIterator->current();
-            if (!is_array($t) || ($t[0] !== T_WHITESPACE)) {
+            if (T_WHITESPACE !== $t[0]) {
+                break;
+            }
+        }
+    }
+
+    private function skipMethodArgument(\Iterator $tokenIterator)
+    {
+        $openBraces = 0;
+
+        for (; $tokenIterator->valid(); $tokenIterator->next()) {
+            $t = $tokenIterator->current();
+
+            if ('[' === $t[0] || '(' === $t[0]) {
+                ++$openBraces;
+            }
+
+            if (']' === $t[0] || ')' === $t[0]) {
+                --$openBraces;
+            }
+
+            if ((0 === $openBraces && ',' === $t[0]) || (-1 === $openBraces && ')' === $t[0])) {
                 break;
             }
         }
@@ -104,14 +150,14 @@ class PhpExtractor extends AbstractFileExtractor implements ExtractorInterface
      * Extracts the message from the iterator while the tokens
      * match allowed message tokens.
      */
-    private function getMessage(\Iterator $tokenIterator)
+    private function getValue(\Iterator $tokenIterator)
     {
         $message = '';
         $docToken = '';
 
         for (; $tokenIterator->valid(); $tokenIterator->next()) {
             $t = $tokenIterator->current();
-            if (!is_array($t)) {
+            if (!isset($t[1])) {
                 break;
             }
 
@@ -150,16 +196,26 @@ class PhpExtractor extends AbstractFileExtractor implements ExtractorInterface
         for ($key = 0; $key < $tokenIterator->count(); ++$key) {
             foreach ($this->sequences as $sequence) {
                 $message = '';
+                $domain = 'messages';
                 $tokenIterator->seek($key);
 
-                foreach ($sequence as $item) {
+                foreach ($sequence as $sequenceKey => $item) {
                     $this->seekToNextRelevantToken($tokenIterator);
 
-                    if ($this->normalizeToken($tokenIterator->current()) == $item) {
+                    if ($this->normalizeToken($tokenIterator->current()) === $item) {
                         $tokenIterator->next();
                         continue;
-                    } elseif (self::MESSAGE_TOKEN == $item) {
-                        $message = $this->getMessage($tokenIterator);
+                    } elseif (self::MESSAGE_TOKEN === $item) {
+                        $message = $this->getValue($tokenIterator);
+
+                        if (count($sequence) === ($sequenceKey + 1)) {
+                            break;
+                        }
+                    } elseif (self::METHOD_ARGUMENTS_TOKEN === $item) {
+                        $this->skipMethodArgument($tokenIterator);
+                    } elseif (self::DOMAIN_TOKEN === $item) {
+                        $domain = $this->getValue($tokenIterator);
+
                         break;
                     } else {
                         break;
@@ -167,7 +223,7 @@ class PhpExtractor extends AbstractFileExtractor implements ExtractorInterface
                 }
 
                 if ($message) {
-                    $catalog->set($message, $this->prefix.$message);
+                    $catalog->set($message, $this->prefix.$message, $domain);
                     break;
                 }
             }
@@ -177,9 +233,9 @@ class PhpExtractor extends AbstractFileExtractor implements ExtractorInterface
     /**
      * @param string $file
      *
-     * @throws \InvalidArgumentException
-     *
      * @return bool
+     *
+     * @throws \InvalidArgumentException
      */
     protected function canBeExtracted($file)
     {

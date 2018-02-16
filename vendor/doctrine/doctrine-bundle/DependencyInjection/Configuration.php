@@ -143,6 +143,7 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('server_version')->end()
                 ->scalarNode('driver_class')->end()
                 ->scalarNode('wrapper_class')->end()
+                ->scalarNode('shard_manager_class')->end()
                 ->scalarNode('shard_choser')->end()
                 ->scalarNode('shard_choser_service')->end()
                 ->booleanNode('keep_slave')->end()
@@ -240,6 +241,21 @@ class Configuration implements ConfigurationInterface
                 ->booleanNode('pooled')->info('True to use a pooled server with the oci8/pdo_oracle driver')->end()
                 ->booleanNode('MultipleActiveResultSets')->info('Configuring MultipleActiveResultSets for the pdo_sqlsrv driver')->end()
                 ->booleanNode('use_savepoints')->info('Use savepoints for nested transactions')->end()
+                ->scalarNode('instancename')
+                ->info(
+                    'Optional parameter, complete whether to add the INSTANCE_NAME parameter in the connection.'.
+                    ' It is generally used to connect to an Oracle RAC server to select the name'.
+                    ' of a particular instance.'
+                )
+                ->end()
+                ->scalarNode('connectstring')
+                ->info(
+                    'Complete Easy Connect connection descriptor, see https://docs.oracle.com/database/121/NETAG/naming.htm.'.
+                    'When using this option, you will still need to provide the user and password parameters, but the other '.
+                    'parameters will no longer be used. Note that when using this parameter, the getHost and getPort methods'.
+                    ' from Doctrine\DBAL\Connection will no longer function as expected.'
+                )
+                ->end()
             ->end()
             ->beforeNormalization()
                 ->ifTrue(function ($v) {return !isset($v['sessionMode']) && isset($v['session_mode']);})
@@ -470,7 +486,7 @@ class Configuration implements ConfigurationInterface
                     ->scalarNode('naming_strategy')->defaultValue('doctrine.orm.naming_strategy.default')->end()
                     ->scalarNode('quote_strategy')->defaultValue('doctrine.orm.quote_strategy.default')->end()
                     ->scalarNode('entity_listener_resolver')->defaultNull()->end()
-                    ->scalarNode('repository_factory')->defaultNull()->end()
+                    ->scalarNode('repository_factory')->defaultValue('doctrine.orm.container_repository_factory')->end()
                 ->end()
                 ->children()
                     ->arrayNode('second_level_cache')
@@ -624,6 +640,7 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('type')->defaultValue('array')->end()
                 ->scalarNode('host')->end()
                 ->scalarNode('port')->end()
+                ->scalarNode('database')->end()
                 ->scalarNode('instance_class')->end()
                 ->scalarNode('class')->end()
                 ->scalarNode('id')->end()

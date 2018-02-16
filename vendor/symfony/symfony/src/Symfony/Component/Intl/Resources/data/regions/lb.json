@@ -1,5 +1,5 @@
 {
-    "Version": "2.1.8.9",
+    "Version": "2.1.37.1",
     "Names": {
         "AC": "Ascension",
         "AD": "Andorra",
@@ -44,7 +44,7 @@
         "CF": "Zentralafrikanesch Republik",
         "CG": "Kongo-Brazzaville",
         "CH": "Schwäiz",
-        "CI": "Elfebeeküst",
+        "CI": "Côte d’Ivoire",
         "CK": "Cookinselen",
         "CL": "Chile",
         "CM": "Kamerun",
@@ -236,7 +236,7 @@
         "UA": "Ukrain",
         "UG": "Uganda",
         "UM": "Amerikanesch-Ozeanien",
-        "US": "Vereenegt Staate vun Amerika",
+        "US": "Vereenegt Staaten",
         "UY": "Uruguay",
         "UZ": "Usbekistan",
         "VA": "Vatikanstad",

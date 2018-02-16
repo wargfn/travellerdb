@@ -175,4 +175,50 @@ class FosRestHandlerTest extends WebTestCase
         $this->assertArrayHasKey('dataType', $parameter);
         $this->assertEquals('string[]', $parameter['dataType']);
     }
+
+    public function testWithRequestParamArrayRequirements()
+    {
+        $container  = $this->getContainer();
+        $extractor  = $container->get('nelmio_api_doc.extractor.api_doc_extractor');
+        $annotation = $extractor->get('Nelmio\ApiDocBundle\Tests\Fixtures\Controller\TestController::routeWithQueryParamArrayRequirementsAction', 'test_route_29');
+
+        $this->assertNotNull($annotation);
+        $filters = $annotation->getFilters();
+
+        $this->assertArrayHasKey('param1', $filters);
+        $this->assertArrayHasKey('requirement', $filters['param1']);
+        $this->assertEquals('regexp', $filters['param1']['requirement']);
+    }
+
+    public function testWithRequestParamPlainArrayRequirements()
+    {
+        $container  = $this->getContainer();
+        $extractor  = $container->get('nelmio_api_doc.extractor.api_doc_extractor');
+        $annotation = $extractor->get('Nelmio\ApiDocBundle\Tests\Fixtures\Controller\TestController::routeWithQueryParamPlainArrayRequirementsAction', 'test_route_30');
+
+        $this->assertNotNull($annotation);
+        $filters = $annotation->getFilters();
+
+        $this->assertArrayHasKey('param1', $filters);
+        $this->assertArrayHasKey('requirement', $filters['param1']);
+        $this->assertEquals('NotNull, NotBlank', $filters['param1']['requirement']);
+    }
+
+    public function testWithRequirementParamNotSet()
+    {
+        $container  = $this->getContainer();
+        $extractor  = $container->get('nelmio_api_doc.extractor.api_doc_extractor');
+        $annotation = $extractor->get('Nelmio\ApiDocBundle\Tests\Fixtures\Controller\TestController::zActionWithRequirementParamNotSet', 'test_route_31');
+
+        $this->assertNotNull($annotation);
+
+        $filters = $annotation->getFilters();
+        $this->assertCount(1, $filters);
+        $this->assertArrayHasKey('param1', $filters);
+        $filter = $filters['param1'];
+
+        $this->assertArrayNotHasKey('requirement', $filter);
+        $this->assertArrayHasKey('description', $filter);
+        $this->assertEquals($filter['description'], 'Param1 description.');
+    }
 }

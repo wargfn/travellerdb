@@ -11,12 +11,14 @@
 
 namespace Symfony\Component\Routing\Tests\Matcher;
 
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Matcher\TraceableUrlMatcher;
 
-class TraceableUrlMatcherTest extends \PHPUnit_Framework_TestCase
+class TraceableUrlMatcherTest extends TestCase
 {
     public function test()
     {
@@ -97,5 +99,24 @@ class TraceableUrlMatcherTest extends \PHPUnit_Framework_TestCase
         }
 
         return $levels;
+    }
+
+    public function testRoutesWithConditions()
+    {
+        $routes = new RouteCollection();
+        $routes->add('foo', new Route('/foo', array(), array(), array(), 'baz', array(), array(), "request.headers.get('User-Agent') matches '/firefox/i'"));
+
+        $context = new RequestContext();
+        $context->setHost('baz');
+
+        $matcher = new TraceableUrlMatcher($routes, $context);
+
+        $notMatchingRequest = Request::create('/foo', 'GET');
+        $traces = $matcher->getTracesForRequest($notMatchingRequest);
+        $this->assertEquals("Condition \"request.headers.get('User-Agent') matches '/firefox/i'\" does not evaluate to \"true\"", $traces[0]['log']);
+
+        $matchingRequest = Request::create('/foo', 'GET', array(), array(), array(), array('HTTP_USER_AGENT' => 'Firefox'));
+        $traces = $matcher->getTracesForRequest($matchingRequest);
+        $this->assertEquals('Route matches!', $traces[0]['log']);
     }
 }

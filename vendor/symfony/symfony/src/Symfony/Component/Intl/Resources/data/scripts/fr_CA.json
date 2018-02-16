@@ -1,12 +1,11 @@
 {
-    "Version": "2.1.8.19",
+    "Version": "2.1.37.22",
     "Names": {
         "Deva": "devanagari",
         "Gujr": "gujarati",
-        "Hans": "idéogrammes han simplifiés",
-        "Hant": "idéogrammes han traditionnels",
-        "Mlym": "malayâlam",
-        "Orya": "oriyâ",
-        "Sinh": "cingalais"
+        "Hanb": "hanb",
+        "Hrkt": "syllabaires japonais",
+        "Orya": "odia",
+        "Zsye": "zsye"
     }
 }

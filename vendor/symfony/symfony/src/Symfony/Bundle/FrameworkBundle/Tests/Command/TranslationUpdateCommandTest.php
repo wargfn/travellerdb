@@ -11,6 +11,7 @@
 
 namespace Symfony\Bundle\FrameworkBundle\Tests\Command;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Bundle\FrameworkBundle\Command\TranslationUpdateCommand;
@@ -18,7 +19,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\DependencyInjection;
 use Symfony\Component\HttpKernel;
 
-class TranslationUpdateCommandTest extends \PHPUnit_Framework_TestCase
+class TranslationUpdateCommandTest extends TestCase
 {
     private $fs;
     private $translationDir;
@@ -28,6 +29,23 @@ class TranslationUpdateCommandTest extends \PHPUnit_Framework_TestCase
         $tester = $this->createCommandTester($this->getContainer(array('foo' => 'foo')));
         $tester->execute(array('command' => 'translation:update', 'locale' => 'en', 'bundle' => 'foo', '--dump-messages' => true, '--clean' => true));
         $this->assertRegExp('/foo/', $tester->getDisplay());
+        $this->assertRegExp('/1 message was successfully extracted/', $tester->getDisplay());
+    }
+
+    public function testDumpTwoMessagesAndClean()
+    {
+        $tester = $this->createCommandTester($this->getContainer(array('foo' => 'foo', 'bar' => 'bar')));
+        $tester->execute(array('command' => 'translation:update', 'locale' => 'en', 'bundle' => 'foo', '--dump-messages' => true, '--clean' => true));
+        $this->assertRegExp('/foo/', $tester->getDisplay());
+        $this->assertRegExp('/bar/', $tester->getDisplay());
+        $this->assertRegExp('/2 messages were successfully extracted/', $tester->getDisplay());
+    }
+
+    public function testWriteMessages()
+    {
+        $tester = $this->createCommandTester($this->getContainer(array('foo' => 'foo')));
+        $tester->execute(array('command' => 'translation:update', 'locale' => 'en', 'bundle' => 'foo', '--force' => true));
+        $this->assertRegExp('/Translation files were successfully updated./', $tester->getDisplay());
     }
 
     protected function setUp()
@@ -68,27 +86,27 @@ class TranslationUpdateCommandTest extends \PHPUnit_Framework_TestCase
             ->method('getFallbackLocales')
             ->will($this->returnValue(array('en')));
 
-        $extractor = $this->getMock('Symfony\Component\Translation\Extractor\ExtractorInterface');
+        $extractor = $this->getMockBuilder('Symfony\Component\Translation\Extractor\ExtractorInterface')->getMock();
         $extractor
             ->expects($this->any())
             ->method('extract')
             ->will(
                 $this->returnCallback(function ($path, $catalogue) use ($extractedMessages) {
-                  $catalogue->add($extractedMessages);
+                    $catalogue->add($extractedMessages);
                 })
             );
 
-        $loader = $this->getMock('Symfony\Bundle\FrameworkBundle\Translation\TranslationLoader');
+        $loader = $this->getMockBuilder('Symfony\Bundle\FrameworkBundle\Translation\TranslationLoader')->getMock();
         $loader
             ->expects($this->any())
             ->method('loadMessages')
             ->will(
                 $this->returnCallback(function ($path, $catalogue) use ($loadedMessages) {
-                  $catalogue->add($loadedMessages);
+                    $catalogue->add($loadedMessages);
                 })
             );
 
-        $writer = $this->getMock('Symfony\Component\Translation\Writer\TranslationWriter');
+        $writer = $this->getMockBuilder('Symfony\Component\Translation\Writer\TranslationWriter')->getMock();
         $writer
             ->expects($this->any())
             ->method('getFormats')
@@ -97,7 +115,7 @@ class TranslationUpdateCommandTest extends \PHPUnit_Framework_TestCase
             );
 
         if (null === $kernel) {
-            $kernel = $this->getMock('Symfony\Component\HttpKernel\KernelInterface');
+            $kernel = $this->getMockBuilder('Symfony\Component\HttpKernel\KernelInterface')->getMock();
             $kernel
                 ->expects($this->any())
                 ->method('getBundle')
@@ -112,7 +130,7 @@ class TranslationUpdateCommandTest extends \PHPUnit_Framework_TestCase
             ->method('getRootDir')
             ->will($this->returnValue($this->translationDir));
 
-        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
+        $container = $this->getMockBuilder('Symfony\Component\DependencyInjection\ContainerInterface')->getMock();
         $container
             ->expects($this->any())
             ->method('get')
@@ -129,7 +147,7 @@ class TranslationUpdateCommandTest extends \PHPUnit_Framework_TestCase
 
     private function getBundle($path)
     {
-        $bundle = $this->getMock('Symfony\Component\HttpKernel\Bundle\BundleInterface');
+        $bundle = $this->getMockBuilder('Symfony\Component\HttpKernel\Bundle\BundleInterface')->getMock();
         $bundle
             ->expects($this->any())
             ->method('getPath')

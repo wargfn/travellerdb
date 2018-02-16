@@ -13,6 +13,7 @@ namespace Symfony\Bundle\FrameworkBundle\Console;
 
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\Console\Application as BaseApplication;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -21,8 +22,6 @@ use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * Application.
- *
  * @author Fabien Potencier <fabien@symfony.com>
  */
 class Application extends BaseApplication
@@ -30,21 +29,17 @@ class Application extends BaseApplication
     private $kernel;
     private $commandsRegistered = false;
 
-    /**
-     * Constructor.
-     *
-     * @param KernelInterface $kernel A KernelInterface instance
-     */
     public function __construct(KernelInterface $kernel)
     {
         $this->kernel = $kernel;
 
         parent::__construct('Symfony', Kernel::VERSION.' - '.$kernel->getName().'/'.$kernel->getEnvironment().($kernel->isDebug() ? '/debug' : ''));
 
-        $this->getDefinition()->addOption(new InputOption('--shell', '-s', InputOption::VALUE_NONE, 'Launch the shell.'));
-        $this->getDefinition()->addOption(new InputOption('--process-isolation', null, InputOption::VALUE_NONE, 'Launch commands from shell as a separate process.'));
-        $this->getDefinition()->addOption(new InputOption('--env', '-e', InputOption::VALUE_REQUIRED, 'The Environment name.', $kernel->getEnvironment()));
-        $this->getDefinition()->addOption(new InputOption('--no-debug', null, InputOption::VALUE_NONE, 'Switches off debug mode.'));
+        $inputDefinition = $this->getDefinition();
+        $inputDefinition->addOption(new InputOption('--shell', '-s', InputOption::VALUE_NONE, 'Launch the shell.'));
+        $inputDefinition->addOption(new InputOption('--process-isolation', null, InputOption::VALUE_NONE, 'Launch commands from shell as a separate process.'));
+        $inputDefinition->addOption(new InputOption('--env', '-e', InputOption::VALUE_REQUIRED, 'The Environment name.', $kernel->getEnvironment()));
+        $inputDefinition->addOption(new InputOption('--no-debug', null, InputOption::VALUE_NONE, 'Switches off debug mode.'));
     }
 
     /**
@@ -60,20 +55,11 @@ class Application extends BaseApplication
     /**
      * Runs the current application.
      *
-     * @param InputInterface  $input  An Input instance
-     * @param OutputInterface $output An Output instance
-     *
      * @return int 0 if everything went fine, or an error code
      */
     public function doRun(InputInterface $input, OutputInterface $output)
     {
         $this->kernel->boot();
-
-        if (!$this->commandsRegistered) {
-            $this->registerCommands();
-
-            $this->commandsRegistered = true;
-        }
 
         $container = $this->kernel->getContainer();
 
@@ -98,8 +84,56 @@ class Application extends BaseApplication
         return parent::doRun($input, $output);
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function find($name)
+    {
+        $this->registerCommands();
+
+        return parent::find($name);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function get($name)
+    {
+        $this->registerCommands();
+
+        return parent::get($name);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function all($namespace = null)
+    {
+        $this->registerCommands();
+
+        return parent::all($namespace);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function add(Command $command)
+    {
+        $this->registerCommands();
+
+        return parent::add($command);
+    }
+
     protected function registerCommands()
     {
+        if ($this->commandsRegistered) {
+            return;
+        }
+
+        $this->commandsRegistered = true;
+
+        $this->kernel->boot();
+
         $container = $this->kernel->getContainer();
 
         foreach ($this->kernel->getBundles() as $bundle) {

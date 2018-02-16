@@ -36,6 +36,16 @@ class AnnotationFileLoaderTest extends AbstractAnnotationLoaderTest
     }
 
     /**
+     * @requires PHP 5.4
+     */
+    public function testLoadTraitWithClassConstant()
+    {
+        $this->reader->expects($this->never())->method('getClassAnnotation');
+
+        $this->loader->load(__DIR__.'/../Fixtures/AnnotatedClasses/FooTrait.php');
+    }
+
+    /**
      * @requires PHP 5.6
      */
     public function testLoadVariadic()
@@ -46,6 +56,17 @@ class AnnotationFileLoaderTest extends AbstractAnnotationLoaderTest
             ->will($this->returnValue(array($route)));
 
         $this->loader->load(__DIR__.'/../Fixtures/OtherAnnotatedClasses/VariadicClass.php');
+    }
+
+    /**
+     * @requires PHP 7.0
+     */
+    public function testLoadAnonymousClass()
+    {
+        $this->reader->expects($this->never())->method('getClassAnnotation');
+        $this->reader->expects($this->never())->method('getMethodAnnotations');
+
+        $this->loader->load(__DIR__.'/../Fixtures/OtherAnnotatedClasses/AnonymousClassInTrait.php');
     }
 
     public function testSupports()

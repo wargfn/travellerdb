@@ -238,7 +238,7 @@ class FormTypeParser implements ParserInterface
                         // Embedded form collection
                         // BC sf < 2.8
                         $embbededType = $config->hasOption('entry_type') ? $config->getOption('entry_type') : $config->getOption('type');
-                        $subForm      = $this->formFactory->create($embbededType, null, $config->getOption('options', array()));
+                        $subForm      = $this->formFactory->create($embbededType, null, $config->getOption('entry_options', array()));
                         $children     = $this->parseForm($subForm);
                         $actualType   = DataTypes::COLLECTION;
                         $subType      = is_object($embbededType) ? get_class($embbededType) : $embbededType;
@@ -263,6 +263,11 @@ class FormTypeParser implements ParserInterface
                          */
                         $addDefault = false;
                         try {
+
+                            if (isset($subForm)) {
+                                unset($subForm);
+                            }
+
                             if (LegacyFormHelper::hasBCBreaks()) {
                                 try {
                                     $subForm = $this->formFactory->create(get_class($type), null, $options);

@@ -28,6 +28,12 @@ class IntlDateFormatterTest extends AbstractIntlDateFormatterTest
         $this->assertEquals('y-M-d', $formatter->getPattern());
     }
 
+    public function testConstructorWithoutCalendar()
+    {
+        $formatter = new IntlDateFormatter('en', IntlDateFormatter::MEDIUM, IntlDateFormatter::SHORT, 'UTC', null, 'y-M-d');
+        $this->assertEquals('y-M-d', $formatter->getPattern());
+    }
+
     /**
      * @expectedException \Symfony\Component\Intl\Exception\MethodArgumentValueNotImplementedException
      */
@@ -209,14 +215,12 @@ class IntlDateFormatterTest extends AbstractIntlDateFormatterTest
      * + 10 seconds) are added, then we have 86,400 seconds (24h * 60min * 60s)
      * + 10 seconds
      *
-     * @param array $dataSets
-     *
      * @return array
      */
     private function notImplemented(array $dataSets)
     {
         return array_map(function ($row) {
-                return array($row[0], $row[1], 0);
-            }, $dataSets);
+            return array($row[0], $row[1], 0);
+        }, $dataSets);
     }
 }

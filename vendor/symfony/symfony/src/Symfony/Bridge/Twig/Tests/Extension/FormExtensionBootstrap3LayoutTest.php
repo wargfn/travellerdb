@@ -19,6 +19,7 @@ use Symfony\Bridge\Twig\Tests\Extension\Fixtures\StubTranslator;
 use Symfony\Bridge\Twig\Tests\Extension\Fixtures\StubFilesystemLoader;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\Tests\AbstractBootstrap3LayoutTest;
+use Twig\Environment;
 
 class FormExtensionBootstrap3LayoutTest extends AbstractBootstrap3LayoutTest
 {
@@ -39,7 +40,7 @@ class FormExtensionBootstrap3LayoutTest extends AbstractBootstrap3LayoutTest
             'bootstrap_3_layout.html.twig',
             'custom_widgets.html.twig',
         ));
-        $renderer = new TwigRenderer($rendererEngine, $this->getMock('Symfony\Component\Security\Csrf\CsrfTokenManagerInterface'));
+        $renderer = new TwigRenderer($rendererEngine, $this->getMockBuilder('Symfony\Component\Security\Csrf\CsrfTokenManagerInterface')->getMock());
 
         $this->extension = new FormExtension($renderer);
 
@@ -48,7 +49,7 @@ class FormExtensionBootstrap3LayoutTest extends AbstractBootstrap3LayoutTest
             __DIR__.'/Fixtures/templates/form',
         ));
 
-        $environment = new \Twig_Environment($loader, array('strict_variables' => true));
+        $environment = new Environment($loader, array('strict_variables' => true));
         $environment->addExtension(new TranslationExtension(new StubTranslator()));
         $environment->addExtension($this->extension);
 
@@ -98,7 +99,7 @@ class FormExtensionBootstrap3LayoutTest extends AbstractBootstrap3LayoutTest
 
     protected function renderLabel(FormView $view, $label = null, array $vars = array())
     {
-        if ($label !== null) {
+        if (null !== $label) {
             $vars += array('label' => $label);
         }
 

@@ -14,6 +14,7 @@
 
 namespace Doctrine\Bundle\DoctrineBundle;
 
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Bridge\Doctrine\ManagerRegistry;
@@ -38,7 +39,14 @@ class Registry extends ManagerRegistry implements RegistryInterface
      */
     public function __construct(ContainerInterface $container, array $connections, array $entityManagers, $defaultConnection, $defaultEntityManager)
     {
-        $this->setContainer($container);
+        $parentTraits = class_uses(parent::class);
+        if (isset($parentTraits[ContainerAwareTrait::class])) {
+            // this case should be removed when Symfony 3.4 becomes the lowest supported version
+            // and then also, the constructor should type-hint Psr\Container\ContainerInterface
+            $this->setContainer($container);
+        } else {
+            $this->container = $container;
+        }
 
         parent::__construct('ORM', $connections, $entityManagers, $defaultConnection, $defaultEntityManager, 'Doctrine\ORM\Proxy\Proxy');
     }
@@ -52,7 +60,7 @@ class Registry extends ManagerRegistry implements RegistryInterface
      */
     public function getDefaultEntityManagerName()
     {
-        trigger_error('getDefaultEntityManagerName is deprecated since Symfony 2.1. Use getDefaultManagerName instead', E_USER_DEPRECATED);
+        @trigger_error('getDefaultEntityManagerName is deprecated since Symfony 2.1. Use getDefaultManagerName instead', E_USER_DEPRECATED);
 
         return $this->getDefaultManagerName();
     }
@@ -68,7 +76,7 @@ class Registry extends ManagerRegistry implements RegistryInterface
      */
     public function getEntityManager($name = null)
     {
-        trigger_error('getEntityManager is deprecated since Symfony 2.1. Use getManager instead', E_USER_DEPRECATED);
+        @trigger_error('getEntityManager is deprecated since Symfony 2.1. Use getManager instead', E_USER_DEPRECATED);
 
         return $this->getManager($name);
     }
@@ -82,7 +90,7 @@ class Registry extends ManagerRegistry implements RegistryInterface
      */
     public function getEntityManagers()
     {
-        trigger_error('getEntityManagers is deprecated since Symfony 2.1. Use getManagers instead', E_USER_DEPRECATED);
+        @trigger_error('getEntityManagers is deprecated since Symfony 2.1. Use getManagers instead', E_USER_DEPRECATED);
 
         return $this->getManagers();
     }
@@ -95,7 +103,7 @@ class Registry extends ManagerRegistry implements RegistryInterface
      * it makes sense to get a new one to replace the closed one.
      *
      * Be warned that you will get a brand new entity manager as
-     * the existing one is not useable anymore. This means that any
+     * the existing one is not usable anymore. This means that any
      * other object with a dependency on this entity manager will
      * hold an obsolete reference. You can inject the registry instead
      * to avoid this problem.
@@ -108,7 +116,7 @@ class Registry extends ManagerRegistry implements RegistryInterface
      */
     public function resetEntityManager($name = null)
     {
-        trigger_error('resetEntityManager is deprecated since Symfony 2.1. Use resetManager instead', E_USER_DEPRECATED);
+        @trigger_error('resetEntityManager is deprecated since Symfony 2.1. Use resetManager instead', E_USER_DEPRECATED);
 
         $this->resetManager($name);
     }
@@ -126,7 +134,7 @@ class Registry extends ManagerRegistry implements RegistryInterface
      */
     public function getEntityNamespace($alias)
     {
-        trigger_error('getEntityNamespace is deprecated since Symfony 2.1. Use getAliasNamespace instead', E_USER_DEPRECATED);
+        @trigger_error('getEntityNamespace is deprecated since Symfony 2.1. Use getAliasNamespace instead', E_USER_DEPRECATED);
 
         return $this->getAliasNamespace($alias);
     }
@@ -163,7 +171,7 @@ class Registry extends ManagerRegistry implements RegistryInterface
      */
     public function getEntityManagerNames()
     {
-        trigger_error('getEntityManagerNames is deprecated since Symfony 2.1. Use getManagerNames instead', E_USER_DEPRECATED);
+        @trigger_error('getEntityManagerNames is deprecated since Symfony 2.1. Use getManagerNames instead', E_USER_DEPRECATED);
 
         return $this->getManagerNames();
     }
@@ -179,7 +187,7 @@ class Registry extends ManagerRegistry implements RegistryInterface
      */
     public function getEntityManagerForClass($class)
     {
-        trigger_error('getEntityManagerForClass is deprecated since Symfony 2.1. Use getManagerForClass instead', E_USER_DEPRECATED);
+        @trigger_error('getEntityManagerForClass is deprecated since Symfony 2.1. Use getManagerForClass instead', E_USER_DEPRECATED);
 
         return $this->getManagerForClass($class);
     }

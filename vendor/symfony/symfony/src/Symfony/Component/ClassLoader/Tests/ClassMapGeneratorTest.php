@@ -11,9 +11,10 @@
 
 namespace Symfony\Component\ClassLoader\Tests;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\ClassLoader\ClassMapGenerator;
 
-class ClassMapGeneratorTest extends \PHPUnit_Framework_TestCase
+class ClassMapGeneratorTest extends TestCase
 {
     /**
      * @var string|null
@@ -22,7 +23,7 @@ class ClassMapGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function prepare_workspace()
     {
-        $this->workspace = rtrim(sys_get_temp_dir(), DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR.time().mt_rand(0, 1000);
+        $this->workspace = sys_get_temp_dir().'/'.microtime(true).'.'.mt_rand();
         mkdir($this->workspace, 0777, true);
         $this->workspace = realpath($this->workspace);
     }
@@ -76,8 +77,11 @@ class ClassMapGeneratorTest extends \PHPUnit_Framework_TestCase
                 'Namespaced\\Foo' => realpath(__DIR__).'/Fixtures/Namespaced/Foo.php',
                 'Namespaced\\Baz' => realpath(__DIR__).'/Fixtures/Namespaced/Baz.php',
                 'Namespaced\\WithComments' => realpath(__DIR__).'/Fixtures/Namespaced/WithComments.php',
-                ),
-            ),
+                'Namespaced\\WithStrictTypes' => realpath(__DIR__).'/Fixtures/Namespaced/WithStrictTypes.php',
+                'Namespaced\\WithHaltCompiler' => realpath(__DIR__).'/Fixtures/Namespaced/WithHaltCompiler.php',
+                'Namespaced\\WithDirMagic' => realpath(__DIR__).'/Fixtures/Namespaced/WithDirMagic.php',
+                'Namespaced\\WithFileMagic' => realpath(__DIR__).'/Fixtures/Namespaced/WithFileMagic.php',
+            )),
             array(__DIR__.'/Fixtures/beta/NamespaceCollision', array(
                 'NamespaceCollision\\A\\B\\Bar' => realpath(__DIR__).'/Fixtures/beta/NamespaceCollision/A/B/Bar.php',
                 'NamespaceCollision\\A\\B\\Foo' => realpath(__DIR__).'/Fixtures/beta/NamespaceCollision/A/B/Foo.php',
@@ -104,7 +108,7 @@ class ClassMapGeneratorTest extends \PHPUnit_Framework_TestCase
             )),
         );
 
-        if (PHP_VERSION_ID >= 50400) {
+        if (\PHP_VERSION_ID >= 50400) {
             $data[] = array(__DIR__.'/Fixtures/php5.4', array(
                 'TFoo' => __DIR__.'/Fixtures/php5.4/traits.php',
                 'CFoo' => __DIR__.'/Fixtures/php5.4/traits.php',
@@ -115,7 +119,7 @@ class ClassMapGeneratorTest extends \PHPUnit_Framework_TestCase
             ));
         }
 
-        if (PHP_VERSION_ID >= 50500) {
+        if (\PHP_VERSION_ID >= 50500) {
             $data[] = array(__DIR__.'/Fixtures/php5.5', array(
                 'ClassCons\\Foo' => __DIR__.'/Fixtures/php5.5/class_cons.php',
             ));

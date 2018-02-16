@@ -11,13 +11,14 @@
 
 namespace Symfony\Component\HttpFoundation\Tests;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\Cookie;
 
 /**
  * @group time-sensitive
  */
-class ResponseHeaderBagTest extends \PHPUnit_Framework_TestCase
+class ResponseHeaderBagTest extends TestCase
 {
     /**
      * @dataProvider provideAllPreserveCase
@@ -109,6 +110,17 @@ class ResponseHeaderBagTest extends \PHPUnit_Framework_TestCase
         $bag = new ResponseHeaderBag();
         $bag->set('Last-Modified', 'abcde');
         $this->assertEquals('private, must-revalidate', $bag->get('Cache-Control'));
+
+        $bag = new ResponseHeaderBag();
+        $bag->set('Cache-Control', array('public', 'must-revalidate'));
+        $this->assertCount(1, $bag->get('Cache-Control', null, false));
+        $this->assertEquals('must-revalidate, public', $bag->get('Cache-Control'));
+
+        $bag = new ResponseHeaderBag();
+        $bag->set('Cache-Control', 'public');
+        $bag->set('Cache-Control', 'must-revalidate', false);
+        $this->assertCount(1, $bag->get('Cache-Control', null, false));
+        $this->assertEquals('must-revalidate, public', $bag->get('Cache-Control'));
     }
 
     public function testToStringIncludesCookieHeaders()
@@ -116,11 +128,11 @@ class ResponseHeaderBagTest extends \PHPUnit_Framework_TestCase
         $bag = new ResponseHeaderBag(array());
         $bag->setCookie(new Cookie('foo', 'bar'));
 
-        $this->assertContains('Set-Cookie: foo=bar; path=/; httponly', explode("\r\n", $bag->__toString()));
+        $this->assertSetCookieHeader('foo=bar; path=/; httponly', $bag);
 
         $bag->clearCookie('foo');
 
-        $this->assertRegExp('#^Set-Cookie: foo=deleted; expires='.gmdate('D, d-M-Y H:i:s T', time() - 31536001).'; path=/; httponly#m', $bag->__toString());
+        $this->assertSetCookieHeader('foo=deleted; expires='.gmdate('D, d-M-Y H:i:s T', time() - 31536001).'; path=/; httponly', $bag);
     }
 
     public function testClearCookieSecureNotHttpOnly()
@@ -129,7 +141,7 @@ class ResponseHeaderBagTest extends \PHPUnit_Framework_TestCase
 
         $bag->clearCookie('foo', '/', null, true, false);
 
-        $this->assertRegExp('#^Set-Cookie: foo=deleted; expires='.gmdate('D, d-M-Y H:i:s T', time() - 31536001).'; path=/; secure#m', $bag->__toString());
+        $this->assertSetCookieHeader('foo=deleted; expires='.gmdate('D, d-M-Y H:i:s T', time() - 31536001).'; path=/; secure', $bag);
     }
 
     public function testReplace()
@@ -165,17 +177,16 @@ class ResponseHeaderBagTest extends \PHPUnit_Framework_TestCase
 
         $this->assertCount(4, $bag->getCookies());
 
-        $headers = explode("\r\n", $bag->__toString());
-        $this->assertContains('Set-Cookie: foo=bar; path=/path/foo; domain=foo.bar; httponly', $headers);
-        $this->assertContains('Set-Cookie: foo=bar; path=/path/foo; domain=foo.bar; httponly', $headers);
-        $this->assertContains('Set-Cookie: foo=bar; path=/path/bar; domain=bar.foo; httponly', $headers);
-        $this->assertContains('Set-Cookie: foo=bar; path=/; httponly', $headers);
+        $this->assertSetCookieHeader('foo=bar; path=/path/foo; domain=foo.bar; httponly', $bag);
+        $this->assertSetCookieHeader('foo=bar; path=/path/bar; domain=foo.bar; httponly', $bag);
+        $this->assertSetCookieHeader('foo=bar; path=/path/bar; domain=bar.foo; httponly', $bag);
+        $this->assertSetCookieHeader('foo=bar; path=/; httponly', $bag);
 
         $cookies = $bag->getCookies(ResponseHeaderBag::COOKIES_ARRAY);
-        $this->assertTrue(isset($cookies['foo.bar']['/path/foo']['foo']));
-        $this->assertTrue(isset($cookies['foo.bar']['/path/bar']['foo']));
-        $this->assertTrue(isset($cookies['bar.foo']['/path/bar']['foo']));
-        $this->assertTrue(isset($cookies['']['/']['foo']));
+        $this->assertArrayHasKey('foo', $cookies['foo.bar']['/path/foo']);
+        $this->assertArrayHasKey('foo', $cookies['foo.bar']['/path/bar']);
+        $this->assertArrayHasKey('foo', $cookies['bar.foo']['/path/bar']);
+        $this->assertArrayHasKey('foo', $cookies['']['/']);
     }
 
     public function testRemoveCookie()
@@ -185,17 +196,17 @@ class ResponseHeaderBagTest extends \PHPUnit_Framework_TestCase
         $bag->setCookie(new Cookie('bar', 'foo', 0, '/path/bar', 'foo.bar'));
 
         $cookies = $bag->getCookies(ResponseHeaderBag::COOKIES_ARRAY);
-        $this->assertTrue(isset($cookies['foo.bar']['/path/foo']));
+        $this->assertArrayHasKey('/path/foo', $cookies['foo.bar']);
 
         $bag->removeCookie('foo', '/path/foo', 'foo.bar');
 
         $cookies = $bag->getCookies(ResponseHeaderBag::COOKIES_ARRAY);
-        $this->assertFalse(isset($cookies['foo.bar']['/path/foo']));
+        $this->assertArrayNotHasKey('/path/foo', $cookies['foo.bar']);
 
         $bag->removeCookie('bar', '/path/bar', 'foo.bar');
 
         $cookies = $bag->getCookies(ResponseHeaderBag::COOKIES_ARRAY);
-        $this->assertFalse(isset($cookies['foo.bar']));
+        $this->assertArrayNotHasKey('foo.bar', $cookies);
     }
 
     public function testRemoveCookieWithNullRemove()
@@ -205,11 +216,11 @@ class ResponseHeaderBagTest extends \PHPUnit_Framework_TestCase
         $bag->setCookie(new Cookie('bar', 'foo', 0));
 
         $cookies = $bag->getCookies(ResponseHeaderBag::COOKIES_ARRAY);
-        $this->assertTrue(isset($cookies['']['/']));
+        $this->assertArrayHasKey('/', $cookies['']);
 
         $bag->removeCookie('foo', null);
         $cookies = $bag->getCookies(ResponseHeaderBag::COOKIES_ARRAY);
-        $this->assertFalse(isset($cookies['']['/']['foo']));
+        $this->assertArrayNotHasKey('foo', $cookies['']['/']);
 
         $bag->removeCookie('bar', null);
         $cookies = $bag->getCookies(ResponseHeaderBag::COOKIES_ARRAY);
@@ -223,7 +234,7 @@ class ResponseHeaderBagTest extends \PHPUnit_Framework_TestCase
     {
         $bag = new ResponseHeaderBag();
 
-        $cookies = $bag->getCookies('invalid_argument');
+        $bag->getCookies('invalid_argument');
     }
 
     /**
@@ -293,5 +304,10 @@ class ResponseHeaderBagTest extends \PHPUnit_Framework_TestCase
             array('attachment', '\foo.html'),
             array('attachment', 'föö.html'),
         );
+    }
+
+    private function assertSetCookieHeader($expected, ResponseHeaderBag $actual)
+    {
+        $this->assertRegExp('#^Set-Cookie:\s+'.preg_quote($expected, '#').'$#m', str_replace("\r\n", "\n", (string) $actual));
     }
 }

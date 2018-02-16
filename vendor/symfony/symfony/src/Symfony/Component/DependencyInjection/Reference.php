@@ -23,8 +23,6 @@ class Reference
     private $strict;
 
     /**
-     * Constructor.
-     *
      * Note: The $strict parameter is deprecated since version 2.8 and will be removed in 3.0.
      *
      * @param string $id              The service identifier
@@ -41,8 +39,6 @@ class Reference
     }
 
     /**
-     * __toString.
-     *
      * @return string The service identifier
      */
     public function __toString()
@@ -70,7 +66,7 @@ class Reference
     public function isStrict($triggerDeprecationError = true)
     {
         if ($triggerDeprecationError) {
-            @trigger_error('The '.__METHOD__.' method is deprecated since version 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
+            @trigger_error('The '.__METHOD__.' method is deprecated since Symfony 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
         }
 
         return $this->strict;

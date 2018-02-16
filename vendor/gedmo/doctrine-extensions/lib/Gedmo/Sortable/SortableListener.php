@@ -2,6 +2,7 @@
 
 namespace Gedmo\Sortable;
 
+use Doctrine\Common\Comparable;
 use Doctrine\Common\EventArgs;
 use Doctrine\Common\Persistence\Mapping\ClassMetadata;
 use Doctrine\Common\Persistence\Proxy;
@@ -210,8 +211,7 @@ class SortableListener extends MappedEventSubscriber
 
         // Set new position
         if ($old < 0 || is_null($old)) {
-            $meta->getReflectionProperty($config['position'])->setValue($object, $newPosition);
-            $ea->recomputeSingleObjectChangeSet($uow, $meta, $object);
+            $this->setFieldValue($ea, $object, $config['position'], $old, $newPosition);
         }
     }
 
@@ -352,8 +352,7 @@ class SortableListener extends MappedEventSubscriber
         }
 
         // Set new position
-        $meta->getReflectionProperty($config['position'])->setValue($object, $newPosition);
-        $ea->recomputeSingleObjectChangeSet($uow, $meta, $object);
+        $this->setFieldValue($ea, $object, $config['position'], $oldPosition, $newPosition);
     }
 
     /**
@@ -461,15 +460,20 @@ class SortableListener extends MappedEventSubscriber
                                 $matches = $gr === null;
                             } elseif (is_object($gr) && is_object($value) && $gr !== $value) {
                                 // Special case for equal objects but different instances.
-                                $matches = $gr == $value;
+                                // If the object implements Comparable interface we can use its compareTo method
+                                // Otherwise we fallback to normal object comparison
+                                if ($gr instanceof Comparable) {
+                                    $matches = $gr->compareTo($value);
+                                } else {
+                                    $matches = $gr == $value;
+                                }
                             } else {
                                 $matches = $gr === $value;
                             }
                             $value = next($relocation['groups']);
                         }
                         if ($matches) {
-                            $meta->getReflectionProperty($config['position'])->setValue($object, $pos + $delta['delta']);
-                            $ea->setOriginalObjectProperty($uow, $oid, $config['position'], $pos + $delta['delta']);
+                            $this->setFieldValue($ea, $object, $config['position'], $pos, $pos + $delta['delta']);
                         }
                     }
                 }

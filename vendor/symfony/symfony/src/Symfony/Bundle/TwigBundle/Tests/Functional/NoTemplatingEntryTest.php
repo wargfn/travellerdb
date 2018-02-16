@@ -9,15 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Bundle\TwigBundle\Tests;
+namespace Symfony\Bundle\TwigBundle\Tests\Functional;
 
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
+use Symfony\Bundle\TwigBundle\Tests\TestCase;
 use Symfony\Bundle\TwigBundle\TwigBundle;
 
-class NoTemplatingEntryTest extends \PHPUnit_Framework_TestCase
+class NoTemplatingEntryTest extends TestCase
 {
     public function test()
     {

@@ -11,9 +11,10 @@
 
 namespace Symfony\Component\DependencyInjection\Tests;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\DefinitionDecorator;
 
-class DefinitionDecoratorTest extends \PHPUnit_Framework_TestCase
+class DefinitionDecoratorTest extends TestCase
 {
     public function testConstructor()
     {
@@ -93,6 +94,16 @@ class DefinitionDecoratorTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($def, $def->setLazy(false));
         $this->assertFalse($def->isLazy());
         $this->assertEquals(array('lazy' => true), $def->getChanges());
+    }
+
+    public function testSetAutowired()
+    {
+        $def = new DefinitionDecorator('foo');
+
+        $this->assertFalse($def->isAutowired());
+        $this->assertSame($def, $def->setAutowired(false));
+        $this->assertFalse($def->isAutowired());
+        $this->assertEquals(array('autowire' => true), $def->getChanges());
     }
 
     public function testSetArgument()

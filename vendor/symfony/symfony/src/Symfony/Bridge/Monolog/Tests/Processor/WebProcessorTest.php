@@ -12,10 +12,11 @@
 namespace Symfony\Bridge\Monolog\Tests\Processor;
 
 use Monolog\Logger;
+use PHPUnit\Framework\TestCase;
 use Symfony\Bridge\Monolog\Processor\WebProcessor;
 use Symfony\Component\HttpFoundation\Request;
 
-class WebProcessorTest extends \PHPUnit_Framework_TestCase
+class WebProcessorTest extends TestCase
 {
     public function testUsesRequestServerData()
     {
@@ -28,6 +29,23 @@ class WebProcessorTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(5, $record['extra']);
         $this->assertEquals($server['REQUEST_URI'], $record['extra']['url']);
         $this->assertEquals($server['REMOTE_ADDR'], $record['extra']['ip']);
+        $this->assertEquals($server['REQUEST_METHOD'], $record['extra']['http_method']);
+        $this->assertEquals($server['SERVER_NAME'], $record['extra']['server']);
+        $this->assertEquals($server['HTTP_REFERER'], $record['extra']['referrer']);
+    }
+
+    public function testUseRequestClientIp()
+    {
+        Request::setTrustedProxies(array('192.168.0.1'));
+        list($event, $server) = $this->createRequestEvent(array('X_FORWARDED_FOR' => '192.168.0.2'));
+
+        $processor = new WebProcessor();
+        $processor->onKernelRequest($event);
+        $record = $processor($this->getRecord());
+
+        $this->assertCount(5, $record['extra']);
+        $this->assertEquals($server['REQUEST_URI'], $record['extra']['url']);
+        $this->assertEquals($server['X_FORWARDED_FOR'], $record['extra']['ip']);
         $this->assertEquals($server['REQUEST_METHOD'], $record['extra']['http_method']);
         $this->assertEquals($server['SERVER_NAME'], $record['extra']['server']);
         $this->assertEquals($server['HTTP_REFERER'], $record['extra']['referrer']);
@@ -53,18 +71,22 @@ class WebProcessorTest extends \PHPUnit_Framework_TestCase
     /**
      * @return array
      */
-    private function createRequestEvent()
+    private function createRequestEvent($additionalServerParameters = array())
     {
-        $server = array(
-            'REQUEST_URI' => 'A',
-            'REMOTE_ADDR' => 'B',
-            'REQUEST_METHOD' => 'C',
-            'SERVER_NAME' => 'D',
-            'HTTP_REFERER' => 'E',
+        $server = array_merge(
+            array(
+                'REQUEST_URI' => 'A',
+                'REMOTE_ADDR' => '192.168.0.1',
+                'REQUEST_METHOD' => 'C',
+                'SERVER_NAME' => 'D',
+                'HTTP_REFERER' => 'E',
+            ),
+            $additionalServerParameters
         );
 
         $request = new Request();
         $request->server->replace($server);
+        $request->headers->replace($server);
 
         $event = $this->getMockBuilder('Symfony\Component\HttpKernel\Event\GetResponseEvent')
             ->disableOriginalConstructor()

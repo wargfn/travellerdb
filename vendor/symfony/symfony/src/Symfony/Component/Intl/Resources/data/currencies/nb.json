@@ -1,5 +1,5 @@
 {
-    "Version": "2.1.8.9",
+    "Version": "2.1.37.5",
     "Names": {
         "ADP": [
             "ADP",
@@ -15,7 +15,7 @@
         ],
         "AFN": [
             "AFN",
-            "afghansk afghani"
+            "afghanske afghani"
         ],
         "ALK": [
             "ALK",
@@ -175,7 +175,7 @@
         ],
         "BRC": [
             "BRC",
-            "brasilianske cruzado"
+            "brasilianske cruzados (1986–1989)"
         ],
         "BRE": [
             "BRE",
@@ -191,7 +191,7 @@
         ],
         "BRR": [
             "BRR",
-            "brasilianske cruzeiro"
+            "brasilianske cruzeiro (1993–1994)"
         ],
         "BRZ": [
             "BRZ",
@@ -217,9 +217,13 @@
             "BYB",
             "hviterussiske nye rubler (1994–1999)"
         ],
+        "BYN": [
+            "BYN",
+            "nye hviterussiske rubler"
+        ],
         "BYR": [
             "BYR",
-            "hviterussiske rubler"
+            "hviterussiske rubler (2000–2016)"
         ],
         "BZD": [
             "BZD",
@@ -257,6 +261,10 @@
             "CLP",
             "chilenske pesos"
         ],
+        "CNH": [
+            "CNH",
+            "kinesiske yuan (offshore)"
+        ],
         "CNX": [
             "CNX",
             "Kinas folkebank dollar"
@@ -271,7 +279,7 @@
         ],
         "COU": [
             "COU",
-            "unidad de valor real"
+            "colombianske unidad de valor real"
         ],
         "CRC": [
             "CRC",
@@ -307,7 +315,7 @@
         ],
         "DDM": [
             "DDM",
-            "østtyske ostmark"
+            "østtyske mark"
         ],
         "DEM": [
             "DEM",
@@ -387,7 +395,7 @@
         ],
         "GBP": [
             "£",
-            "britiske pund sterling"
+            "britiske pund"
         ],
         "GEK": [
             "GEK",
@@ -503,7 +511,7 @@
         ],
         "ISJ": [
             "ISJ",
-            "gammel islandsk krone"
+            "islandske kroner (1918–1981)"
         ],
         "ISK": [
             "ISK",
@@ -591,7 +599,7 @@
         ],
         "LTL": [
             "LTL",
-            "litauiske lita"
+            "litauiske litas"
         ],
         "LTT": [
             "LTT",
@@ -771,15 +779,15 @@
         ],
         "PEI": [
             "PEI",
-            "peruvianske inti"
+            "peruanske inti"
         ],
         "PEN": [
             "PEN",
-            "peruanske nuevo sol"
+            "peruanske sol"
         ],
         "PES": [
             "PES",
-            "peruvianske sol (1863–1965)"
+            "peruanske sol (1863–1965)"
         ],
         "PGK": [
             "PGK",
@@ -907,7 +915,7 @@
         ],
         "STD": [
             "STD",
-            "São Tomé og Príncipe-dobra"
+            "saotomesiske dobra"
         ],
         "SUR": [
             "SUR",

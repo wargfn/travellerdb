@@ -62,7 +62,8 @@ class CollectionType extends AbstractType
         ));
 
         if ($form->getConfig()->hasAttribute('prototype')) {
-            $view->vars['prototype'] = $form->getConfig()->getAttribute('prototype')->createView($view);
+            $prototype = $form->getConfig()->getAttribute('prototype');
+            $view->vars['prototype'] = $prototype->setParent($form)->createView($view);
         }
     }
 
@@ -88,14 +89,14 @@ class CollectionType extends AbstractType
         };
         $optionsNormalizer = function (Options $options, $value) use ($entryOptionsNormalizer) {
             if (null !== $value) {
-                @trigger_error('The form option "options" is deprecated since version 2.8 and will be removed in 3.0. Use "entry_options" instead.', E_USER_DEPRECATED);
+                @trigger_error('The form option "options" is deprecated since Symfony 2.8 and will be removed in 3.0. Use "entry_options" instead.', E_USER_DEPRECATED);
             }
 
             return $entryOptionsNormalizer($options, $value);
         };
         $typeNormalizer = function (Options $options, $value) {
             if (null !== $value) {
-                @trigger_error('The form option "type" is deprecated since version 2.8 and will be removed in 3.0. Use "entry_type" instead.', E_USER_DEPRECATED);
+                @trigger_error('The form option "type" is deprecated since Symfony 2.8 and will be removed in 3.0. Use "entry_type" instead.', E_USER_DEPRECATED);
             }
 
             return $value;

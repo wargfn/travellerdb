@@ -435,16 +435,13 @@ class Closure implements Strategy
             $subQuery .= " JOIN {$table} c2 ON c1.descendant = c2.descendant";
             $subQuery .= " WHERE c1.ancestor = :nodeId AND c2.depth > c1.depth";
 
-            $ids = $conn->fetchAll($subQuery, compact('nodeId'));
-            if ($ids) {
-                $ids = array_map(function ($el) {
-                    return $el['id'];
-                }, $ids);
-            }
-            // using subquery directly, sqlite acts unfriendly
-            $query = "DELETE FROM {$table} WHERE id IN (".implode(', ', $ids).")";
-            if (!empty($ids) && !$conn->executeQuery($query)) {
-                throw new RuntimeException('Failed to remove old closures');
+            $ids = $conn->executeQuery($subQuery, compact('nodeId'))->fetchAll(\PDO::FETCH_COLUMN);
+            if ($ids) {            
+                // using subquery directly, sqlite acts unfriendly
+                $query = "DELETE FROM {$table} WHERE id IN (".implode(', ', $ids).")";
+                if (!empty($ids) && !$conn->executeQuery($query)) {
+                    throw new RuntimeException('Failed to remove old closures');
+                }
             }
         }
 

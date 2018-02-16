@@ -30,7 +30,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class DateTimeType extends AbstractType
 {
     const DEFAULT_DATE_FORMAT = \IntlDateFormatter::MEDIUM;
-
     const DEFAULT_TIME_FORMAT = \IntlDateFormatter::MEDIUM;
 
     /**
@@ -205,7 +204,7 @@ class DateTimeType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $compound = function (Options $options) {
-            return $options['widget'] !== 'single_text';
+            return 'single_text' !== $options['widget'];
         };
 
         // Defaults to the value of "widget"

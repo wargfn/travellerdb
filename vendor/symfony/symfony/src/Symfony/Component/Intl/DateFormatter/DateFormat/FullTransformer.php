@@ -37,8 +37,6 @@ class FullTransformer
     private $timezone;
 
     /**
-     * Constructor.
-     *
      * @param string $pattern  The pattern to be used to format and/or parse values
      * @param string $timezone The timezone to perform the date/time calculations
      */
@@ -135,7 +133,7 @@ class FullTransformer
      * @param \DateTime $dateTime A configured DateTime object to use to perform the date calculation
      * @param string    $value    String to convert to a time value
      *
-     * @return int The corresponding Unix timestamp
+     * @return int|false The corresponding Unix timestamp
      *
      * @throws \InvalidArgumentException When the value can not be matched with pattern
      */
@@ -257,8 +255,6 @@ class FullTransformer
      * Normalize a preg_replace match array, removing the numeric keys and returning an associative array
      * with the value and pattern values for the matched Transformer.
      *
-     * @param array $data
-     *
      * @return array
      */
     protected function normalizeArray(array $data)
@@ -335,8 +331,6 @@ class FullTransformer
     /**
      * Add sensible default values for missing items in the extracted date/time options array. The values
      * are base in the beginning of the Unix era.
-     *
-     * @param array $options
      *
      * @return array
      */

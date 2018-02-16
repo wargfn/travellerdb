@@ -21,11 +21,6 @@ use Symfony\Component\Translation\Dumper\DumperInterface;
  */
 class TranslationWriter
 {
-    /**
-     * Dumpers used for export.
-     *
-     * @var array
-     */
     private $dumpers = array();
 
     /**
@@ -45,7 +40,9 @@ class TranslationWriter
     public function disableBackup()
     {
         foreach ($this->dumpers as $dumper) {
-            $dumper->setBackup(false);
+            if (method_exists($dumper, 'setBackup')) {
+                $dumper->setBackup(false);
+            }
         }
     }
 

@@ -19,7 +19,7 @@ use Symfony\Component\Validator\ExecutionContextInterface;
  * @Assert\GroupSequence({"Foo", "Entity"})
  * @Assert\Callback({"Symfony\Component\Validator\Tests\Fixtures\CallbackClass", "callback"})
  */
-class Entity extends EntityParent implements EntityInterface
+class Entity extends EntityParent implements EntityInterfaceB
 {
     /**
      * @Assert\NotNull
@@ -63,6 +63,10 @@ class Entity extends EntityParent implements EntityInterface
         return $this->lastName;
     }
 
+    public function getValid()
+    {
+    }
+
     /**
      * @Assert\IsTrue
      */
@@ -85,7 +89,7 @@ class Entity extends EntityParent implements EntityInterface
     }
 
     /**
-     * @Assert\Callback
+     * @Assert\Callback(payload="foo")
      */
     public function validateMe(ExecutionContextInterface $context)
     {

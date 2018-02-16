@@ -684,6 +684,48 @@ class OAuth2Test extends PHPUnit_Framework_TestCase
         $this->assertRegExp('{"access_token":"[^"]+","expires_in":86400,"token_type":"bearer"}', $response->getContent());
     }
 
+    /**
+     * Tests OAuth2->grantAccessToken() with urn: extension
+     */
+    public function testGrantAccessTokenWithGrantExtensionJwtBearer()
+    {
+        $clientId = 'cid';
+        $clientSecret = 'csecret';
+        $grantType = 'urn:ietf:params:oauth:grant-type:jwt-bearer';
+        $subject = 1234;
+
+        $stub = new \OAuth2\Tests\Fixtures\OAuth2GrantExtensionJwtBearer();
+        $stub->addClient(new OAuth2Client($clientId, $clientSecret));
+        $stub->setAllowedGrantTypes(array($grantType));
+        $stub->setExpectedSubject($subject);
+        $oauth2 = new OAuth2($stub);
+
+        $response = $oauth2->grantAccessToken(new Request(array(
+            'grant_type' => $grantType,
+            'client_id' => $clientId,
+            'client_secret' => $clientSecret,
+            'jwt' => \OAuth2\Tests\Fixtures\OAuth2GrantExtensionJwtBearer::encodeJwt(array(
+                'sub' => $subject,
+            )),
+        )));
+
+        $this->assertSame(array(
+            'content-type' => array('application/json'),
+            'cache-control' => array('no-store, private'),
+            'pragma' => array('no-cache'),
+        ), array_diff_key(
+            $response->headers->all(),
+            array('date' => null)
+        ));
+
+        $this->assertRegExp('{"access_token":"[^"]+","expires_in":3600,"token_type":"bearer","scope":null,"refresh_token":"[^"]+"}', $response->getContent());
+
+        $token = $stub->getLastAccessToken();
+        $this->assertSame('cid', $token->getClientId());
+        $data = $token->getData();
+        $this->assertSame($subject, $data['sub']);
+    }
+
 
     /**
      * Tests OAuth2->getAuthorizeParams()

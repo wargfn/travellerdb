@@ -28,7 +28,7 @@ class DumpCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setDescription('')
+            ->setDescription('Dumps API documentation in various formats')
             ->addOption(
                 'format', '', InputOption::VALUE_REQUIRED,
                 'Output format like: ' . implode(', ', $this->availableFormats),
@@ -47,7 +47,7 @@ class DumpCommand extends ContainerAwareCommand
 
         $routeCollection = $this->getContainer()->get('router')->getRouteCollection();
 
-        if (!$input->hasOption('format') || in_array($format, array('json'))) {
+        if ($format == 'json') {
             $formatter = $this->getContainer()->get('nelmio_api_doc.formatter.simple_formatter');
         } else {
             if (!in_array($format, $this->availableFormats)) {
@@ -72,7 +72,7 @@ class DumpCommand extends ContainerAwareCommand
         if ('json' === $format) {
             $output->writeln(json_encode($formattedDoc));
         } else {
-            $output->writeln($formattedDoc);
+            $output->writeln($formattedDoc, OutputInterface::OUTPUT_RAW);
         }
     }
 }

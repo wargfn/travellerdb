@@ -55,6 +55,10 @@ in the `installation chapter`_ of the Composer documentation.
 Step 2: Enable the Bundle
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
+.. note::
+
+    When using Flex, this step is handled automatically.
+
 Then, enable the bundle by adding the following line in the ``app/AppKernel.php``
 file of your project:
 
@@ -108,7 +112,7 @@ to register their mapping in Doctrine when you want to use them.
                             type: annotation
                             prefix: Gedmo\Loggable\Entity
                             dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Loggable/Entity"
-                            alias: GedmoLoggable # (optional) it will default to the name set for the mappingmapping
+                            alias: GedmoLoggable # (optional) it will default to the name set for the mapping
                             is_bundle: false
                         gedmo_tree:
                             type: annotation
@@ -198,7 +202,7 @@ Then, after you verify the form is valid, do the following:
 
             $em->flush();
 
-            $this->redirect($this->generateUrl(...));
+            return $this->redirect($this->generateUrl(...));
         }
     }
 
@@ -229,7 +233,7 @@ the asked language. If you don't provide it explicitly, it will default to
             # Only used if you activated the Uploadable extension
             uploadable:
                 # Default file path: This is one of the three ways you can configure the path for the Uploadable extension
-                default_file_path:       %kernel.root_dir%/../web/uploads
+                default_file_path:       "%kernel.root_dir%/../web/uploads"
 
                 # Mime type guesser class: Optional. By default, we provide an adapter for the one present in the HttpFoundation component of Symfony
                 mime_type_guesser_class: Stof\DoctrineExtensionsBundle\Uploadable\MimeTypeGuesserAdapter
@@ -348,5 +352,5 @@ configuration.
         </container>
 
 .. _`DoctrineExtensions`: https://github.com/Atlantic18/DoctrineExtensions
-.. _`DoctrineExtensions documentation`: https://github.com/Atlantic18/DoctrineExtensions/tree/master/doc/
+.. _`DoctrineExtensions documentation`: https://github.com/Atlantic18/DoctrineExtensions/tree/v2.4.x/doc
 .. _`installation chapter`: https://getcomposer.org/doc/00-intro.md

@@ -11,7 +11,7 @@
 
 namespace Symfony\Bridge\Doctrine\Form\ChoiceList;
 
-@trigger_error('The '.__NAMESPACE__.'\EntityChoiceList class is deprecated since version 2.7 and will be removed in 3.0. Use Symfony\Bridge\Doctrine\Form\ChoiceList\DoctrineChoiceLoader instead.', E_USER_DEPRECATED);
+@trigger_error('The '.__NAMESPACE__.'\EntityChoiceList class is deprecated since Symfony 2.7 and will be removed in 3.0. Use Symfony\Bridge\Doctrine\Form\ChoiceList\DoctrineChoiceLoader instead.', E_USER_DEPRECATED);
 
 use Doctrine\Common\Persistence\Mapping\ClassMetadata;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -109,7 +109,7 @@ class EntityChoiceList extends ObjectChoiceList
      * @param string                    $groupPath         A property path pointing to the property used
      *                                                     to group the choices. Only allowed if
      *                                                     the choices are given as flat array.
-     * @param PropertyAccessorInterface $propertyAccessor  The reflection graph for reading property paths.
+     * @param PropertyAccessorInterface $propertyAccessor  The reflection graph for reading property paths
      */
     public function __construct(ObjectManager $manager, $class, $labelPath = null, EntityLoaderInterface $entityLoader = null, $entities = null, array $preferredEntities = array(), $groupPath = null, PropertyAccessorInterface $propertyAccessor = null)
     {
@@ -214,8 +214,6 @@ class EntityChoiceList extends ObjectChoiceList
     /**
      * Returns the entities corresponding to the given values.
      *
-     * @param array $values
-     *
      * @return array
      *
      * @see ChoiceListInterface
@@ -267,8 +265,6 @@ class EntityChoiceList extends ObjectChoiceList
     /**
      * Returns the values corresponding to the given entities.
      *
-     * @param array $entities
-     *
      * @return array
      *
      * @see ChoiceListInterface
@@ -316,7 +312,7 @@ class EntityChoiceList extends ObjectChoiceList
      */
     public function getIndicesForChoices(array $entities)
     {
-        @trigger_error('The '.__METHOD__.' method is deprecated since version 2.4 and will be removed in 3.0.', E_USER_DEPRECATED);
+        @trigger_error('The '.__METHOD__.' method is deprecated since Symfony 2.4 and will be removed in 3.0.', E_USER_DEPRECATED);
 
         // Performance optimization
         if (empty($entities)) {
@@ -359,7 +355,7 @@ class EntityChoiceList extends ObjectChoiceList
      */
     public function getIndicesForValues(array $values)
     {
-        @trigger_error('The '.__METHOD__.' method is deprecated since version 2.4 and will be removed in 3.0.', E_USER_DEPRECATED);
+        @trigger_error('The '.__METHOD__.' method is deprecated since Symfony 2.4 and will be removed in 3.0.', E_USER_DEPRECATED);
 
         // Performance optimization
         if (empty($values)) {
@@ -389,8 +385,8 @@ class EntityChoiceList extends ObjectChoiceList
      *
      * @param mixed $entity The choice to create an index for
      *
-     * @return int|string A unique index containing only ASCII letters,
-     *                    digits and underscores.
+     * @return int|string a unique index containing only ASCII letters,
+     *                    digits and underscores
      */
     protected function createIndex($entity)
     {
@@ -410,7 +406,7 @@ class EntityChoiceList extends ObjectChoiceList
      *
      * @param mixed $entity The choice to create a value for
      *
-     * @return int|string A unique value without character limitations.
+     * @return int|string A unique value without character limitations
      */
     protected function createValue($entity)
     {

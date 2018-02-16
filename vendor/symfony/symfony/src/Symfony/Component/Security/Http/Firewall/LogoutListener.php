@@ -41,13 +41,11 @@ class LogoutListener implements ListenerInterface
     private $csrfTokenManager;
 
     /**
-     * Constructor.
-     *
-     * @param TokenStorageInterface         $tokenStorage
-     * @param HttpUtils                     $httpUtils        An HttpUtilsInterface instance
-     * @param LogoutSuccessHandlerInterface $successHandler   A LogoutSuccessHandlerInterface instance
-     * @param array                         $options          An array of options to process a logout attempt
-     * @param CsrfTokenManagerInterface     $csrfTokenManager A CsrfTokenManagerInterface instance
+     * @param TokenStorageInterface          $tokenStorage
+     * @param HttpUtils                      $httpUtils        An HttpUtils instance
+     * @param LogoutSuccessHandlerInterface  $successHandler   A LogoutSuccessHandlerInterface instance
+     * @param array                          $options          An array of options to process a logout attempt
+     * @param CsrfTokenManagerInterface|null $csrfTokenManager A CsrfTokenManagerInterface instance
      */
     public function __construct(TokenStorageInterface $tokenStorage, HttpUtils $httpUtils, LogoutSuccessHandlerInterface $successHandler, array $options = array(), $csrfTokenManager = null)
     {
@@ -62,7 +60,7 @@ class LogoutListener implements ListenerInterface
                 throw new \InvalidArgumentException(sprintf('You should only define an option for one of "intention" or "csrf_token_id" for the "%s". Use the "csrf_token_id" as it replaces "intention".', __CLASS__));
             }
 
-            @trigger_error('The "intention" option for the '.__CLASS__.' is deprecated since version 2.8 and will be removed in 3.0. Use the "csrf_token_id" option instead.', E_USER_DEPRECATED);
+            @trigger_error('The "intention" option for the '.__CLASS__.' is deprecated since Symfony 2.8 and will be removed in 3.0. Use the "csrf_token_id" option instead.', E_USER_DEPRECATED);
 
             $options['csrf_token_id'] = $options['intention'];
         }
@@ -79,11 +77,6 @@ class LogoutListener implements ListenerInterface
         $this->handlers = array();
     }
 
-    /**
-     * Adds a logout handler.
-     *
-     * @param LogoutHandlerInterface $handler
-     */
     public function addHandler(LogoutHandlerInterface $handler)
     {
         $this->handlers[] = $handler;
@@ -94,8 +87,6 @@ class LogoutListener implements ListenerInterface
      *
      * If a CsrfTokenManagerInterface instance is available, it will be used to
      * validate the request.
-     *
-     * @param GetResponseEvent $event A GetResponseEvent instance
      *
      * @throws LogoutException   if the CSRF token is invalid
      * @throws \RuntimeException if the LogoutSuccessHandlerInterface instance does not return a response
@@ -140,12 +131,10 @@ class LogoutListener implements ListenerInterface
      * but a subclass could change this to logout requests where
      * certain parameters is present.
      *
-     * @param Request $request
-     *
      * @return bool
      */
     protected function requiresLogout(Request $request)
     {
-        return $this->httpUtils->checkRequestPath($request, $this->options['logout_path']);
+        return isset($this->options['logout_path']) && $this->httpUtils->checkRequestPath($request, $this->options['logout_path']);
     }
 }

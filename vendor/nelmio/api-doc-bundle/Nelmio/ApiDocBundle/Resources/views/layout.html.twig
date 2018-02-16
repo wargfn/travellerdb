@@ -193,7 +193,7 @@
                         placeholder += "[" + $context.parent().attr("data-dataType") + "] ";
                     }
                     if ($context.parent().attr("data-format") != "" && typeof $context.parent().attr("data-format") != "undefined") {
-                        placeholder += $context.parent().attr("data-dataType");
+                        placeholder += $context.parent().attr("data-format");
                     }
                     if ($context.parent().attr("data-description") != "" && typeof $context.parent().attr("data-description") != "undefined") {
                         placeholder += $context.parent().attr("data-description");
@@ -207,6 +207,9 @@
                             break;
                         case "file":
                             $('<input type="file" class="value" placeholder="'+ placeholder +'">').insertAfter($context);
+                            break;
+                        case "textarea":
+                            $('<textarea class="value" placeholder="'+ placeholder +'" />').insertAfter($context);
                             break;
                         default:
                             $('<input type="text" class="value" placeholder="'+ placeholder +'">').insertAfter($context);
@@ -334,12 +337,22 @@
                 };
 
                 var displayFinalUrl = function(xhr, method, url, data, container) {
-                    if ('GET' == method && !jQuery.isEmptyObject(data)) {
-                        var separator = url.indexOf('?') >= 0 ? '&' : '?';
-                        url = url + separator + decodeURIComponent(jQuery.param(data));
-                    }
+                    container.text(method + ' ' + getFinalUrl(method, url, data));
+                };
 
-                    container.text(method + ' ' + url);
+                var displayRequestBody = function(method, data, container, header) {
+                    if ('GET' != method && !jQuery.isEmptyObject(data) && data !== "" && data !== undefined) {
+                        if (jQuery.type(data) !== 'string') {
+                            data = decodeURIComponent(jQuery.param(data));
+                        }
+
+                        container.text(data);
+                        container.show();
+                        header.show();
+                    } else {
+                        container.hide();
+                        header.hide();
+                    }
                 };
 
                 var displayProfilerUrl = function(xhr, link, container) {
@@ -351,7 +364,7 @@
                         link.attr('href', '');
                         container.hide();
                     }
-                }
+                };
 
                 var displayResponseData = function(xhr, container) {
                     var data = xhr.responseText;
@@ -371,11 +384,51 @@
                     container.text(text);
                 };
 
-                var displayResponse = function(xhr, method, url, data, result_container) {
+                var displayCurl = function(method, url, headers, data, result_container) {
+                    var escapeShell = function(param) {
+                        param = "" + param;
+                        return '"' + param.replace(/(["\s'$`\\])/g,'\\$1') + '"';
+                    };
+
+                    url = getFinalUrl(method, url, data);
+
+                    var command = "curl";
+                    command += " -X " + escapeShell(method);
+
+                    if (method != "GET" && !jQuery.isEmptyObject(data) && data !== "" && data !== undefined) {
+                        if (jQuery.type(data) !== 'string') {
+                            data = decodeURIComponent(jQuery.param(data));
+                        }
+                        command += " -d " + escapeShell(data);
+                    }
+
+                    for (headerKey in headers) {
+                        if (headers.hasOwnProperty(headerKey)) {
+                            command += " -H " + escapeShell(headerKey + ': ' + headers[headerKey]);
+                        }
+                    }
+
+                    command += " " + url;
+
+                    result_container.text(command);
+                };
+
+                var getFinalUrl = function(method, url, data) {
+                    if ('GET' == method && !jQuery.isEmptyObject(data)) {
+                        var separator = url.indexOf('?') >= 0 ? '&' : '?';
+                        url = url + separator + decodeURIComponent(jQuery.param(data));
+                    }
+
+                    return url;
+                };
+
+                var displayResponse = function(xhr, method, url, headers, data, result_container) {
                     displayFinalUrl(xhr, method, url, data, $('.url', result_container));
+                    displayRequestBody(method, data, $('.request-body', result_container), $('.request-body-header', result_container));
                     displayProfilerUrl(xhr, $('.profiler-link', result_container), $('.profiler', result_container));
                     displayResponseData(xhr, $('.response', result_container));
                     displayResponseHeaders(xhr, $('.headers', result_container));
+                    displayCurl(method, url, headers, data, $('.curl-command', result_container));
 
                     result_container.show();
                 };
@@ -385,8 +438,10 @@
                         method = $('[name="header_method"]', this).val(),
                         self = this,
                         params = {},
+                        filters = {},
                         formData = new FormData(),
                         doubledParams = {},
+                        doubledFilters = {},
                         headers = {},
                         content = $(this).find('textarea.content').val(),
                         result_container = $('.result', $(this).parent());
@@ -440,6 +495,9 @@
                             key = $('.key', $(this)).val();
                             if ($('.value', $(this)).attr('type') === 'file' ) {
                                 value = $('.value', $(this)).prop('files')[0];
+                                if(!value) {
+                                    value = new File([], '');
+                                }
                             } else {
                                 value = $('.value', $(this)).val();
                             }
@@ -459,11 +517,36 @@
                         value = $('.value', $(this)).val();
 
                         if (value) {
+                            // convert boolean values to boolean
+                            if ('json' === bodyFormat && 'boolean' === $('.tuple_type', $(this)).val()) {
+                                value = '1' === value;
+                            }
+
                             // temporary save all additional/doubled parameters
                             if (key in params) {
                                 doubledParams[key] = value;
                             } else {
                                 params[key] = value;
+                            }
+                        }
+                    });
+
+
+
+
+                    // retrieve all the filters to send
+                    $('.parameters .tuple.filter', $(this)).each(function() {
+                        var key, value;
+
+                        key = $('.key', $(this)).val();
+                        value = $('.value', $(this)).val();
+
+                        if (value) {
+                            // temporary save all additional/doubled parameters
+                            if (key in filters) {
+                                doubledFilters[key] = value;
+                            } else {
+                                filters[key] = value;
                             }
                         }
                     });
@@ -519,6 +602,18 @@
                     }
                     {% endif %}
 
+                    //add filters as GET params and remove them from params
+                    if(method != 'GET'){
+                        for (var filterKey in $.extend({}, filters)){
+                            url += url.indexOf('?') > 0 ? '&' : '?';
+                            url += filterKey + '=' + filters[filterKey];
+
+                            if (params.hasOwnProperty(filterKey)){
+                                delete(params[filterKey]);
+                            }
+                        }
+                    }
+
                     // prepare final parameters
                     var body = {};
                     if(bodyFormat == 'json' && method != 'GET') {
@@ -530,6 +625,7 @@
                     var data = content.length ? content : body;
                     var ajaxOptions = {
                         url: (url.indexOf('http')!=0?endpoint:'') + url,
+                        xhrFields: { withCredentials: true },
                         type: method,
                         data: data,
                         headers: headers,
@@ -552,7 +648,7 @@
                             }
                         },
                         complete: function(xhr) {
-                            displayResponse(xhr, method, url, data, result_container);
+                            displayResponse(xhr, method, url, headers, data, result_container);
 
                             // and enable them back
                             $('input:not(.content-type), button', $(self)).removeAttr('disabled');

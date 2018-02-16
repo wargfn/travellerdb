@@ -55,7 +55,7 @@ class Configuration implements ConfigurationInterface
             ->beforeNormalization()
                 ->ifTrue(function ($v) { return isset($v['form']['resources']); })
                 ->then(function ($v) {
-                    @trigger_error('The twig.form.resources configuration key is deprecated since version 2.6 and will be removed in 3.0. Use the twig.form_themes configuration key instead.', E_USER_DEPRECATED);
+                    @trigger_error('The twig.form.resources configuration key is deprecated since Symfony 2.6 and will be removed in 3.0. Use the twig.form_themes configuration key instead.', E_USER_DEPRECATED);
 
                     return $v;
                 })
@@ -167,10 +167,10 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->fixXmlConfig('path')
             ->children()
-                ->variableNode('autoescape')->defaultValue('filename')->end()
+                ->variableNode('autoescape')->defaultValue('name')->end()
                 ->scalarNode('autoescape_service')->defaultNull()->end()
                 ->scalarNode('autoescape_service_method')->defaultNull()->end()
-                ->scalarNode('base_template_class')->example('Twig_Template')->cannotBeEmpty()->end()
+                ->scalarNode('base_template_class')->example('Twig\Template')->cannotBeEmpty()->end()
                 ->scalarNode('cache')->defaultValue('%kernel.cache_dir%/twig')->end()
                 ->scalarNode('charset')->defaultValue('%kernel.charset%')->end()
                 ->booleanNode('debug')->defaultValue('%kernel.debug%')->end()

@@ -11,9 +11,10 @@
 
 namespace Symfony\Component\HttpKernel\Tests\Profiler;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpKernel\Profiler\Profile;
 
-abstract class AbstractProfilerStorageTest extends \PHPUnit_Framework_TestCase
+abstract class AbstractProfilerStorageTest extends TestCase
 {
     public function testStore()
     {
@@ -63,22 +64,22 @@ abstract class AbstractProfilerStorageTest extends \PHPUnit_Framework_TestCase
         $profile = new Profile('simple_quote');
         $profile->setUrl('http://foo.bar/\'');
         $this->getStorage()->write($profile);
-        $this->assertTrue(false !== $this->getStorage()->read('simple_quote'), '->write() accepts single quotes in URL');
+        $this->assertNotFalse($this->getStorage()->read('simple_quote'), '->write() accepts single quotes in URL');
 
         $profile = new Profile('double_quote');
         $profile->setUrl('http://foo.bar/"');
         $this->getStorage()->write($profile);
-        $this->assertTrue(false !== $this->getStorage()->read('double_quote'), '->write() accepts double quotes in URL');
+        $this->assertNotFalse($this->getStorage()->read('double_quote'), '->write() accepts double quotes in URL');
 
         $profile = new Profile('backslash');
         $profile->setUrl('http://foo.bar/\\');
         $this->getStorage()->write($profile);
-        $this->assertTrue(false !== $this->getStorage()->read('backslash'), '->write() accepts backslash in URL');
+        $this->assertNotFalse($this->getStorage()->read('backslash'), '->write() accepts backslash in URL');
 
         $profile = new Profile('comma');
         $profile->setUrl('http://foo.bar/,');
         $this->getStorage()->write($profile);
-        $this->assertTrue(false !== $this->getStorage()->read('comma'), '->write() accepts comma in URL');
+        $this->assertNotFalse($this->getStorage()->read('comma'), '->write() accepts comma in URL');
     }
 
     public function testStoreDuplicateToken()
@@ -213,7 +214,7 @@ abstract class AbstractProfilerStorageTest extends \PHPUnit_Framework_TestCase
         $profile->setMethod('GET');
         $this->getStorage()->write($profile);
 
-        $this->assertTrue(false !== $this->getStorage()->read('token1'));
+        $this->assertNotFalse($this->getStorage()->read('token1'));
         $this->assertCount(1, $this->getStorage()->find('127.0.0.1', '', 10, 'GET'));
 
         $profile = new Profile('token2');
@@ -222,7 +223,7 @@ abstract class AbstractProfilerStorageTest extends \PHPUnit_Framework_TestCase
         $profile->setMethod('GET');
         $this->getStorage()->write($profile);
 
-        $this->assertTrue(false !== $this->getStorage()->read('token2'));
+        $this->assertNotFalse($this->getStorage()->read('token2'));
         $this->assertCount(2, $this->getStorage()->find('127.0.0.1', '', 10, 'GET'));
 
         $this->getStorage()->purge();

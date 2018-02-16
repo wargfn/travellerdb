@@ -94,10 +94,11 @@ class RememberMeFactory implements SecurityFactoryInterface
                 $userProviders[] = new Reference('security.user.provider.concrete.'.$providerName);
             }
         }
-        if (count($userProviders) === 0) {
+        if (0 === count($userProviders)) {
             throw new \RuntimeException('You must configure at least one remember-me aware listener (such as form-login) for each firewall that has remember-me enabled.');
         }
-        $rememberMeServices->replaceArgument(0, $userProviders);
+
+        $rememberMeServices->replaceArgument(0, array_unique($userProviders));
 
         // remember-me listener
         $listenerId = 'security.authentication.listener.rememberme.'.$id;
@@ -129,7 +130,7 @@ class RememberMeFactory implements SecurityFactoryInterface
                         throw new \LogicException('Cannot set both key and secret options for remember_me, use only secret instead.');
                     }
 
-                    @trigger_error('remember_me.key is deprecated since version 2.8 and will be removed in 3.0. Use remember_me.secret instead.', E_USER_DEPRECATED);
+                    @trigger_error('remember_me.key is deprecated since Symfony 2.8 and will be removed in 3.0. Use remember_me.secret instead.', E_USER_DEPRECATED);
 
                     $v['secret'] = $v['key'];
 

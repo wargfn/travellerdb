@@ -18,7 +18,7 @@ use Nelmio\ApiDocBundle\Tests\Fixtures\DependencyTypePath;
 use Nelmio\ApiDocBundle\Tests\Fixtures\RequestParamHelper;
 use Nelmio\ApiDocBundle\Util\LegacyFormHelper;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints as Assert;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
@@ -150,7 +150,7 @@ class TestController
 
     /**
      * @ApiDoc()
-     * @QueryParam(name="mail", requirements=@Email, description="Email of someone.")
+     * @QueryParam(name="mail", requirements=@Assert\Email, description="Email of someone.")
      */
     public function zActionWithConstraintAsRequirements()
     {
@@ -396,6 +396,30 @@ class TestController
      * )
      */
     public function routeWithHostAction()
+    {
+    }
+
+    /**
+     * @ApiDoc()
+     * @QueryParam(name="param1", requirements={"rule": "regexp", "error_message": "warning"}, description="Param1 description.")
+     */
+    public function routeWithQueryParamArrayRequirementsAction()
+    {
+    }
+
+    /**
+     * @ApiDoc()
+     * @QueryParam(name="param1", requirements={@Assert\NotNull(), @Assert\NotBlank()}, description="Param1 description.")
+     */
+    public function routeWithQueryParamPlainArrayRequirementsAction()
+    {
+    }
+
+    /**
+     * @ApiDoc()
+     * @QueryParam(name="param1", description="Param1 description.")
+     */
+    public function zActionWithRequirementParamNotSet()
     {
     }
 }

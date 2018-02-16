@@ -11,23 +11,28 @@
 
 namespace Symfony\Component\Security\Core\Tests\Authentication\Provider;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider;
 
-class AnonymousAuthenticationProviderTest extends \PHPUnit_Framework_TestCase
+class AnonymousAuthenticationProviderTest extends TestCase
 {
     public function testSupports()
     {
         $provider = $this->getProvider('foo');
 
         $this->assertTrue($provider->supports($this->getSupportedToken('foo')));
-        $this->assertFalse($provider->supports($this->getMock('Symfony\Component\Security\Core\Authentication\Token\TokenInterface')));
+        $this->assertFalse($provider->supports($this->getMockBuilder('Symfony\Component\Security\Core\Authentication\Token\TokenInterface')->getMock()));
     }
 
+    /**
+     * @expectedException \Symfony\Component\Security\Core\Exception\AuthenticationException
+     * @expectedExceptionMessage The token is not supported by this authentication provider.
+     */
     public function testAuthenticateWhenTokenIsNotSupported()
     {
         $provider = $this->getProvider('foo');
 
-        $this->assertNull($provider->authenticate($this->getMock('Symfony\Component\Security\Core\Authentication\Token\TokenInterface')));
+        $provider->authenticate($this->getMockBuilder('Symfony\Component\Security\Core\Authentication\Token\TokenInterface')->getMock());
     }
 
     /**
@@ -50,7 +55,7 @@ class AnonymousAuthenticationProviderTest extends \PHPUnit_Framework_TestCase
 
     protected function getSupportedToken($secret)
     {
-        $token = $this->getMock('Symfony\Component\Security\Core\Authentication\Token\AnonymousToken', array('getSecret'), array(), '', false);
+        $token = $this->getMockBuilder('Symfony\Component\Security\Core\Authentication\Token\AnonymousToken')->setMethods(array('getSecret'))->disableOriginalConstructor()->getMock();
         $token->expects($this->any())
               ->method('getSecret')
               ->will($this->returnValue($secret))

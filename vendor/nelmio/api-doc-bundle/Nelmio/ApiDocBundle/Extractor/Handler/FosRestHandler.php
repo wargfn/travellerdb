@@ -56,9 +56,13 @@ class FosRestHandler implements HandlerInterface
                         'description'   => $annot->description,
                         'default'   => $annot->default,
                     ));
-                } else {
+                } elseif ($annot->requirements !== null) {
                     $annotation->addFilter($annot->name, array(
                         'requirement'   => $this->handleRequirements($annot->requirements).((property_exists($annot, 'map') ? $annot->map : $annot->array) ? '[]' : ''),
+                        'description'   => $annot->description,
+                    ));
+                } else {
+                    $annotation->addFilter($annot->name, array(
                         'description'   => $annot->description,
                     ));
                 }
@@ -81,6 +85,38 @@ class FosRestHandler implements HandlerInterface
             $class = get_class($requirements);
 
             return substr($class, strrpos($class, '\\')+1);
+        }
+
+        if (is_array($requirements) && isset($requirements['rule'])) {
+            return (string) $requirements['rule'];
+        }
+
+        if (is_array($requirements) && array_key_exists(0, $requirements)) {
+
+            $output = array();
+
+            foreach ($requirements as $req) {
+
+                if (is_object($req) && $req instanceof Constraint) {
+                    if ($req instanceof Regex) {
+                        $output[] = $req->getHtmlPattern();
+                    } else {
+                        $class = get_class($req);
+                        $output[] = substr($class, strrpos($class, '\\')+1);
+                    }
+
+                }
+
+                if (is_array($req)) {
+                    if (array_key_exists('_format', $req)) {
+                        $output[] = 'Format: '.$req['_format'];
+                    } else if (isset($req['rule'])) {
+                        $output[] = $req['rule'];
+                    }
+                }
+            }
+
+            return implode(', ', $output);
         }
 
         return (string) $requirements;

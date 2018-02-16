@@ -122,7 +122,7 @@ class ApiDocExtractor
             }
 
             if ($method = $this->getReflectionMethod($route->getDefault('_controller'))) {
-                $annotation = $this->reader->getMethodAnnotation($method, self::ANNOTATION_CLASS);
+                $annotation = $this->reader->getMethodAnnotation($method, static::ANNOTATION_CLASS);
                 if (
                     $annotation && !in_array($annotation->getSection(), $excludeSections) &&
                     (in_array($view, $annotation->getViews()) || (0 === count($annotation->getViews()) && $view === ApiDoc::DEFAULT_VIEW))
@@ -255,7 +255,7 @@ class ApiDocExtractor
     public function get($controller, $route)
     {
         if ($method = $this->getReflectionMethod($controller)) {
-            if ($annotation = $this->reader->getMethodAnnotation($method, self::ANNOTATION_CLASS)) {
+            if ($annotation = $this->reader->getMethodAnnotation($method, static::ANNOTATION_CLASS)) {
                 if ($route = $this->router->getRouteCollection()->get($route)) {
                     return $this->extractData($annotation, $route, $method);
                 }
@@ -322,11 +322,11 @@ class ApiDocExtractor
             $parameters = $this->clearClasses($parameters);
             $parameters = $this->generateHumanReadableTypes($parameters);
 
-            if ('PUT' === $annotation->getMethod()) {
-                // All parameters are optional with PUT (update)
-                array_walk($parameters, function ($val, $key) use (&$parameters) {
+            if ('PATCH' === $annotation->getMethod()) {
+                // All parameters are optional with PATCH (update)
+                foreach ($parameters as $key => $val) {
                     $parameters[$key]['required'] = false;
-                });
+                }
             }
 
             // merge parameters with parameters block from ApiDoc annotation in controller method

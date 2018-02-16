@@ -90,7 +90,7 @@ class LogoutUrlGenerator
      *
      * @return string The logout URL
      *
-     * @throws \InvalidArgumentException if no LogoutListener is registered for the key or the key could not be found automatically.
+     * @throws \InvalidArgumentException if no LogoutListener is registered for the key or the key could not be found automatically
      */
     private function generateLogoutUrl($key, $referenceType)
     {
@@ -111,6 +111,10 @@ class LogoutUrlGenerator
         }
 
         list($logoutPath, $csrfTokenId, $csrfParameter, $csrfTokenManager) = $this->listeners[$key];
+
+        if (null === $logoutPath) {
+            throw new \LogicException('Unable to generate the logout URL without a path.');
+        }
 
         $parameters = null !== $csrfTokenManager ? array($csrfParameter => (string) $csrfTokenManager->getToken($csrfTokenId)) : array();
 

@@ -20,6 +20,7 @@ use Doctrine\ORM\Version;
 use Symfony\Bridge\Doctrine\DataCollector\DoctrineDataCollector as BaseCollector;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\VarDumper\Cloner\Data;
 
 /**
  * DoctrineDataCollector.
@@ -136,6 +137,17 @@ class DoctrineDataCollector extends BaseCollector
             }
         }
 
+        // HttpKernel < 3.2 compatibility layer
+        if (method_exists($this, 'cloneVar')) {
+            // Might be good idea to replicate this block in doctrine bridge so we can drop this from here after some time.
+            // This code is compatible with such change, because cloneVar is supposed to check if input is already cloned.
+            foreach ($this->data['queries'] as &$queries) {
+                foreach ($queries as &$query) {
+                    $query['params'] = $this->cloneVar($query['params']);
+                }
+            }
+        }
+
         $this->data['entities'] = $entities;
         $this->data['errors'] = $errors;
         $this->data['caches'] = $caches;
@@ -188,5 +200,67 @@ class DoctrineDataCollector extends BaseCollector
         }
 
         return $this->invalidEntityCount;
+    }
+
+    public function getGroupedQueries()
+    {
+        static $groupedQueries = null;
+
+        if ($groupedQueries !== null) {
+            return $groupedQueries;
+        }
+
+        $groupedQueries = array();
+        $totalExecutionMS = 0;
+        foreach ($this->data['queries'] as $connection => $queries) {
+            $connectionGroupedQueries = array();
+            foreach ($queries as $i => $query) {
+                $key = $query['sql'];
+                if (!isset($connectionGroupedQueries[$key])) {
+                    $connectionGroupedQueries[$key] = $query;
+                    $connectionGroupedQueries[$key]['executionMS'] = 0;
+                    $connectionGroupedQueries[$key]['count'] = 0;
+                    $connectionGroupedQueries[$key]['index'] = $i; // "Explain query" relies on query index in 'queries'.
+                }
+                $connectionGroupedQueries[$key]['executionMS'] += $query['executionMS'];
+                $connectionGroupedQueries[$key]['count']++;
+                $totalExecutionMS += $query['executionMS'];
+            }
+            usort($connectionGroupedQueries, function ($a, $b) {
+                if ($a['executionMS'] === $b['executionMS']) {
+                    return 0;
+                }
+                return ($a['executionMS'] < $b['executionMS']) ? 1 : -1;
+            });
+            $groupedQueries[$connection] = $connectionGroupedQueries;
+        }
+
+        foreach ($groupedQueries as $connection => $queries) {
+            foreach ($queries as $i => $query) {
+                $groupedQueries[$connection][$i]['executionPercent'] =
+                    $this->executionTimePercentage($query['executionMS'], $totalExecutionMS);
+            }
+        }
+
+        return $groupedQueries;
+    }
+
+    private function executionTimePercentage($executionTimeMS, $totalExecutionTimeMS)
+    {
+        if ($totalExecutionTimeMS === 0.0 || $totalExecutionTimeMS === 0) {
+            return 0;
+        }
+
+        return $executionTimeMS / $totalExecutionTimeMS * 100;
+    }
+
+    public function getGroupedQueryCount()
+    {
+        $count = 0;
+        foreach ($this->getGroupedQueries() as $connectionGroupedQueries) {
+            $count += count($connectionGroupedQueries);
+        }
+
+        return $count;
     }
 }

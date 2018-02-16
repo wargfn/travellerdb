@@ -1,5 +1,5 @@
 {
-    "Version": "2.1.8.19",
+    "Version": "2.1.37.22",
     "Names": {
         "ARS": [
             "ARS",
@@ -8,10 +8,6 @@
         "AUD": [
             "$ AU",
             "dollar australien"
-        ],
-        "AZN": [
-            "AZN",
-            "manat azerbaïdjanais"
         ],
         "BMD": [
             "BMD",
@@ -45,10 +41,6 @@
             "COP",
             "peso colombien"
         ],
-        "CVE": [
-            "CVE",
-            "escudo du Cap-Vert"
-        ],
         "FJD": [
             "FJD",
             "dollar fidjien"
@@ -77,6 +69,10 @@
             "INR",
             "roupie indienne"
         ],
+        "IRR": [
+            "IRR",
+            "rial iranien"
+        ],
         "JPY": [
             "¥",
             "yen japonais"
@@ -84,10 +80,6 @@
         "KRW": [
             "KRW",
             "won sud-coréen"
-        ],
-        "LAK": [
-            "LAK",
-            "kip laotien"
         ],
         "LBP": [
             "LBP",
@@ -105,13 +97,13 @@
             "$ NZ",
             "dollar néo-zélandais"
         ],
-        "PGK": [
-            "PGK",
-            "kina papou-néo-guinéen"
+        "OMR": [
+            "OMR",
+            "rial omanais"
         ],
-        "QAR": [
-            "QAR",
-            "riyal du Qatar"
+        "SAR": [
+            "SAR",
+            "rial saoudien"
         ],
         "SBD": [
             "SBD",
@@ -123,11 +115,7 @@
         ],
         "SRD": [
             "SRD",
-            "dollar du Suriname"
-        ],
-        "THB": [
-            "THB",
-            "baht thaïlandais"
+            "dollar surinamais"
         ],
         "TOP": [
             "TOP",
@@ -149,14 +137,6 @@
             "VND",
             "dông vietnamien"
         ],
-        "VUV": [
-            "VUV",
-            "vatu"
-        ],
-        "WST": [
-            "WST",
-            "tala"
-        ],
         "XAF": [
             "XAF",
             "franc CFA (BEAC)"
@@ -168,6 +148,10 @@
         "XPF": [
             "XPF",
             "franc CFP"
+        ],
+        "YER": [
+            "YER",
+            "rial yéménite"
         ]
     }
 }

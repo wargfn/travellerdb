@@ -11,12 +11,13 @@
 
 namespace Symfony\Component\Form\Tests\Util;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Util\OrderedHashMap;
 
 /**
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class OrderedHashMapTest extends \PHPUnit_Framework_TestCase
+class OrderedHashMapTest extends TestCase
 {
     public function testGet()
     {
@@ -55,6 +56,15 @@ class OrderedHashMapTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(array(0 => 1, 'foo' => 2, 1 => 3), iterator_to_array($map));
     }
 
+    public function testInsertLooselyEqualKeys()
+    {
+        $map = new OrderedHashMap();
+        $map['1 as a string'] = '1 as a string';
+        $map[1] = 1;
+
+        $this->assertSame(array('1 as a string' => '1 as a string', 1 => 1), iterator_to_array($map));
+    }
+
     /**
      * Updates should not change the position of an element, otherwise we could
      * turn foreach loops into endless loops if they change the current
@@ -81,14 +91,14 @@ class OrderedHashMapTest extends \PHPUnit_Framework_TestCase
         $map = new OrderedHashMap();
         $map['first'] = 1;
 
-        $this->assertTrue(isset($map['first']));
+        $this->assertArrayHasKey('first', $map);
     }
 
     public function testIssetReturnsFalseForNonExisting()
     {
         $map = new OrderedHashMap();
 
-        $this->assertFalse(isset($map['first']));
+        $this->assertArrayNotHasKey('first', $map);
     }
 
     public function testIssetReturnsFalseForNull()
@@ -96,7 +106,7 @@ class OrderedHashMapTest extends \PHPUnit_Framework_TestCase
         $map = new OrderedHashMap();
         $map['first'] = null;
 
-        $this->assertFalse(isset($map['first']));
+        $this->assertArrayNotHasKey('first', $map);
     }
 
     public function testUnset()
@@ -110,11 +120,25 @@ class OrderedHashMapTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(array('second' => 2), iterator_to_array($map));
     }
 
+    public function testUnsetFromLooselyEqualKeysHashMap()
+    {
+        $map = new OrderedHashMap();
+        $map['1 as a string'] = '1 as a string';
+        $map[1] = 1;
+
+        unset($map[1]);
+
+        $this->assertSame(array('1 as a string' => '1 as a string'), iterator_to_array($map));
+    }
+
     public function testUnsetNonExistingSucceeds()
     {
         $map = new OrderedHashMap();
+        $map['second'] = 2;
 
         unset($map['first']);
+
+        $this->assertSame(array('second' => 2), iterator_to_array($map));
     }
 
     public function testEmptyIteration()
@@ -482,6 +506,6 @@ class OrderedHashMapTest extends \PHPUnit_Framework_TestCase
         unset($map[0]);
         $map[] = 3;
 
-        $this->assertSame(2, count($map));
+        $this->assertCount(2, $map);
     }
 }

@@ -45,7 +45,7 @@ abstract class ObjectRouteLoader extends Loader
     public function load($resource, $type = null)
     {
         $parts = explode(':', $resource);
-        if (count($parts) != 2) {
+        if (2 != count($parts)) {
             throw new \InvalidArgumentException(sprintf('Invalid resource "%s" passed to the "service" route loader: use the format "service_name:methodName"', $resource));
         }
 
@@ -87,7 +87,9 @@ abstract class ObjectRouteLoader extends Loader
     private function addClassResource(\ReflectionClass $class, RouteCollection $collection)
     {
         do {
-            $collection->addResource(new FileResource($class->getFileName()));
+            if (is_file($class->getFileName())) {
+                $collection->addResource(new FileResource($class->getFileName()));
+            }
         } while ($class = $class->getParentClass());
     }
 }

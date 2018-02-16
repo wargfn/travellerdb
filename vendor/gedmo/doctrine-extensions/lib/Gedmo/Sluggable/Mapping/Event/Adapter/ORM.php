@@ -42,7 +42,7 @@ class ORM extends BaseAdapterORM implements SluggableAdapter
             } else {
                 $mapping = false;
             }
-            if ($ubase && !$mapping) {
+            if (($ubase || $ubase === 0) && !$mapping) {
                 $qb->andWhere('rec.'.$config['unique_base'].' = :unique_base');
                 $qb->setParameter(':unique_base', $ubase);
             } elseif ($ubase && $mapping && in_array($mapping['type'], array(ClassMetadataInfo::ONE_TO_ONE, ClassMetadataInfo::MANY_TO_ONE))) {
@@ -62,8 +62,9 @@ class ORM extends BaseAdapterORM implements SluggableAdapter
         // include identifiers
         foreach ((array) $wrapped->getIdentifier(false) as $id => $value) {
             if (!$meta->isIdentifier($config['slug'])) {
-                $qb->andWhere($qb->expr()->neq('rec.'.$id, ':'.$id));
-                $qb->setParameter($id, $value);
+                $namedId = str_replace('.', '_', $id);
+                $qb->andWhere($qb->expr()->neq('rec.'.$id, ':'.$namedId));
+                $qb->setParameter($namedId, $value, $meta->getTypeOfField($namedId));                
             }
         }
         $q = $qb->getQuery();
@@ -82,7 +83,7 @@ class ORM extends BaseAdapterORM implements SluggableAdapter
         $qb->update($config['useObjectClass'], 'rec')
             ->set('rec.'.$config['slug'], $qb->expr()->concat(
                 $qb->expr()->literal($replacement),
-                $qb->expr()->substring('rec.'.$config['slug'], strlen($target))
+                $qb->expr()->substring('rec.'.$config['slug'], mb_strlen($target))
             ))
             ->where($qb->expr()->like(
                 'rec.'.$config['slug'],
@@ -105,7 +106,7 @@ class ORM extends BaseAdapterORM implements SluggableAdapter
         $qb->update($config['useObjectClass'], 'rec')
             ->set('rec.'.$config['slug'], $qb->expr()->concat(
                 $qb->expr()->literal($target),
-                $qb->expr()->substring('rec.'.$config['slug'], strlen($replacement)+1)
+                $qb->expr()->substring('rec.'.$config['slug'], mb_strlen($replacement)+1)
             ))
             ->where($qb->expr()->like('rec.'.$config['slug'], $qb->expr()->literal($replacement . '%')))
         ;

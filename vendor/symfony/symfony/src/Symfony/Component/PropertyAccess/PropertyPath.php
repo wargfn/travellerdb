@@ -24,8 +24,6 @@ class PropertyPath implements \IteratorAggregate, PropertyPathInterface
 {
     /**
      * Character used for separating between plural and singular of an element.
-     *
-     * @var string
      */
     const SINGULAR_SEPARATOR = '|';
 
@@ -96,7 +94,7 @@ class PropertyPath implements \IteratorAggregate, PropertyPathInterface
         $remaining = $propertyPath;
 
         // first element is evaluated differently - no leading dot for properties
-        $pattern = '/^(([^\.\[]+)|\[([^\]]+)\])(.*)/';
+        $pattern = '/^(([^\.\[]++)|\[([^\]]++)\])(.*)/';
 
         while (preg_match($pattern, $remaining, $matches)) {
             if ('' !== $matches[2]) {
@@ -111,7 +109,7 @@ class PropertyPath implements \IteratorAggregate, PropertyPathInterface
 
             $position += strlen($matches[1]);
             $remaining = $matches[4];
-            $pattern = '/^(\.([^\.|\[]+)|\[([^\]]+)\])(.*)/';
+            $pattern = '/^(\.([^\.|\[]++)|\[([^\]]++)\])(.*)/';
         }
 
         if ('' !== $remaining) {

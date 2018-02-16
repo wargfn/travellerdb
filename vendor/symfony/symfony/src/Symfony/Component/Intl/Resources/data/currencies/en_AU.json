@@ -1,33 +1,121 @@
 {
-    "Version": "2.1.8.19",
+    "Version": "2.1.37.6",
     "Names": {
-        "BYR": [
-            "BYR",
-            "Belarusian Rouble"
+        "AUD": [
+            "$",
+            "Australian Dollar"
+        ],
+        "BAM": [
+            "BAM",
+            "Bosnia-Herzegovina Convertible Marka"
+        ],
+        "BBD": [
+            "BBD",
+            "Barbados Dollar"
+        ],
+        "BMD": [
+            "BMD",
+            "Bermuda Dollar"
+        ],
+        "BOB": [
+            "BOB",
+            "Boliviano"
+        ],
+        "BRL": [
+            "BRL",
+            "Brazilian Real"
+        ],
+        "CAD": [
+            "CAD",
+            "Canadian Dollar"
+        ],
+        "CNH": [
+            "CNH",
+            "CNH"
+        ],
+        "CNY": [
+            "CNY",
+            "Chinese Yuan"
+        ],
+        "EUR": [
+            "EUR",
+            "Euro"
         ],
         "GBP": [
-            "£",
+            "GBP",
             "British Pound"
         ],
-        "RUB": [
-            "RUB",
-            "Russian Rouble"
+        "HKD": [
+            "HKD",
+            "Hong Kong Dollar"
+        ],
+        "ILS": [
+            "ILS",
+            "Israeli Shekel"
+        ],
+        "INR": [
+            "INR",
+            "Indian Rupee"
+        ],
+        "JPY": [
+            "JPY",
+            "Japanese Yen"
+        ],
+        "KRW": [
+            "KRW",
+            "South Korean Won"
+        ],
+        "MXN": [
+            "MXN",
+            "Mexican Peso"
+        ],
+        "NZD": [
+            "NZD",
+            "New Zealand Dollar"
+        ],
+        "QAR": [
+            "QAR",
+            "Qatari Riyal"
         ],
         "SCR": [
-            "SCR",
-            "Seychelles Rupee"
+            "Rs",
+            "Seychellois Rupee"
         ],
-        "UZS": [
-            "UZS",
-            "Uzbekistani Som"
+        "SRD": [
+            "SRD",
+            "Suriname Dollar"
+        ],
+        "TWD": [
+            "TWD",
+            "New Taiwan Dollar"
+        ],
+        "USD": [
+            "USD",
+            "US Dollar"
+        ],
+        "UYU": [
+            "UYU",
+            "Peso Uruguayo"
+        ],
+        "VND": [
+            "VND",
+            "Vietnamese Dong"
         ],
         "XAF": [
-            "FCFA",
+            "XAF",
             "Central African CFA Franc"
         ],
+        "XCD": [
+            "XCD",
+            "East Caribbean Dollar"
+        ],
         "XOF": [
-            "CFA",
+            "XOF",
             "West African CFA Franc"
+        ],
+        "XPF": [
+            "CFP",
+            "CFP Franc"
         ]
     }
 }

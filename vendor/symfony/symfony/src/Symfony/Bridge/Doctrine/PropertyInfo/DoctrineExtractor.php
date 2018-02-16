@@ -13,6 +13,7 @@ namespace Symfony\Bridge\Doctrine\PropertyInfo;
 
 use Doctrine\Common\Persistence\Mapping\ClassMetadataFactory;
 use Doctrine\Common\Persistence\Mapping\MappingException;
+use Doctrine\DBAL\Types\Type as DBALType;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\Mapping\MappingException as OrmMappingException;
 use Symfony\Component\PropertyInfo\PropertyListExtractorInterface;
@@ -26,9 +27,6 @@ use Symfony\Component\PropertyInfo\Type;
  */
 class DoctrineExtractor implements PropertyListExtractorInterface, PropertyTypeExtractorInterface
 {
-    /**
-     * @var ClassMetadataFactory
-     */
     private $classMetadataFactory;
 
     public function __construct(ClassMetadataFactory $classMetadataFactory)
@@ -49,7 +47,17 @@ class DoctrineExtractor implements PropertyListExtractorInterface, PropertyTypeE
             return;
         }
 
-        return array_merge($metadata->getFieldNames(), $metadata->getAssociationNames());
+        $properties = array_merge($metadata->getFieldNames(), $metadata->getAssociationNames());
+
+        if ($metadata instanceof ClassMetadataInfo && class_exists('Doctrine\ORM\Mapping\Embedded') && $metadata->embeddedClasses) {
+            $properties = array_filter($properties, function ($property) {
+                return false === strpos($property, '.');
+            });
+
+            $properties = array_merge($properties, array_keys($metadata->embeddedClasses));
+        }
+
+        return $properties;
     }
 
     /**
@@ -70,7 +78,9 @@ class DoctrineExtractor implements PropertyListExtractorInterface, PropertyTypeE
 
             if ($metadata->isSingleValuedAssociation($property)) {
                 if ($metadata instanceof ClassMetadataInfo) {
-                    $nullable = isset($metadata->discriminatorColumn['nullable']) ? $metadata->discriminatorColumn['nullable'] : false;
+                    $associationMapping = $metadata->getAssociationMapping($property);
+
+                    $nullable = $this->isAssociationNullable($associationMapping);
                 } else {
                     $nullable = false;
                 }
@@ -78,14 +88,32 @@ class DoctrineExtractor implements PropertyListExtractorInterface, PropertyTypeE
                 return array(new Type(Type::BUILTIN_TYPE_OBJECT, $nullable, $class));
             }
 
+            $collectionKeyType = Type::BUILTIN_TYPE_INT;
+
+            if ($metadata instanceof ClassMetadataInfo) {
+                $associationMapping = $metadata->getAssociationMapping($property);
+
+                if (isset($associationMapping['indexBy'])) {
+                    $indexProperty = $associationMapping['indexBy'];
+                    $subMetadata = $this->classMetadataFactory->getMetadataFor($associationMapping['targetEntity']);
+                    $typeOfField = $subMetadata->getTypeOfField($indexProperty);
+
+                    $collectionKeyType = $this->getPhpType($typeOfField);
+                }
+            }
+
             return array(new Type(
                 Type::BUILTIN_TYPE_OBJECT,
                 false,
                 'Doctrine\Common\Collections\Collection',
                 true,
-                new Type(Type::BUILTIN_TYPE_INT),
+                new Type($collectionKeyType),
                 new Type(Type::BUILTIN_TYPE_OBJECT, false, $class)
             ));
+        }
+
+        if ($metadata instanceof ClassMetadataInfo && class_exists('Doctrine\ORM\Mapping\Embedded') && isset($metadata->embeddedClasses[$property])) {
+            return array(new Type(Type::BUILTIN_TYPE_OBJECT, false, $metadata->embeddedClasses[$property]['class']));
         }
 
         if ($metadata->hasField($property)) {
@@ -93,25 +121,57 @@ class DoctrineExtractor implements PropertyListExtractorInterface, PropertyTypeE
             $nullable = $metadata instanceof ClassMetadataInfo && $metadata->isNullable($property);
 
             switch ($typeOfField) {
-                case 'date':
-                case 'datetime':
-                case 'datetimetz':
-                case 'time':
+                case DBALType::DATE:
+                case DBALType::DATETIME:
+                case DBALType::DATETIMETZ:
+                case 'vardatetime':
+                case DBALType::TIME:
                     return array(new Type(Type::BUILTIN_TYPE_OBJECT, $nullable, 'DateTime'));
 
-                case 'array':
+                case DBALType::TARRAY:
                     return array(new Type(Type::BUILTIN_TYPE_ARRAY, $nullable, null, true));
 
-                case 'simple_array':
+                case DBALType::SIMPLE_ARRAY:
                     return array(new Type(Type::BUILTIN_TYPE_ARRAY, $nullable, null, true, new Type(Type::BUILTIN_TYPE_INT), new Type(Type::BUILTIN_TYPE_STRING)));
 
-                case 'json_array':
+                case DBALType::JSON_ARRAY:
                     return array(new Type(Type::BUILTIN_TYPE_ARRAY, $nullable, null, true));
 
                 default:
-                    return array(new Type($this->getPhpType($typeOfField), $nullable));
+                    $builtinType = $this->getPhpType($typeOfField);
+
+                    return $builtinType ? array(new Type($builtinType, $nullable)) : null;
             }
         }
+    }
+
+    /**
+     * Determines whether an association is nullable.
+     *
+     * @param array $associationMapping
+     *
+     * @return bool
+     *
+     * @see https://github.com/doctrine/doctrine2/blob/v2.5.4/lib/Doctrine/ORM/Tools/EntityGenerator.php#L1221-L1246
+     */
+    private function isAssociationNullable(array $associationMapping)
+    {
+        if (isset($associationMapping['id']) && $associationMapping['id']) {
+            return false;
+        }
+
+        if (!isset($associationMapping['joinColumns'])) {
+            return true;
+        }
+
+        $joinColumns = $associationMapping['joinColumns'];
+        foreach ($joinColumns as $joinColumn) {
+            if (isset($joinColumn['nullable']) && !$joinColumn['nullable']) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -119,36 +179,34 @@ class DoctrineExtractor implements PropertyListExtractorInterface, PropertyTypeE
      *
      * @param string $doctrineType
      *
-     * @return string
+     * @return string|null
      */
     private function getPhpType($doctrineType)
     {
         switch ($doctrineType) {
-            case 'smallint':
-                // No break
-            case 'bigint':
-                // No break
-            case 'integer':
+            case DBALType::SMALLINT:
+            case DBALType::INTEGER:
                 return Type::BUILTIN_TYPE_INT;
 
-            case 'decimal':
+            case DBALType::FLOAT:
                 return Type::BUILTIN_TYPE_FLOAT;
 
-            case 'text':
-                // No break
-            case 'guid':
+            case DBALType::BIGINT:
+            case DBALType::STRING:
+            case DBALType::TEXT:
+            case DBALType::GUID:
+            case DBALType::DECIMAL:
                 return Type::BUILTIN_TYPE_STRING;
 
-            case 'boolean':
+            case DBALType::BOOLEAN:
                 return Type::BUILTIN_TYPE_BOOL;
 
-            case 'blob':
-                // No break
+            case DBALType::BLOB:
             case 'binary':
                 return Type::BUILTIN_TYPE_RESOURCE;
 
-            default:
-                return $doctrineType;
+            case DBALType::OBJECT:
+                return Type::BUILTIN_TYPE_OBJECT;
         }
     }
 }

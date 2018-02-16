@@ -16,6 +16,9 @@ $container->loadFromExtension('framework', array(
     'esi' => array(
         'enabled' => true,
     ),
+    'ssi' => array(
+        'enabled' => true,
+    ),
     'profiler' => array(
         'only_exceptions' => true,
         'enabled' => false,
@@ -55,7 +58,7 @@ $container->loadFromExtension('framework', array(
     ),
     'validation' => array(
         'enabled' => true,
-        'cache' => 'apc',
+        'cache' => 'validator.mapping.cache.doctrine.apc',
     ),
     'annotations' => array(
         'cache' => 'file',

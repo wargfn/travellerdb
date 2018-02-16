@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\HttpFoundation\Tests\Session\Flash;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Session\Flash\AutoExpireFlashBag as FlashBag;
 
 /**
@@ -18,16 +19,13 @@ use Symfony\Component\HttpFoundation\Session\Flash\AutoExpireFlashBag as FlashBa
  *
  * @author Drak <drak@zikula.org>
  */
-class AutoExpireFlashBagTest extends \PHPUnit_Framework_TestCase
+class AutoExpireFlashBagTest extends TestCase
 {
     /**
      * @var \Symfony\Component\HttpFoundation\Session\Flash\AutoExpireFlashBag
      */
     private $bag;
 
-    /**
-     * @var array
-     */
     protected $array = array();
 
     protected function setUp()
@@ -151,5 +149,13 @@ class AutoExpireFlashBagTest extends \PHPUnit_Framework_TestCase
     public function testClear()
     {
         $this->assertEquals(array('notice' => array('A previous flash message')), $this->bag->clear());
+    }
+
+    public function testDoNotRemoveTheNewFlashesWhenDisplayingTheExistingOnes()
+    {
+        $this->bag->add('success', 'Something');
+        $this->bag->all();
+
+        $this->assertEquals(array('new' => array('success' => array('Something')), 'display' => array()), $this->array);
     }
 }

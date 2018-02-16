@@ -43,7 +43,7 @@ class AssetsHelper extends Helper
     public function getUrl($path, $packageName = null, $version = null)
     {
         // BC layer to be removed in 3.0
-        if (3 === $count = func_num_args()) {
+        if (3 === func_num_args()) {
             @trigger_error('Forcing a version for an asset was deprecated in 2.7 and will be removed in 3.0.', E_USER_DEPRECATED);
 
             $args = func_get_args();
@@ -66,7 +66,7 @@ class AssetsHelper extends Helper
     {
         // no arguments means old getVersion() for default package
         if (null === $path) {
-            @trigger_error('The getVersion() method requires a path as a first argument since 2.7 and will be enforced as of 3.0.', E_USER_DEPRECATED);
+            @trigger_error('The getVersion() method requires a path as a first argument since Symfony 2.7 and will be enforced as of 3.0.', E_USER_DEPRECATED);
 
             return $this->packages->getVersion('/', $packageName);
         }
@@ -78,14 +78,14 @@ class AssetsHelper extends Helper
 
         // packageName is null and path not, so path is a path or a packageName
         try {
-            $package = $this->packages->getPackage($path);
+            $this->packages->getPackage($path);
         } catch (\InvalidArgumentException $e) {
             // path is not a package, so it should be a path
             return $this->packages->getVersion($path);
         }
 
         // path is a packageName, old version
-        @trigger_error('The getVersion() method requires a path as a first argument since 2.7 and will be enforced as of 3.0.', E_USER_DEPRECATED);
+        @trigger_error('The getVersion() method requires a path as a first argument since Symfony 2.7 and will be enforced as of 3.0.', E_USER_DEPRECATED);
 
         return $this->packages->getVersion('/', $path);
     }

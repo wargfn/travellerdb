@@ -17,18 +17,18 @@
     ],
     "require": {
         "php": ">=5.3.3",
-        "symfony/intl": "~2.3|~3.0"
+        "symfony/intl": "~2.3|~3.0|~4.0"
     },
     "autoload": {
         "files": [ "bootstrap.php" ]
     },
-    "suggests": {
+    "suggest": {
         "ext-intl": "For best performance"
     },
     "minimum-stability": "dev",
     "extra": {
         "branch-alias": {
-            "dev-master": "1.1-dev"
+            "dev-master": "1.7-dev"
         }
     }
 }

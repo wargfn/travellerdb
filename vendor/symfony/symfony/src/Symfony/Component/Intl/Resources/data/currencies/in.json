@@ -1,5 +1,5 @@
 {
-    "Version": "2.1.8.9",
+    "Version": "2.1.37.5",
     "Names": {
         "ADP": [
             "ADP",
@@ -213,9 +213,13 @@
             "BYB",
             "Rubel Baru Belarus (1994–1999)"
         ],
+        "BYN": [
+            "BYN",
+            "Rubel Belarusia"
+        ],
         "BYR": [
             "BYR",
-            "Rubel Belarusia"
+            "Rubel Belarusia (2000–2016)"
         ],
         "BZD": [
             "BZD",
@@ -253,9 +257,13 @@
             "CLP",
             "Peso Cile"
         ],
+        "CNH": [
+            "CNH",
+            "Yuan Tiongkok (luar negeri)"
+        ],
         "CNY": [
             "CN¥",
-            "Yuan China"
+            "Yuan Tiongkok"
         ],
         "COP": [
             "COP",
@@ -379,7 +387,7 @@
         ],
         "GBP": [
             "£",
-            "Pound Sterling Inggris"
+            "Pound Inggris"
         ],
         "GEK": [
             "GEK",
@@ -767,7 +775,7 @@
         ],
         "PEN": [
             "PEN",
-            "Nuevo Sol Peru"
+            "Sol Peru"
         ],
         "PES": [
             "PES",

@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\Validator\Tests\Validator;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\GroupSequence;
 use Symfony\Component\Validator\Constraints\Valid;
@@ -23,11 +24,9 @@ use Symfony\Component\Validator\Tests\Fixtures\GroupSequenceProviderEntity;
 use Symfony\Component\Validator\Tests\Fixtures\Reference;
 
 /**
- * @since  2.5
- *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-abstract class AbstractValidatorTest extends \PHPUnit_Framework_TestCase
+abstract class AbstractValidatorTest extends TestCase
 {
     const ENTITY_CLASS = 'Symfony\Component\Validator\Tests\Fixtures\Entity';
 
@@ -846,7 +845,7 @@ abstract class AbstractValidatorTest extends \PHPUnit_Framework_TestCase
     public function testLegacyValidatePropertyFailsIfPropertiesNotSupported()
     {
         // $metadata does not implement PropertyMetadataContainerInterface
-        $metadata = $this->getMock('Symfony\Component\Validator\MetadataInterface');
+        $metadata = $this->getMockBuilder('Symfony\Component\Validator\MetadataInterface')->getMock();
 
         $this->metadataFactory->addMetadataForValue('VALUE', $metadata);
 
@@ -977,7 +976,7 @@ abstract class AbstractValidatorTest extends \PHPUnit_Framework_TestCase
     public function testLegacyValidatePropertyValueFailsIfPropertiesNotSupported()
     {
         // $metadata does not implement PropertyMetadataContainerInterface
-        $metadata = $this->getMock('Symfony\Component\Validator\MetadataInterface');
+        $metadata = $this->getMockBuilder('Symfony\Component\Validator\MetadataInterface')->getMock();
 
         $this->metadataFactory->addMetadataForValue('VALUE', $metadata);
 

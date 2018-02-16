@@ -388,11 +388,61 @@ class Nested implements Strategy
                 $wrapped->setPropertyValue($config['right'], $right);
             }
             $newRoot = $parentRoot;
-        } elseif (!isset($config['root'])) {
-            $start = isset($this->treeEdges[$meta->name]) ?
-                $this->treeEdges[$meta->name] : $this->max($em, $config['useObjectClass']);
-            $this->treeEdges[$meta->name] = $start + 2;
-            $start++;
+        } elseif (!isset($config['root']) ||
+            ($meta->isSingleValuedAssociation($config['root']) && ($newRoot = $meta->getFieldValue($node, $config['root'])))) {
+
+            if (!isset($this->treeEdges[$meta->name])) {
+                $this->treeEdges[$meta->name] = $this->max($em, $config['useObjectClass'], $newRoot) + 1;
+            }
+
+            $level = 0;
+            $parentLeft = 0;
+            $parentRight = $this->treeEdges[$meta->name];
+            $this->treeEdges[$meta->name] += 2;
+
+            switch ($position) {
+                case self::PREV_SIBLING:
+                    if (property_exists($node, 'sibling')) {
+                        $wrappedSibling = AbstractWrapper::wrap($node->sibling, $em);
+                        $start = $wrappedSibling->getPropertyValue($config['left']);
+                    } else {
+                        $wrapped->setPropertyValue($config['parent'], null);
+                        $em->getUnitOfWork()->recomputeSingleEntityChangeSet($meta, $node);
+                        $start = $parentLeft + 1;
+                    }
+                    break;
+
+                case self::NEXT_SIBLING:
+                    if (property_exists($node, 'sibling')) {
+                        $wrappedSibling = AbstractWrapper::wrap($node->sibling, $em);
+                        $start = $wrappedSibling->getPropertyValue($config['right']) + 1;
+                    } else {
+                        $wrapped->setPropertyValue($config['parent'], null);
+                        $em->getUnitOfWork()->recomputeSingleEntityChangeSet($meta, $node);
+                        $start = $parentRight;
+                    }
+                    break;
+
+                case self::LAST_CHILD:
+                    $start = $parentRight;
+                    break;
+
+                case self::FIRST_CHILD:
+                default:
+                    $start = $parentLeft + 1;
+                    break;
+            }
+
+            $this->shiftRL($em, $config['useObjectClass'], $start, $treeSize, null);
+
+            if (!$isNewNode && $left >= $start) {
+                $left += $treeSize;
+                $wrapped->setPropertyValue($config['left'], $left);
+            }
+            if (!$isNewNode && $right >= $start) {
+                $right += $treeSize;
+                $wrapped->setPropertyValue($config['right'], $right);
+            }
         } else {
             $start = 1;
 
@@ -404,6 +454,7 @@ class Nested implements Strategy
         }
 
         $diff = $start - $left;
+
         if (!$isNewNode) {
             $levelDiff = isset($config['level']) ? $level - $wrapped->getPropertyValue($config['level']) : null;
             $this->shiftRangeRL(
@@ -533,6 +584,13 @@ class Nested implements Strategy
                 if ($node instanceof Proxy && !$node->__isInitialized__) {
                     continue;
                 }
+
+                $nodeMeta = $em->getClassMetadata(get_class($node));
+
+                if (!array_key_exists($config['left'], $nodeMeta->getReflectionProperties())) {
+                    continue;
+                }
+
                 $oid = spl_object_hash($node);
                 $left = $meta->getReflectionProperty($config['left'])->getValue($node);
                 $currentRoot = isset($config['root']) ? $meta->getReflectionProperty($config['root'])->getValue($node) : null;
@@ -599,6 +657,13 @@ class Nested implements Strategy
                 if ($node instanceof Proxy && !$node->__isInitialized__) {
                     continue;
                 }
+
+                $nodeMeta = $em->getClassMetadata(get_class($node));
+
+                if (!array_key_exists($config['left'], $nodeMeta->getReflectionProperties())) {
+                    continue;
+                }
+
                 $left = $meta->getReflectionProperty($config['left'])->getValue($node);
                 $right = $meta->getReflectionProperty($config['right'])->getValue($node);
                 $currentRoot = isset($config['root']) ? $meta->getReflectionProperty($config['root'])->getValue($node) : null;

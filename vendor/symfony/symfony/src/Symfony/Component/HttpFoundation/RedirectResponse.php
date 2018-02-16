@@ -23,7 +23,8 @@ class RedirectResponse extends Response
     /**
      * Creates a redirect response so that it conforms to the rules defined for a redirect status code.
      *
-     * @param string $url     The URL to redirect to
+     * @param string $url     The URL to redirect to. The URL should be a full URL, with schema etc.,
+     *                        but practically every browser redirects on paths only as well
      * @param int    $status  The status code (302 by default)
      * @param array  $headers The headers (Location is always set to the given URL)
      *
@@ -33,10 +34,6 @@ class RedirectResponse extends Response
      */
     public function __construct($url, $status = 302, $headers = array())
     {
-        if (empty($url)) {
-            throw new \InvalidArgumentException('Cannot redirect to an empty URL.');
-        }
-
         parent::__construct('', $status, $headers);
 
         $this->setTargetUrl($url);
@@ -47,7 +44,13 @@ class RedirectResponse extends Response
     }
 
     /**
-     * {@inheritdoc}
+     * Factory method for chainability.
+     *
+     * @param string $url     The url to redirect to
+     * @param int    $status  The response status code
+     * @param array  $headers An array of response headers
+     *
+     * @return static
      */
     public static function create($url = '', $status = 302, $headers = array())
     {
@@ -69,7 +72,7 @@ class RedirectResponse extends Response
      *
      * @param string $url The URL to redirect to
      *
-     * @return RedirectResponse The current response.
+     * @return $this
      *
      * @throws \InvalidArgumentException
      */
@@ -86,7 +89,7 @@ class RedirectResponse extends Response
 <html>
     <head>
         <meta charset="UTF-8" />
-        <meta http-equiv="refresh" content="1;url=%1$s" />
+        <meta http-equiv="refresh" content="0;url=%1$s" />
 
         <title>Redirecting to %1$s</title>
     </head>

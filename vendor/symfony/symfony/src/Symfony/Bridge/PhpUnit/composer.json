@@ -16,10 +16,15 @@
         }
     ],
     "require": {
+        "php": ">=5.3.3 EVEN ON LATEST SYMFONY VERSIONS TO ALLOW USING",
+        "php": "THIS BRIDGE WHEN TESTING LOWEST SYMFONY VERSIONS.",
         "php": ">=5.3.3"
     },
     "suggest": {
         "symfony/debug": "For tracking deprecated interfaces usages at runtime with DebugClassLoader"
+    },
+    "conflict": {
+        "phpunit/phpunit": ">=6.0"
     },
     "autoload": {
         "files": [ "bootstrap.php" ],

@@ -11,17 +11,19 @@
 
 namespace Symfony\Bridge\Twig\Tests\Extension;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Bridge\Twig\Extension\ExpressionExtension;
-use Symfony\Component\ExpressionLanguage\Expression;
+use Twig\Environment;
+use Twig\Loader\ArrayLoader;
 
-class ExpressionExtensionTest extends \PHPUnit_Framework_TestCase
+class ExpressionExtensionTest extends TestCase
 {
     protected $helper;
 
     public function testExpressionCreation()
     {
         $template = "{{ expression('1 == 1') }}";
-        $twig = new \Twig_Environment(new \Twig_Loader_Array(array('template' => $template)), array('debug' => true, 'cache' => false, 'autoescape' => 'html', 'optimizations' => 0));
+        $twig = new Environment(new ArrayLoader(array('template' => $template)), array('debug' => true, 'cache' => false, 'autoescape' => 'html', 'optimizations' => 0));
         $twig->addExtension(new ExpressionExtension());
 
         $output = $twig->render('template');

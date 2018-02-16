@@ -25,9 +25,6 @@ class Compiler
     private $loggingFormatter;
     private $serviceReferenceGraph;
 
-    /**
-     * Constructor.
-     */
     public function __construct()
     {
         $this->passConfig = new PassConfig();
@@ -98,8 +95,6 @@ class Compiler
 
     /**
      * Run the Compiler and process all Passes.
-     *
-     * @param ContainerBuilder $container
      */
     public function compile(ContainerBuilder $container)
     {

@@ -23,11 +23,6 @@ class RouterHelper extends Helper
 {
     protected $generator;
 
-    /**
-     * Constructor.
-     *
-     * @param UrlGeneratorInterface $router A Router instance
-     */
     public function __construct(UrlGeneratorInterface $router)
     {
         $this->generator = $router;
@@ -46,7 +41,7 @@ class RouterHelper extends Helper
      */
     public function generate($name, $parameters = array(), $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH)
     {
-        @trigger_error('The '.__METHOD__.' method is deprecated since version 2.8 and will be removed in 3.0. Use the "path" or "url" method instead.', E_USER_DEPRECATED);
+        @trigger_error('The '.__METHOD__.' method is deprecated since Symfony 2.8 and will be removed in 3.0. Use the "path" or "url" method instead.', E_USER_DEPRECATED);
 
         return $this->generator->generate($name, $parameters, $referenceType);
     }

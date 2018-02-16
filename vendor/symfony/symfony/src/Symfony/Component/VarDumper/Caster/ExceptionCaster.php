@@ -65,7 +65,7 @@ class ExceptionCaster
         $prefix = Caster::PREFIX_PROTECTED;
         $xPrefix = "\0Exception\0";
 
-        if (isset($a[$xPrefix.'previous'], $a[$xPrefix.'trace'])) {
+        if (isset($a[$xPrefix.'previous'], $a[$xPrefix.'trace']) && $a[$xPrefix.'previous'] instanceof \Exception) {
             $b = (array) $a[$xPrefix.'previous'];
             array_unshift($b[$xPrefix.'trace'], array(
                 'function' => 'new '.get_class($a[$xPrefix.'previous']),
@@ -148,17 +148,22 @@ class ExceptionCaster
             if (file_exists($f['file']) && 0 <= self::$srcContext) {
                 $src[$f['file'].':'.$f['line']] = self::extractSource(explode("\n", file_get_contents($f['file'])), $f['line'], self::$srcContext);
 
-                if (!empty($f['class']) && is_subclass_of($f['class'], 'Twig_Template') && method_exists($f['class'], 'getDebugInfo')) {
-                    $template = isset($f['object']) ? $f['object'] : new $f['class'](new \Twig_Environment(new \Twig_Loader_Filesystem()));
+                if (!empty($f['class']) && (is_subclass_of($f['class'], 'Twig\Template') || is_subclass_of($f['class'], 'Twig_Template')) && method_exists($f['class'], 'getDebugInfo')) {
+                    $template = isset($f['object']) ? $f['object'] : unserialize(sprintf('O:%d:"%s":0:{}', strlen($f['class']), $f['class']));
 
-                    try {
-                        $templateName = $template->getTemplateName();
-                        $templateSrc = explode("\n", method_exists($template, 'getSource') ? $template->getSource() : $template->getEnvironment()->getLoader()->getSource($templateName));
-                        $templateInfo = $template->getDebugInfo();
-                        if (isset($templateInfo[$f['line']])) {
-                            $src[$templateName.':'.$templateInfo[$f['line']]] = self::extractSource($templateSrc, $templateInfo[$f['line']], self::$srcContext);
+                    $templateName = $template->getTemplateName();
+                    $templateSrc = method_exists($template, 'getSourceContext') ? $template->getSourceContext()->getCode() : (method_exists($template, 'getSource') ? $template->getSource() : '');
+                    $templateInfo = $template->getDebugInfo();
+                    if (isset($templateInfo[$f['line']])) {
+                        if (method_exists($template, 'getSourceContext')) {
+                            $templateName = $template->getSourceContext()->getPath() ?: $templateName;
                         }
-                    } catch (\Twig_Error_Loader $e) {
+                        if ($templateSrc) {
+                            $templateSrc = explode("\n", $templateSrc);
+                            $src[$templateName.':'.$templateInfo[$f['line']]] = self::extractSource($templateSrc, $templateInfo[$f['line']], self::$srcContext);
+                        } else {
+                            $src[$templateName] = $templateInfo[$f['line']];
+                        }
                     }
                 }
             } else {
@@ -188,7 +193,7 @@ class ExceptionCaster
      */
     public static function filterTrace(&$trace, $dumpArgs, $offset = 0)
     {
-        @trigger_error('The '.__METHOD__.' method is deprecated since version 2.8 and will be removed in 3.0. Use the castTraceStub method instead.', E_USER_DEPRECATED);
+        @trigger_error('The '.__METHOD__.' method is deprecated since Symfony 2.8 and will be removed in 3.0. Use the castTraceStub method instead.', E_USER_DEPRECATED);
 
         if (0 > $offset || empty($trace[$offset])) {
             return $trace = null;
@@ -229,12 +234,14 @@ class ExceptionCaster
         }
 
         if (!($filter & Caster::EXCLUDE_VERBOSE)) {
-            array_unshift($trace, array(
-                'function' => $xClass ? 'new '.$xClass : null,
-                'file' => $a[Caster::PREFIX_PROTECTED.'file'],
-                'line' => $a[Caster::PREFIX_PROTECTED.'line'],
-            ));
-            $a[$xPrefix.'trace'] = new TraceStub($trace);
+            if (isset($a[Caster::PREFIX_PROTECTED.'file'], $a[Caster::PREFIX_PROTECTED.'line'])) {
+                array_unshift($trace, array(
+                    'function' => $xClass ? 'new '.$xClass : null,
+                    'file' => $a[Caster::PREFIX_PROTECTED.'file'],
+                    'line' => $a[Caster::PREFIX_PROTECTED.'line'],
+                ));
+            }
+            $a[$xPrefix.'trace'] = new TraceStub($trace, self::$traceArgs);
         }
         if (empty($a[$xPrefix.'previous'])) {
             unset($a[$xPrefix.'previous']);
@@ -253,19 +260,24 @@ class ExceptionCaster
         }
 
         $ltrim = 0;
-        while (' ' === $src[0][$ltrim] || "\t" === $src[0][$ltrim]) {
-            $i = $srcContext << 1;
-            while ($i > 0 && $src[0][$ltrim] === $src[$i][$ltrim]) {
-                --$i;
-            }
-            if ($i) {
-                break;
+        do {
+            $pad = null;
+            for ($i = $srcContext << 1; $i >= 0; --$i) {
+                if (isset($src[$i][$ltrim]) && "\r" !== ($c = $src[$i][$ltrim]) && "\n" !== $c) {
+                    if (null === $pad) {
+                        $pad = $c;
+                    }
+                    if ((' ' !== $c && "\t" !== $c) || $pad !== $c) {
+                        break;
+                    }
+                }
             }
             ++$ltrim;
-        }
-        if ($ltrim) {
+        } while (0 > $i && null !== $pad);
+
+        if (--$ltrim) {
             foreach ($src as $i => $line) {
-                $src[$i] = substr($line, $ltrim);
+                $src[$i] = isset($line[$ltrim]) && "\r" !== $line[$ltrim] ? substr($line, $ltrim) : ltrim($line, " \t");
             }
         }
 

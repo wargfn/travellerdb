@@ -7,21 +7,34 @@ namespace Composer\Autoload;
 class ComposerStaticInitd548eeb653926ff94b64ffe2b665a790
 {
     public static $files = array (
+        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
         'e40631d46120a9c38ea139981f8dab26' => __DIR__ . '/..' . '/ircmaxell/password-compat/lib/password.php',
-        '023d27dca8066ef29e6739335ea73bad' => __DIR__ . '/..' . '/symfony/polyfill-php70/bootstrap.php',
-        'bd9634f2d41831496de0d3dfe4c94881' => __DIR__ . '/..' . '/symfony/polyfill-php56/bootstrap.php',
-        'edc6464955a37aa4d5fbf39d40fb6ee7' => __DIR__ . '/..' . '/symfony/polyfill-php55/bootstrap.php',
-        '3e2471375464aac821502deb0ac64275' => __DIR__ . '/..' . '/symfony/polyfill-php54/bootstrap.php',
-        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        '32dcc8afd4335739640db7d200c1971d' => __DIR__ . '/..' . '/symfony/polyfill-apcu/bootstrap.php',
         '6a47392539ca2329373e0d33e1dba053' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/bootstrap.php',
+        '3e2471375464aac821502deb0ac64275' => __DIR__ . '/..' . '/symfony/polyfill-php54/bootstrap.php',
+        'edc6464955a37aa4d5fbf39d40fb6ee7' => __DIR__ . '/..' . '/symfony/polyfill-php55/bootstrap.php',
+        'bd9634f2d41831496de0d3dfe4c94881' => __DIR__ . '/..' . '/symfony/polyfill-php56/bootstrap.php',
+        '023d27dca8066ef29e6739335ea73bad' => __DIR__ . '/..' . '/symfony/polyfill-php70/bootstrap.php',
         'ce89ac35a6c330c55f4710717db9ff78' => __DIR__ . '/..' . '/kriswallsmith/assetic/src/functions.php',
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
-        'bd9ae12176e6d741c5a5bd2efe7b71b7' => __DIR__ . '/..' . '/lstrojny/functional-php/src/Functional/_import.php',
     );
 
     public static $prefixLengthsPsr4 = array (
+        'p' => 
+        array (
+            'phpDocumentor\\Reflection\\' => 25,
+        ),
+        'W' => 
+        array (
+            'Webmozart\\Assert\\' => 17,
+        ),
+        'T' => 
+        array (
+            'Twig\\Extensions\\' => 16,
+            'Twig\\' => 5,
+        ),
         'S' => 
         array (
             'Symfony\\Polyfill\\Util\\' => 22,
@@ -30,6 +43,7 @@ class ComposerStaticInitd548eeb653926ff94b64ffe2b665a790
             'Symfony\\Polyfill\\Php55\\' => 23,
             'Symfony\\Polyfill\\Php54\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Symfony\\Polyfill\\Apcu\\' => 22,
             'Symfony\\Component\\Security\\Acl\\' => 31,
             'Symfony\\Component\\' => 18,
             'Symfony\\Bundle\\SwiftmailerBundle\\' => 33,
@@ -45,6 +59,10 @@ class ComposerStaticInitd548eeb653926ff94b64ffe2b665a790
             'Stof\\DoctrineExtensionsBundle\\' => 30,
             'Sensio\\Bundle\\FrameworkExtraBundle\\' => 35,
         ),
+        'P' => 
+        array (
+            'Psr\\Log\\' => 8,
+        ),
         'O' => 
         array (
             'OAuth2\\' => 7,
@@ -52,6 +70,7 @@ class ComposerStaticInitd548eeb653926ff94b64ffe2b665a790
         'M' => 
         array (
             'Monolog\\' => 8,
+            'Michelf\\' => 8,
         ),
         'L' => 
         array (
@@ -71,14 +90,38 @@ class ComposerStaticInitd548eeb653926ff94b64ffe2b665a790
         'D' => 
         array (
             'Doctrine\\Instantiator\\' => 22,
+            'Doctrine\\Common\\Inflector\\' => 26,
             'Doctrine\\Common\\Cache\\' => 22,
+            'Doctrine\\Common\\Annotations\\' => 28,
             'Doctrine\\Common\\' => 16,
             'Doctrine\\Bundle\\DoctrineCacheBundle\\' => 36,
             'Doctrine\\Bundle\\DoctrineBundle\\' => 31,
         ),
+        'B' => 
+        array (
+            'Bazinga\\Bundle\\JsTranslationBundle\\' => 35,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'phpDocumentor\\Reflection\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+        ),
+        'Webmozart\\Assert\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/webmozart/assert/src',
+        ),
+        'Twig\\Extensions\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/twig/extensions/src',
+        ),
+        'Twig\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/twig/twig/src',
+        ),
         'Symfony\\Polyfill\\Util\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-util',
@@ -102,6 +145,10 @@ class ComposerStaticInitd548eeb653926ff94b64ffe2b665a790
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
+        'Symfony\\Polyfill\\Apcu\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-apcu',
         ),
         'Symfony\\Component\\Security\\Acl\\' => 
         array (
@@ -159,6 +206,10 @@ class ComposerStaticInitd548eeb653926ff94b64ffe2b665a790
         array (
             0 => __DIR__ . '/..' . '/sensio/framework-extra-bundle',
         ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+        ),
         'OAuth2\\' => 
         array (
             0 => __DIR__ . '/..' . '/friendsofsymfony/oauth2-php/lib',
@@ -166,6 +217,10 @@ class ComposerStaticInitd548eeb653926ff94b64ffe2b665a790
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
+        'Michelf\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/michelf/php-markdown/Michelf',
         ),
         'Liuggio\\ExcelBundle\\' => 
         array (
@@ -195,9 +250,17 @@ class ComposerStaticInitd548eeb653926ff94b64ffe2b665a790
         array (
             0 => __DIR__ . '/..' . '/doctrine/instantiator/src/Doctrine/Instantiator',
         ),
+        'Doctrine\\Common\\Inflector\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Common/Inflector',
+        ),
         'Doctrine\\Common\\Cache\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/cache/lib/Doctrine/Common/Cache',
+        ),
+        'Doctrine\\Common\\Annotations\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/annotations/lib/Doctrine/Common/Annotations',
         ),
         'Doctrine\\Common\\' => 
         array (
@@ -211,6 +274,10 @@ class ComposerStaticInitd548eeb653926ff94b64ffe2b665a790
         array (
             0 => __DIR__ . '/..' . '/doctrine/doctrine-bundle',
         ),
+        'Bazinga\\Bundle\\JsTranslationBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/willdurand/js-translation-bundle',
+        ),
     );
 
     public static $fallbackDirsPsr4 = array (
@@ -218,13 +285,6 @@ class ComposerStaticInitd548eeb653926ff94b64ffe2b665a790
     );
 
     public static $prefixesPsr0 = array (
-        'p' => 
-        array (
-            'phpDocumentor' => 
-            array (
-                0 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
-            ),
-        ),
         'T' => 
         array (
             'Twig_Extensions_' => 
@@ -253,10 +313,6 @@ class ComposerStaticInitd548eeb653926ff94b64ffe2b665a790
         ),
         'P' => 
         array (
-            'Psr\\Log\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/psr/log',
-            ),
             'Prophecy\\' => 
             array (
                 0 => __DIR__ . '/..' . '/phpspec/prophecy/src',
@@ -275,13 +331,6 @@ class ComposerStaticInitd548eeb653926ff94b64ffe2b665a790
             'Nelmio\\ApiDocBundle' => 
             array (
                 0 => __DIR__ . '/..' . '/nelmio/api-doc-bundle',
-            ),
-        ),
-        'M' => 
-        array (
-            'Michelf' => 
-            array (
-                0 => __DIR__ . '/..' . '/michelf/php-markdown',
             ),
         ),
         'J' => 
@@ -327,17 +376,9 @@ class ComposerStaticInitd548eeb653926ff94b64ffe2b665a790
             array (
                 0 => __DIR__ . '/..' . '/doctrine/lexer/lib',
             ),
-            'Doctrine\\Common\\Inflector\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/doctrine/inflector/lib',
-            ),
             'Doctrine\\Common\\Collections\\' => 
             array (
                 0 => __DIR__ . '/..' . '/doctrine/collections/lib',
-            ),
-            'Doctrine\\Common\\Annotations\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/doctrine/annotations/lib',
             ),
         ),
         'B' => 
@@ -345,10 +386,6 @@ class ComposerStaticInitd548eeb653926ff94b64ffe2b665a790
             'Behat\\Transliterator' => 
             array (
                 0 => __DIR__ . '/..' . '/behat/transliterator/src',
-            ),
-            'Bazinga\\Bundle\\JsTranslationBundle' => 
-            array (
-                0 => __DIR__ . '/..' . '/willdurand/js-translation-bundle',
             ),
         ),
         'A' => 
@@ -373,6 +410,13 @@ class ComposerStaticInitd548eeb653926ff94b64ffe2b665a790
         'IntlDateFormatter' => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Component/Intl/Resources/stubs/IntlDateFormatter.php',
         'Locale' => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Component/Intl/Resources/stubs/Locale.php',
         'NumberFormatter' => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Component/Intl/Resources/stubs/NumberFormatter.php',
+        'PHPUnit\\Framework\\Assert' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/Assert.php',
+        'PHPUnit\\Framework\\AssertionFailedError' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/AssertionFailedError.php',
+        'PHPUnit\\Framework\\BaseTestListener' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/BaseTestListener.php',
+        'PHPUnit\\Framework\\Test' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/Test.php',
+        'PHPUnit\\Framework\\TestCase' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/TestCase.php',
+        'PHPUnit\\Framework\\TestListener' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/TestListener.php',
+        'PHPUnit\\Framework\\TestSuite' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/TestSuite.php',
         'PHPUnit_Exception' => __DIR__ . '/..' . '/phpunit/phpunit/src/Exception.php',
         'PHPUnit_Extensions_GroupTestSuite' => __DIR__ . '/..' . '/phpunit/phpunit/src/Extensions/GroupTestSuite.php',
         'PHPUnit_Extensions_PhptTestCase' => __DIR__ . '/..' . '/phpunit/phpunit/src/Extensions/PhptTestCase.php',
@@ -700,6 +744,7 @@ class ComposerStaticInitd548eeb653926ff94b64ffe2b665a790
         'PHP_Token_NEW' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_NS_C' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_NS_SEPARATOR' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
+        'PHP_Token_NULLSAFE_OBJECT_OPERATOR' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_NUM_STRING' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_OBJECT_CAST' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_OBJECT_OPERATOR' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
@@ -737,6 +782,7 @@ class ComposerStaticInitd548eeb653926ff94b64ffe2b665a790
         'PHP_Token_STRING' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_STRING_CAST' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_STRING_VARNAME' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
+        'PHP_Token_SUPER' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_SWITCH' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_Stream' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token/Stream.php',
         'PHP_Token_Stream_CachingFactory' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token/Stream/CachingFactory.php',
@@ -751,6 +797,7 @@ class ComposerStaticInitd548eeb653926ff94b64ffe2b665a790
         'PHP_Token_UNSET' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_UNSET_CAST' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_USE' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
+        'PHP_Token_USE_FUNCTION' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_VAR' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_VARIABLE' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_WHERE' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
@@ -807,6 +854,7 @@ class ComposerStaticInitd548eeb653926ff94b64ffe2b665a790
         'SebastianBergmann\\RecursionContext\\InvalidArgumentException' => __DIR__ . '/..' . '/sebastian/recursion-context/src/InvalidArgumentException.php',
         'SebastianBergmann\\Version' => __DIR__ . '/..' . '/sebastian/version/src/Version.php',
         'SessionHandlerInterface' => __DIR__ . '/..' . '/symfony/polyfill-php54/Resources/stubs/SessionHandlerInterface.php',
+        'SessionUpdateTimestampHandlerInterface' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/SessionUpdateTimestampHandlerInterface.php',
         'SqlFormatter' => __DIR__ . '/..' . '/jdorn/sql-formatter/lib/SqlFormatter.php',
         'Text_Template' => __DIR__ . '/..' . '/phpunit/php-text-template/src/Template.php',
         'TypeError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/TypeError.php',

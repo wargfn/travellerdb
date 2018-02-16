@@ -28,10 +28,14 @@ class Dumper
     /**
      * Sets the indentation.
      *
-     * @param int $num The amount of spaces to use for indentation of nested nodes.
+     * @param int $num The amount of spaces to use for indentation of nested nodes
      */
     public function setIndentation($num)
     {
+        if ($num < 1) {
+            throw new \InvalidArgumentException('The indentation must be greater than zero.');
+        }
+
         $this->indentation = (int) $num;
     }
 
@@ -41,8 +45,8 @@ class Dumper
      * @param mixed $input                  The PHP value
      * @param int   $inline                 The level where you switch to inline YAML
      * @param int   $indent                 The level of indentation (used internally)
-     * @param bool  $exceptionOnInvalidType true if an exception must be thrown on invalid types (a PHP resource or object), false otherwise
-     * @param bool  $objectSupport          true if object support is enabled, false otherwise
+     * @param bool  $exceptionOnInvalidType True if an exception must be thrown on invalid types (a PHP resource or object), false otherwise
+     * @param bool  $objectSupport          True if object support is enabled, false otherwise
      *
      * @return string The YAML representation of the PHP value
      */
@@ -54,7 +58,7 @@ class Dumper
         if ($inline <= 0 || !is_array($input) || empty($input)) {
             $output .= $prefix.Inline::dump($input, $exceptionOnInvalidType, $objectSupport);
         } else {
-            $isAHash = array_keys($input) !== range(0, count($input) - 1);
+            $isAHash = Inline::isHash($input);
 
             foreach ($input as $key => $value) {
                 $willBeInlined = $inline - 1 <= 0 || !is_array($value) || empty($value);

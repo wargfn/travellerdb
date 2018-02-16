@@ -14,6 +14,8 @@ namespace Symfony\Bundle\TwigBundle\Extension;
 use Symfony\Bundle\TwigBundle\TokenParser\RenderTokenParser;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
+use Twig\Extension\AbstractExtension;
+use Twig\TokenParser\AbstractTokenParser;
 
 /**
  * Twig extension for Symfony actions helper.
@@ -22,7 +24,7 @@ use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
  *
  * @deprecated since version 2.2, to be removed in 3.0.
  */
-class ActionsExtension extends \Twig_Extension
+class ActionsExtension extends AbstractExtension
 {
     private $handler;
 
@@ -36,7 +38,7 @@ class ActionsExtension extends \Twig_Extension
         if ($handler instanceof FragmentHandler) {
             $this->handler = $handler;
         } elseif ($handler instanceof ContainerInterface) {
-            @trigger_error('The ability to pass a ContainerInterface instance as a first argument to '.__METHOD__.' method is deprecated since version 2.7 and will be removed in 3.0. Pass a FragmentHandler instance instead.', E_USER_DEPRECATED);
+            @trigger_error('The ability to pass a ContainerInterface instance as a first argument to '.__METHOD__.' method is deprecated since Symfony 2.7 and will be removed in 3.0. Pass a FragmentHandler instance instead.', E_USER_DEPRECATED);
 
             $this->handler = $handler->get('fragment.handler');
         } else {
@@ -51,6 +53,8 @@ class ActionsExtension extends \Twig_Extension
      *
      * @param string $uri     A URI
      * @param array  $options An array of options
+     *
+     * @return string|null The Response content or null when the Response is streamed
      *
      * @see FragmentHandler::render()
      */
@@ -67,7 +71,7 @@ class ActionsExtension extends \Twig_Extension
     /**
      * Returns the token parser instance to add to the existing list.
      *
-     * @return array An array of \Twig_TokenParser instances
+     * @return AbstractTokenParser[]
      */
     public function getTokenParsers()
     {

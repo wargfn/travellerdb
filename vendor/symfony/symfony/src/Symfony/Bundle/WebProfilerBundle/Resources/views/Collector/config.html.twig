@@ -50,24 +50,24 @@
                 </span>
             </div>
 
-            {% if 'n/a' != collector.appname %}
+            {% if 'n/a' is not same as(collector.appname) %}
                 <div class="sf-toolbar-info-piece">
                     <b>Kernel name</b>
                     <span>{{ collector.appname }}</span>
                 </div>
             {% endif %}
 
-            {% if 'n/a' != collector.env %}
+            {% if 'n/a' is not same as(collector.env) %}
                 <div class="sf-toolbar-info-piece">
                     <b>Environment</b>
                     <span>{{ collector.env }}</span>
                 </div>
             {% endif %}
 
-            {% if 'n/a' != collector.debug %}
+            {% if 'n/a' is not same as(collector.debug) %}
                 <div class="sf-toolbar-info-piece">
                     <b>Debug</b>
-                    <span class="{{ debug_status_class }}">{{ collector.debug ? 'enabled' : 'disabled' }}</span>
+                    <span class="sf-toolbar-status sf-toolbar-status-{{ collector.debug ? 'green' : 'red' }}">{{ collector.debug ? 'enabled' : 'disabled' }}</span>
                 </div>
             {% endif %}
         </div>
@@ -113,7 +113,7 @@
         </div>
     {% endset %}
 
-    {{ include('@WebProfiler/Profiler/toolbar_item.html.twig', { link: true, name: 'config', status: block_status, additional_classes: 'sf-toolbar-block-right' }) }}
+    {{ include('@WebProfiler/Profiler/toolbar_item.html.twig', { link: true, name: 'config', status: block_status, additional_classes: 'sf-toolbar-block-right', block_attrs: 'title="' ~ symfony_version_status ~ '"' }) }}
 {% endblock %}
 
 {% block menu %}

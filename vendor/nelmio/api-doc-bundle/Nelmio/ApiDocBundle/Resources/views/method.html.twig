@@ -100,7 +100,7 @@
                                 {% for key, value in infos %}
                                     <tr>
                                         <td>{{ key|title }}</td>
-                                        <td>{{ value|json_encode|replace({'\\\\': '\\'})|trim('"') }}</td>
+                                        <td>{{ value|json_encode(constant('JSON_UNESCAPED_UNICODE'))|replace({'\\\\': '\\'})|trim('"') }}</td>
                                     </tr>
                                 {% endfor %}
                                 </table>
@@ -130,8 +130,8 @@
                                     <td>{{ name }}</td>
                                     <td>{{ infos.dataType is defined ? infos.dataType : '' }}</td>
                                     <td>{{ infos.required ? 'true' : 'false' }}</td>
-                                    <td>{{ infos.format }}</td>
-                                    <td>{{ infos.description is defined ? infos.description : ''  }}</td>
+                                    <td class="format">{{ infos.format }}</td>
+                                    <td>{{ infos.description is defined ? infos.description|trans : ''  }}</td>
                                 </tr>
                             {% endif %}
                         {% endfor %}
@@ -139,27 +139,62 @@
                 </table>
             {% endif %}
 
-            {% if data.response is defined and data.response is not empty %}
+
+            {% if data.headers is defined and data.headers is not empty %}
+                <h4>Headers</h4>
+                <table class="fullwidth">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Required?</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for name, infos in data.headers %}
+                        <tr>
+                            <td>{{ name }}</td>
+                            <td>{{ infos.required is defined and infos.required == 'true' ? 'true' : 'false'}}</td>
+                            <td>{{ infos.description is defined ? infos.description|trans : ''}}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+
+            {% if data.parsedResponseMap is defined and data.parsedResponseMap is not empty %}
                 <h4>Return</h4>
                 <table class='fullwidth'>
                     <thead>
-                        <tr>
-                            <th>Parameter</th>
-                            <th>Type</th>
-                            <th>Versions</th>
-                            <th>Description</th>
-                        </tr>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Type</th>
+                        <th>Versions</th>
+                        <th>Description</th>
+                    </tr>
                     </thead>
+                {% for status_code, response in data.parsedResponseMap %}
                     <tbody>
-                        {% for name, infos in data.response %}
-                            <tr>
-                                <td>{{ name }}</td>
-                                <td>{{ infos.dataType }}</td>
-                                <td>{% include 'NelmioApiDocBundle:Components:version.html.twig' with {'sinceVersion': infos.sinceVersion, 'untilVersion': infos.untilVersion} only %}</td>
-                                <td>{{ infos.description }}</td>
-                            </tr>
-                        {% endfor %}
+                        <tr>
+                            <td>
+                                <h4>
+                                    {{ status_code }}
+                                    {% if data.statusCodes is defined and data.statusCodes[status_code] is defined %}
+                                        - {{ data.statusCodes[status_code]|join(', ') }}
+                                    {% endif %}
+                                </h4>
+                            </td>
+                        </tr>
+                    {% for name, infos in response.model %}
+                        <tr>
+                            <td>{{ name }}</td>
+                            <td>{{ infos.dataType }}</td>
+                            <td>{% include 'NelmioApiDocBundle:Components:version.html.twig' with {'sinceVersion': infos.sinceVersion, 'untilVersion': infos.untilVersion} only %}</td>
+                            <td>{{ infos.description }}</td>
+                        </tr>
+                    {% endfor %}
                     </tbody>
+                {% endfor %}
                 </table>
             {% endif %}
 
@@ -217,7 +252,7 @@
                                 {% if data.filters is defined %}
                                     <h4>Filters</h4>
                                     {% for name, infos in data.filters %}
-                                        <p class="tuple">
+                                        <p class="tuple filter">
                                             <input type="text" class="key" value="{{ name }}" placeholder="Key" />
                                             <span>=</span>
                                             <input type="text" class="value" placeholder="{% if infos.description is defined %}{{ infos.description }}{% else %}Value{% endif %}" {% if infos.default is defined %} value="{{ infos.default }}" {% endif %}/> <span class="remove">-</span>
@@ -228,7 +263,7 @@
                                     <h4>Parameters</h4>
                                     {% for name, infos in data.parameters %}
                                     {% if not infos.readonly %}
-                                        <p class="tuple" data-dataType="{% if infos.dataType %}{{ infos.dataType }}{% endif %}" data-format="{% if infos.format %}{{ infos.format }}{% endif %}" data-description="{% if infos.description %}{{ infos.description }}{% endif %}">
+                                        <p class="tuple" data-dataType="{% if infos.dataType %}{{ infos.dataType }}{% endif %}" data-format="{% if infos.format %}{{ infos.format }} {% endif %}" data-description="{% if infos.description %}{{ infos.description|trans }}{% endif %}">
                                             <input type="text" class="key" value="{{ name }}" placeholder="Key" />
                                             <span>=</span>
                                             <select class="tuple_type">
@@ -236,8 +271,9 @@
                                                 <option value="string">String</option>
                                                 <option value="boolean">Boolean</option>
                                                 <option value="file">File</option>
+                                                <option value="textarea">Textarea</option>
                                             </select>
-                                            <input type="text" class="value" placeholder="{% if infos.dataType %}[{{ infos.dataType }}] {% endif %}{% if infos.format %}{{ infos.format }}{% endif %}{% if infos.description %}{{ infos.description }}{% else %}Value{% endif %}" {% if infos.default is defined %} value="{{ infos.default }}" {% endif %}/> <span class="remove">-</span>
+                                            <input type="text" class="value" placeholder="{% if infos.dataType %}[{{ infos.dataType }}] {% endif %}{% if infos.format %}{{ infos.format }}{% endif %}{% if infos.description %}{{ infos.description|trans }}{% else %}Value{% endif %}" {% if infos.default is defined %} value="{{ infos.default }}" {% endif %}/> <span class="remove">-</span>
                                         </p>
                                     {% endif %}
                                     {% endfor %}
@@ -267,6 +303,18 @@
                                         <span>=</span>
                                         <input type="text" class="value" value="{{ acceptType }}" /> <span class="remove">-</span>
                                     </p>
+                                {% endif %}
+
+                                {% if data.headers is defined %}
+
+                                    {% for name, infos in data.headers %}
+                                        <p class="tuple">
+                                            <input type="text" class="key" value="{{ name }}" />
+                                            <span>=</span>
+                                            <input type="text" class="value" value="{% if infos.default is defined %}{{ infos.default }}{% endif %}" placeholder="Value" /> <span class="remove">-</span>
+                                        </p>
+                                    {% endfor %}
+
                                 {% endif %}
 
                                 <p class="tuple">
@@ -305,6 +353,7 @@
                                                 <option value="string">String</option>
                                                 <option value="boolean">Boolean</option>
                                                 <option value="file">File</option>
+                                                <option value="textarea">Textarea</option>
                                             </select>
                             <input type="text" class="value" placeholder="Value" /> <span class="remove">-</span>
                         </p>
@@ -323,11 +372,17 @@
                             <h4>Request URL</h4>
                             <pre class="url"></pre>
 
+                            <h4 class="request-body-header">Request body</h4>
+                            <pre class="request-body"></pre>
+
                             <h4>Response Headers&nbsp;<small>[<a href="" class="to-expand">Expand</a>]</small>&nbsp;<small class="profiler">[<a href="" class="profiler-link" target="_blank">Profiler</a>]</small></h4>
                             <pre class="headers to-expand"></pre>
 
                             <h4>Response Body&nbsp;<small>[<a href="" class="to-raw">Raw</a>]</small></h4>
                             <pre class="response prettyprint"></pre>
+
+                            <h4>Curl Command Line</h4>
+                            <pre class="curl-command"></pre>
                         </div>
                     {% endif %}
                 </div>

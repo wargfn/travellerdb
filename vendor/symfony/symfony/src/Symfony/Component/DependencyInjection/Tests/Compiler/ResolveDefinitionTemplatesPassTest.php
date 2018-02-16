@@ -11,12 +11,13 @@
 
 namespace Symfony\Component\DependencyInjection\Tests\Compiler;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\Compiler\ResolveDefinitionTemplatesPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class ResolveDefinitionTemplatesPassTest extends \PHPUnit_Framework_TestCase
+class ResolveDefinitionTemplatesPassTest extends TestCase
 {
     public function testProcess()
     {
@@ -233,6 +234,36 @@ class ResolveDefinitionTemplatesPassTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($container->getDefinition('child1')->isLazy());
     }
 
+    public function testSetAutowiredOnServiceHasParent()
+    {
+        $container = new ContainerBuilder();
+
+        $container->register('parent', 'stdClass');
+
+        $container->setDefinition('child1', new DefinitionDecorator('parent'))
+            ->setAutowired(true)
+        ;
+
+        $this->process($container);
+
+        $this->assertTrue($container->getDefinition('child1')->isAutowired());
+    }
+
+    public function testSetAutowiredOnServiceIsParent()
+    {
+        $container = new ContainerBuilder();
+
+        $container->register('parent', 'stdClass')
+            ->setAutowired(true)
+        ;
+
+        $container->setDefinition('child1', new DefinitionDecorator('parent'));
+
+        $this->process($container);
+
+        $this->assertTrue($container->getDefinition('child1')->isAutowired());
+    }
+
     public function testDeepDefinitionsResolving()
     {
         $container = new ContainerBuilder();
@@ -249,23 +280,23 @@ class ResolveDefinitionTemplatesPassTest extends \PHPUnit_Framework_TestCase
         $this->process($container);
 
         $configurator = $container->getDefinition('sibling')->getConfigurator();
-        $this->assertSame('Symfony\Component\DependencyInjection\Definition', get_class($configurator));
+        $this->assertInstanceOf('Symfony\Component\DependencyInjection\Definition', $configurator);
         $this->assertSame('parentClass', $configurator->getClass());
 
         $factory = $container->getDefinition('sibling')->getFactory();
-        $this->assertSame('Symfony\Component\DependencyInjection\Definition', get_class($factory[0]));
+        $this->assertInstanceOf('Symfony\Component\DependencyInjection\Definition', $factory[0]);
         $this->assertSame('parentClass', $factory[0]->getClass());
 
         $argument = $container->getDefinition('sibling')->getArgument(0);
-        $this->assertSame('Symfony\Component\DependencyInjection\Definition', get_class($argument));
+        $this->assertInstanceOf('Symfony\Component\DependencyInjection\Definition', $argument);
         $this->assertSame('parentClass', $argument->getClass());
 
         $properties = $container->getDefinition('sibling')->getProperties();
-        $this->assertSame('Symfony\Component\DependencyInjection\Definition', get_class($properties['prop']));
+        $this->assertInstanceOf('Symfony\Component\DependencyInjection\Definition', $properties['prop']);
         $this->assertSame('parentClass', $properties['prop']->getClass());
 
         $methodCalls = $container->getDefinition('sibling')->getMethodCalls();
-        $this->assertSame('Symfony\Component\DependencyInjection\Definition', get_class($methodCalls[0][1][0]));
+        $this->assertInstanceOf('Symfony\Component\DependencyInjection\Definition', $methodCalls[0][1][0]);
         $this->assertSame('parentClass', $methodCalls[0][1][0]->getClass());
     }
 
@@ -276,10 +307,12 @@ class ResolveDefinitionTemplatesPassTest extends \PHPUnit_Framework_TestCase
         $container->register('parent', 'stdClass');
 
         $container->setDefinition('child1', new DefinitionDecorator('parent'))
-            ->setDecoratedService('foo', 'foo_inner')
+            ->setDecoratedService('foo', 'foo_inner', 5)
         ;
 
-        $this->assertEquals(array('foo', 'foo_inner', 0), $container->getDefinition('child1')->getDecoratedService());
+        $this->process($container);
+
+        $this->assertEquals(array('foo', 'foo_inner', 5), $container->getDefinition('child1')->getDecoratedService());
     }
 
     public function testDecoratedServiceCopiesDeprecatedStatusFromParent()
@@ -328,8 +361,11 @@ class ResolveDefinitionTemplatesPassTest extends \PHPUnit_Framework_TestCase
 
         $this->process($container);
 
-        $def = $container->getDefinition('child');
-        $this->assertEquals(array('Foo', 'Bar'), $def->getAutowiringTypes());
+        $childDef = $container->getDefinition('child');
+        $this->assertEquals(array('Foo', 'Bar'), $childDef->getAutowiringTypes());
+
+        $parentDef = $container->getDefinition('parent');
+        $this->assertSame(array('Foo'), $parentDef->getAutowiringTypes());
     }
 
     protected function process(ContainerBuilder $container)

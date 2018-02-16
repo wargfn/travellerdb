@@ -11,7 +11,7 @@
 
 namespace Symfony\Component\CssSelector;
 
-@trigger_error('The '.__NAMESPACE__.'\CssSelector class is deprecated since version 2.8 and will be removed in 3.0. Use directly the \Symfony\Component\CssSelector\CssSelectorConverter class instead.', E_USER_DEPRECATED);
+@trigger_error('The '.__NAMESPACE__.'\CssSelector class is deprecated since Symfony 2.8 and will be removed in 3.0. Use directly the \Symfony\Component\CssSelector\CssSelectorConverter class instead.', E_USER_DEPRECATED);
 
 /**
  * CssSelector is the main entry point of the component and can convert CSS
@@ -68,8 +68,8 @@ class CssSelector
      * Optionally, a prefix can be added to the resulting XPath
      * expression with the $prefix parameter.
      *
-     * @param mixed  $cssExpr The CSS expression.
-     * @param string $prefix  An optional prefix for the XPath expression.
+     * @param mixed  $cssExpr The CSS expression
+     * @param string $prefix  An optional prefix for the XPath expression
      *
      * @return string
      */

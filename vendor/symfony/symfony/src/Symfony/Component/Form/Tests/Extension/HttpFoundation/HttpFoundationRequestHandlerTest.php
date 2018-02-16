@@ -28,6 +28,7 @@ class HttpFoundationRequestHandlerTest extends AbstractRequestHandlerTest
     {
         $this->requestHandler->handleRequest($this->getMockForm('name', 'GET'));
     }
+
     /**
      * @expectedException \Symfony\Component\Form\Exception\UnexpectedTypeException
      */
@@ -49,5 +50,10 @@ class HttpFoundationRequestHandlerTest extends AbstractRequestHandlerTest
     protected function getMockFile($suffix = '')
     {
         return new UploadedFile(__DIR__.'/../../Fixtures/foo'.$suffix, 'foo'.$suffix);
+    }
+
+    protected function getInvalidFile()
+    {
+        return 'file:///etc/passwd';
     }
 }

@@ -31,9 +31,7 @@ abstract class AbstractToken implements TokenInterface
     private $attributes = array();
 
     /**
-     * Constructor.
-     *
-     * @param RoleInterface[]|string[] $roles An array of roles
+     * @param (RoleInterface|string)[] $roles An array of roles
      *
      * @throws \InvalidArgumentException
      */
@@ -150,7 +148,7 @@ abstract class AbstractToken implements TokenInterface
             array(
                 is_object($this->user) ? clone $this->user : $this->user,
                 $this->authenticated,
-                $this->roles,
+                array_map(function ($role) { return clone $role; }, $this->roles),
                 $this->attributes,
             )
         );

@@ -28,8 +28,6 @@ final class KernelEvents
      * instance.
      *
      * @Event
-     *
-     * @var string
      */
     const REQUEST = 'kernel.request';
 
@@ -42,8 +40,6 @@ final class KernelEvents
      * instance.
      *
      * @Event
-     *
-     * @var string
      */
     const EXCEPTION = 'kernel.exception';
 
@@ -57,8 +53,6 @@ final class KernelEvents
      * instance.
      *
      * @Event
-     *
-     * @var string
      */
     const VIEW = 'kernel.view';
 
@@ -71,8 +65,6 @@ final class KernelEvents
      * Symfony\Component\HttpKernel\Event\FilterControllerEvent instance.
      *
      * @Event
-     *
-     * @var string
      */
     const CONTROLLER = 'kernel.controller';
 
@@ -85,8 +77,6 @@ final class KernelEvents
      * Symfony\Component\HttpKernel\Event\FilterResponseEvent instance.
      *
      * @Event
-     *
-     * @var string
      */
     const RESPONSE = 'kernel.response';
 
@@ -98,8 +88,6 @@ final class KernelEvents
      * Symfony\Component\HttpKernel\Event\PostResponseEvent instance.
      *
      * @Event
-     *
-     * @var string
      */
     const TERMINATE = 'kernel.terminate';
 
@@ -108,8 +96,10 @@ final class KernelEvents
      *
      * This event allows you to reset the global and environmental state of
      * the application, when it was changed during the request.
+     * The event listener method receives a
+     * Symfony\Component\HttpKernel\Event\FinishRequestEvent instance.
      *
-     * @var string
+     * @Event
      */
     const FINISH_REQUEST = 'kernel.finish_request';
 }

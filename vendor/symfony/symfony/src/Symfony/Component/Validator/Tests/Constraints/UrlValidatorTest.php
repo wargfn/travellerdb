@@ -11,10 +11,14 @@
 
 namespace Symfony\Component\Validator\Tests\Constraints;
 
+use Symfony\Bridge\PhpUnit\DnsMock;
 use Symfony\Component\Validator\Constraints\Url;
 use Symfony\Component\Validator\Constraints\UrlValidator;
 use Symfony\Component\Validator\Validation;
 
+/**
+ * @group dns-sensitive
+ */
 class UrlValidatorTest extends AbstractConstraintValidatorTest
 {
     protected function getApiVersion()
@@ -86,6 +90,7 @@ class UrlValidatorTest extends AbstractConstraintValidatorTest
             array('http://www.symfony.com/doc/current/book/validation.html#supported-constraints'),
             array('http://very.long.domain.name.com/'),
             array('http://localhost/'),
+            array('http://myhost123/'),
             array('http://127.0.0.1/'),
             array('http://127.0.0.1:80/'),
             array('http://[::1]/'),
@@ -116,6 +121,9 @@ class UrlValidatorTest extends AbstractConstraintValidatorTest
             array('http://xn--d1abbgf6aiiy.xn--p1ai/'),
             array('http://☎.com/'),
             array('http://username:password@symfony.com'),
+            array('http://user.name:password@symfony.com'),
+            array('http://username:pass.word@symfony.com'),
+            array('http://user.name:pass.word@symfony.com'),
             array('http://user-name@symfony.com'),
             array('http://symfony.com?'),
             array('http://symfony.com?query=1'),
@@ -123,6 +131,7 @@ class UrlValidatorTest extends AbstractConstraintValidatorTest
             array('http://symfony.com#'),
             array('http://symfony.com#fragment'),
             array('http://symfony.com/#fragment'),
+            array('http://symfony.com/#one_more%20test'),
         );
     }
 
@@ -163,6 +172,10 @@ class UrlValidatorTest extends AbstractConstraintValidatorTest
             array('http://:password@@symfony.com'),
             array('http://username:passwordsymfony.com'),
             array('http://usern@me:password@symfony.com'),
+            array('http://example.com/exploit.html?<script>alert(1);</script>'),
+            array('http://example.com/exploit.html?hel lo'),
+            array('http://example.com/exploit.html?not_a%hex'),
+            array('http://'),
         );
     }
 
@@ -187,6 +200,36 @@ class UrlValidatorTest extends AbstractConstraintValidatorTest
             array('file://127.0.0.1'),
             array('git://[::1]/'),
         );
+    }
+
+    /**
+     * @dataProvider getCheckDns
+     * @requires function Symfony\Bridge\PhpUnit\DnsMock::withMockedHosts
+     */
+    public function testCheckDns($violation)
+    {
+        DnsMock::withMockedHosts(array('example.com' => array(array('type' => $violation ? '' : 'A'))));
+
+        $constraint = new Url(array(
+            'checkDNS' => true,
+            'dnsMessage' => 'myMessage',
+        ));
+
+        $this->validator->validate('http://example.com', $constraint);
+
+        if (!$violation) {
+            $this->assertNoViolation();
+        } else {
+            $this->buildViolation('myMessage')
+                ->setParameter('{{ value }}', '"example.com"')
+                ->setCode(Url::INVALID_URL_ERROR)
+                ->assertRaised();
+        }
+    }
+
+    public function getCheckDns()
+    {
+        return array(array(true), array(false));
     }
 }
 

@@ -18,37 +18,16 @@ use Symfony\Component\Form\Exception\RuntimeException;
 /**
  * A utility for reading object IDs.
  *
- * @since  1.0
- *
  * @author Bernhard Schussek <bschussek@gmail.com>
  *
- * @internal This class is meant for internal use only.
+ * @internal this class is meant for internal use only
  */
 class IdReader
 {
-    /**
-     * @var ObjectManager
-     */
     private $om;
-
-    /**
-     * @var ClassMetadata
-     */
     private $classMetadata;
-
-    /**
-     * @var bool
-     */
     private $singleId;
-
-    /**
-     * @var bool
-     */
     private $intId;
-
-    /**
-     * @var string
-     */
     private $idField;
 
     /**
@@ -81,8 +60,8 @@ class IdReader
     /**
      * Returns whether the class has a single-column ID.
      *
-     * @return bool Returns `true` if the class has a single-column ID and
-     *              `false` otherwise.
+     * @return bool returns `true` if the class has a single-column ID and
+     *              `false` otherwise
      */
     public function isSingleId()
     {
@@ -92,8 +71,8 @@ class IdReader
     /**
      * Returns whether the class has a single-column integer ID.
      *
-     * @return bool Returns `true` if the class has a single-column integer ID
-     *              and `false` otherwise.
+     * @return bool returns `true` if the class has a single-column integer ID
+     *              and `false` otherwise
      */
     public function isIntId()
     {
@@ -105,9 +84,9 @@ class IdReader
      *
      * This method assumes that the object has a single-column ID.
      *
-     * @param object $object The object.
+     * @param object $object The object
      *
-     * @return mixed The ID value.
+     * @return mixed The ID value
      */
     public function getIdValue($object)
     {
@@ -138,7 +117,7 @@ class IdReader
      *
      * This method assumes that the object has a single-column ID.
      *
-     * @return string The name of the ID field.
+     * @return string The name of the ID field
      */
     public function getIdField()
     {

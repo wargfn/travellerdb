@@ -1,6 +1,6 @@
 # Install Gedmo Doctrine2 extensions in Symfony2
 
-Configure full featured [Doctrine2 extensions](http://github.com/l3pp4rd/DoctrineExtensions) for your symfony2 project.
+Configure full featured [Doctrine2 extensions](http://github.com/Atlantic18/DoctrineExtensions) for your symfony2 project.
 This post will show you - how to create a simple configuration file to manage extensions with
 ability to use all features it provides.
 Interested? then bear with me! and don't be afraid, we're not diving into security component :)
@@ -218,6 +218,14 @@ services:
             - { name: doctrine.event_subscriber, connection: default }
         calls:
             - [ setAnnotationReader, [ "@annotation_reader" ] ]
+
+    gedmo.listener.blameable:
+        class: Gedmo\Blameable\BlameableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ "@annotation_reader" ] ]
+
 ```
 
 So what does it include in general? Well, it creates services for all extension listeners.
@@ -239,6 +247,7 @@ namespace Acme\DemoBundle\Listener;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpKernel\Kernel;
 
 class DoctrineExtensionListener implements ContainerAwareInterface
 {
@@ -257,7 +266,7 @@ class DoctrineExtensionListener implements ContainerAwareInterface
         $translatable = $this->container->get('gedmo.listener.translatable');
         $translatable->setTranslatableLocale($event->getRequest()->getLocale());
     }
-    
+
     public function onConsoleCommand()
     {
         $this->container->get('gedmo.listener.translatable')
@@ -266,10 +275,30 @@ class DoctrineExtensionListener implements ContainerAwareInterface
 
     public function onKernelRequest(GetResponseEvent $event)
     {
-        $securityContext = $this->container->get('security.context', ContainerInterface::NULL_ON_INVALID_REFERENCE);
-        if (null !== $securityContext && null !== $securityContext->getToken() && $securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            $loggable = $this->container->get('gedmo.listener.loggable');
-            $loggable->setUsername($securityContext->getToken()->getUsername());
+        if (Kernel::MAJOR_VERSION == 2 && Kernel::MINOR_VERSION < 6) {
+            $securityContext = $this->container->get('security.context', ContainerInterface::NULL_ON_INVALID_REFERENCE);
+            if (null !== $securityContext && null !== $securityContext->getToken() && $securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+                # for loggable behavior
+                $loggable = $this->container->get('gedmo.listener.loggable');
+                $loggable->setUsername($securityContext->getToken()->getUsername());
+
+                # for blameable behavior
+                $blameable = $this->container->get('gedmo.listener.blameable');
+                $blameable->setUserValue($securityContext->getToken()->getUser());
+            }
+        }
+        else {
+            $tokenStorage = $this->container->get('security.token_storage')->getToken();
+            $authorizationChecker = $this->container->get('security.authorization_checker');
+            if (null !== $tokenStorage && $authorizationChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+                # for loggable behavior
+                $loggable = $this->container->get('gedmo.listener.loggable');
+                $loggable->setUsername($tokenStorage->getUser());
+
+                # for blameable behavior
+                $blameable = $this->container->get('gedmo.listener.blameable');
+                $blameable->setUserValue($tokenStorage->getUser());
+            }
         }
     }
 }
@@ -456,8 +485,8 @@ doctrine_mongodb:
 This also shows, how to make mappings based on single manager. All what differs is that **Document**
 instead of **Entity** is used. I haven't tested it with mongo though.
 
-**Note:** [extension repository](http://github.com/l3pp4rd/DoctrineExtensions) contains all
-[documentation](http://github.com/l3pp4rd/DoctrineExtensions/tree/master/doc) you may need
+**Note:** [extension repository](http://github.com/Atlantic18/DoctrineExtensions) contains all
+[documentation](http://github.com/Atlantic18/DoctrineExtensions/tree/master/doc) you may need
 to understand how you can use it in your projects.
 
 <a name="alternative"></a>

@@ -26,8 +26,6 @@ class ContainerAwareEventManager extends EventManager
      * Map of registered listeners.
      *
      * <event> => <listeners>
-     *
-     * @var array
      */
     private $listeners = array();
     private $initialized = array();
@@ -69,9 +67,9 @@ class ContainerAwareEventManager extends EventManager
     /**
      * Gets the listeners of a specific event or all listeners.
      *
-     * @param string $event The name of the event.
+     * @param string $event The name of the event
      *
-     * @return array The event listeners for the specified event, or all event listeners.
+     * @return array The event listeners for the specified event, or all event listeners
      */
     public function getListeners($event = null)
     {
@@ -83,7 +81,7 @@ class ContainerAwareEventManager extends EventManager
      *
      * @param string $event
      *
-     * @return bool TRUE if the specified event has any listeners, FALSE otherwise.
+     * @return bool TRUE if the specified event has any listeners, FALSE otherwise
      */
     public function hasListeners($event)
     {
@@ -93,8 +91,8 @@ class ContainerAwareEventManager extends EventManager
     /**
      * Adds an event listener that listens on the specified events.
      *
-     * @param string|array  $events   The event(s) to listen on.
-     * @param object|string $listener The listener object.
+     * @param string|array  $events   The event(s) to listen on
+     * @param object|string $listener The listener object
      *
      * @throws \RuntimeException
      */

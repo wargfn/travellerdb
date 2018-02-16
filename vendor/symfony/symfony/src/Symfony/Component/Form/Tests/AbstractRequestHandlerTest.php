@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\Form\Tests;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\Form\Forms;
@@ -19,7 +20,7 @@ use Symfony\Component\Form\RequestHandlerInterface;
 /**
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-abstract class AbstractRequestHandlerTest extends \PHPUnit_Framework_TestCase
+abstract class AbstractRequestHandlerTest extends TestCase
 {
     /**
      * @var RequestHandlerInterface
@@ -37,10 +38,7 @@ abstract class AbstractRequestHandlerTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->serverParams = $this->getMock(
-            'Symfony\Component\Form\Util\ServerParams',
-            array('getNormalizedIniPostMaxSize', 'getContentLength')
-        );
+        $this->serverParams = $this->getMockBuilder('Symfony\Component\Form\Util\ServerParams')->setMethods(array('getNormalizedIniPostMaxSize', 'getContentLength'))->getMock();
         $this->requestHandler = $this->getRequestHandler();
         $this->factory = Forms::createFormFactoryBuilder()->getFormFactory();
         $this->request = null;
@@ -355,15 +353,27 @@ abstract class AbstractRequestHandlerTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testUploadedFilesAreAccepted()
+    {
+        $this->assertTrue($this->requestHandler->isFileUpload($this->getMockFile()));
+    }
+
+    public function testInvalidFilesAreRejected()
+    {
+        $this->assertFalse($this->requestHandler->isFileUpload($this->getInvalidFile()));
+    }
+
     abstract protected function setRequestData($method, $data, $files = array());
 
     abstract protected function getRequestHandler();
 
     abstract protected function getMockFile($suffix = '');
 
+    abstract protected function getInvalidFile();
+
     protected function getMockForm($name, $method = null, $compound = true)
     {
-        $config = $this->getMock('Symfony\Component\Form\FormConfigInterface');
+        $config = $this->getMockBuilder('Symfony\Component\Form\FormConfigInterface')->getMock();
         $config->expects($this->any())
             ->method('getMethod')
             ->will($this->returnValue($method));
@@ -371,7 +381,7 @@ abstract class AbstractRequestHandlerTest extends \PHPUnit_Framework_TestCase
             ->method('getCompound')
             ->will($this->returnValue($compound));
 
-        $form = $this->getMock('Symfony\Component\Form\Test\FormInterface');
+        $form = $this->getMockBuilder('Symfony\Component\Form\Test\FormInterface')->getMock();
         $form->expects($this->any())
             ->method('getName')
             ->will($this->returnValue($name));

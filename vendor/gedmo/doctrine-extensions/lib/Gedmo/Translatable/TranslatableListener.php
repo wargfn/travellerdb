@@ -471,14 +471,16 @@ class TranslatableListener extends MappedEventSubscriber
             // translate object's translatable properties
             foreach ($config['fields'] as $field) {
                 $translated = '';
+                $is_translated = false;
                 foreach ((array) $result as $entry) {
                     if ($entry['field'] == $field) {
                         $translated = $entry['content'];
+                        $is_translated = true;
                         break;
                     }
                 }
                 // update translation
-                if ($translated
+                if ($is_translated
                     || (!$this->translationFallback && (!isset($config['fallback'][$field]) || !$config['fallback'][$field]))
                     || ($this->translationFallback && isset($config['fallback'][$field]) && !$config['fallback'][$field])
                 ) {
@@ -631,7 +633,7 @@ class TranslatableListener extends MappedEventSubscriber
                 $translation->setContent($content);
                 // check if need to update in database
                 $transWrapper = AbstractWrapper::wrap($translation, $om);
-                if (((is_null($content) && !$isInsert) || is_bool($content) || is_int($content) || (is_string($content) && strlen($content) > 0) || !empty($content)) && ($isInsert || !$transWrapper->getIdentifier() || isset($changeSet[$field]))) {
+                if (((is_null($content) && !$isInsert) || is_bool($content) || is_int($content) || is_string($content) || !empty($content)) && ($isInsert || !$transWrapper->getIdentifier() || isset($changeSet[$field]))) {
                     if ($isInsert && !$objectId && !$ea->usesPersonalTranslation($translationClass)) {
                         // if we do not have the primary key yet available
                         // keep this translation in memory to insert it later with foreign key

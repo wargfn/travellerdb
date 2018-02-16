@@ -6,18 +6,15 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'phpDocumentor' => array($vendorDir . '/phpdocumentor/reflection-docblock/src'),
     'Twig_Extensions_' => array($vendorDir . '/twig/extensions/lib'),
     'Twig_' => array($vendorDir . '/twig/twig/lib'),
     'Sensio\\Bundle\\GeneratorBundle' => array($vendorDir . '/sensio/generator-bundle'),
     'Sensio\\Bundle\\DistributionBundle' => array($vendorDir . '/sensio/distribution-bundle'),
     'SensioLabs\\Security' => array($vendorDir . '/sensiolabs/security-checker'),
-    'Psr\\Log\\' => array($vendorDir . '/psr/log'),
     'Prophecy\\' => array($vendorDir . '/phpspec/prophecy/src'),
     'Parsedown' => array($vendorDir . '/erusev/parsedown'),
     'PHPExcel' => array($vendorDir . '/phpoffice/phpexcel/Classes'),
     'Nelmio\\ApiDocBundle' => array($vendorDir . '/nelmio/api-doc-bundle'),
-    'Michelf' => array($vendorDir . '/michelf/php-markdown'),
     'JsonpCallbackValidator' => array($vendorDir . '/willdurand/jsonp-callback-validator/src'),
     'JSqueeze' => array($vendorDir . '/patchwork/jsqueeze/class'),
     'JMS\\I18nRoutingBundle' => array($vendorDir . '/jms/i18n-routing-bundle'),
@@ -26,10 +23,7 @@ return array(
     'Doctrine\\ORM\\' => array($vendorDir . '/doctrine/orm/lib'),
     'Doctrine\\DBAL\\' => array($vendorDir . '/doctrine/dbal/lib'),
     'Doctrine\\Common\\Lexer\\' => array($vendorDir . '/doctrine/lexer/lib'),
-    'Doctrine\\Common\\Inflector\\' => array($vendorDir . '/doctrine/inflector/lib'),
     'Doctrine\\Common\\Collections\\' => array($vendorDir . '/doctrine/collections/lib'),
-    'Doctrine\\Common\\Annotations\\' => array($vendorDir . '/doctrine/annotations/lib'),
     'Behat\\Transliterator' => array($vendorDir . '/behat/transliterator/src'),
-    'Bazinga\\Bundle\\JsTranslationBundle' => array($vendorDir . '/willdurand/js-translation-bundle'),
     'Assetic' => array($vendorDir . '/kriswallsmith/assetic/src'),
 );

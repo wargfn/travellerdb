@@ -1,5 +1,5 @@
 {
-    "Version": "2.1.8.9",
+    "Version": "2.1.37.5",
     "Names": {
         "ADP": [
             "ADP",
@@ -27,7 +27,7 @@
         ],
         "ANG": [
             "ANG",
-            "Guilder Tây Ấn Hà Lan"
+            "Guilder Antille Hà Lan"
         ],
         "AOA": [
             "AOA",
@@ -213,9 +213,13 @@
             "BYB",
             "Đồng Rúp Mới của Belarus (1994–1999)"
         ],
+        "BYN": [
+            "BYN",
+            "Rúp Belarus"
+        ],
         "BYR": [
             "BYR",
-            "Rúp Belarus"
+            "Rúp Belarus (2000–2016)"
         ],
         "BZD": [
             "BZD",
@@ -252,6 +256,10 @@
         "CLP": [
             "CLP",
             "Peso Chile"
+        ],
+        "CNH": [
+            "CNH",
+            "Nhân dân tệ (hải ngoại)"
         ],
         "CNY": [
             "CN¥",
@@ -459,7 +467,7 @@
         ],
         "HUF": [
             "HUF",
-            "Forint Hungaria"
+            "Forint Hungary"
         ],
         "IDR": [
             "IDR",
@@ -571,7 +579,7 @@
         ],
         "LSL": [
             "LSL",
-            "Đồng loti của Lesotho"
+            "Ioti Lesotho"
         ],
         "LTL": [
             "LTL",
@@ -699,7 +707,7 @@
         ],
         "MZE": [
             "MZE",
-            "Đồng Escudo Mozambique"
+            "Escudo Mozambique"
         ],
         "MZM": [
             "MZM",
@@ -755,7 +763,7 @@
         ],
         "PEN": [
             "PEN",
-            "Nuevo Sol Peru"
+            "Sol Peru"
         ],
         "PES": [
             "PES",
@@ -855,7 +863,7 @@
         ],
         "SHP": [
             "SHP",
-            "Bảng Saint Helena"
+            "Bảng St. Helena"
         ],
         "SIT": [
             "SIT",
@@ -895,7 +903,7 @@
         ],
         "SVC": [
             "SVC",
-            "Đồng Colón Salvador"
+            "Colón El Salvador"
         ],
         "SYP": [
             "SYP",
@@ -1027,7 +1035,7 @@
         ],
         "XAF": [
             "FCFA",
-            "CFA Franc BEAC"
+            "Franc CFA Trung Phi"
         ],
         "XCD": [
             "EC$",
@@ -1047,7 +1055,7 @@
         ],
         "XOF": [
             "CFA",
-            "Franc CFA BCEAO"
+            "Franc CFA Tây Phi"
         ],
         "XPF": [
             "CFPF",

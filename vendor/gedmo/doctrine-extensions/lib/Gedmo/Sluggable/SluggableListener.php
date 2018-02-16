@@ -4,6 +4,7 @@ namespace Gedmo\Sluggable;
 
 use Doctrine\Common\EventArgs;
 use Gedmo\Mapping\MappedEventSubscriber;
+use Gedmo\Sluggable\Handler\SlugHandlerWithUniqueCallbackInterface;
 use Gedmo\Sluggable\Mapping\Event\SluggableAdapter;
 use Doctrine\Common\Persistence\ObjectManager;
 use Gedmo\Tool\Wrapper\AbstractWrapper;
@@ -380,8 +381,18 @@ class SluggableListener extends MappedEventSubscriber
                     $slug = substr($slug, 0, $mapping['length']);
                 }
 
-                if (isset($mapping['nullable']) && $mapping['nullable'] && !$slug) {
+                if (isset($mapping['nullable']) && $mapping['nullable'] && strlen($slug) === 0) {
                     $slug = null;
+                }
+
+                // notify slug handlers --> beforeMakingUnique
+                if ($hasHandlers) {
+                    foreach ($options['handlers'] as $class => $handlerOptions) {
+                        $handler = $this->getHandler($class);
+                        if ($handler instanceof SlugHandlerWithUniqueCallbackInterface) {
+                            $handler->beforeMakingUnique($ea, $options, $object, $slug);
+                        }
+                    }
                 }
 
                 // make unique slug if requested

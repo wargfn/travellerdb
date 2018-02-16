@@ -25,9 +25,6 @@ class GlobalVariables
 {
     protected $container;
 
-    /**
-     * @param ContainerInterface $container The DI container
-     */
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
@@ -42,7 +39,7 @@ class GlobalVariables
      */
     public function getSecurity()
     {
-        @trigger_error('The '.__METHOD__.' method is deprecated since version 2.6 and will be removed in 3.0.', E_USER_DEPRECATED);
+        @trigger_error('The '.__METHOD__.' method is deprecated since Symfony 2.6 and will be removed in 3.0.', E_USER_DEPRECATED);
 
         if ($this->container->has('security.context')) {
             return $this->container->get('security.context');

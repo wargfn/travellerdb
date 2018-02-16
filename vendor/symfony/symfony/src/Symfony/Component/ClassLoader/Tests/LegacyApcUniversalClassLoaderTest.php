@@ -11,18 +11,18 @@
 
 namespace Symfony\Component\ClassLoader\Tests;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\ClassLoader\ApcUniversalClassLoader;
 
 /**
  * @group legacy
- * @requires extension apc
  */
-class LegacyApcUniversalClassLoaderTest extends \PHPUnit_Framework_TestCase
+class LegacyApcUniversalClassLoaderTest extends TestCase
 {
     protected function setUp()
     {
         if (ini_get('apc.enabled') && ini_get('apc.enable_cli')) {
-            apc_clear_cache('user');
+            apcu_clear_cache();
         } else {
             $this->markTestSkipped('APC is not enabled.');
         }
@@ -31,7 +31,7 @@ class LegacyApcUniversalClassLoaderTest extends \PHPUnit_Framework_TestCase
     protected function tearDown()
     {
         if (ini_get('apc.enabled') && ini_get('apc.enable_cli')) {
-            apc_clear_cache('user');
+            apcu_clear_cache();
         }
     }
 
@@ -40,20 +40,20 @@ class LegacyApcUniversalClassLoaderTest extends \PHPUnit_Framework_TestCase
         $loader = new ApcUniversalClassLoader('test.prefix.');
         $loader->registerNamespace('LegacyApc\Namespaced', __DIR__.DIRECTORY_SEPARATOR.'Fixtures');
 
-        $this->assertEquals($loader->findFile('\LegacyApc\Namespaced\FooBar'), apc_fetch('test.prefix.\LegacyApc\Namespaced\FooBar'), '__construct() takes a prefix as its first argument');
+        $this->assertEquals($loader->findFile('\LegacyApc\Namespaced\FooBar'), apcu_fetch('test.prefix.\LegacyApc\Namespaced\FooBar'), '__construct() takes a prefix as its first argument');
     }
 
-   /**
-    * @dataProvider getLoadClassTests
-    */
-   public function testLoadClass($className, $testClassName, $message)
-   {
-       $loader = new ApcUniversalClassLoader('test.prefix.');
-       $loader->registerNamespace('LegacyApc\Namespaced', __DIR__.DIRECTORY_SEPARATOR.'Fixtures');
-       $loader->registerPrefix('LegacyApc_Pearlike_', __DIR__.DIRECTORY_SEPARATOR.'Fixtures');
-       $loader->loadClass($testClassName);
-       $this->assertTrue(class_exists($className), $message);
-   }
+    /**
+     * @dataProvider getLoadClassTests
+     */
+    public function testLoadClass($className, $testClassName, $message)
+    {
+        $loader = new ApcUniversalClassLoader('test.prefix.');
+        $loader->registerNamespace('LegacyApc\Namespaced', __DIR__.DIRECTORY_SEPARATOR.'Fixtures');
+        $loader->registerPrefix('LegacyApc_Pearlike_', __DIR__.DIRECTORY_SEPARATOR.'Fixtures');
+        $loader->loadClass($testClassName);
+        $this->assertTrue(class_exists($className), $message);
+    }
 
     public function getLoadClassTests()
     {
@@ -63,19 +63,19 @@ class LegacyApcUniversalClassLoaderTest extends \PHPUnit_Framework_TestCase
        );
     }
 
-   /**
-    * @dataProvider getLoadClassFromFallbackTests
-    */
-   public function testLoadClassFromFallback($className, $testClassName, $message)
-   {
-       $loader = new ApcUniversalClassLoader('test.prefix.fallback');
-       $loader->registerNamespace('LegacyApc\Namespaced', __DIR__.DIRECTORY_SEPARATOR.'Fixtures');
-       $loader->registerPrefix('LegacyApc_Pearlike_', __DIR__.DIRECTORY_SEPARATOR.'Fixtures');
-       $loader->registerNamespaceFallbacks(array(__DIR__.DIRECTORY_SEPARATOR.'Fixtures/LegacyApc/fallback'));
-       $loader->registerPrefixFallbacks(array(__DIR__.DIRECTORY_SEPARATOR.'Fixtures/LegacyApc/fallback'));
-       $loader->loadClass($testClassName);
-       $this->assertTrue(class_exists($className), $message);
-   }
+    /**
+     * @dataProvider getLoadClassFromFallbackTests
+     */
+    public function testLoadClassFromFallback($className, $testClassName, $message)
+    {
+        $loader = new ApcUniversalClassLoader('test.prefix.fallback');
+        $loader->registerNamespace('LegacyApc\Namespaced', __DIR__.DIRECTORY_SEPARATOR.'Fixtures');
+        $loader->registerPrefix('LegacyApc_Pearlike_', __DIR__.DIRECTORY_SEPARATOR.'Fixtures');
+        $loader->registerNamespaceFallbacks(array(__DIR__.DIRECTORY_SEPARATOR.'Fixtures/LegacyApc/fallback'));
+        $loader->registerPrefixFallbacks(array(__DIR__.DIRECTORY_SEPARATOR.'Fixtures/LegacyApc/fallback'));
+        $loader->loadClass($testClassName);
+        $this->assertTrue(class_exists($className), $message);
+    }
 
     public function getLoadClassFromFallbackTests()
     {
@@ -87,18 +87,18 @@ class LegacyApcUniversalClassLoaderTest extends \PHPUnit_Framework_TestCase
        );
     }
 
-   /**
-    * @dataProvider getLoadClassNamespaceCollisionTests
-    */
-   public function testLoadClassNamespaceCollision($namespaces, $className, $message)
-   {
-       $loader = new ApcUniversalClassLoader('test.prefix.collision.');
-       $loader->registerNamespaces($namespaces);
+    /**
+     * @dataProvider getLoadClassNamespaceCollisionTests
+     */
+    public function testLoadClassNamespaceCollision($namespaces, $className, $message)
+    {
+        $loader = new ApcUniversalClassLoader('test.prefix.collision.');
+        $loader->registerNamespaces($namespaces);
 
-       $loader->loadClass($className);
+        $loader->loadClass($className);
 
-       $this->assertTrue(class_exists($className), $message);
-   }
+        $this->assertTrue(class_exists($className), $message);
+    }
 
     public function getLoadClassNamespaceCollisionTests()
     {
@@ -138,17 +138,17 @@ class LegacyApcUniversalClassLoaderTest extends \PHPUnit_Framework_TestCase
        );
     }
 
-   /**
-    * @dataProvider getLoadClassPrefixCollisionTests
-    */
-   public function testLoadClassPrefixCollision($prefixes, $className, $message)
-   {
-       $loader = new ApcUniversalClassLoader('test.prefix.collision.');
-       $loader->registerPrefixes($prefixes);
+    /**
+     * @dataProvider getLoadClassPrefixCollisionTests
+     */
+    public function testLoadClassPrefixCollision($prefixes, $className, $message)
+    {
+        $loader = new ApcUniversalClassLoader('test.prefix.collision.');
+        $loader->registerPrefixes($prefixes);
 
-       $loader->loadClass($className);
-       $this->assertTrue(class_exists($className), $message);
-   }
+        $loader->loadClass($className);
+        $this->assertTrue(class_exists($className), $message);
+    }
 
     public function getLoadClassPrefixCollisionTests()
     {

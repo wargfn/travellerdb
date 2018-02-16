@@ -21,14 +21,9 @@ class BCryptPasswordEncoder extends BasePasswordEncoder
 {
     const MAX_PASSWORD_LENGTH = 72;
 
-    /**
-     * @var string
-     */
     private $cost;
 
     /**
-     * Constructor.
-     *
      * @param int $cost The algorithmic cost that should be used
      *
      * @throws \RuntimeException         When no BCrypt encoder is available
@@ -62,7 +57,7 @@ class BCryptPasswordEncoder extends BasePasswordEncoder
      *
      * @throws BadCredentialsException when the given password is too long
      *
-     * @link http://lxr.php.net/xref/PHP_5_5/ext/standard/password.c#111
+     * @see http://lxr.php.net/xref/PHP_5_5/ext/standard/password.c#111
      */
     public function encodePassword($raw, $salt)
     {
@@ -73,7 +68,7 @@ class BCryptPasswordEncoder extends BasePasswordEncoder
         $options = array('cost' => $this->cost);
 
         if ($salt) {
-            @trigger_error('Passing a $salt to '.__METHOD__.'() is deprecated since version 2.8 and will be ignored in 3.0.', E_USER_DEPRECATED);
+            @trigger_error('Passing a $salt to '.__METHOD__.'() is deprecated since Symfony 2.8 and will be ignored in 3.0.', E_USER_DEPRECATED);
 
             $options['salt'] = $salt;
         }

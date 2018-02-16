@@ -11,12 +11,13 @@
 
 namespace Symfony\Component\Validator\Tests\Constraints;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints\GroupSequence;
 
 /**
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class GroupSequenceTest extends \PHPUnit_Framework_TestCase
+class GroupSequenceTest extends TestCase
 {
     public function testCreate()
     {
@@ -61,15 +62,15 @@ class GroupSequenceTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame('Group 1', $sequence[0]);
         $this->assertSame('Group 2', $sequence[1]);
-        $this->assertTrue(isset($sequence[0]));
-        $this->assertFalse(isset($sequence[2]));
+        $this->assertArrayHasKey(0, $sequence);
+        $this->assertArrayNotHasKey(2, $sequence);
         unset($sequence[0]);
-        $this->assertFalse(isset($sequence[0]));
+        $this->assertArrayNotHasKey(0, $sequence);
         $sequence[] = 'Group 3';
-        $this->assertTrue(isset($sequence[2]));
+        $this->assertArrayHasKey(2, $sequence);
         $this->assertSame('Group 3', $sequence[2]);
         $sequence[0] = 'Group 1';
-        $this->assertTrue(isset($sequence[0]));
+        $this->assertArrayHasKey(0, $sequence);
         $this->assertSame('Group 1', $sequence[0]);
     }
 
@@ -93,5 +94,7 @@ class GroupSequenceTest extends \PHPUnit_Framework_TestCase
 
         // should not fail
         unset($sequence[2]);
+
+        $this->assertCount(2, $sequence);
     }
 }

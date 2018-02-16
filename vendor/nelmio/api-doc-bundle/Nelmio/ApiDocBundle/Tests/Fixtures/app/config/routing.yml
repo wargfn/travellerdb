@@ -209,9 +209,9 @@ test_required_parameters:
     requirements:
         _format: json|xml|html
 
-test_put_disables_required_parameters:
+test_patch_disables_required_parameters:
     path: /api/other-resources/{id}.{_format}
-    methods: [PUT]
+    methods: [PATCH]
     defaults: { _controller: NelmioApiDocTestBundle:Resource:requiredParametersAction, _format: json }
     requirements:
         _format: json|xml|html
@@ -238,3 +238,18 @@ test_route_28:
     requirements:
         domain: "%domain_dev%|%domain_prod%"
     defaults: { _controller: NelmioApiDocTestBundle:Test:routeWithHost, domain: "%domain_dev%", _format: json }
+
+test_route_29:
+    path: /z-query-param-array-requirements
+    methods: [GET]
+    defaults: { _controller: NelmioApiDocTestBundle:Test:routeWithQueryParamArrayRequirementsAction }
+
+test_route_30:
+    path: /z-query-param-plain-array-requirements
+    methods: [GET]
+    defaults: { _controller: NelmioApiDocTestBundle:Test:routeWithQueryParamPlainArrayRequirementsAction }
+
+test_route_31:
+    path: /z-query-requirement-param-not-set
+    methods: [GET]
+    defaults: { _controller: NelmioApiDocTestBundle:Test:zActionWithRequirementParamNotSet }

@@ -31,6 +31,7 @@
     -moz-box-sizing: content-box;
     box-sizing: content-box;
     vertical-align: baseline;
+    width: auto;
 }
 
 .sf-toolbarreset {
@@ -45,7 +46,12 @@
     position: fixed;
     right: 0;
     text-align: left;
+    text-transform: none;
     z-index: 99999;
+
+    /* neutralize the aliasing defined by external CSS styles */
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: auto;
 }
 .sf-toolbarreset abbr {
     border: dashed #777;
@@ -53,13 +59,12 @@
 }
 .sf-toolbarreset svg,
 .sf-toolbarreset img {
-    max-height: 20px;
-    max-width: 20px;
+    height: 20px;
+    display: inline-block;
 }
 
 .sf-toolbarreset .hide-button {
     background: #444;
-    cursor: pointer;
     display: block;
     position: absolute;
     top: 0;
@@ -159,11 +164,10 @@
     font-size: 11px;
     padding: 4px 8px 4px 0;
 }
-.sf-toolbar-block .sf-toolbar-info-piece span {
-
+.sf-toolbar-block:not(.sf-toolbar-block-dump) .sf-toolbar-info-piece span {
+    color: #F5F5F5;
 }
 .sf-toolbar-block .sf-toolbar-info-piece span {
-    color: #F5F5F5;
     font-size: 12px;
 }
 
@@ -290,6 +294,7 @@
     color: #F5F5F5;
 }
 .sf-toolbar-ajax-requests {
+    table-layout: auto;
     width: 100%;
 }
 .sf-toolbar-ajax-requests td {
@@ -346,15 +351,25 @@
     100% { background: #222; }
 }
 
+.sf-toolbar-block.sf-toolbar-block-dump .sf-toolbar-info {
+    max-width: none;
+    width: 100%;
+    position: fixed;
+    box-sizing: border-box;
+    left: 0;
+}
+
 .sf-toolbar-block-dump pre.sf-dump {
     background-color: #222;
     border-color: #777;
     border-radius: 0;
     margin: 6px 0 12px 0;
-    width: 200px;
 }
 .sf-toolbar-block-dump pre.sf-dump:last-child {
     margin-bottom: 0;
+}
+.sf-toolbar-block-dump .sf-toolbar-info-piece {
+    display: block;
 }
 .sf-toolbar-block-dump .sf-toolbar-info-piece .sf-toolbar-file-line {
     color: #AAA;
@@ -424,9 +439,6 @@
     .sf-toolbar-block .sf-toolbar-icon svg {
         top: 6px;
     }
-    .sf-toolbar-block-config:hover .sf-toolbar-info {
-        right: 0;
-    }
     .sf-toolbar-block-time .sf-toolbar-icon svg,
     .sf-toolbar-block-memory .sf-toolbar-icon svg {
         display: none;
@@ -482,6 +494,43 @@
 
     .sf-toolbar-block .sf-toolbar-info-piece-additional:empty,
     .sf-toolbar-block .sf-toolbar-info-piece-additional-detail:empty {
+        display: none;
+    }
+}
+
+/***** Error Toolbar *****/
+.sf-error-toolbar .sf-toolbarreset {
+    background: #222;
+    color: #f5f5f5;
+    font: 13px/36px Arial, sans-serif;
+    height: 36px;
+    padding: 0 15px;
+    text-align: left;
+}
+
+.sf-error-toolbar .sf-toolbarreset svg {
+    height: auto;
+}
+
+.sf-error-toolbar .sf-toolbarreset a {
+    color: #99cdd8;
+    margin-left: 5px;
+    text-decoration: underline;
+}
+
+.sf-error-toolbar .sf-toolbarreset a:hover {
+    text-decoration: none;
+}
+
+.sf-error-toolbar .sf-toolbarreset .sf-toolbar-icon {
+    float: left;
+    padding: 5px 0;
+    margin-right: 10px;
+}
+
+/***** Media query print: Do not print the Toolbar. *****/
+@media print {
+    .sf-toolbar {
         display: none;
     }
 }

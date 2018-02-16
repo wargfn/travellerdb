@@ -33,13 +33,11 @@ class InputOption
     private $description;
 
     /**
-     * Constructor.
-     *
      * @param string       $name        The option name
      * @param string|array $shortcut    The shortcuts, can be null, a string of shortcuts delimited by | or an array of shortcuts
      * @param int          $mode        The option mode: One of the VALUE_* constants
      * @param string       $description A description text
-     * @param mixed        $default     The default value (must be null for self::VALUE_REQUIRED or self::VALUE_NONE)
+     * @param mixed        $default     The default value (must be null for self::VALUE_NONE)
      *
      * @throws InvalidArgumentException If option mode is invalid or incompatible
      */
@@ -194,8 +192,6 @@ class InputOption
 
     /**
      * Checks whether the given option equals this one.
-     *
-     * @param InputOption $option option to compare
      *
      * @return bool
      */

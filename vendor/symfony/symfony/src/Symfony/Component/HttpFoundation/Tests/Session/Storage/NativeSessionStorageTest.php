@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\HttpFoundation\Tests\Session\Storage;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\NativeSessionHandler;
@@ -29,7 +30,7 @@ use Symfony\Component\HttpFoundation\Session\Storage\Proxy\SessionHandlerProxy;
  * @runTestsInSeparateProcesses
  * @preserveGlobalState disabled
  */
-class NativeSessionStorageTest extends \PHPUnit_Framework_TestCase
+class NativeSessionStorageTest extends TestCase
 {
     private $savePath;
 
@@ -54,8 +55,6 @@ class NativeSessionStorageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param array $options
-     *
      * @return NativeSessionStorage
      */
     protected function getStorage(array $options = array())
@@ -81,6 +80,16 @@ class NativeSessionStorageTest extends \PHPUnit_Framework_TestCase
     {
         $storage = $this->getStorage();
         $storage->getBag('non_existing');
+    }
+
+    /**
+     * @expectedException \LogicException
+     */
+    public function testRegisterBagForAStartedSessionThrowsException()
+    {
+        $storage = $this->getStorage();
+        $storage->start();
+        $storage->registerBag(new AttributeBag());
     }
 
     public function testGetId()
@@ -185,7 +194,7 @@ class NativeSessionStorageTest extends \PHPUnit_Framework_TestCase
 
     public function testSetSaveHandler53()
     {
-        if (PHP_VERSION_ID >= 50400) {
+        if (\PHP_VERSION_ID >= 50400) {
             $this->markTestSkipped('Test skipped, for PHP 5.3 only.');
         }
 
@@ -238,7 +247,7 @@ class NativeSessionStorageTest extends \PHPUnit_Framework_TestCase
 
         session_start();
         $this->assertTrue(isset($_SESSION));
-        if (PHP_VERSION_ID >= 50400) {
+        if (\PHP_VERSION_ID >= 50400) {
             // this only works in PHP >= 5.4 where session_status is available
             $this->assertTrue($storage->getSaveHandler()->isActive());
         }
@@ -246,7 +255,7 @@ class NativeSessionStorageTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($storage->isStarted());
 
         $key = $storage->getMetadataBag()->getStorageKey();
-        $this->assertFalse(isset($_SESSION[$key]));
+        $this->assertArrayNotHasKey($key, $_SESSION);
         $storage->start();
     }
 
@@ -260,5 +269,46 @@ class NativeSessionStorageTest extends \PHPUnit_Framework_TestCase
         $storage->start();
         $this->assertSame($id, $storage->getId(), 'Same session ID after restarting');
         $this->assertSame(7, $storage->getBag('attributes')->get('lucky'), 'Data still available');
+    }
+
+    /**
+     * @requires PHP 5.4
+     */
+    public function testCanCreateNativeSessionStorageWhenSessionAlreadyStarted()
+    {
+        session_start();
+        $this->getStorage();
+
+        // Assert no exception has been thrown by `getStorage()`
+        $this->addToAssertionCount(1);
+    }
+
+    /**
+     * @requires PHP 5.4
+     */
+    public function testSetSessionOptionsOnceSessionStartedIsIgnored()
+    {
+        session_start();
+        $this->getStorage(array(
+            'name' => 'something-else',
+        ));
+
+        // Assert no exception has been thrown by `getStorage()`
+        $this->addToAssertionCount(1);
+    }
+
+    /**
+     * @requires PHP 5.4
+     */
+    public function testGetBagsOnceSessionStartedIsIgnored()
+    {
+        session_start();
+        $bag = new AttributeBag();
+        $bag->setName('flashes');
+
+        $storage = $this->getStorage();
+        $storage->registerBag($bag);
+
+        $this->assertEquals($storage->getBag('flashes'), $bag);
     }
 }
