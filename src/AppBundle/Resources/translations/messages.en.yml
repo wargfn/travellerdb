@@ -389,6 +389,7 @@ card:
     set: Set
     cost: Cost
     costgold: Cost/Gold
+    expense: Expense
     type: Type
     strength: Strength
     str: STR
