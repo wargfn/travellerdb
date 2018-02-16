@@ -388,6 +388,7 @@ card:
     set: Capítulo
     cost: Coste
     costgold: Coste/Oro
+    expense: Gastos
     type: Tipo
     strength: Fuerza
     str: FUE

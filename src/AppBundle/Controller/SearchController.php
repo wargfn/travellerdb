@@ -12,7 +12,7 @@ class SearchController extends Controller
 	public static $searchKeys = array(
 			''  => 'code',
 			'a' => 'flavor',
-			'b' => 'claim',
+			'b' => 'complicationname',
 			'c' => 'cycle',
 			'e' => 'pack',
 			'f' => 'faction',
@@ -46,7 +46,7 @@ class SearchController extends Controller
 			'k' => 'string',
 			'r' => 'string',
 			'x' => 'string',
-			'b' => 'integer',
+			'b' => 'string',
 			'c' => 'integer',
 			'h' => 'integer',
 			'n' => 'integer',
