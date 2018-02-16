@@ -329,20 +329,35 @@ class CardsData
                                     break;
                                 }
                             case 'a': // flavor
-                                {
-                                    $or = [];
-                                    foreach($condition as $arg) {
-                                        switch($operator) {
-                                            case ':': $or[] = "(c.flavor like ?$i)";
-                                                break;
-                                            case '!': $or[] = "(c.flavor is null or c.flavor not like ?$i)";
-                                                break;
-                                        }
-                                        $qb->setParameter($i++, "%$arg%");
+                            {
+                                $or = [];
+                                foreach($condition as $arg) {
+                                    switch($operator) {
+                                        case ':': $or[] = "(c.flavor like ?$i)";
+                                            break;
+                                        case '!': $or[] = "(c.flavor is null or c.flavor not like ?$i)";
+                                            break;
                                     }
-                                    $qb->andWhere(implode($operator == '!' ? " and " : " or ", $or));
-                                    break;
+                                    $qb->setParameter($i++, "%$arg%");
                                 }
+                                $qb->andWhere(implode($operator == '!' ? " and " : " or ", $or));
+                                break;
+                            }
+                            case 'g': // complicationname
+                            {
+                                $or = [];
+                                foreach($condition as $arg) {
+                                    switch($operator) {
+                                        case ':': $or[] = "(c.complicationname like ?$i)";
+                                            break;
+                                        case '!': $or[] = "(c.complicationname is null or c.complicationname not like ?$i)";
+                                            break;
+                                    }
+                                    $qb->setParameter($i++, "%$arg%");
+                                }
+                                $qb->andWhere(implode($operator == '!' ? " and " : " or ", $or));
+                                break;
+                            }
                             case 'k': // subtype (traits)
                                 {
                                     $or = [];
