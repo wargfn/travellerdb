@@ -1,0 +1,214 @@
+AppBundle\Entity\Card:
+    type: entity
+    table: card
+    repositoryClass: AppBundle\Repository\CardRepository
+    gedmo:
+        translation:
+            locale: locale
+    manyToOne:
+        pack:
+            targetEntity: Pack
+            inversedBy: cards
+            joinColumn:
+                name: pack_id
+                referencedColumnName: id
+        type:
+            targetEntity: Type
+            inversedBy: cards
+            joinColumn:
+                name: type_id
+                referencedColumnName: id
+        faction:
+            targetEntity: Faction
+            inversedBy: cards
+            joinColumn:
+                name: faction_id
+                referencedColumnName: id
+        subtype:
+            targetEntity: Subtype
+            inversedBy: cards
+            joinColumn:
+                name: subtype_id
+                referencedColumnName: id
+    oneToMany:
+        reviews:
+            targetEntity: Review
+            orderBy: {'dateCreation':'DESC'}
+            mappedBy: card
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        position:
+            type: smallint
+            nullable: false
+        code:
+            type: string
+            length: 255
+            nullable: false
+        name:
+            type: string
+            length: 50
+            nullable: false
+            gedmo:
+                - translatable
+        tonnage:
+            type: smallint
+            nullable: true
+        traits:
+            type: string
+            length: 255
+            nullable: false
+        capabilities:
+            type: string
+            length: 255
+            nullable: true
+        initiative:
+            type: smallint
+            nullable: true
+        jump:
+            type: smallint
+            nullable: yes
+        attack:
+            type: smallint
+            nullable: yes
+        defense:
+            type: smallint
+            nullable: yes
+        crew:
+             type: smallint
+             nullable: yes
+        computer:
+             type: smallint
+             nullable: yes
+        hardpoint:
+            type: smallint
+            nullable: yes
+        hull:
+            type: smallint
+            nullable: true
+        internal:
+            type: smallint
+            nullable: yes
+        contractname:
+            type: string
+            length: 255
+            nullable: true
+        distance:
+            type: smallint
+            nullable: true
+        contractrequirements:
+            type: string
+            length: 255
+            nullable: true
+        compslots:
+            type: integer
+            nullable: true
+        abandpenalty:
+            type: integer
+            nullable: true
+        victorypoints:
+            type: integer
+            nullable: true
+        subplots:
+            type: text
+            nullable: true
+        complicationname:
+            type: string
+            length: 255
+            nullable: true;
+        complicationtraits:
+            type: string
+            length: 255
+            nullable: true
+        complicationtext:
+            type: text
+            nullable: true
+        abandpenmodifier:
+            type: smallint
+            nullable: true
+        compflavortext:
+            type: text
+            nullable: true
+        cost:
+            type: smallint
+            nullable: true
+        expense:
+            type: smallint
+            nullable: true
+        species:
+            type: string
+            length: 255
+            nullable: true
+        skills:
+            type: string
+            length: 255
+            nullable: true
+        wound:
+            type: smallint
+            nullable: true
+        requiredskill:
+            type: string
+            length: 255
+            nullable: true
+        tonnagerequirement:
+            type: smallint
+            nullable: true
+        structure:
+            type: smallint
+            nullable: true
+        text:
+            type: text
+            nullable: true
+            gedmo:
+                - translatable
+        quantity:
+            type: smallint
+            nullable: false
+        deckLimit:
+            type: smallint
+            nullable: true
+            column: deck_limit
+        deckRequirements:
+            type: smallint
+            nullable: true
+            column: deck_requirements
+        deckOptions:
+            type: smallint
+            nullable: true
+            column: deck_option
+        dateCreation:
+            type: datetime
+            nullable: false
+            column: date_creation
+            gedmo:
+                timestampable:
+                    on: create
+        dateUpdate:
+            type: datetime
+            nullable: false
+            column: date_update
+            gedmo:
+                timestampable:
+                    on: update
+        flavor:
+            type: text
+            nullable: true
+            gedmo:
+                - translatable
+        illustrator:
+            type: string
+            length: 255
+            nullable: true
+        octgnId:
+            type: string
+            nullable: true
+            column: octgn_id
+    uniqueConstraints:
+        card_code_idx:
+            columns: [ code ]
+    indexes:
+        card_name_idx:
+            columns: [ name ]

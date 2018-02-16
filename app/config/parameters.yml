@@ -1,0 +1,23 @@
+parameters:
+    database_host:
+    database_port:
+    database_name:
+    database_user: 
+    database_password: 
+    mailer_transport:
+    mailer_host:
+    mailer_user:
+    mailer_password:
+    secret:
+    cache_expiration:
+    email_sender_address:
+    email_sender_name: 
+    website_name: 
+    website_url: 
+    game_name: 
+    publisher_name:
+    google_analytics_tracking_code:
+    google_adsense_client:
+    google_adsense_slot: 
+    database_driver: 
+    database_path:

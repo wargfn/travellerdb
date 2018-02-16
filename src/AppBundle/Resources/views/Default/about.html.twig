@@ -1,0 +1,23 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}About{% endblock %}
+
+{% block body %}
+<div class="main white container">
+
+<h1>{{ block('title') }}</h1>
+
+<p>This website is dedicated to providing a fast, powerful and exhaustive deck builder and search engine for {{ game_name }} cards, along with card descriptions and card images.</p>
+<p>This website is optimized for mobile browsing (WebKit).</p>
+
+<h3>Credits</h3>
+
+<p>I would like to thank especially:</p>
+<ul>
+    <li> <a href="https://twitter.com/alsciede">Alsciede</a> for providing the framework.</li>
+    <li> The following websites for having already adapted the framework to many great games. <a href="https://arkhamdb.com">ArkhamDB</a>, <a href="https://fiveringsdb.com">FiveRingsDB</a>, <a href="https://netrunnerdb.com">NetrunnerDB</a>, <a href="https://swdestinydb.com">SWDestinyDB</a>, <a href="https//:thronesdb.com">ThronesDB</a>, and thus providing a lot of ideas and code. </li>
+    <li> for testing before release,</li>
+</ul>
+
+</div>
+{% endblock %}

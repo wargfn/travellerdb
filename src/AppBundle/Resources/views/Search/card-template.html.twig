@@ -1,0 +1,52 @@
+{% import "AppBundle::macros.html.twig" as macros %}
+<span class="card-content">
+{% if card.type_code == 'character' or card.type_code == 'attachment' or card.type_code == 'event' or card.type_code == 'location' %}
+    {{'card.info.cost' | trans}}: {{ macros.integer_or_x(card.cost) }}.
+{% endif %}
+    {% if card.type_code == 'ship' %}
+        <div>
+        <p>Tonnage: {{ macros.integer_or_x(card.tonnage) }}
+        <br>Capabilities: {{ card.capabilities }}
+        <br>Initiative: {{ card.initiative }}
+        <br>Jump: {{ card.jump }}
+        <br>Attack: {{ card.attack }}
+        <br>Defense: {{ card.defense }}</p>
+        </div>
+        <div align="right">
+            <p>
+                Crew: {{ card.crew }}
+                Computer : {{ card.computer }}
+                Hardpoints: {{ card.hardpoint }}
+                Hull: {{ card.hull }}
+                Internal: {{ card.internal }}
+            </p>
+        </div>
+    {% endif %}
+    {% if card.type_code == 'plot' %}
+        {{'card.info.income' | trans}}: {{ macros.integer_or_x(card.income) }}.
+        {{'card.info.initiative' | trans}}: {{ macros.integer_or_x(card.initiative) }}.
+        {{'card.info.claim' | trans}}: {{ macros.integer_or_x(card.claim) }}.
+        {{'card.info.reserve' | trans}}: {{ macros.integer_or_x(card.reserve) }}.
+        {{'card.info.plotlimit' | trans}}: {{ macros.integer_or_x(card.deck_limit) }}.
+    {% endif %}
+    {% if card.type_code == 'adv' %}
+        <div>
+            <p>{{ card.contractrequirements }}
+           <br>{{ card.subplots }}</p>
+        </div>
+        <div align=""right">
+            <p>{{ macros.integer_or_x(card.compslots) }} [Compslot]
+            {{ macros.integer_or_x(card.abandpenalty) }} [ContractAbandonment]
+            {{ macros.integer_or_x(card.victorypoints) }} [VictoryPoint]</p>
+        </div>
+        <div>
+            <p></p>
+            <p class="card-type">{{ card.complicationname }}</p>
+            <p class="card-traits">{{ card.complicationtraits }}</p>
+            {{ card.complicationtext }}
+            <br>{{ card.abandpenmodifier }} [AbandPenModifier]
+            <div class="card-flavor small">{{ card.compflavortext }}<div>
+            </p>
+        </div>
+    {%  endif %}
+</span>
