@@ -74,8 +74,22 @@ class DeckValidationHelper
         $plotDeck = $slots->getPlotDeck();
         $plotDeckSize = $plotDeck->countCards();
 
+        $advDeck = $slots->getAdventureDeck();
+        $advDeckSize = $advDeck->countCards();
+
+        /* @var integer $expectedAdvDeckSize Expected number of adventure cards */
+        $expectedAdvDeckSize = 20;
+        if($advDeckSize > $expectedAdvDeckSize) {
+            return 'too_many_adventure_cards';
+        }
+
+        if($advDeckSize < $expectedAdvDeckSize) {
+            return 'too_few_adventure_cards';
+        }
+
+
         /* @var integer $expectedPlotDeckSize Expected number of plots */
-        $expectedPlotDeckSize = 7;
+        /*$expectedPlotDeckSize = 7;
         foreach($slots->getAgendas() as $agenda) {
             if($agenda->getCard()->getCode() === '05045') {
                 $expectedPlotDeckSize = 12;
@@ -86,9 +100,10 @@ class DeckValidationHelper
         }
         if($plotDeckSize < $expectedPlotDeckSize) {
             return 'too_few_plots';
-        }
+        }*/
+
         /* @var integer $expectedPlotDeckSpread Expected number of different plots */
-        $expectedPlotDeckSpread = $expectedPlotDeckSize - 1;
+        /*$expectedPlotDeckSpread = $expectedPlotDeckSize - 1;
         if(count($plotDeck) < $expectedPlotDeckSpread) {
             return 'too_many_different_plots';
         }
@@ -100,7 +115,7 @@ class DeckValidationHelper
         }
         if($slots->getAgendas()->countCards() > $expectedMaxAgendaCount) {
             return 'too_many_agendas';
-        }
+        }*/
         if($slots->getDrawDeck()->countCards() < $expectedMinCardCount) {
             return 'too_few_cards';
         }

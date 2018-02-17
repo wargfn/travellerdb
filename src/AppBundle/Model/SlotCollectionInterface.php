@@ -38,6 +38,24 @@ interface SlotCollectionInterface extends \Countable, \IteratorAggregate, \Array
 	 */
 	public function getPlotDeck();
 
+    /**
+     * Get the adventure deck
+     * @return \AppBundle\Model\SlotCollectionInterface
+     */
+    public function getAdventureDeck();
+
+    /**
+     * Get the captain deck
+     * @return \AppBundle\Model\SlotCollectionInterface
+     */
+    public function getCaptainDeck();
+
+    /**
+     * Get the ship
+     * @return \AppBundle\Model\SlotCollectionInterface
+     */
+    public function getShip();
+
 	/**
 	 * Get all the agendas
 	 * @return \AppBundle\Model\SlotCollectionInterface

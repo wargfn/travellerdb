@@ -58,9 +58,13 @@ decks:
     too_many_copies: Contiene demasiadas copias de la misma carta (por título)
     invalid_cards: Contiene cartas prohibidas (cartas no permitidas por la Facción o la Estrategia)
     agenda: No se ajusta a las condiciones de la Estrategia
+    too_few_captain_cards: Contiene muy pocas cartas de Capitanes
+    too_few_adventure_cards: Contiene muy pocas cartas de aventura
+    too_many_adventure_cards: Contiene demasiadas cartas de Aventura
+    too_many_captain_cards: Contiene demasiados capitanes cartas
   build:
     choose:
-      faction: Elige tu Facción
+      faction: Elige tu Nave
       agenda: Elige tu Estrategia
       noagenda: Sin Estrategia
     start: Crear el mazo y empezar a construirlo
@@ -216,6 +220,12 @@ decks:
       subtitle: Se ignoran los costes X
       tooltip:
         header: "Coste %cost%"
+        label: "# cartas"
+    expense:
+      title: Gastos de las cartas
+      subtitle: Se ignoran los gastos X
+      tooltip:
+        header: "Gastos %expense%"
         label: "# cartas"
   history:
     timeremaining: Tiempo restante

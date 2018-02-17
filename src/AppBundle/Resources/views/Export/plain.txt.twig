@@ -1,9 +1,9 @@
 {{ deck.name }}
 
 {{ deck.faction.name }}
-{% for agenda in deck.agendas %}
+{#{% for agenda in deck.agendas %}
 {{ agenda.card.name }}
-{% endfor %}
+{% endfor %}#}
 
 
 {% set first_pack = deck.included_packs|first %}
@@ -15,31 +15,32 @@ From {{ first_pack.pack.name }}{% if first_pack.nb > 1 %} ({{ first_pack.nb }}){
 {% endif %}
 
 
-{% set plots = deck.slots_by_type.plot %}
-Plot{% if plots|length > 1 %}s{% endif %}
+{% set adventures = deck.slots_by_type.adv %}
+Adventure Card{% if adventures|length > 1 %}s{% endif %}
 
-{% for slot in plots %}
+{% for slot in adventures %}
 {{ slot.quantity }}x {{ slot.card.name }} ({{ slot.card.pack.name }})
 {% endfor %}
 
-{% set characters = deck.slots_by_type.character %}
-Character{% if characters|length > 1 %}s{% endif %}
 
-{% for slot in characters %}
+{% set conns = deck.slots_by_type.conn %}
+Connection Card{% if characters|length > 1 %}s{% endif %}
+
+{% for slot in conns %}
 {{ slot.quantity }}x {{ slot.card.name }} ({{ slot.card.pack.name }})
 {% endfor %}
 
-{% set locations = deck.slots_by_type.location %}
-Location{% if locations|length > 1 %}s{% endif %}
+{% set crews = deck.slots_by_type.crew %}
+Crew Card{% if crews|length > 1 %}s{% endif %}
 
-{% for slot in locations %}
+{% for slot in crews %}
 {{ slot.quantity }}x {{ slot.card.name }} ({{ slot.card.pack.name }})
 {% endfor %}
 
-{% set attachments = deck.slots_by_type.attachment %}
-Attachment{% if attachments|length > 1 %}s{% endif %}
+{% set gears = deck.slots_by_type.gear %}
+Gear Card{% if gears|length > 1 %}s{% endif %}
 
-{% for slot in attachments %}
+{% for slot in gears %}
 {{ slot.quantity }}x {{ slot.card.name }} ({{ slot.card.pack.name }})
 {% endfor %}
 
@@ -48,6 +49,20 @@ Event{% if events|length > 1 %}s{% endif %}
 
 {% for slot in events %}
 {{ slot.quantity }}x {{ slot.card.name }} ({{ slot.card.pack.name }})
+{% endfor %}
+
+{%  set heroics = deck.slots_by_type.heroic %}
+Heroic Event{%  if heroics|length > 1 %}s{%  endif %}
+
+{% for slot in heroics %}
+{{ slot.quantity }}x {{ slot.card.name }}  ({{  slot.card.pack.name }})
+{% endfor %}
+
+{%  set upgrades = deck.slots_by_type.upgrade %}
+Upgrade{%  if upgrades|length > 1 %}s{%  endif %}
+
+{% for slot in upgrades %}
+{{ slot.quantity }}x {{ slot.card.name }}  ({{  slot.card.pack.name }})
 {% endfor %}
 
 {{ footer|default('') }}

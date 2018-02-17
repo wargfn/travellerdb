@@ -90,7 +90,7 @@ class SlotCollectionDecorator implements \AppBundle\Model\SlotCollectionInterfac
 
     public function getSlotsByType ()
     {
-        $slotsByType = ['plot' => [], 'character' => [], 'location' => [], 'attachment' => [], 'event' => []];
+        $slotsByType = ['adv' => [], 'conn' => [], 'crew' => [], 'event' => [], 'gear' => [], 'heroic' => [], 'upgrade' => [] ];
         foreach($this->slots as $slot) {
             if(array_key_exists($slot->getCard()->getType()->getCode(), $slotsByType)) {
                 $slotsByType[$slot->getCard()->getType()->getCode()][] = $slot;
@@ -114,11 +114,44 @@ class SlotCollectionDecorator implements \AppBundle\Model\SlotCollectionInterfac
     {
         $plotDeck = [];
         foreach($this->slots as $slot) {
-            if($slot->getCard()->getType()->getCode() === 'plot') {
+            if($slot->getCard()->getType()->getCode() === 'adv') {
                 $plotDeck[] = $slot;
             }
         }
         return new SlotCollectionDecorator(new ArrayCollection($plotDeck));
+    }
+
+    public function getCaptainDeck ()
+    {
+        $captainDeck = [];
+        foreach($this->slots as $slot) {
+            if($slot->getCard()->getType()->getCode() === 'conn' || $slot->getCard()->getType()->getCode() === 'crew' || $slot->getCard()->getType()->getCode() === 'events' || $slot->getCard()->getType()->getCode() === 'heroic' || $slot->getCard()->getType()->getCode() === 'upgrade' ) {
+                $captainDeck[] = $slot;
+            }
+        }
+        return new SlotCollectionDecorator(new ArrayCollection($captainDeck));
+    }
+
+    public function getAdventureDeck ()
+    {
+        $advDeck = [];
+        foreach($this->slots as $slot) {
+            if($slot->getCard()->getType()->getCode() === 'adv') {
+                $advDeck[] = $slot;
+            }
+        }
+        return new SlotCollectionDecorator(new ArrayCollection($advDeck));
+    }
+
+    public function getShip ()
+    {
+        $shipDeck = [];
+        foreach($this->slots as $slot) {
+            if($slot->getCard()->getType()->getCode() === 'ship') {
+                $shipDeck[] = $slot;
+            }
+        }
+        return new SlotCollectionDecorator(new ArrayCollection($shipDeck));
     }
 
     public function getAgendas ()
@@ -146,7 +179,7 @@ class SlotCollectionDecorator implements \AppBundle\Model\SlotCollectionInterfac
     {
         $drawDeck = [];
         foreach($this->slots as $slot) {
-            if($slot->getCard()->getType()->getCode() === 'character' || $slot->getCard()->getType()->getCode() === 'location' || $slot->getCard()->getType()->getCode() === 'attachment' || $slot->getCard()->getType()->getCode() === 'event') {
+            if($slot->getCard()->getType()->getCode() === 'conn' || $slot->getCard()->getType()->getCode() === 'crew' || $slot->getCard()->getType()->getCode() === 'events' || $slot->getCard()->getType()->getCode() === 'heroic' || $slot->getCard()->getType()->getCode() === 'upgrade' ) {
                 $drawDeck[] = $slot;
             }
         }

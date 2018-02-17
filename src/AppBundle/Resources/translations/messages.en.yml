@@ -58,9 +58,13 @@ decks:
     too_many_copies: Contains too many copies of a card (by title)
     invalid_cards: Contains forbidden cards (cards no permitted by Faction or Agenda)
     agenda: Doesn't comply with the Agenda conditions
+    too_few_captain_cards: Contains too few Captains cards
+    too_few_adventure_cards: Contains too few Adventure cards
+    too_many_adventure_cards: Contains too many Adventure cards
+    too_many_captain_cards: Contains too many Captains cards
   build:
     choose:
-      faction: Choose your faction
+      faction: Choose your Ship
       agenda: Choose an agenda
       noagenda: No agenda
     start: Create the deck and start building
@@ -218,6 +222,12 @@ decks:
       tooltip:
         header: "Cost %cost%"
         label: "# cards"
+    expense:
+        title: Card Expense
+        subtitle: Expense X ignored
+        tooltip:
+          header: "expense %expense%"
+          label: "# cards"
   history:
     timeremaining: Time Remaining
     columns:
@@ -407,7 +417,7 @@ card:
     illustrator: Illustrator
     short:
       cost: C.
-      expense: S.
+      expense: E.
       type: T.
       faction: F.
 
