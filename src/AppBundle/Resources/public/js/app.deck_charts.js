@@ -29,6 +29,16 @@
 
                 neutral:
                         '#a99560',
+            },
+            type_colors = {
+                adv: '#ff3300',
+                conn: '#66ccff',
+                crew: '#33cc33',
+                event: '#990099',
+                gear: '#cc0000',
+                heroic: '#ffcc00',
+                ship: '#000099',
+                upgrade: '#cccccc',
             };
 
     deck_charts.chart_faction = function chart_faction()
@@ -88,6 +98,73 @@
                     showInLegend: false,
                     data: data
                 }],
+            plotOptions: {
+                column: {
+                    borderWidth: 0,
+                    groupPadding: 0,
+                    shadow: false
+                }
+            }
+        });
+    }
+
+    deck_charts.chart_type = function chart_type()
+    {
+        var types = {};
+        var draw_deck = app.deck.get_draw_deck();
+        draw_deck.forEach(function (card)
+        {
+            if(!types[card.type_code])
+                types[card.type_code] = {code: card.type_code, name: card.type_name, count: 0};
+            types[card.type_code].count += card.indeck;
+        })
+
+        var data = [];
+        _.each(_.values(types), function (type)
+        {
+            data.push({
+                name: type.name,
+                label: '<span class="icon icon-' + type.code + '"></span>',
+                color: type_colors[type.code],
+                y: type.count
+            });
+        })
+
+        $("#deck-chart-faction").highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: Translator.trans("decks.charts.type.title")
+            },
+            subtitle: {
+                text: Translator.trans("decks.charts.type.subtitle")
+            },
+            xAxis: {
+                categories: _.pluck(data, 'label'),
+                labels: {
+                    useHTML: true
+                },
+                title: {
+                    text: null
+                }
+            },
+            yAxis: {
+                min: 0,
+                allowDecimals: false,
+                tickInterval: 3,
+                title: null,
+                labels: {
+                    overflow: 'justify'
+                }
+            },
+            series: [{
+                type: "column",
+                animation: false,
+                name: Translator.trans("decks.charts.type.label"),
+                showInLegend: false,
+                data: data
+            }],
             plotOptions: {
                 column: {
                     borderWidth: 0,
@@ -234,6 +311,62 @@
         });
     }
 
+    deck_charts.chart_expense = function chart_expense()
+    {
+
+        var data = [];
+
+        var draw_deck = app.deck.get_draw_deck();
+        draw_deck.forEach(function (card)
+        {
+            if(typeof card.expense === 'number') {
+                data[card.expense] = data[card.expense] || 0;
+                data[card.expense] += (card.is_unique ? 1 : card.indeck);
+            }
+        })
+        data = _.flatten(data).map(function (value)
+        {
+            return value || 0;
+        });
+
+        $("#deck-chart-expense").highcharts({
+            chart: {
+                type: 'line'
+            },
+            title: {
+                text: Translator.trans("decks.charts.expense.title")
+            },
+            subtitle: {
+                text: Translator.trans("decks.charts.expense.subtitle")
+            },
+            xAxis: {
+                allowDecimals: false,
+                tickInterval: 1,
+                title: {
+                    text: null
+                }
+            },
+            yAxis: {
+                min: 0,
+                allowDecimals: false,
+                tickInterval: 1,
+                title: null,
+                labels: {
+                    overflow: 'justify'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size: 10px">' + Translator.trans('decks.charts.expense.tooltip.header', {str: '{point.key}'}) + '</span><br/>'
+            },
+            series: [{
+                animation: false,
+                name: Translator.trans('decks.charts.expense.tooltip.label'),
+                showInLegend: false,
+                data: data
+            }]
+        });
+    }
+
     deck_charts.chart_cost = function chart_cost()
     {
 
@@ -293,9 +426,11 @@
     deck_charts.setup = function setup(options)
     {
         deck_charts.chart_faction();
+        deck_charts.chart_type();
         deck_charts.chart_icon();
-        deck_charts.chart_strength();
+        //deck_charts.chart_strength();
         deck_charts.chart_cost();
+        deck_charts.chart_expense();
     }
 
     $(document).on('shown.bs.tab', 'a[data-toggle=tab]', function (e)

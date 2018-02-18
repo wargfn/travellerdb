@@ -14,7 +14,7 @@
             unsaved,
             user_id,
             problem_labels = _.reduce(
-                    ['too_many_plots', 'too_few_plots', 'too_many_different_plots', 'too_many_agendas', 'too_few_cards', 'too_many_copies', 'invalid_cards', 'agenda'],
+                    ['too_few_cards', 'too_many_copies', 'invalid_cards', 'too_many_adventure_cards','too_few_adventure_cards','too_many_captains_cards','too_few_captains_cards'],
                     function (problems, key)
                     {
                         problems[key] = Translator.trans('decks.problems.' + key);
@@ -29,9 +29,9 @@
     /*
      * Templates for the different deck layouts, see deck.get_layout_data
      */
-    layouts[1] = _.template('<div class="deck-content"><%= meta %><%= plots %><%= characters %><%= attachments %><%= locations %><%= events %></div>');
-    layouts[2] = _.template('<div class="deck-content"><div class="row"><div class="col-sm-6 col-print-6"><%= meta %></div><div class="col-sm-6 col-print-6"><%= plots %></div></div><div class="row"><div class="col-sm-6 col-print-6"><%= characters %></div><div class="col-sm-6 col-print-6"><%= attachments %><%= locations %><%= events %></div></div></div>');
-    layouts[3] = _.template('<div class="deck-content"><div class="row"><div class="col-sm-4"><%= meta %><%= plots %></div><div class="col-sm-4"><%= characters %></div><div class="col-sm-4"><%= attachments %><%= locations %><%= events %></div></div></div>');
+    layouts[1] = _.template('<div class="deck-content"><%= meta %><%= conns %><%= crew %><%= events %><%= gear %><%= heroics %><%= upgrades %></div>');
+    layouts[2] = _.template('<div class="deck-content"><div class="row"><div class="col-sm-6 col-print-6"><%= meta %></div><div class="col-sm-6 col-print-6"><%= advs %></div></div><div class="row"><div class="col-sm-6 col-print-6"><%= conns %><%= crews %><%= events %></div><div class="col-sm-6 col-print-6"><%= gears %><%= heroics %><%= upgrades %></div></div></div>');
+    layouts[3] = _.template('<div class="deck-content"><div class="row"><div class="col-sm-4"><%= meta %><%= advs %></div><div class="col-sm-4"><%= conns %><%= crews %><%= events %></div><div class="col-sm-4"><%= gears %><%= heroics %><%= upgrades %></div></div></div>');
 
     /**
      * @memberOf deck
@@ -117,28 +117,6 @@
 
     /**
      * @memberOf deck
-     */
-    deck.get_agendas = function get_agendas()
-    {
-        return deck.get_cards(null, {
-            type_code: 'agenda'
-        });
-    };
-
-    /**
-     * @memberOf deck
-     * @returns boolean
-     */
-    deck.is_alliance = function is_alliance()
-    {
-        return !(_.isUndefined(_.find(deck.get_agendas(), function (card)
-        {
-            return card.code === '06018';
-        })));
-    };
-
-    /**
-     * @memberOf deck
      * @param {object} sort 
      * @param {object} query 
      */
@@ -165,52 +143,68 @@
     {
         return deck.get_cards(sort, {
             type_code: {
-                '$nin': ['agenda', 'plot']
+                '$nin': ['adv', 'ship']
             }
         });
     };
 
     /**
      * @memberOf deck
-     * @param {object} sort 
+     * @param {object} sort
      */
-    deck.get_draw_deck_size = function get_draw_deck_size(sort)
-    {
-        var draw_deck = deck.get_draw_deck();
-        return deck.get_nb_cards(draw_deck);
-    };
-
-    /**
-     * @memberOf deck
-     * @param {object} sort 
-     */
-    deck.get_plot_deck = function get_plot_deck(sort)
+    deck.get_adventure_deck = function get_adventure_deck(sort)
     {
         return deck.get_cards(sort, {
-            type_code: 'plot'
+            type_code: {
+                '$nin': ['conn', 'crew', 'event', 'gear', 'heroic', 'ship','upgrade']
+            }
         });
     };
 
     /**
      * @memberOf deck
-     * @returns the number of plot cards
-     * @param {object} sort 
+     * @returns the number of adventure cards
+     * @param {object} sort
      */
-    deck.get_plot_deck_size = function get_plot_deck_size(sort)
+    deck.get_adventure_deck_size = function get_adventure_deck_size(sort)
     {
-        var plot_deck = deck.get_plot_deck();
-        return deck.get_nb_cards(plot_deck);
+        var adventure_deck = deck.get_adventure_deck();
+        return deck.get_nb_cards(adventure_deck);
     };
 
     /**
      * @memberOf deck
-     * @returns the number of different plot cards
-     * @param {object} sort 
+     * @param {object} sort
      */
-    deck.get_plot_deck_variety = function get_plot_deck_variety(sort)
+    deck.get_captain_deck = function get_captain_deck(sort)
     {
-        var plot_deck = deck.get_plot_deck();
-        return plot_deck.length;
+        return deck.get_cards(sort, {
+            type_code: {
+                '$nin': ['adv', 'ship']
+            }
+        });
+    };
+
+    /**
+     * @memberOf deck
+     * @returns the number captain cards
+     * @param {object} sort
+     */
+    deck.get_captain_deck_size = function get_captain_deck_size(sort)
+    {
+        var captain_deck = deck.get_captain_deck();
+        return deck.get_nb_cards(captain_deck);
+    };
+
+    /**
+     * @memberOf deck
+     *
+     *  @param {object} sort
+     */
+    deck.get_draw_deck_size = function get_draw_deck_size(sort)
+    {
+        var draw_deck = deck.get_draw_deck();
+        return deck.get_nb_cards(draw_deck);
     };
 
     deck.get_nb_cards = function get_nb_cards(cards)
@@ -278,32 +272,33 @@
         var data = {
             images: '',
             meta: '',
-            plots: '',
-            characters: '',
-            attachments: '',
-            locations: '',
-            events: ''
+            advs: '',
+            conns: '',
+            crews: '',
+            events: '',
+            gears: '',
+            heroics: '',
+            upgrades: '',
         };
 
         var problem = deck.get_problem();
-        var agendas = deck.get_agendas();
         
         deck.update_layout_section(data, 'images', $('<div style="margin-bottom:10px"><img src="/bundles/app/images/factions/' + deck.get_faction_code() + '.png" class="img-responsive">'));
-        agendas.forEach(function (agenda) {
-            deck.update_layout_section(data, 'images', $('<div><img src="' + agenda.imagesrc + '" class="img-responsive">'));
-        });
+        /* adv.forEach(function (adv) {
+            deck.update_layout_section(data, 'images', $('<div><img src="' + adv.imagesrc + '" class="img-responsive">'));
+        }); */
 
         deck.update_layout_section(data, 'meta', $('<h4 style="font-weight:bold">' + faction_name + '</h4>'));
-        agendas.forEach(function (agenda) {
-            var agenda_line = $('<h5>').append($(card_line_tpl({card: agenda})));
-            agenda_line.find('.icon').remove();
-            deck.update_layout_section(data, 'meta', agenda_line);
-        });
-        var drawDeckSection = $('<div>' + Translator.transChoice('decks.edit.meta.drawdeck', deck.get_draw_deck_size(), {count: deck.get_draw_deck_size()}) + '</div>');
+        /*adv.forEach(function (adv) {
+            var adv_line = $('<h5>').append($(card_line_tpl({card: adv})));
+            adv_line.find('.icon').remove();
+            deck.update_layout_section(data, 'meta', adva_line);
+        });*/
+        var drawDeckSection = $('<div>' + Translator.transChoice('decks.edit.meta.adventuredeck', deck.get_adventure_deck_size(), {count: deck.get_adventure_deck_size()}) + '</div>');
         drawDeckSection.addClass(problem && problem.indexOf('cards') !== -1 ? 'text-danger' : '');
         deck.update_layout_section(data, 'meta', drawDeckSection);
-        var plotDeckSection = $('<div>' + Translator.transChoice('decks.edit.meta.plotdeck', deck.get_plot_deck_size(), {count: deck.get_plot_deck_size()}) + '</div>');
-        plotDeckSection.addClass(problem && problem.indexOf('plots') !== -1 ? 'text-danger' : '');
+        var plotDeckSection = $('<div>' + Translator.transChoice('decks.edit.meta.captaindeck', deck.get_captain_deck_size(), {count: deck.get_captain_deck_size()}) + '</div>');
+        plotDeckSection.addClass(problem && problem.indexOf('cards') !== -1 ? 'text-danger' : '');
         deck.update_layout_section(data, 'meta', plotDeckSection);
         //deck.update_layout_section(data, 'meta', $('<div>Packs: ' + _.map(deck.get_included_packs(), function (pack) { return pack.name+(pack.quantity > 1 ? ' ('+pack.quantity+')' : ''); }).join(', ') + '</div>'));
         var packs = _.map(deck.get_included_packs(), function (pack)
@@ -315,11 +310,14 @@
             deck.update_layout_section(data, 'meta', $('<div class="text-danger small"><span class="fa fa-exclamation-triangle"></span> ' + problem_labels[problem] + '</div>'));
         }
 
-        deck.update_layout_section(data, 'plots', deck.get_layout_data_one_section('type_code', 'plot', 'type_name'));
-        deck.update_layout_section(data, 'characters', deck.get_layout_data_one_section('type_code', 'character', 'type_name'));
-        deck.update_layout_section(data, 'attachments', deck.get_layout_data_one_section('type_code', 'attachment', 'type_name'));
-        deck.update_layout_section(data, 'locations', deck.get_layout_data_one_section('type_code', 'location', 'type_name'));
+        deck.update_layout_section(data, 'advs', deck.get_layout_data_one_section('type_code', 'adv', 'type_name'));
+        //deck.update_layout_section(data, 'advs', deck.get_layout_data_one_section("type_code', 'adv', 'type_name'"));
+        deck.update_layout_section(data, 'conns', deck.get_layout_data_one_section('type_code', 'conn', 'type_name'));
+        deck.update_layout_section(data, 'crews', deck.get_layout_data_one_section('type_code', 'crew', 'type_name'));
         deck.update_layout_section(data, 'events', deck.get_layout_data_one_section('type_code', 'event', 'type_name'));
+        deck.update_layout_section(data, 'gears', deck.get_layout_data_one_section('type_code', 'gear', 'type_name'));
+        deck.update_layout_section(data, 'heroics', deck.get_layout_data_one_section('type_code', 'heroic', 'type_name'));
+        deck.update_layout_section(data, 'upgrades', deck.get_layout_data_one_section('type_code', 'upgrade', 'type_name'));
 
         return data;
     };
@@ -362,40 +360,7 @@
         if(nb_copies > 0) {
             // card-specific rules
             switch(card.type_code) {
-                case 'agenda':
-                    // is deck alliance before the change
-                    var is_alliance = deck.is_alliance();
-                    // is deck alliance with the new card
-                    if(card.traits.indexOf(Translator.trans('card.traits.banner')) === -1) {
-                        is_alliance = false;
-                    } else {
-                        var nb_banners = deck.get_nb_cards(deck.get_cards(null, {type_code: 'agenda', traits: new RegExp(Translator.trans('card.traits.banner') + '\\.')}));
-                        if(nb_banners >= 2)
-                            is_alliance = false;
-                    }
-                    if(card.code === '06018')
-                        is_alliance = true;
-                    if(is_alliance) {
-                        deck.get_agendas().forEach(function (agenda)
-                        {
-                            if(agenda.code !== '06018' && agenda.traits.indexOf(Translator.trans('card.traits.banner')) === -1) {
-                                app.data.cards.update({
-                                    code: agenda.code
-                                }, {
-                                    indeck: 0
-                                });
-                                updated_other_card = true;
-                            }
-                        });
-                    } else {
-                        app.data.cards.update({
-                            type_code: 'agenda'
-                        }, {
-                            indeck: 0
-                        });
-                        updated_other_card = true;
-                    }
-                    break;
+
             }
         }
         app.data.cards.updateById(card_code, {
@@ -463,45 +428,24 @@
      */
     deck.get_problem = function get_problem()
     {
-        var agendas = deck.get_agendas();
-        var expectedPlotDeckSize = 7;
-        var expectedMaxAgendaCount = 1;
         var expectedMinCardCount = 60;
-        agendas.forEach(function (agenda) {
-            if(agenda && agenda.code === '05045') {
-                expectedPlotDeckSize = 12;
-            }
-        });
-        // exactly 7 plots
-        if(deck.get_plot_deck_size() > expectedPlotDeckSize) {
-            return 'too_many_plots';
+        var expectedCaptainCount = 60;
+        var expectedAdventureCount = 60;
+
+        // expect at least 20 adventure cards
+        if(deck.get_adventure_deck_size() > expectedAdventureCount) {
+            return 'too_many_adventure_cards';
         }
-        if(deck.get_plot_deck_size() < expectedPlotDeckSize) {
-            return 'too_few_plots';
+        if(deck.get_adventure_deck_size() < expectedAdventureCount) {
+            return 'too_few_adventure_cards';
         }
 
-        var expectedPlotDeckSpread = expectedPlotDeckSize - 1;
-        // at least 6 different plots
-        if(deck.get_plot_deck_variety() < expectedPlotDeckSpread) {
-            return 'too_many_different_plots';
+        //expect at least 60 captain cards
+        if(deck.get_captain_deck_size() > expectedCaptainCount) {
+            return 'too_many_captain_cards';
         }
-
-        // no more than 1 agenda, unless Alliance
-        if(deck.is_alliance()) {
-            expectedMaxAgendaCount = 3;
-            expectedMinCardCount = 75;
-            var unwanted = _.find(deck.get_agendas(), function (agenda)
-            {
-                return agenda.code !== '06018' && agenda.traits.indexOf(Translator.trans('card.traits.banner')) === -1;
-            });
-            if(unwanted) {
-                return 'too_many_agendas';
-            }
-        }
-        
-        // no more than 1 agenda
-        if(deck.get_nb_cards(deck.get_agendas()) > expectedMaxAgendaCount) {
-            return 'too_many_agendas';
+        if(deck.get_captain_deck_size() < expectedCaptainCount) {
+            return 'too_few_captain_cards';
         }
 
         // at least 60 others cards
@@ -517,123 +461,9 @@
             return 'too_many_copies';
         }            
 
-        // no invalid card
-        if(deck.get_invalid_cards().length > 0) {
-            return 'invalid_cards';
-        }
-
-        // the condition(s) of the agendas must be fulfilled
-        var agendas = deck.get_agendas();
-        for(var i=0; i<agendas.length; i++) {
-            if(!deck.validate_agenda(agendas[i])) {
-                return 'agenda';
-            }
-        }
     };
 
-    deck.validate_agenda = function validate_agenda(agenda)
-    {
-        switch(agenda.code) {
-            case '01027':
-                if(deck.get_nb_cards(deck.get_cards(null, {type_code: {$in: ['character', 'attachment', 'location', 'event']}, faction_code: 'neutral'})) > 15) {
-                    return false;
-                }
-                break;
-            case '01198':
-            case '01199':
-            case '01200':
-            case '01201':
-            case '01202':
-            case '01203':
-            case '01204':
-            case '01205':
-                var minor_faction_code = deck.get_minor_faction_code(agenda);
-                if(deck.get_nb_cards(deck.get_cards(null, {type_code: {$in: ['character', 'attachment', 'location', 'event']}, faction_code: minor_faction_code})) < 12) {
-                    return false;
-                }
-                break;
-            case '04037':
-                if(deck.get_nb_cards(deck.get_cards(null, {type_code: 'plot', traits: new RegExp(Translator.trans('card.traits.winter') + '\\.')})) > 0) {
-                    return false;
-                }
-                break;
-            case '04038':
-                if(deck.get_nb_cards(deck.get_cards(null, {type_code: 'plot', traits: new RegExp(Translator.trans('card.traits.summer') + '\\.')})) > 0) {
-                    return false;
-                }
-                break;
-            case '05045':
-                var schemeCards = deck.get_cards(null, {type_code: 'plot', traits: new RegExp(Translator.trans('card.traits.scheme') + '\\.')});
-                var totalSchemes = deck.get_nb_cards(schemeCards);
-                var uniqueSchemes = schemeCards.length;
-                if(totalSchemes !== 5 || uniqueSchemes !== 5) {
-                    return false;
-                }
-                break;
-            case '06018':
-                var agendas = deck.get_nb_cards(deck.get_cards(null, {type_code: 'agenda'}));
-                var banners = deck.get_nb_cards(deck.get_cards(null, {type_code: 'agenda', traits: new RegExp(Translator.trans('card.traits.banner') + '\\.')}));
-                if(agendas - banners !== 1) {
-                    return false;
-                }
-                break;
-            case '06119':
-                var loyalCharacters = deck.get_nb_cards(deck.get_cards(null, {type_code: 'character', is_loyal: true}));
-                if(loyalCharacters > 0) {
-                    return false;
-                }
-                break;
-            case '09045':
-                var maesters = deck.get_nb_cards(deck.get_cards(null, {type_code: 'character', traits: new RegExp(Translator.trans('card.traits.maester') + '\\.')}));
-                if(maesters < 12) {
-                    return false;
-                }
-                break;
-        }
-        return true;
-    };
 
-    /**
-     * @memberOf deck
-     * @returns {array}
-     */
-    deck.get_minor_faction_codes = function get_minor_faction_codes()
-    {
-        return deck.get_agendas().map(function (agenda)
-        {
-            return deck.get_minor_faction_code(agenda);
-        });
-    };
-
-    /**
-     * @memberOf deck
-     * @param {object} agenda
-     * @returns {string}
-     */
-    deck.get_minor_faction_code = function get_minor_faction_code(agenda)
-    {
-        // special case for the Core Set Banners
-        var banners_core_set = {
-            '01198': 'baratheon',
-            '01199': 'greyjoy',
-            '01200': 'lannister',
-            '01201': 'martell',
-            '01202': 'thenightswatch',
-            '01203': 'stark',
-            '01204': 'targaryen',
-            '01205': 'tyrell'
-        };
-
-        return banners_core_set[agenda.code];
-    };
-
-    deck.get_invalid_cards = function get_invalid_cards()
-    {
-        return _.filter(deck.get_cards(), function (card)
-        {
-            return !deck.can_include_card(card);
-        });
-    };
 
     /**
      * returns true if the deck can include the card as parameter
@@ -649,40 +479,9 @@
         if(card.faction_code === faction_code)
             return true;
 
-        // out-of-house and loyal => no
-        if(card.is_loyal)
-            return false;
-
-        // agenda => yes
-        var agendas = deck.get_agendas();
-        for(var i = 0; i < agendas.length; i++) {
-            if(deck.card_allowed_by_agenda(agendas[i], card)) {
-                return true;
-            }
-        }
 
         // if none above => no
         return false;
     };
-
-    /**
-     * returns true if the agenda for the deck allows the passed card
-     * @memberOfdeck
-     */
-    deck.card_allowed_by_agenda = function card_allowed_by_agenda(agenda, card) {
-        switch(agenda.code) {
-            case '01198':
-            case '01199':
-            case '01200':
-            case '01201':
-            case '01202':
-            case '01203':
-            case '01204':
-            case '01205':
-                return card.faction_code === deck.get_minor_faction_code(agenda);
-            case '09045':
-                return card.type_code === 'character' && card.traits.indexOf(Translator.trans('card.traits.maester')) !== -1;
-        }
-    }
 
 })(app.deck = {}, jQuery);

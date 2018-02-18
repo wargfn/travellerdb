@@ -1,6 +1,6 @@
 {
-    "name": "alsciende/thronesdb",
-    "description": "A Game of Thrones LCG deckbuilder",
+    "name": "wargfn/ravellerdb",
+    "description": "A TravellerCCG deckbuilder",
     "license": "proprietary",
     "type": "project",
     "autoload": {

@@ -112,6 +112,8 @@ decks:
       drawdeck: "{0} Mazo de robo: %count% cartas | {1} Mazo de robo: %count% carta | ]1,Inf] Mazo de robo: %count% cartas"
       plotdeck: "{0} Mazo de tramas: %count% cartas | {1} Mazo de tramas: %count% carta | ]1,Inf] Mazo de tramas: %count% cartas"
       packs: "Capítulos: %packs%"
+      adventuredeck: "{0} Cubierta de aventura: %count% cartas | {1} Cubierta de aventura: %count% cartas | ]1,Inf] Cubierta de aventura: %count% cartas"
+      captaindeck: "{0} Cubierta del capitán: %count% cartas | {1} Cubierta del capitán: %count% cartas | ]1,Inf] Cubierta del capitán: %count% cartas"
   form:
     build: Construir nuevo mazo
     uploadarchive: Subir archivo
@@ -202,6 +204,10 @@ decks:
     faction:
       title: Cartas por Facción
       subtitle: Solo mazo de robo
+      label: "# cartas"
+    type:
+      title: Cartas por tipo
+      subtitle: Solo cubierta del capitán
       label: "# cartas"
     icon:
       title: Iconos de Personajes

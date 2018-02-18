@@ -101,7 +101,7 @@ class SlotCollectionDecorator implements \AppBundle\Model\SlotCollectionInterfac
 
     public function getCountByType ()
     {
-        $countByType = ['character' => 0, 'location' => 0, 'attachment' => 0, 'event' => 0];
+        $countByType = ['adv' => 0, 'conn' => 0, 'crew' => 0, 'event' => 0, 'gear' => 0, 'heroic' => 0, 'upgrade' => 0];
         foreach($this->slots as $slot) {
             if(array_key_exists($slot->getCard()->getType()->getCode(), $countByType)) {
                 $countByType[$slot->getCard()->getType()->getCode()] += $slot->getQuantity();
@@ -125,7 +125,7 @@ class SlotCollectionDecorator implements \AppBundle\Model\SlotCollectionInterfac
     {
         $captainDeck = [];
         foreach($this->slots as $slot) {
-            if($slot->getCard()->getType()->getCode() === 'conn' || $slot->getCard()->getType()->getCode() === 'crew' || $slot->getCard()->getType()->getCode() === 'events' || $slot->getCard()->getType()->getCode() === 'heroic' || $slot->getCard()->getType()->getCode() === 'upgrade' ) {
+            if($slot->getCard()->getType()->getCode() === 'conn' || $slot->getCard()->getType()->getCode() === 'crew' || $slot->getCard()->getType()->getCode() === 'event' || $slot->getCard()->getType()->getCode() === 'heroic' || $slot->getCard()->getType()->getCode() === 'upgrade' ) {
                 $captainDeck[] = $slot;
             }
         }
@@ -179,7 +179,7 @@ class SlotCollectionDecorator implements \AppBundle\Model\SlotCollectionInterfac
     {
         $drawDeck = [];
         foreach($this->slots as $slot) {
-            if($slot->getCard()->getType()->getCode() === 'conn' || $slot->getCard()->getType()->getCode() === 'crew' || $slot->getCard()->getType()->getCode() === 'events' || $slot->getCard()->getType()->getCode() === 'heroic' || $slot->getCard()->getType()->getCode() === 'upgrade' ) {
+            if($slot->getCard()->getType()->getCode() === 'conn' || $slot->getCard()->getType()->getCode() === 'crew' || $slot->getCard()->getType()->getCode() === 'event' || $slot->getCard()->getType()->getCode() === 'heroic' || $slot->getCard()->getType()->getCode() === 'upgrade' ) {
                 $drawDeck[] = $slot;
             }
         }

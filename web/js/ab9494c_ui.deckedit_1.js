@@ -119,7 +119,7 @@
     ui.build_type_selector = function build_type_selector()
     {
         $('[data-filter=type_code]').empty();
-        ['agenda', 'plot', 'character', 'attachment', 'location', 'event'].forEach(function (type_code)
+        ['adv', 'conn', 'crew', 'event', 'gear', 'heroic', 'upgrade'].forEach(function (type_code)
         {
             var example = app.data.cards.find({"type_code": type_code})[0];
             var label = $('<label class="btn btn-default btn-sm" data-code="'
@@ -479,7 +479,7 @@
                         + '<td><div class="btn-group" data-toggle="buttons"><%= radios %></div></td>'
                         + '<td><a class="card card-tip" data-code="<%= card.code %>" href="<%= url %>" data-target="#cardModal" data-remote="false" data-toggle="modal"><%= card.label %></a></td>'
                         + '<td class="cost"><%= card.cost %><%= card.income %></td>'
-                        + '<td class="cost"><%= card.strength %><%= card.initiative %></td>'
+                        + '<td class="cost"><%= card.expense %><%= card.expense %></td>'
                         + '<td class="type"><span class="icon-<%= card.type_code %>" title="<%= card.type_name %>"></span></td>'
                         + '<td class="faction"><span class="icon-<%= card.faction_code %> fg-<%= card.faction_code %>" title="<%= card.faction_name %>"></span></td>'
                         + '</tr>'

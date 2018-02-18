@@ -11,6 +11,85 @@
             period = 60,
             changed_since_last_autosave = false;
 
+
+    /**
+     * @memberOf deck_history
+     */
+    deck_history.all_changes = function all_changes() {
+        //console.log("ch ch changes", app.deck.get_content());
+        if (snapshots.length <= 0) {
+            //console.log("boo");
+            return;
+        }
+
+        // compute diff between last snapshot and current deck
+        var last_snapshot = deck_history.base.content;
+        var current_deck = app.deck.get_content();
+
+        var result = app.diff.compute_simple([current_deck, last_snapshot]);
+        if (!result) return;
+
+        var diff = result[0];
+        //console.log("DIFFF ", diff);
+
+
+        var cards_removed = [];
+        var cards_added = [];
+        _.each(diff[1], function (qty, code) {
+            var card = app.data.cards.findById(code);
+            if (!card) return;
+            var card_change = {
+                "qty": qty,
+                "code": code,
+                "card": card
+            };
+            cards_removed.push(card_change);
+        });
+
+        _.each(diff[0], function (qty, code) {
+            var card = app.data.cards.findById(code);
+            if (!card) return;
+            var card_change = {
+                "qty": qty,
+                "code": code,
+                "card": card
+            };
+            cards_added.push(card_change);
+        });
+
+        // first check for same named cards
+        _.each(cards_added, function (addition) {
+            _.each(cards_removed, function (removal) {
+                if (addition.qty > 0 && removal.qty > 0 && addition.card.xp >= 0 && addition.card.name == removal.card.name && addition.card.xp > removal.card.xp) {
+                    addition.qty = addition.qty - removal.qty;
+                    cost = cost + ((addition.card.xp - removal.card.xp) * removal.qty);
+                    removal.qty = Math.abs(addition.qty);
+                }
+                if (removal.card.xp === 0) {
+                    removed_0_cards += removal.qty;
+                }
+            });
+        });
+
+        var add_list = [];
+        var remove_list = [];
+        // run through the changes and show them
+        _.each(diff[0], function (qty, code) {
+            var card = app.data.cards.findById(code);
+            if (!card) return;
+            add_list.push('+' + qty + ' ' + '<a href="' + card.url + '" class="card card-tip fg-' + card.faction_code + '" data-toggle="modal" data-remote="false" data-target="#cardModal" data-code="' + card.code + '">' + card.name + '</a>' + app.format.xp(card.xp) + '</a>');
+            //add_list.push('+'+qty+' '+'<a href="'+Routing.generate('cards_zoom',{card_code:code})+'" class="card-tip" data-code="'+code+'">'+card.name+''+(card.xp >= 0 ? ' ('+card.xp+')' : '')+'</a>');
+        });
+        _.each(diff[1], function (qty, code) {
+            var card = app.data.cards.findById(code);
+            if (!card) return;
+            remove_list.push('&minus;' + qty + ' ' + '<a href="' + card.url + '" class="card card-tip fg-' + card.faction_code + '" data-toggle="modal" data-remote="false" data-target="#cardModal" data-code="' + card.code + '">' + card.name + '</a>' + app.format.xp(card.xp) + '</a>');
+            //remove_list.push('&minus;'+qty+' '+'<a href="'+Routing.generate('cards_zoom',{card_code:code})+'" class="card-tip" data-code="'+code+'">'+card.name+'</a>');
+        });
+
+    }
+
+
     /**
      * @memberOf deck_history
      */

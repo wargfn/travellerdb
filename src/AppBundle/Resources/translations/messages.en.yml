@@ -112,6 +112,8 @@ decks:
       drawdeck: "{0} Draw deck: %count% cards | {1} Draw deck: %count% card | ]1,Inf] Draw deck: %count% cards"
       plotdeck: "{0} Plot deck: %count% cards | {1} Plot deck: %count% card | ]1,Inf] Plot deck: %count% cards"
       packs: "Packs: %packs%"
+      adventuredeck: "{0} Adventure deck: %count% cards | {1} Adventure deck: %count% card | ]1,Inf] Adventure deck: %count% cards"
+      captaindeck: "{0} Captain deck: %count% cards | {1} Captain deck: %count% card | ]1,Inf] Captain deck: %count% cards"
   form:
     build: Build New Deck
     uploadarchive: Upload archive
@@ -203,6 +205,10 @@ decks:
     faction:
       title: Card Factions
       subtitle: Draw deck only
+      label: "# cards"
+    type:
+      title: Card Types
+      subtitle: Captain Deck only
       label: "# cards"
     icon:
       title: Character Icons
