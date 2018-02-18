@@ -5,7 +5,7 @@ login_required: You must be logged in for this operation.
 
 userby: by %user%
 seemore:
-  faction: More in this faction
+  faction: More using this Ship
 noimage: No image
 
 nav:

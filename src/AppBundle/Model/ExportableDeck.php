@@ -41,6 +41,8 @@ class ExportableDeck
             'faction' => $this->getFaction(),
             'draw_deck_size' => $slots->getDrawDeck()->countCards(),
             'plot_deck_size' => $slots->getPlotDeck()->countCards(),
+            'adventure_deck_size' => $slots->getAdventureDeck()->countCards(),
+            'captain_deck_size' => $slots->getCaptainDeck()->countCards(),
             'included_packs' => $slots->getIncludedPacks(),
             'slots_by_type' => $slots->getSlotsByType()
         ];

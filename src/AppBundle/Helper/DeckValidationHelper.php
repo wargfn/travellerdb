@@ -80,21 +80,34 @@ class DeckValidationHelper
         $expectedCaptDeckCount = 60;
         $expectedMinCardCount = 60;
 
-        if($slots->getAdventureDeck()->countCards() < $expectedAdvDeckCount) {
+        $advDeck = $slots->getAdventureDeck();
+        $captDeck = $slots->getCaptainDeck();
+
+        $advDeckSize = $advDeck->countCards();
+        $captDeckSize = $captDeck->countCards();
+
+        /*
+        if($advDeckSize < $expectedAdvDeckCount) {
             return 'too_few_adventure_cards';
         }
-        if($slots->getCaptainDeck()->countCards() > $expectedCaptDeckCount) {
-            return 'too_many_captain_cards';
-        }
-        if($slots->getAdventureDeck()->countCards() > $expectedAdvDeckCount) {
-            return 'too_many_adventure_cards';
-        }
-        if($slots->getCaptainDeck()->countCards() < $expectedCaptDeckCount) {
+
+        if($captDeckSize < $expectedCaptDeckCount) {
             return 'too_few_captain_cards';
         }
+
+        if($advDeckSize > $expectedAdvDeckCount) {
+            return 'too_many_adventure_cards';
+        }
+
+        if($$captDeckSize > $expectedCaptDeckCount) {
+            return 'too_many_captain_cards';
+        }
+        */
+        /*
         if($slots->getDrawDeck()->countCards() < $expectedMinCardCount) {
             return 'too_few_cards';
-        }
+        }*/
+
         foreach($slots->getCopiesAndDeckLimit() as $cardName => $value) {
             if($value['copies'] > $value['deck_limit']) {
                 return 'too_many_copies';
@@ -107,7 +120,7 @@ class DeckValidationHelper
     public function getProblemLabel ($problem)
     {
         if(!$problem) {
-            return '';
+            return null;
         }
         return $this->translator->trans('decks.problems.' . $problem);
     }

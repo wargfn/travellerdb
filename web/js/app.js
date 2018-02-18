@@ -1801,7 +1801,7 @@ if (typeof jQuery === 'undefined') {
     var locale_changed = false;
 
     var fdb = new ForerunnerDB();
-    var database = fdb.db('thronesdb');
+    var database = fdb.db('travellerdb');
     var masters = {
         packs: database.collection('master_pack', {primaryKey: 'code'}),
         cards: database.collection('master_card', {primaryKey: 'code'})
@@ -3199,9 +3199,7 @@ if (typeof jQuery === 'undefined') {
     deck.get_adventure_deck = function get_adventure_deck(sort)
     {
         return deck.get_cards(sort, {
-            type_code: {
-                '$nin': ['conn', 'crew', 'event', 'gear', 'heroic', 'ship','upgrade']
-            }
+            type_code: 'adv'
         });
     };
 
@@ -3213,6 +3211,7 @@ if (typeof jQuery === 'undefined') {
     deck.get_adventure_deck_size = function get_adventure_deck_size(sort)
     {
         var adventure_deck = deck.get_adventure_deck();
+        //console.log(deck.get_nb_cards(adventure_deck));
         return deck.get_nb_cards(adventure_deck);
     };
 
@@ -3227,6 +3226,7 @@ if (typeof jQuery === 'undefined') {
                 '$nin': ['adv', 'ship']
             }
         });
+
     };
 
     /**
@@ -3237,6 +3237,7 @@ if (typeof jQuery === 'undefined') {
     deck.get_captain_deck_size = function get_captain_deck_size(sort)
     {
         var captain_deck = deck.get_captain_deck();
+        //console.log(deck.get_nb_cards(captain_deck).toString());
         return deck.get_nb_cards(captain_deck);
     };
 
@@ -3474,13 +3475,13 @@ if (typeof jQuery === 'undefined') {
     {
         var expectedMinCardCount = 60;
         var expectedCaptainCount = 60;
-        var expectedAdventureCount = 60;
+        var expectedAdventureCount = 20;
 
         // expect at least 20 adventure cards
         if(deck.get_adventure_deck_size() > expectedAdventureCount) {
             return 'too_many_adventure_cards';
         }
-        if(deck.get_adventure_deck_size() < expectedAdventureCount) {
+        else if(deck.get_adventure_deck_size() < expectedAdventureCount) {
             return 'too_few_adventure_cards';
         }
 

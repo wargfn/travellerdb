@@ -6,7 +6,7 @@
     var locale_changed = false;
 
     var fdb = new ForerunnerDB();
-    var database = fdb.db('thronesdb');
+    var database = fdb.db('travellerdb');
     var masters = {
         packs: database.collection('master_pack', {primaryKey: 'code'}),
         cards: database.collection('master_card', {primaryKey: 'code'})
