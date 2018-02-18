@@ -5,7 +5,7 @@ t.add("data_load_fail", "No fue posible cargar los datos. Haga click <a href='ja
 t.add("login_required", "Debes estar identificado para realizar esta operaci\u00f3n", "messages", "es");
 t.add("userby", "por %user%", "messages", "es");
 t.add("noimage", "Sin imagen", "messages", "es");
-t.add("seemore.faction", "M\u00e1s de esta facci\u00f3n", "messages", "es");
+t.add("seemore.faction", "M\u00e1s de esta nave", "messages", "es");
 t.add("nav.mydecks", "Mis mazos", "messages", "es");
 t.add("nav.decklists", "Mazos", "messages", "es");
 t.add("nav.cards", "Cartas", "messages", "es");

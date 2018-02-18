@@ -5,7 +5,7 @@ t.add("data_load_fail", "Unable to load the data. Click <a href='javascript:wind
 t.add("login_required", "You must be logged in for this operation.", "messages", "en");
 t.add("userby", "by %user%", "messages", "en");
 t.add("noimage", "No image", "messages", "en");
-t.add("seemore.faction", "More in this faction", "messages", "en");
+t.add("seemore.faction", "More using this Ship", "messages", "en");
 t.add("nav.mydecks", "My decks", "messages", "en");
 t.add("nav.decklists", "Decklists", "messages", "en");
 t.add("nav.cards", "Cards", "messages", "en");

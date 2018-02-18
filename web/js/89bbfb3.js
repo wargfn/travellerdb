@@ -117,7 +117,7 @@ t.add("data_load_fail", "Unable to load the data. Click <a href='javascript:wind
 t.add("login_required", "You must be logged in for this operation.", "messages", "en");
 t.add("userby", "by %user%", "messages", "en");
 t.add("noimage", "No image", "messages", "en");
-t.add("seemore.faction", "More in this faction", "messages", "en");
+t.add("seemore.faction", "More using this Ship", "messages", "en");
 t.add("nav.mydecks", "My decks", "messages", "en");
 t.add("nav.decklists", "Decklists", "messages", "en");
 t.add("nav.cards", "Cards", "messages", "en");
@@ -487,7 +487,7 @@ t.add("data_load_fail", "No fue posible cargar los datos. Haga click <a href='ja
 t.add("login_required", "Debes estar identificado para realizar esta operaci\u00f3n", "messages", "es");
 t.add("userby", "por %user%", "messages", "es");
 t.add("noimage", "Sin imagen", "messages", "es");
-t.add("seemore.faction", "M\u00e1s de esta facci\u00f3n", "messages", "es");
+t.add("seemore.faction", "M\u00e1s de esta nave", "messages", "es");
 t.add("nav.mydecks", "Mis mazos", "messages", "es");
 t.add("nav.decklists", "Mazos", "messages", "es");
 t.add("nav.cards", "Cartas", "messages", "es");
