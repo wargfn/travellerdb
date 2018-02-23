@@ -358,6 +358,7 @@ div.site-slogan {
 
 .bg-broadsword {
     background-color: #6c6159 !important;
+    background: url(../images/broadsword-background.png);
     color: #FFFFFF !important;
 }
 
@@ -371,6 +372,7 @@ div.site-slogan {
 
 .bg-empress {
     background-color: #00cc00 !important;
+    background: url(../images/empress-background.png);
     color: #FFFFFF !important;
 }
 
@@ -383,6 +385,7 @@ div.site-slogan {
 
 .bg-submerch {
     background-color: #e60000 !important;
+    background: url(../images/submerch-background.png);
     color: #FFFFFF !important;
 }
 
@@ -395,6 +398,7 @@ div.site-slogan {
 
 .bg-typesscout {
     background-color: #0033cc !important;
+    background: url(../images/typesscout-background.png);
     color: #FFFFFF !important;
 }
 
