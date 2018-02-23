@@ -342,6 +342,115 @@ div.site-slogan {
 .bg-faction a, .bg-faction span {
     color: inherit;
 }
+
+.bg-beowulf {
+    background-color: #e600ac !important;
+    background: url(../images/beowulf-background.png);
+    color: #FFFFFF !important;
+}
+
+.fg-beowulf {
+    color: #e600ac !important;
+}
+.border-beowulf {
+    border-color: #e600ac !important;
+}
+
+.bg-broadsword {
+    background-color: #6c6159 !important;
+    color: #FFFFFF !important;
+}
+
+.fg-broadsword {
+    color: #6c6159 !important;
+}
+.border-broadsword {
+    border-color: #6c6159 !important;
+}
+
+
+.bg-empress {
+    background-color: #00cc00 !important;
+    color: #FFFFFF !important;
+}
+
+.fg-empress {
+    color: #00cc00 !important;
+}
+.border-empress {
+    border-color: #00cc00 !important;
+}
+
+.bg-submerch {
+    background-color: #e60000 !important;
+    color: #FFFFFF !important;
+}
+
+.fg-submerch {
+    color: #e60000 !important;
+}
+.border-submerch {
+    border-color: #e60000 !important;
+}
+
+.bg-typesscout {
+    background-color: #0033cc !important;
+    color: #FFFFFF !important;
+}
+
+.fg-typesscout {
+    color: #0033cc !important;
+}
+.border-typesscout {
+    border-color: #0033cc !important;
+}
+
+.icon-adv{
+    color: #de9c3b !important;
+}
+.fg-adv {
+    color: #de9c3b !important;
+}
+.icon-conn {
+    color: #c0e1f2 !important;
+}
+.fg-conn {
+    color: #c0e1f2 !important;
+}
+.icon-crew {
+    color: #a5cd50 !important;
+}
+.fg-crew {
+    color: #a5cd50 !important;
+}
+.icon-event {
+    color: #9177b6 !important;
+}
+.fg-event{
+    color: #9177b6 !important;
+}
+.icon-gear {
+    color: #e85140 !important;
+}
+.fg-gear {
+    color: #e85140 !important;
+}
+.icon-heroic {
+    color: #fbf970 !important;
+}
+.fg-heroic {
+    color: #fbf970 !important;
+}
+.fg-ship {
+    color: #DE9C3B !important;
+}
+.icon-upgrade {
+    color: #939498 !important;
+}
+.fg-upgrade{
+    color: #939498 !important;
+}
+
 .bg-targaryen {
     background-color: #1c1c1c !important;
     color: white !important;
@@ -371,8 +480,9 @@ div.site-slogan {
     background-color: #e89521 !important;
 }
 .bg-neutral {
-    background-color: #a99560 !important;
+    background-color: #a99560 ;
 }
+
 
 .fg-targaryen {
     color: #1c1c1c !important;
@@ -399,7 +509,7 @@ div.site-slogan {
     color: #e89521 !important;
 }
 .fg-neutral {
-    color: #a99560 !important;
+    color: #a99560;
 }
 
 .border-targaryen {
@@ -427,7 +537,7 @@ div.site-slogan {
     border-color: #e89521 !important;
 }
 .border-neutral {
-    border-color: #a99560 !important;
+    border-color: #a99560;
 }
 
 /**************** REVIEW ON CARD PAGE ******************/
