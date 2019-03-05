@@ -150,6 +150,12 @@ span.new	{ color:red }
 <p>Each player has a hand of cards. By default, all captains have a maximum hand size of seven (7).  Only captain’s cards are ever in your hand.  Cards in hand must be concealed from other players.  You may always look at your own cards in hand.</p>
 <p>You may not look through your <a href="#Adventure_Deck">Adventure Deck</a> or your <a href="#Captains_Deck">Captain’s Deck</a> after play has begun unless a card so directs.</p>
 
+<h3 id="Jack_of_all_Trades">Jack-of-all-Trades</h3>
+<p>Jack-of-all-Trades is slightly different from the other skills. It does not have a token of its own. Instead, a <span class="icon icon-crew"></span> with Jack-of-all-Trades (<span class="icon icon-jack"></span>) at the trained (hex) level may collect any other trained skill token except Psionic (<span class="icon icon-psionic"></span> ). Additionally, a <span class="icon icon-crew"></span> with Jack-of-all-Trades may not select a token corresponding to another trained skill that <span class="icon icon-crew"></span> possesses.</p>
+<p>A <span class="icon icon-jack"></span> with Jack-of-all-Trades (<span class="icon icon-jack"></span>) at the expert (circle) level may collect any two trained skill tokens (subject to the above limitations), but the tokens must come from two different skills.</p>
+<p>Jack-of-all-Trades is a partial exception to the rule that tokens are generated automatically.</p>
+<p>During Stage 1 of the <a href="#Resource_Phase">Resource Phase</a>, the controlling captain must announce which tokens they wish to collect from any <span class="icon icon-crew"></span> with Jack-of-all-Trades. A captain who neglects this requirement is forbidden from collecting tokens for the undeclared Jack-of-allTrades skill that phase.</p>
+
 <h3 id="Keywords_Overview">Keywords</h3>
 <p>Keywords are abilities represented by a single term. Using keywords saves space and ensures that the same ability works the same way across multiple cards. Keywords are represented by bolded and underlined text.</p>
 
@@ -214,7 +220,7 @@ span.new	{ color:red }
 <h4 id="KW_Replenish"><strong><u>Replenish (X)</u></strong></h4>
 <p>For each point of <strong><u><a href="#KW_Replenish">Replenish</a></u></strong>, the effect’s controller moves a random card from their discard pile to the bottom of their deck. If instead the text states to “<strong><u><a href="#KW_Replenish">Replenish</a></u></strong> this card,” then rather than drawing a random card from the discard pile, the card with <strong><u><a href="#KW_Replenish">Replenish</a></u></strong> is moved to the bottom of the controller’s deck.</p>
 
-<h4 id="KW_Resilient"><storng><u>Resilient</u></storng></h4>
+<h4 id="KW_Resilient"><strong><u>Resilient</u></strong></h4>
 <p>A <strong><u><a href="#KW_Resilient">Resilient</a></u></strong> card restores missing <span class="icon icon-wound"></span> or <span class="icon icon-structure"></span> during Stage 4 of the Ready Phase at no cost.</p>
 
 <h4 id="KW_Restricted_Unrestricted"><strong><u>Restricted/Unrestrictd</u></strong></h4>
@@ -256,6 +262,7 @@ span.new	{ color:red }
     <li>The defender now inflicts damage equal to their <span class="icon icon-attack"></span>, minus the attacker’s <span class="icon icon-defense"></span>. For each point of damage, the defender assigns it in an identical manner as step 2. The defender’s damage, or lack thereof, has no impact on whether or not the piracy action succeeds (step 3).</li>
     <li>The pirate becomes uncommitted.</li>
 </ol>
+<p>When procuring cards during the <a href="#Procurement_Phase">Procurement Phase</a>, Captains must pay an additional <span class="icon icon-1"></span> for each <span class="icon icon-infamy"></span> token they possess.</p>
 
 <h3 id="Ready">Ready(<span class="icon icon-ready"></span>)</h3>
 <p>Ready and Exerted are two game states indicating a card’s availability for further use.  Only cards currently in play may be <span class="icon icon-ready"></span> or <span class="icon icon-exert"></span> , and only a ready card may <span class="icon icon-extert"></span>, while only an exerted card may <span class="icon icon-ready"></span>. Ready cards are placed vertically so the text can be easily read.</p>
@@ -295,7 +302,7 @@ span.new	{ color:red }
         <li><span class="icon icon-react"></span> : This icon indicates that the effect is a reaction. Unlike other effects, <span class="icon icon-reaction"></span> may be generated at any time, including while another effect is being resolved. Unless otherwise specified, all <span class="icon icon-event"></span> cards are playable as <span class="icon icon-react"></span>.</li>
     </ul>
     <p></p>
-    <p>If an effect is not subject to either a phase restriction or <span class="icon icon-action"></span> the timing indicator, then it may be generated at any time, provided no other effect is pending. Only effects with <span class="icon icon-reaction"></span> timing may be played while another effect is on the queue.</p>
+    <p>If an effect is not subject to either a phase restriction or <span class="icon icon-action"></span> the timing indicator, then it may be generated at any time, provided no other effect is pending. Only effects with <span class="icon icon-react"></span> timing may be played while another effect is on the queue.</p>
 </ul>
 
 <h3 id="Token">Token</h3>
@@ -327,7 +334,7 @@ span.new	{ color:red }
     <li><a href="#Procurement_Phase">Procurement Phase</a></li>
     <li><a href="#Action_Phase">Action Phase</a></li>
     <li><a href="#Resource_Phase">Resource Phase</a></li>
-    <li><a href="#Resoultion_Phase">Resolution Phase</a></li>
+    <li><a href="#Resolution_Phase">Resolution Phase</a></li>
 </ul>
 
 <h3 id="Ready_Phase">Ready Phase</h3>
@@ -352,133 +359,95 @@ span.new	{ color:red }
 <p>Stage 3: Check for victory. If a captain has met their <span class="icon icon-victorypoint"></span> threshold, which is 20 by default, they win the game. If multiple captains have exceeded their <span class="icon icon-victorypoint"></span> threshold, the captain with the highest <span class="icon icon-victorypoint"></span> wins. If there is a tie, then the captain with the highest <span class="icon icon-initiative"></span> wins.</p>
 
 <h4 id="Adventure_Phase_Solo">Solo Play Adventure Phase</h4>
-<p>Because are the primary obstacle in solo play, the <a href="#Adventure_Phase">Adventure Phase</a> has a number of important changes.</p>
+<p>Because <span class="icon icon-complication"></span> are the primary obstacle in solo play, the <a href="#Adventure_Phase">Adventure Phase</a> has a number of important changes.</p>
 <p>Stage 1:	 The captain draws an adventure card and, without looking at it, plays it face down as a <span class="icon icon-complication"></span>, using the following steps to determine the <span class="icon icon-contract"></span> to which it should attach.</p>
 <ul>
 <li type="A">Attach it to the <span class="icon icon-contract"></span> with the highest <span class="icon icon-victorypoint"></span> unless that <span class="icon icon-contract"></span> already has a number of attached <span class="icon icon-complication"></span> equal to its <span class="icon icon-complication"></span> slots, in which case, attach it to the <span class="icon icon-contract"></span> with the next highest <span class="icon icon-victorypoint"></span>.</li>
 <li type="A">If all <span class="icon icon-contract"></span> already have a number of attached <span class="icon icon-complication"></span> equal to their <span class="icon icon-complication"></span> slots, then attach it to the <span class="icon icon-contract"></span> with the lowest <span class="icon icon-victorypoint"></span> total, after choosing an already attached <span class="icon icon-complication"></span> to move to the discard pile.</li>
 </ul>
 <p>Stage 2: The captain draws an adventure card and places it face up as a <span class="icon icon-complication"></span> on a <span class="icon icon-contract"></span> of their choosing.</p>
-<p>Stage 3: Choosing an Activity to Pursue, Because Piracy is not an option, captains must choose between pursing a or being uncommitted.</p>
+<p>Stage 3: Choosing an Activity to Pursue, Because Piracy is not an option, captains must choose between pursing a <span class="icon icon-contract"></span> or being uncommitted.</p>
 <p>Stage 4: Check for victory. If a captain has met their <span class="icon icon-victorypoint"></span> threshold, which is 20 by default, they win the game.</p>
 
 
 <h3 id="Procurement_Phase">Procurement Phase</h3>
-In the Procurement Phase, captains have the opportunity to hire , equip , forge and install .
-Stage 1: In initiative order, captains put , , and into play (“procure”) from their hand by paying the
-card’s cost. When procuring cards during this phase, Captains must pay an additional for each token they
-possess.
-and are placed directly into play. are attached to the procuring captain’s . are attached to a
-controlled by the procuring captain. or with the Hindrance keyword may instead be played on a card
-controlled by an opposing captain.
-Some card types have certain limits that constrain the number that a captain may have in play
+<p>In the Procurement Phase, captains have the opportunity to hire <span class="icon icon-crew"></span>, equip <span class="icon icon-gear"></span>, forge <span class="icon icon-connection"></span> and install <span class="icon icon-upgrade"></span>.</p>
+<p>Stage 1: In initiative order, captains put <span class="icon icon-connection"></span>, <span class="icon icon-crew"></span>, <span class="icon icon-gear"></span> and <span class="icon icon-upgrade"></span> into play (“procure”) from their hand by paying the card’s cost. When procuring cards during this phase, Captains must pay an additional <span class="icon icon-1"></span> for each <span class="icon icon-infamy"></span> token they possess.</p>
+<p><span class="icon icon-connection"></span> and <span class="icon icon-crew"></span> are placed directly into play. <span class="icon icon-upgrade"></span> are attached to the procuring captain’s <span class="icon icon-ship"></span>. <span class="icon icon-gear"></span> are attached to a <span class="icon icon-crew"></span> controlled by the procuring captain. <span class="icon icon-gear"></span> or <span class="icon icon-upgrade"></span> with the <strong><u><a href="#KW_Hindrance">Hindrance</a></u></strong> keyword may instead be played on a card controlled by an opposing captain.</p>
+<p>Some card types have certain limits that constrain the number that a captain may have in play.</p>
 
-<table>Card Limits</table>
-
-Anytime a captain would control cards in excess of any limit, that captain must choose and jettison cards until
-within permissible amounts. Cards with the keyword Trifling do not count against slot limits. See the Trifling
-entry in the keyword glossary for more details.
-Stage 2: Check for victory. If a captain has met their threshold, which is 20 by default, they win the game.
-If multiple captains have exceeded their threshold, the captain with the highest wins. If there is a tie,
-then the captain with the highest wins.
+<table class="table table-bordered table-condensed text-center">
+    <tr class="bg-baratheon">
+        <th>Card Limits*</th>
+    </tr>
+    <tr>
+        <td><em>Connection(<span class="icon icon-connection"></span>)</em></td><td>No more than one of each subtyle</td>
+    </tr>
+    <tr class="bg-info">
+        <td><em>Crew(<span class="icon icon-crew"></span>)</em></td><td>No more than the <span class="icon icon-crew"></span> slots provided by the captain's <span class="icon icon-ship"></span>. <span class="icon icon-crew"></span> are unique. No captain may have more than one <span class="icon icon-crew"></span> with the same name, but multiple captains may each have a copy of the same <span class="icon icon-crew"></span>.</td>
+    </tr>
+    <tr>
+        <td><em>Gear(<span class="icon icon-gear"></span>)</em></td><td>No <span class="icon icon-crew"></span> may have attached more than one of each subtype.</td>
+    </tr>
+    <tr class="bg-info">
+        <td><em>Upgrade(<span class="icon icon-upgrade"></span>)</em></td><td>No more than the subtype slots provided by the captain's <span class="icon icon-ship"></span></td>
+    </tr>
+</table>
+<p>Anytime a captain would control cards in excess of any limit, that captain must choose and jettison cards until within permissible amounts. Cards with the keyword <strong><u><a href="#KW_Trifling">Trifling</a></u></strong> do not count against slot limits. See the <strong><u><a href="#KW_Trifling">Trifling</a></u></strong> entry in the keyword glossary for more details.</p>
+<p>Stage 2: Check for victory. If a captain has met their <span class="icon icon-victorypoint"></span> threshold, which is 20 by default, they win the game. If multiple captains have exceeded their <span class="icon icon-victorypoint"></span> threshold, the captain with the highest <span class="icon icon-victorypoint"></span> wins. If there is a tie, then the captain with the highest <span class="icon icon-initiative"></span> wins.</p>
 
 <h3 id="Action_Phase">Action Phase</h3>
-During the Action Phase, captains have the opportunity to improve their position and hinder their opponents.
-Stage 1: Captains alternate in initiative order performing actions. Actions are denoted by . Some may
-provide Use actions, indicated by the icon. is always an , and it requires the acting to .
-are a special kind of available to with the requisite skill. When declaring a is performing a ,
-the controlling captain must choose whether the acting is taking the trained or the expert . A trained
-may only select the trained . An expert may perform either, but not both.
-The expert level of some may say “as above,” with or without additional text. As above indicates that the
-trained level text is applied, subject to any other modifying language in the expert ability.
-Captains may play cards, use non-action abilities or generate effects even if they are not the current active
-captain. However, no card or ability may be played during an unless that card or ability has reaction ( ).
-The active captain may pass, if so desired. If all captains pass in order, the phase ends. If one captain passes
-and another acts, any previously passing captain may act.
-Stage 2: Check for victory. If a captain has met their threshold, which is 20 by default, they win the game.
-If multiple captains have exceeded their threshold, the captain with the highest wins. If there is a tie,
-then the captain with the highest wins.
+<p>During the Action Phase, captains have the opportunity to improve their position and hinder their opponents.</p>
+<p>Stage 1: Captains alternate in initiative order performing actions. Actions are denoted by <span class="icon icon-action"></span>. Some <span class="icon icon-gear"></span> may provide Use actions, indicated by the <span class="icon icon-use"></span> icon. <span class="icon icon-use"></span> is always an <span class="icon icon-action"></span>, and it requires the <span class="icon icon-crew"></span> acting to <span class="icon-exert"></span>.</p>
+<p><span class="icon icon-heroic"></span> are a special kind of <span class="icon icon-action"></span> available to <span class="icon icon-crew"></span> with the requisite skill. When declaring a <span class="icon icon-crew"></span> is performing a <span class="icon icon-heroic"></span>, the controlling captain must choose whether the acting <span class="icon icon-crew"></span> is taking the trained or the expert <span class="icon icon-action"></span>. A trained <span class="icon icon-crew"></span> may only select the trained <span class="icon icon-action"></span>. An expert <span class="icon icon-crew"></span> may perform either, but not both.</p>
+<p>The expert level of some <span class="icon icon-heroic"></span> may say “as above,” with or without additional text. As above indicates that the trained level text is applied, subject to any other modifying language in the expert ability.</p>
+<p>Captains may play cards, use non-action abilities or generate effects even if they are not the current active captain. However, no card or ability may be played during an <span class="icon icon-action"></span> unless that card or ability has reaction (<span class="icon icon-react"></span>).</p>
+<p>The active captain may pass, if so desired. If all captains pass in order, the phase ends. If one captain passes and another acts, any previously passing captain may act.</p>
+<p>Stage 2: Check for victory. If a captain has met their <span class="icon icon-victorypoint"></span> threshold, which is 20 by default, they win the game. If multiple captains have exceeded their <span class="icon icon-victorypoint"></span> threshold, the captain with the highest <span class="icon icon-victorypoint"></span> wins. If there is a tie, then the captain with the highest <span class="icon icon-initiative"></span> wins.</p>
 
 <h3 id="Resource_Phase">Resource Phase</h3>
-In the Resource Phase, captains generate tokens for use in resolving and .
-Stage 1: In initiative order, captains collect all resource tokens to which they are entitled. In Traveller, there are
-two kinds of resource tokens: Capabilities and skills.
-• A captain’s generates one capability token for each capability icon it possesses.
-• Each controlled by the captain generates one skill token for each skill it possesses. Skills come in two
-levels, trained and expert. A generates the skill token that corresponds to the level it possesses.
-Resource tokens from a captain’s and are generated automatically, and are collected into the captain’s
-Resource Pool without any further act by the captain. A captain need not remember to physically gather the
-tokens. A captain may voluntarily reject any token from entering their Resource Pool, but must do so explicitly.
-If any effect requires a captain to pay a cost or resolve an effect to collect a token, that captain must explicitly
-elect to pay the cost or resolve the effect.
-Stage 2: Check for victory. If a captain has met their threshold, which is 20 by default, they win the game.
-If multiple captains have exceeded their threshold, the captain with the highest wins. If there is a tie,
-then the captain with the highest wins.
+<p>In the Resource Phase, captains generate tokens for use in resolving <span class="icon icon-contract"></span> and <span class="icon icon-complication"></span>.</p>
+<p>Stage 1: In initiative order, captains collect all resource tokens to which they are entitled. In <strong><em>Traveller</em></strong>, there are two kinds of resource tokens: Capabilities and skills.</p>
+<ul>
+<li>A captain’s <span class="icon icon-ship"></span> generates one capability token for each capability icon it possesses.</li>
+<li>Each <span class="icon icon-crew"></span> controlled by the captain generates one skill token for each skill it possesses. Skills come in two levels, trained (hex) and expert (circle). A <span icon="icon icon-crew"></span> generates the skill token that corresponds to the level it possesses.</li>
+</ul>
+<p>Resource tokens from a captain’s <span class="icon icon-ship"></span> and <span class="icon icon-crew"></span> are generated automatically, and are collected into the captain’s Resource Pool without any further act by the captain. A captain need not remember to physically gather the tokens. A captain may voluntarily reject any token from entering their Resource Pool, but must do so explicitly. If any effect requires a captain to pay a cost or resolve an effect to collect a token, that captain must explicitly elect to pay the cost or resolve the effect.</p>
+<p>Stage 2: Check for victory. If a captain has met their <span class="icon icon-victorypoint"></span> threshold, which is 20 by default, they win the game. If multiple captains have exceeded their <span class="icon icon-victorypoint"></span> threshold, the captain with the highest <span class="icon icon-victorypoint"></span> wins. If there is a tie, then the captain with the highest <span class="icon icon-initiative"></span> wins.</p>
 
 <h3 id="Resolution_Phase">Resolution Phase</h3>
-The Resolution Phase is, in many ways, the culmination of a captain’s efforts. During this part of the round,
-players attempt to resolve and piracy, in the hopes of advancing towards victory.
-Stage 1: All captains simultaneously reveal all face down on a they are pursuing.
-Stage 2: Captains alternate in initiative order performing one of the following Resoultion Phase actions:
-• A captain pursuing a with attached may attempt to resolve a .
-• A captain declared as a pirate may resolve a piracy attempt.
-• A captain may pass. Captains who pass may make no further selections during this stage. Note, this is
-different from the procedure during the Action Phase, where captains are allowed to act after passing if
-another captain has subsequently acted.
-Once all captains have passed, the stage ends. If a captain is pursuing a , and that has no attached
-at the time the captain passes, that captain is an “eligible” captain. If a captain is pursuing a , and that
-does have attached at the time the captain passes, that captain is “ineligible.”
-Resolution: Captains committed to may attempt to resolve any attached by the following procedure:
-1. Select an attached . All on pursued should already have been revealed, but if, for some reason,
-the has not been revealed, reveal it.
-2. are resolved by meeting its requirements. Requirements displaying a Resource Token icon are
-resolved if the captain can discard the corresponding token from their Resource pool. Alternatively, some
-requirements obligate the captain to jettison cards or incur expenses. Finally, requirements that simply
-state a card type or attribute (such as a trait) but do not specify any other obligation (such as jettison, ,
-etc) can be met if the captain controls the corresponding card or a card with the specified attribute.
-3. If a has multiple requirements, resolve each one individually. are resolved only if all requirements
-are met.
-4. If the is resolved, the acting captain may then attempt to resolve any subplots ( ) on the by
-meeting its requirements. If a has multiple requirements, resolve each one individually. are only
-resolved if all requirements are met. Some may have elective requirements, in which case the acting
-captain must choose one to fulfill. If there are multiple , the acting captain may attempt to resolve
-some, all, or none at their election. If a is resolved, the acting captain claims the award.
-5. If the is resolved, move it to its owner’s adventure discard pile. Unresolved remain attached.
-6. If the acting captain resolved the , they may make further selections later during the Resolution Phase.
-If the acting captain failed to resolve the , they are treated as though they had passed, and may make
-no further selections during the rest of the phase, and are counted ineligible.
-Passing: A committed captain may elect to pass, rather than attempt to resolve a or piracy. Captains who
-pass in the Resolution Phase may make no further selections for the remainder of the phase. If a captain passes
-while pursuing a , and that has no attached , they are “eligible.” If the captain passes while pursuing
-a , and that has one or more attached , the captain is “ineligible.”
-Once all captains have passed, the stage ends.
-Stage 3: In initiative order, eligible captains may attempt to resolve the they are pursuing.
-• are resolved by meeting its requirements. Requirements displaying a Resource Token icon are
-resolved if the captain can discard the corresponding token from their Resource pool. Alternatively, some
-requirements obligate the captain to jettison cards or incur expenses. Finally, requirements that simply
-state a card type or attribute (such as a trait) but do not specify any other obligation (such as jettison, ,
-etc) can be met if the captain controls the corresponding card or a card with the specified attribute.
-• If a has multiple requirements, resolve each one individually. are resolved only if all requirements
-are met. If the has been resolved, the acting captain claims the .
-• If the is resolved, the acting captain may then attempt to resolve any on the by meeting its
-requirements. If a has multiple requirements, resolve each one individually. are only resolved if all
-requirements are met. Some may have elective requirements, in which case the acting captain must
-choose one to fulfill. If there are multiple , the acting captain may attempt to resolve some, all, or none
-at their election. If a is resolved, the acting captain claims the award.
-• If the is resolved, move it to its owner’s adventure discard pile. Then, the owner of the slot draws
-an adventure card and plays it, face up, as a . They then draw another adventure card and, without
-looking at it, attaches it face down on the new as a . If the was not resolved, it remains in play.
-• If the was resolved, the acting captain becomes uncommitted. If the was not resolved, the acting
-captain remains committed to it.
-Stage 4: Any captain who did not conduct a piracy action during the round loses 1 token. Even if a captain
-declared as a pirate during the Adventure Phase, they will still lose an token if they did not actually conduct a
-piracy action at any point during the round.
-Stage 5: All captains discard any remaining tokens in their Resource Pool.
-Stage 6: Check for victory. If a captain has met their threshold, which is 20 by default, they win the game.
-If multiple captains have exceeded their threshold, the captain with the highest wins. If there is a tie,
-then the captain with the highest wins.
-After Stage 6 of the Resolution Phase, the round ends. If nobody has won, begin a new round by repeating the
-phases, and continue the sequence until a victor has been determined.
+<p>The Resolution Phase is, in many ways, the culmination of a captain’s efforts. During this part of the round, players attempt to resolve <span class="icon icon-contract"></span> and piracy, in the hopes of advancing towards victory.</p>
+<p>Stage 1: All captains simultaneously reveal all face down <span class="icon icon-complication"></span> on a <span class="icon icon-contract"></span> they are pursuing.</p>
+<p>Stage 2: Captains alternate in initiative order performing one of the following <a href="#Resolution_Phase">Resolution Phase</a> actions:</p>
+<ul>
+    <li>A captain pursuing a <span class="icon icon-contract"></span> with attached <span class="icon icon-complication"></span> may attempt to resolve a <span class="icon icon-complication"></span>.</li>
+    <li>A captain declared as a pirate may resolve a piracy attempt.</li>
+<li>A captain may pass. Captains who pass may make no further selections during this stage. Note, this is different from the procedure during the <a href="#Action_Phase">Action Phase</a>, where captains are allowed to act after passing if another captain has subsequently acted.</li>
+</ul>
+<p>Once all captains have passed, the stage ends. If a captain is pursuing a <span class="icon icon-contract"></span>, and that <span class="icon icon-contract"></span> has no attached <span class="icon icon-complication"></span> at the time the captain passes, that captain is an “eligible” captain. If a captain is pursuing a <span class="icon icon-contract"></span>, and that <span class="icon icon-contract"></span> does have attached <span class="icon icon-complication"></span> at the time the captain passes, that captain is “ineligible.”</p>
+<p><span class="icon icon-complication"></span> <strong>Resolution:</strong> Captains committed to <span class="icon icon-contract"></span> may attempt to resolve any attached <span class="icon icon-complication"></span> by the following procedure:</p>
+<ol>
+    <li>Select an attached <span class="icon icon-complication"></span>. All <span class="icon icon-complication"></span> on pursued should already have been revealed, but if, for some reason, the <span class="icon icon-complication"></span> has not been revealed, reveal it.</li>
+    <li><span class="icon icon-complication"></span> are resolved by meeting its requirements. Requirements displaying a Resource Token icon are resolved if the captain can discard the corresponding token from their Resource pool. Alternatively, some requirements obligate the captain to jettison cards or incur expenses. Finally, requirements that simply state a card type or attribute (such as a <strong><em>trait</em></strong>) but do not specify any other obligation (such as jettison, <span class="icon icon-exert"></span>, etc) can be met if the captain controls the corresponding card or a card with the specified attribute.</li>
+    <li>If a <span class="icon icon-complication"></span> has multiple requirements, resolve each one individually. <span class="icon icon-complication"></span> are resolved only if all requirements are met.</li>
+    <li>If the <span class="icon icon-complication"></span> is resolved, the acting captain may then attempt to resolve any subplots (<span class="icon icon-subplot"></span>) on the <span class="icon icon-complication"></span> by meeting its requirements. If a <span class="icon icon-subplot"></span> has multiple requirements, resolve each one individually. <span class="icon icon-subplot"></span> are only resolved if all requirements are met. Some <span class="icon icon-subplot"></span> may have elective requirements, in which case the acting captain must choose one to fulfill. If there are multiple <span class="icon icon-subplot"></span>, the acting captain may attempt to resolve some, all, or none at their election. If a <span class="icon icon-subplot"></span> is resolved, the acting captain claims the <span class="icon icon-subplot"></span> award.</li>
+    <li>If the is resolved, move it to its owner’s adventure discard pile. Unresolved remain attached.</li>
+    <li>If the acting captain resolved the <span class="icon icon-complication"></span>, they may make further selections later during the <a href="#Resolution_Phase">Resolution Phase</a>. If the acting captain failed to resolve the <span class="icon icon-complication"></span>, they are treated as though they had passed, and may make no further selections during the rest of the phase, and are counted ineligible.</li>
+</ol>
+<p><strong>Passing:</strong> A committed captain may elect to pass, rather than attempt to resolve a <span class="icon icon-complication"></span> or piracy. Captains who pass in the <a href="#Resolution_Phase">Resolution Phase</a> may make no further selections for the remainder of the phase. If a captain passes while pursuing a <span class="icon icon-contract"></span>, and that <span class="icon icon-contract"></span> has no attached <span class="icon icon-complication"></span>, they are “eligible.” If the captain passes while pursuing a <span class="icon icon-complication"></span>, and that <span class="icon icon-contract"></span> has one or more attached <span class="icon icon-complication"></span>, the captain is “ineligible.”</p>
+<p>Once all captains have passed, the stage ends.</p>
+<p>Stage 3: In initiative order, eligible captains may attempt to resolve <span class="icon icon-contract"></span> the they are pursuing.</p>
+<ul>
+    <li><span class="icon icon-contract"></span> are resolved by meeting its requirements. Requirements displaying a Resource Token icon are resolved if the captain can discard the corresponding token from their Resource pool. Alternatively, some requirements obligate the captain to jettison cards or incur expenses. Finally, requirements that simply state a card type or attribute (such as a <strong><em>trait</em></strong>) but do not specify any other obligation (such as jettison, <span class="icon icon-exert"></span>, etc) can be met if the captain controls the corresponding card or a card with the specified attribute.</li>
+    <li>If a <span class="icon icon-contract"></span> has multiple requirements, resolve each one individually. <span class="icon icon-contract"></span> are resolved only if all requirements are met. If the <span class="icon icon-contract"></span> has been resolved, the acting captain claims the <span class="icon icon-contract"></span><span class="icon icon-victorypoint"></span>.</li>
+    <li>If the <span class="icon icon-contract"></span> is resolved, the acting captain may then attempt to resolve any <span class="icon icon-subplot"></span> on the <span class="icon icon-contract"></span> by meeting its requirements. If a <span class="icon icon-subplot"></span> has multiple requirements, resolve each one individually. <span class="icon icon-subplot"></span> are only resolved if all requirements are met. Some <span class="icon icon-subplot"></span> may have elective requirements, in which case the acting captain must choose one to fulfill. If there are multiple <span class="icon icon-subplot"></span>, the acting captain may attempt to resolve some, all, or none at their election. If a <span class="icon icon-subplot"></span> is resolved, the acting captain claims the <span class="icon icon-subplot"></span> award.</li>
+    <li>If the <span class="icon icon-contract"></span> is resolved, move it to its owner’s adventure discard pile. Then, the owner of the <span class="icon icon-contract"></span> slot draws an adventure card and plays it, face up, as a <span class="icon icon-contract"></span>. They then draw another adventure card and, without looking at it, attaches it face down on the new <span class="icon icon-contract"></span> as a <span class="icon icon-complication"></span>. If the <span class="icon icon-contract"></span> was not resolved, it remains in play.</li>
+    <li>If the <span class="icon icon-contract"></span> was resolved, the acting captain becomes uncommitted. If the <span class="icon icon-contract"></span> was not resolved, the acting captain remains committed to it.</li>
+</ul>
+<p>Stage 4: Any captain who did not conduct a piracy action during the round loses 1 <span class="icon icon-infamy"></span> token. Even if a captain declared as a pirate during the <a href="#Adventure_Phase">Adventure Phase</a>, they will still lose an <span class="icon icon-infamy"></span> token if they did not actually conduct a piracy action at any point during the round.</p>
+<p>Stage 5: All captains discard any remaining tokens in their Resource Pool.</p>
+<p>Stage 6: Check for victory. If a captain has met their <span class="icon icon-victorypoint"></span> threshold, which is 20 by default, they win the game. If multiple captains have exceeded their <span class="icon icon-victorypoint"></span> threshold, the captain with the highest <span class="icon icon-victorypoint"></span> wins. If there is a tie, then the captain with the highest <span class="icon icon-initiative"></span> wins.</p>
+<p>After <em>Stage 6</em> of the <a href="#Resolution_Phase">Resolution Phase</a>, the round ends. If nobody has won, begin a new round by repeating the phases, and continue the sequence until a victor has been determined.</p>
 
 <p><strong>Piracy:</strong> Captains who committed to piracy during the <a href="#Adventure_Phase">Adventure Phase</a> may resolve a piracy action by the following procedure:</p>
 <ol>
@@ -488,5 +457,9 @@ phases, and continue the sequence until a victor has been determined.
     <li>The defender now inflicts damage equal to their <span class="icon icon-attack"></span>, minus the attacker’s <span class="icon icon-defense"></span>. For each point of damage, the defender assigns it in an identical manner as step 2. The defender’s damage, or lack thereof, has no impact on whether or not the piracy action succeeds (step 3).</li>
     <li>The pirate becomes uncommitted.</li>
 </ol>
+<p><strong>Actions in the <a href="#Resolution_Phase">Resolution Phase</a></strong></p>
+<p>Some cards may be played as <span class="icon icon-action"></span> an during the <a href="#Resolution_Phase">Resolution Phase</a>. A captain may play such an <span class="icon icon-action"></span> instead of conducting piracy or resolving a <span class="icon icon-complication"></span>.</p>
+<p>Note, however, that a captain who plays an <span class="icon icon-action"></span> may resolve a <span class="icon icon-complication"></span> or conduct piracy when they next become the acting captain.</p>
+<p>Because uncommitted captains may not resolve <span class="icon icon-complication"></span> or conduct piracy, as a practical matter their only available selections as the active captain are either a <a href="#Resolution_Phase">Resolution Phase</a> action, or passing.</p>
 
 </div>
