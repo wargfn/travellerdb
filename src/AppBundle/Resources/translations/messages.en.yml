@@ -48,7 +48,7 @@ decks:
   slotcount: "(%current%/%max% slots)"
   version: Version %version%
   description: Description
-  defaultemptydesc: "*No description.*"
+  defaultemptydesc: "*Not enough Captain Cards.*"
   problems:
     too_many_plots: Contains too many Plots
     too_few_plots: Contains too few Plots
@@ -62,6 +62,7 @@ decks:
     too_few_adventure_cards: Contains too few Adventure cards
     too_many_adventure_cards: Contains too many Adventure cards
     too_many_captain_cards: Contains too many Captains cards
+    undefined: Contains too few Cards
   build:
     choose:
       faction: Choose your Ship

@@ -45,6 +45,9 @@
 .icon-6:before {
 	content: "\e91d";
 }
+.icon-action:before {
+	content: "\e91f";
+}
 .icon-admin:before {
 	content: "\e90e";
 }
@@ -78,6 +81,15 @@
 .icon-event:before {
 	content: "\e905";
 }
+.icon-exert:before {
+	content: "\e921";
+}
+.icon-exerted:before {
+	content: "\e921";
+}
+.icon-expense:before {
+	content: "\e920";
+}
 .icon-gear:before {
 	content: "\e929";
 }
@@ -96,11 +108,20 @@
 .icon-jump:before {
 	content: "\e928";
 }
+.icon-limited:before {
+	content: "\e922";
+}
 .icon-medical:before {
 	content: "\e910";
 }
 .icon-psionic:before {
 	content: "\e90d";
+}
+.icon-react:before {
+	content: "\e923";
+}
+.icon-ready:before {
+	content: "\e924";
 }
 .icon-science:before {
 	content: "\e911";
@@ -113,6 +134,9 @@
 }
 .icon-starshipoperation:before {
 	content: "\e913";
+}
+.icon-structure:before {
+	content: "\e927";
 }
 .icon-tech:before {
 	content: "\e914";
@@ -128,6 +152,9 @@
 }
 .icon-upgrade:before {
 	content: "\e90a";
+}
+.icon-use:before {
+	content: "\e92a";
 }
 .icon-victorypoint:before {
 	content: "\e90f";
@@ -149,4 +176,7 @@
 }
 .icon-neutral:before {
 	content: "\e916";
+}
+.icon-wound:before {
+	content: "\e92b";
 }

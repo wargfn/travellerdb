@@ -3504,7 +3504,7 @@ if (typeof jQuery === 'undefined') {
             return value.nb_copies > value.deck_limit;
         }))) {
             return 'too_many_copies';
-        }            
+        }
 
     };
 

@@ -46,28 +46,6 @@ class DeckValidationHelper
         return false;
     }
 
-    public function isCardAllowedByAgenda($agenda, $card) {
-        switch($agenda->getCode()) {
-            case '01198':
-            case '01199':
-            case '01200':
-            case '01201':
-            case '01202':
-            case '01203':
-            case '01204':
-            case '01205':
-                return $this->agenda_helper->getMinorFactionCode($agenda) === $card->getFaction()->getCode();
-            case '09045':
-                $trait = $this->translator->trans('card.traits.maester');
-                if(preg_match("/$trait\\./", $card->getTraits())) {
-                    return $card->getType()->getCode() === 'character';
-                }
-                return false;
-        }
-
-        return false;
-    }
-
     /**
      * @param SlotCollectionProviderInterface $deck
      * @return null|string
@@ -123,6 +101,7 @@ class DeckValidationHelper
             return null;
         }
         return $this->translator->trans('decks.problems.' . $problem);
+        cosnole_log($problem);
     }
 
 }
