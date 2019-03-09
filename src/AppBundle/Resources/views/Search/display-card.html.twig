@@ -44,6 +44,10 @@
         			{% else %}
         			   <div class="no-image" style="margin:auto"><div class="no-image-text">{{ 'noimage' | trans }}</div></div>
         			{% endif %}
+					{% if card.type_name == "Adventure Card" %}
+						<p></p>
+						<img src="{{ asset('/bundles/app/images/cards/' ~ card.code ~ 'a.png') }}" alt="{{ card.name }}" class="img-responsive" style="margin:auto">
+					{%  endif %}
         		</div>
         	</div>
         {% if includeReviews %}
