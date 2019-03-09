@@ -111,6 +111,9 @@
 .icon-limited:before {
 	content: "\e922";
 }
+.icon-limit:before {
+	content: "\e922";
+}
 .icon-medical:before {
 	content: "\e910";
 }
