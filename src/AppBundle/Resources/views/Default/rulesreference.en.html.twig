@@ -18,7 +18,7 @@ span.new	{ color:red }
 
 
 <h2 id="Game_Overview">Game Overview</h2>
-<p><strong><i>Traveller</i></strong> has been designed to accommodate between one to four players (“Captains”).  Each captain requires a 20 card Adventure Deck, a 60 card Captain’s Deck, and a single Ship (<span class="icon-ship"></span>) card.</p>
+<p><strong><i>Traveller</i></strong> has been designed to accommodate between one to four players (“Captains”).  Each captain requires a 20 card Adventure Deck, a 60 card Captain’s Deck, and a single Ship (<span class="ship"></span>) card.</p>
 
 <h2 id="Victory">Victory</h2>
 <p>The objective of the game is to be the first captain to reach 20 Victory Points (<span class="vp"></span>).  Captains must also avoid Bankruptcy, which occurs if a captain incurs an expense and is unable to pay for it.  Bankruptcy results in defeat, even if the captain is ahead in <span class="vp"></span> when insolvent.  If all opposing captains have been eliminated, the remaining captain is the winner.</p>
@@ -257,9 +257,9 @@ span.new	{ color:red }
 <p>Captains who committed to piracy during the <a href="#Adventure_Phase">Adventure Phase</a> may resolve a piracy action by the following procedure:</p>
 <ol>
     <li value="1">The acting captain targets a <span class="ship"></span> controlled by an opposing captain. The pirate is the “attacker,” the target the “defender.”</li>
-    <li>The attacker inflicts damage equal to their Attack Value (<span class="attack"></span>), minus the defender’s Defense Value (<span class="defense"></span>). For each point of damage, the attacker assigns it either as <span class="structure"></span> inflicted on an <span class="upgrade"></span> attached to the defender, or as an expense the defender must meet.</li>
-    <li>If the attacker inflicted damage (if their <span class="attack"></span> exceeded the defender’s <span class="defense"></span>), the piracy action is successful. If the attacker did not inflict damage, the piracy action was unsuccessful.</li>
-    <li>The defender now inflicts damage equal to their <span class="attack"></span>, minus the attacker’s <span class="defense"></span>. For each point of damage, the defender assigns it in an identical manner as step 2. The defender’s damage, or lack thereof, has no impact on whether or not the piracy action succeeds (step 3).</li>
+    <li>The attacker inflicts damage equal to their Attack Value (<span class="av"></span>), minus the defender’s Defense Value (<span class="dv"></span>). For each point of damage, the attacker assigns it either as <span class="structure"></span> inflicted on an <span class="upgrade"></span> attached to the defender, or as an expense the defender must meet.</li>
+    <li>If the attacker inflicted damage (if their <span class="av"></span> exceeded the defender’s <span class="dv"></span>), the piracy action is successful. If the attacker did not inflict damage, the piracy action was unsuccessful.</li>
+    <li>The defender now inflicts damage equal to their <span class="av"></span>, minus the attacker’s <span class="dv"></span>. For each point of damage, the defender assigns it in an identical manner as step 2. The defender’s damage, or lack thereof, has no impact on whether or not the piracy action succeeds (step 3).</li>
     <li>The pirate becomes uncommitted.</li>
 </ol>
 <p>When procuring cards during the <a href="#Procurement_Phase">Procurement Phase</a>, Captains must pay an additional <span class="1"></span> for each <span class="infamy"></span> token they possess.</p>
@@ -398,7 +398,7 @@ span.new	{ color:red }
 
 <h3 id="Action_Phase">Action Phase</h3>
 <p>During the Action Phase, captains have the opportunity to improve their position and hinder their opponents.</p>
-<p>Stage 1: Captains alternate in initiative order performing actions. Actions are denoted by <span class="action"></span>. Some <span class="gear"></span> may provide Use actions, indicated by the <span class="use"></span> icon. <span class="use"></span> is always an <span class="action"></span>, and it requires the <span class="crew"></span> acting to <span class="icon-exert"></span>.</p>
+<p>Stage 1: Captains alternate in initiative order performing actions. Actions are denoted by <span class="action"></span>. Some <span class="gear"></span> may provide Use actions, indicated by the <span class="use"></span> icon. <span class="use"></span> is always an <span class="action"></span>, and it requires the <span class="crew"></span> acting to <span class="exert"></span>.</p>
 <p><span class="heroics"></span> are a special kind of <span class="action"></span> available to <span class="crew"></span> with the requisite skill. When declaring a <span class="crew"></span> is performing a <span class="heroics"></span>, the controlling captain must choose whether the acting <span class="crew"></span> is taking the trained or the expert <span class="action"></span>. A trained <span class="crew"></span> may only select the trained <span class="action"></span>. An expert <span class="crew"></span> may perform either, but not both.</p>
 <p>The expert level of some <span class="heroics"></span> may say “as above,” with or without additional text. As above indicates that the trained level text is applied, subject to any other modifying language in the expert ability.</p>
 <p>Captains may play cards, use non-action abilities or generate effects even if they are not the current active captain. However, no card or ability may be played during an <span class="action"></span> unless that card or ability has reaction (<span class="react"></span>).</p>
@@ -410,7 +410,7 @@ span.new	{ color:red }
 <p>Stage 1: In initiative order, captains collect all resource tokens to which they are entitled. In <strong><em>Traveller</em></strong>, there are two kinds of resource tokens: Capabilities and skills.</p>
 <ul>
 <li>A captain’s <span class="ship"></span> generates one capability token for each capability icon it possesses.</li>
-<li>Each <span class="crew"></span> controlled by the captain generates one skill token for each skill it possesses. Skills come in two levels, trained (hex) and expert (circle). A <span icon="crew"></span> generates the skill token that corresponds to the level it possesses.</li>
+<li>Each <span class="crew"></span> controlled by the captain generates one skill token for each skill it possesses. Skills come in two levels, trained (hex) and expert (circle). A <span class="crew"></span> generates the skill token that corresponds to the level it possesses.</li>
 </ul>
 <p>Resource tokens from a captain’s <span class="ship"></span> and <span class="crew"></span> are generated automatically, and are collected into the captain’s Resource Pool without any further act by the captain. A captain need not remember to physically gather the tokens. A captain may voluntarily reject any token from entering their Resource Pool, but must do so explicitly. If any effect requires a captain to pay a cost or resolve an effect to collect a token, that captain must explicitly elect to pay the cost or resolve the effect.</p>
 <p>Stage 2: Check for victory. If a captain has met their <span class="vp"></span> threshold, which is 20 by default, they win the game. If multiple captains have exceeded their <span class="vp"></span> threshold, the captain with the highest <span class="vp"></span> wins. If there is a tie, then the captain with the highest <span class="initiative"></span> wins.</p>
@@ -452,9 +452,9 @@ span.new	{ color:red }
 <p><strong>Piracy:</strong> Captains who committed to piracy during the <a href="#Adventure_Phase">Adventure Phase</a> may resolve a piracy action by the following procedure:</p>
 <ol>
     <li value="1">The acting captain targets a <span class="ship"></span> controlled by an opposing captain. The pirate is the “attacker,” the target the “defender.”</li>
-    <li>The attacker inflicts damage equal to their Attack Value (<span class="attack"></span>), minus the defender’s Defense Value (<span class="defense"></span>). For each point of damage, the attacker assigns it either as <span class="structure"></span> inflicted on an <span class="upgrade"></span> attached to the defender, or as an expense the defender must meet.</li>
-    <li>If the attacker inflicted damage (if their <span class="attack"></span> exceeded the defender’s <span class="defense"></span>), the piracy action is successful. If the attacker did not inflict damage, the piracy action was unsuccessful.</li>
-    <li>The defender now inflicts damage equal to their <span class="attack"></span>, minus the attacker’s <span class="defense"></span>. For each point of damage, the defender assigns it in an identical manner as step 2. The defender’s damage, or lack thereof, has no impact on whether or not the piracy action succeeds (step 3).</li>
+    <li>The attacker inflicts damage equal to their Attack Value (<span class="av"></span>), minus the defender’s Defense Value (<span class="dv"></span>). For each point of damage, the attacker assigns it either as <span class="structure"></span> inflicted on an <span class="upgrade"></span> attached to the defender, or as an expense the defender must meet.</li>
+    <li>If the attacker inflicted damage (if their <span class="av"></span> exceeded the defender’s <span class="dv"></span>), the piracy action is successful. If the attacker did not inflict damage, the piracy action was unsuccessful.</li>
+    <li>The defender now inflicts damage equal to their <span class="av"></span>, minus the attacker’s <span class="dv"></span>. For each point of damage, the defender assigns it in an identical manner as step 2. The defender’s damage, or lack thereof, has no impact on whether or not the piracy action succeeds (step 3).</li>
     <li>The pirate becomes uncommitted.</li>
 </ol>
 <p><strong>Actions in the <a href="#Resolution_Phase">Resolution Phase</a></strong></p>
