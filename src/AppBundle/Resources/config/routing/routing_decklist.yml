@@ -24,6 +24,14 @@ decklist_detail:
     requirements:
         decklist_id: \d+
 
+decklist_rules:
+    path: /decklist/view/rulesreference
+    methods: [GET]
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: AppBundle:Default:rulesreference
+        permanent: true_controller:
+
 decklist_create:
     path: /create
     methods: [POST]
