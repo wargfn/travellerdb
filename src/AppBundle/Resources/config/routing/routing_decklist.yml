@@ -28,8 +28,8 @@ decklist_rules:
     path: /view/rulesreference
     methods: [GET]
     defaults:
-        _controller: FrameworkBundle:Redirect:redirect
-        route: rulesreference
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /rulesreference
         permanent: true_controller:
 
 decklist_create:
