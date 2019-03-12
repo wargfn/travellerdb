@@ -124,7 +124,7 @@
             var example = app.data.cards.find({"type_code": type_code})[0];
             var label = $('<label class="btn btn-default btn-sm" data-code="'
                     + type_code + '" title="' + example.type_name + '"><input type="checkbox" name="' + type_code
-                    + '"><span class="icon-' + type_code + '"></span></label>');
+                    + '"><span class="' + type_code + '"></span></label>');
             label.tooltip({container: 'body'});
             $('[data-filter=type_code]').append(label);
         });
