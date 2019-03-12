@@ -224,6 +224,14 @@
 	background-repeat: no-repeat;
 	padding: 16px 10px 0px;
 }
+.adv {
+	display: inline-block;
+	background-size: contain;
+	background-image: url('/bundles/app/images/icons/contract.png');
+	background-position: 1px 100% ;
+	background-repeat: no-repeat;
+	padding: 16px 10px 0px;
+}
 .ally {
 	display: inline-block;
 	background-size: contain;
@@ -332,6 +340,14 @@
 	display: inline-block;
 	background-size: contain;
 	background-image: url('/bundles/app/images/icons/computer.png');
+	background-position: 1px 100% ;
+	background-repeat: no-repeat;
+	padding: 16px 10px 0px;
+}
+.conn {
+	display: inline-block;
+	background-size: contain;
+	background-image: url('/bundles/app/images/icons/connection.png');
 	background-position: 1px 100% ;
 	background-repeat: no-repeat;
 	padding: 16px 10px 0px;
@@ -495,6 +511,14 @@
 	display: inline-block;
 	background-size: contain;
 	background-image: url('/bundles/app/images/icons/hardpoint.png');
+	background-position: 1px 100% ;
+	background-repeat: no-repeat;
+	padding: 16px 10px 0px;
+}
+.heroic {
+	display: inline-block;
+	background-size: contain;
+	background-image: url('/bundles/app/images/icons/heroics.png');
 	background-position: 1px 100% ;
 	background-repeat: no-repeat;
 	padding: 16px 10px 0px;
