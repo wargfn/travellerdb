@@ -30,7 +30,7 @@ decklist_rules:
     defaults:
         _controller: FrameworkBundle:Redirect:urlRedirect
         path: /rulesreference
-        permanent: true_controller:
+        permanent: true
 
 decklist_create:
     path: /create
