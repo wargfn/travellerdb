@@ -806,6 +806,14 @@
 	background-repeat: no-repeat;
 	padding: 16px 10px 0px;
 }
+.genes {
+	display: inline-block;
+	background-size: contain;
+	background-image: url('/bundles/app/images/icons/species.png');
+	background-position: 1px 100% ;
+	background-repeat: no-repeat;
+	padding: 16px 10px 0px;
+}
 .species {
 	display: inline-block;
 	background-size: contain;
