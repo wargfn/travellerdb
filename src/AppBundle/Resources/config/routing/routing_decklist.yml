@@ -29,7 +29,7 @@ decklist_rules:
     methods: [GET]
     defaults:
         _controller: FrameworkBundle:Redirect:redirect
-        route: AppBundle:Default:rulesreference
+        route: /rulesreference
         permanent: true_controller:
 
 decklist_create:
