@@ -158,4 +158,12 @@ decks_diff:
     requirements:
         deck1_id: \d+
         deck2_id: \d+
+
+decks_rules:
+    path: /rulesreference
+    methods: [GET]
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /rulesreference
+        permanent: true
         
