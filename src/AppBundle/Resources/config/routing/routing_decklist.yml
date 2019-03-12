@@ -25,7 +25,7 @@ decklist_detail:
         decklist_id: \d+
 
 decklist_rules:
-    path: /decklist/view/rulesreference
+    path: /view/rulesreference
     methods: [GET]
     defaults:
         _controller: FrameworkBundle:Redirect:redirect
