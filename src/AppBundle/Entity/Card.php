@@ -73,6 +73,7 @@ class Card implements \Gedmo\Translatable\Translatable, \Serializable
 		switch($this->type->getCode()) {
 			case 'adv':
 				$mandatoryFields[] = 'contractname';
+				$mandatoryFields[] = 'traits';
 				$mandatoryFields[] = 'distance';
 				$mandatoryFields[] = 'contractrequirements';
 				$mandatoryFields[] = 'compslots';

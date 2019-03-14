@@ -21,16 +21,10 @@ class SearchController extends Controller
 			'i' => 'illustrator',
 			'd' => 'designer',
 			'k' => 'traits',
-			'l' => 'isLoyal',
-			'm' => 'isMilitary',
 			'n' => 'expense',
 			'o' => 'cost',
-			'p' => 'isPower',
 			'r' => 'date_release',
-			's' => 'strength',
 			't' => 'type',
-			'u' => 'isUnique',
-			'v' => 'initiative',
 			'x' => 'text',
 			'y' => 'quantity',
 	);
@@ -52,9 +46,7 @@ class SearchController extends Controller
 			'h' => 'integer',
 			'n' => 'integer',
 			'o' => 'integer',
-			's' => 'integer',
-			'v' => 'integer',
-			'y' => 'integer',
+            'y' => 'integer',
 			'l' => 'boolean',
 			'm' => 'boolean',
 			'p' => 'boolean',
@@ -83,6 +75,7 @@ class SearchController extends Controller
 			foreach($subs as $sub) {
 				$traits[trim($sub)] = 1;
 			}
+
 		}
 		$traits = array_filter(array_keys($traits));
 		sort($traits);
