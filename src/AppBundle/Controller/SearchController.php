@@ -65,10 +65,12 @@ class SearchController extends Controller
 
 		$cycles = $this->getDoctrine()->getRepository('AppBundle:Cycle')->findAll();
 		$types = $this->getDoctrine()->getRepository('AppBundle:Type')->findAll();
+		//$packs = $this->getDoctrine()->getRepository('AppBundle:Pack')->findAll();
 		$subtypes = $this->getDoctrine()->getRepository('AppBundle:Subtype')->findAll();
 		$factions = $this->getDoctrine()->getRepository('AppBundle:Faction')->findAllAndOrderByName();
 
-		$list_traits = $this->getDoctrine()->getRepository('AppBundle:Card')->findTraits();
+		$list_traits = $dbh->executeQuery("SELECT DISTINCT c.traits FROM card c where c.traits != ''")->fetchAll();
+		//$list_traits = $this->getDoctrine()->getRepository('AppBundle:Card')->findTraits();
 		$traits = [];
 		foreach($list_traits as $card) {
 			$subs = explode(',', $card["traits"]);
@@ -86,7 +88,7 @@ class SearchController extends Controller
 		}, $list_illustrators);
 
 		return $this->render('AppBundle:Search:searchform.html.twig', array(
-				"pagetitle" => $this->get("translator")->trans('search.title'),
+				"pagetitle" => "Card Search",
 				"pagedescription" => "Find all the cards of the game, easily searchable.",
 				"packs" => $packs,
 				"cycles" => $cycles,
@@ -198,7 +200,10 @@ class SearchController extends Controller
 			$params[] = $request->query->get('q');
 		}
 		foreach(SearchController::$searchKeys as $key => $searchName) {
-			$val = $request->query->get($key);
+			if ($key == "q"){
+			    continue;
+            }
+		    $val = $request->query->get($key);
 			if(isset($val) && $val != "") {
 				if(is_array($val)) {
 					if($searchName == "faction" && count($val) == count($factions)) continue;
@@ -222,7 +227,9 @@ class SearchController extends Controller
 		$find = array('q' => implode(" ",$params));
 		if($sort != "name") $find['sort'] = $sort;
 		if($view != "list") $find['view'] = $view;
-		return $this->redirect($this->generateUrl('cards_find').'?'.http_build_query($find));
+
+		$response = $this->redirect($this->generateUrl('cards_find').'?'.http_build_query($find));
+		return $response;
 	}
 
 	/**

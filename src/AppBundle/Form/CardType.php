@@ -21,7 +21,7 @@ class CardType extends AbstractType
             ->add('name')
 			->add('subtype', 'entity', array('class' => 'AppBundle:Subtype', 'property' => 'name'))
 			->add('tonnage', 'number', array('required' => false))
-			->add('traits','textarea', array('required' => false))
+			->add('traits')
 			->add('capabilities', 'textarea', array('required' => false))
 			->add('initiative', 'number', array('required' => false))
 			->add('jump', 'number', array('required' => false))

@@ -557,18 +557,43 @@ class Card implements \Gedmo\Translatable\Translatable, \Serializable
 
 	/**
 	* Get traits
+     *
 	* @return string
 	*/
 	public function getTraits()
 	{
 		return $this->traits;
 	}
-	
+
+    /**
+     *  Get Real traits
+     *
+     * @return string
+     */
+    public function getRealTraits()
+    {
+        return $this->realTraits;
+    }
+
+    /**
+     * Set Traits
+     *
+     * @param string $traits
+     *
+     * @return Card
+     */
+    public function setRealTraits($traits)
+    {
+        $this->realTraits = $traits;
+    }
+
+
 	/**
 	* Set capabilities
 	* @param integer $capabilities
 	* @return Card
 	*/
+
 	public function setCapabilities($capabilities)
 	{
 		$this->capabilities = $capabilities;
