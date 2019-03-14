@@ -182,24 +182,16 @@ decks:
     example: "Ejemplo: <tt>m:1 s>3</tt> muestra todos los Personajes con icono <span class='icon-military'></span> y FUE mayor que 3"
     filters:
       flavor: Texto de ambientación
-      claim: Valor de conquista
       pack_code: Capítulo
       faction_code: Facción
-      is_intrigue: Icono de intriga
-      reserve: Valor de reserva
+      complication_name: Complication Name
       illustrator: Ilustrador
       traits: Rasgos
-      is_loyal: Lealtad
-      is_military: Icono militar
-      income: Valor de ingresos
+      expense_value: Expense Value
       cost: Coste
-      is_power: Icono de poder
-      strength: Fuerza
       type_code: Tipo
-      is_unique: Único
       initiative: Valor de iniciativa
       text: Texto
-      quantity: Cantidad en el capítulo
   charts:
     faction:
       title: Cartas por Facción

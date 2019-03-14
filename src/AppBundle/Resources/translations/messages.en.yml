@@ -180,28 +180,20 @@ decks:
     more: more
   smartfilter:
     title: Smart filter syntax
-    example: "Example: <tt>m:1 s>3</tt> shows all characters with a <span class='icon-military'></span> icon and a STR greater than 3"
+    example: "Example: <tt>o:1 n>1</tt> shows all of the cards with a cost of 1 and an expense value > 1"
     filters:
       flavor: Flavor text
       claim: Claim value
       pack_code: Pack
-      faction_code: Faction
-      is_intrigue: Intrigue icon
-      reserve: Reserve value
+      faction_code: Ship
+      complication_name: Complication Name
       illustrator: Illustrator
       traits: Traits
-      is_loyal: Loyalty
-      is_military: Military icon
-      income: Gold value
+      expense_value: Expense Value
       cost: Cost
-      is_power: Power icon
-      strength: Strength
       type_code: Type
-      is_unique: Uniqueness
       initiative: Initiative value
       text: Text
-      quantity: Quantity in pack
-      designer: Designer
   charts:
     faction:
       title: Card Factions
