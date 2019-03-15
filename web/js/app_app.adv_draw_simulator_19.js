@@ -12,9 +12,9 @@
     adv_draw_simulator.reset = function reset()
     {
         $(container).empty();
-        draw_simulator.on_data_loaded();
+        adv_draw_simulator.on_data_loaded();
         draw_count = 0;
-        draw_simulator.update_odds();
+        adv_draw_simulator.update_odds();
         $('#draw-adv-simulator-clear').prop('disabled', true);
     };
 
@@ -25,7 +25,7 @@
     {
         $('#table-adv-draw-simulator').on('click', 'button.btn', adv_draw_simulator.handle_click);
         $('#table-adv-draw-simulator').on('click', 'img, div.card-proxy', adv_draw_simulator.toggle_opacity);
-        container = $('#table-draw-simulator-content');
+        container = $('#table-adv-draw-simulator-content');
 
         $('#oddsModal').on({change: adv_draw_simulator.compute_odds}, 'input');
     }
@@ -40,7 +40,7 @@
         {
             inputs[key] = parseInt($('#odds-calculator-' + key).val(), 10) || 0;
         });
-        $('#odds-calculator-p').text(Math.round(100 * app.hypergeometric.get_cumul(inputs.k, inputs.N, inputs.K, inputs.n)));
+        $('#adv-odds-calculator-p').text(Math.round(100 * app.hypergeometric.get_cumul(inputs.k, inputs.N, inputs.K, inputs.n)));
     }
 
     /**
@@ -67,7 +67,7 @@
     {
         for(var i = 1; i <= 3; i++) {
             var odd = app.hypergeometric.get_cumul(1, initial_size, i, draw_count);
-            $('#draw-simulator-odds-' + i).text(Math.round(100 * odd));
+            $('#adv-draw-simulator-odds-' + i).text(Math.round(100 * odd));
         }
     }
 

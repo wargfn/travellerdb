@@ -241,6 +241,17 @@ ol {
 #table-draw-simulator-content div.card-proxy div{position: relative;top: 50%; transform: translateY(-50%);text-align:center}
 #draw-simulator-special {display: none;}
 
+/********* ADV DRAW SIMULATOR ************/
+
+#table-adv-draw-simulator-content img {width:136px;height:98px;float:left;margin:5px;box-shadow: black 0px 0px 5px;border-radius: 5px;}
+#table-adv-draw-simulator-content img.trashed {opacity: 0.25;box-shadow: none;}
+#table-adv-draw-simulator-content img.trashed:hover {opacity: 0.75;}
+#table-adv-draw-simulator-content div.card-proxy {background:#888;color:white;width:138px;height:96px;float:left;margin:5px;box-shadow: black 0px 0px 5px;border-radius: 5px;}
+#table-adv-draw-simulator-content img.card-proxy.trashed {opacity: 0.25;box-shadow: none;}
+#table-adv-draw-simulator-content img.card-proxy.trashed:hover {opacity: 0.75;}
+#table-adv-draw-simulator-content div.card-proxy div{position: relative;top: 50%; transform: translateY(-50%);text-align:center}
+#adv-draw-simulator-special {display: none;}
+
 /*********** TYPEAHEAD **************/
 
 .twitter-typeahead{width:100%;background-color:#fff}
