@@ -138,6 +138,7 @@ class CardsData
             '[Computer]' => '<span class="computer"></span>',
             '[LinkOpen]' => '<span class="linkedopen"></span>',
             '[LinkClosed]' => '<span class="linkedclosed"></span>',
+            '[HardPoint]' => '<span class="hardpoint"></span>',
 
 
         ];
