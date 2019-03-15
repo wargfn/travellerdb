@@ -4197,7 +4197,7 @@ if (typeof jQuery === 'undefined') {
         draw_deck.forEach(function (card)
         {
             if(typeof card.victorypoints === 'number') {
-                data[card.victorypoints] = data[card.victorypoints] || 1;
+                data[card.victorypoints] = data[card.victorypoints] || 0;
                 data[card.victorypoints] += (card.is_unique ? 1 : card.indeck);
             }
         })

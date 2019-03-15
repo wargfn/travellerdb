@@ -311,6 +311,63 @@
         });
     }
 
+    deck_charts.chart_vps = function chart_vps()
+    {
+
+        var data = [];
+
+        var draw_deck = app.deck.get_adventure_deck();
+        draw_deck.forEach(function (card)
+        {
+            if(typeof card.victorypoints === 'number') {
+                data[card.victorypoints] = data[card.victorypoints] || 0;
+                data[card.victorypoints] += (card.is_unique ? 1 : card.indeck);
+            }
+        })
+        data = _.flatten(data).map(function (value)
+        {
+            return value || 0;
+        });
+
+        $("#deck-chart-vps").highcharts({
+            chart: {
+                type: 'line'
+            },
+            title: {
+                text: Translator.trans("decks.charts.vps.title")
+            },
+            subtitle: {
+                text: Translator.trans("decks.charts.vps.subtitle")
+            },
+            xAxis: {
+                allowDecimals: false,
+                tickInterval: 1,
+                title: {
+                    text: null
+                }
+            },
+            yAxis: {
+                min: 0,
+                allowDecimals: false,
+                tickInterval: 1,
+                title: null,
+                labels: {
+                    overflow: 'justify'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size: 10px">' + Translator.trans('decks.charts.vps.tooltip.header', {str: '{point.key}'}) + '</span><br/>'
+            },
+            series: [{
+                animation: false,
+                name: Translator.trans('decks.charts.vps.tooltip.label'),
+                showInLegend: false,
+                data: data
+            }]
+        });
+    }
+
+
     deck_charts.chart_expense = function chart_expense()
     {
 
@@ -428,6 +485,7 @@
         deck_charts.chart_faction();
         deck_charts.chart_type();
         deck_charts.chart_icon();
+        deck_charts.chart_vps();
         //deck_charts.chart_strength();
         deck_charts.chart_cost();
         deck_charts.chart_expense();
