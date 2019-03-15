@@ -3,28 +3,23 @@
   <section name="Faction" shared="False">
     <card qty="1" id="{{ deck.faction.octgnId }}">{{ deck.faction.name }}</card>
   </section>
-  <section name="Agenda" shared="False">
-{% for agenda in deck.agendas %}
-    <card qty="1" id="{{ agenda.card.octgnId }}">{{ agenda.card.name }}</card>
+  <section name="Adventure" shared="False">
+{% for adventure in deck.adventure %}
+    <card qty="1" id="{{ adventure.card.octgnId }}">{{ adventure.card.name }}</card>
 {% endfor %}
   </section>
-  <section name="Plots" shared="False">
-{% for slot in deck.slots_by_type.plot %}
+  <section name="Connections" shared="False">
+{% for slot in deck.slots_by_type.conn %}
     <card qty="{{ slot.quantity }}" id="{{ slot.card.octgnId }}">{{ slot.card.name }}</card>
 {% endfor %}
   </section>
-  <section name="Characters" shared="False">
-{% for slot in deck.slots_by_type.character %}
+  <section name="Crews" shared="False">
+{% for slot in deck.slots_by_type.crew %}
     <card qty="{{ slot.quantity }}" id="{{ slot.card.octgnId }}">{{ slot.card.name }}</card>
 {% endfor %}
   </section>
-  <section name="Locations" shared="False">
-{% for slot in deck.slots_by_type.location %}
-    <card qty="{{ slot.quantity }}" id="{{ slot.card.octgnId }}">{{ slot.card.name }}</card>
-{% endfor %}
-  </section>
-  <section name="Attachments" shared="False">
-{% for slot in deck.slots_by_type.attachment %}
+  <section name="Gears" shared="False">
+{% for slot in deck.slots_by_type.gear %}
     <card qty="{{ slot.quantity }}" id="{{ slot.card.octgnId }}">{{ slot.card.name }}</card>
 {% endfor %}
   </section>
@@ -33,5 +28,15 @@
     <card qty="{{ slot.quantity }}" id="{{ slot.card.octgnId }}">{{ slot.card.name }}</card>
 {% endfor %}
   </section>
+<section name="Heroics" shared="False">
+  {% for slot in deck.slots_by_type.heroic %}
+    <card qty="{{ slot.quantity }}" id="{{ slot.card.octgnId }}">{{ slot.card.name }}</card>
+  {% endfor %}
+</section>
+<section name="Upgrades" shared="False">
+  {% for slot in deck.slots_by_type.upgrade %}
+    <card qty="{{ slot.quantity }}" id="{{ slot.card.octgnId }}">{{ slot.card.name }}</card>
+  {% endfor %}
+</section>
 <notes><![CDATA[]]></notes>
 </deck>

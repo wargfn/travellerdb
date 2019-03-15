@@ -24,7 +24,7 @@ Adventure Card{% if adventures|length > 1 %}s{% endif %}
 
 
 {% set conns = deck.slots_by_type.conn %}
-Connection Card{% if characters|length > 1 %}s{% endif %}
+Connection Card{% if conns|length > 1 %}s{% endif %}
 
 {% for slot in conns %}
 {{ slot.quantity }}x {{ slot.card.name }} ({{ slot.card.pack.name }})
