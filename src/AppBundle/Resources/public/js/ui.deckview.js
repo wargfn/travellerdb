@@ -86,6 +86,7 @@
     {
         ui.setup_event_handlers();
         app.draw_simulator && app.draw_simulator.on_dom_loaded();
+        app.adv_draw_simulator && app.adv_draw_simulator.on_dom_loaded();
     };
 
     /**
