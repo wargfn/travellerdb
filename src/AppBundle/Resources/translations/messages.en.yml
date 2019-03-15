@@ -215,6 +215,12 @@ decks:
       tooltip:
         header: "STR %str%"
         label: "# characters"
+    vps:
+      title: Contract Victory Points
+      subtitle: Adventure Deck only
+      tooltip:
+        header: "Victory Points %vps%"
+        label: "# cards"
     cost:
       title: Card Cost
       subtitle: Cost X ignored
@@ -225,7 +231,7 @@ decks:
         title: Card Expense
         subtitle: Expense X ignored
         tooltip:
-          header: "expense %expense%"
+          header: "Expense %expense%"
           label: "# cards"
   history:
     timeremaining: Time Remaining

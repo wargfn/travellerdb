@@ -213,6 +213,12 @@ decks:
       tooltip:
         header: "FUE %str%"
         label: "# Personajes"
+    vps:
+      title: Contract Victory Points
+      subtitle: Adventure Deck only
+      tooltip:
+        header: "Victory Points %vps%"
+        label: "# cartes"
     cost:
       title: Coste de las cartas
       subtitle: Se ignoran los costes X
