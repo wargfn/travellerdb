@@ -339,6 +339,7 @@ search:
   title: Card Search
   nametexts: Name and texts
   attributes: Attributes
+  contracttexts: Contracts and Complications
   numerics: Numerics
   other: Other
   previews: Previews
@@ -347,6 +348,7 @@ search:
   yes: Yes
   no: No
   only: Only
+  faction: Ships and Ship Specific Cards
   sort:
     name: Sort by Name
     set: Sort by Set
@@ -414,6 +416,16 @@ card:
     plotlimit: Plot deck limit
     quantity: Quantity
     illustrator: Illustrator
+    complicationname: Complication Name
+    complicationtext: Complication Requirements
+    contractname: Contract Name
+    contractrequirements: Contract Requirements
+    subplots: Contract Subplots
+    victorypoints: Contract Victory Points
+    abandonment: Contract Abandonment Cost
+    abandmod: Complication Abandonment Modifier
+    distance: Contract Jump Distance
+    compslots: Complication Slots
     short:
       cost: C.
       expense: E.

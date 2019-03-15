@@ -467,6 +467,21 @@ class CardsData
                                     $qb->andWhere(implode($operator == '!' ? " and " : " or ", $or));
                                     break;
                                 }
+                            case 'h': // complicationtext
+                                {
+                                    $or = [];
+                                    foreach($condition as $arg) {
+                                        switch($operator) {
+                                            case ':': $or[] = "(c.complicationtext like ?$i)";
+                                                break;
+                                            case '!': $or[] = "(c.complicationtext is null or c.complicationtext not like ?$i)";
+                                                break;
+                                        }
+                                        $qb->setParameter($i++, "%$arg%");
+                                    }
+                                    $qb->andWhere(implode($operator == '!' ? " and " : " or ", $or));
+                                    break;
+                                }
                             case 'i': // illustrator
                                 {
                                     $or = [];
@@ -478,6 +493,21 @@ class CardsData
                                                 break;
                                         }
                                         $qb->setParameter($i++, $arg);
+                                    }
+                                    $qb->andWhere(implode($operator == '!' ? " and " : " or ", $or));
+                                    break;
+                                }
+                            case 'm': // Contract Requirements
+                                {
+                                    $or = [];
+                                    foreach($condition as $arg) {
+                                        switch($operator) {
+                                            case ':': $or[] = "(c.contractrequirements like ?$i)";
+                                                break;
+                                            case '!': $or[] = "(c.contractrequirements is null or c.contractrequirements not like ?$i)";
+                                                break;
+                                        }
+                                        $qb->setParameter($i++, "%$arg%");
                                     }
                                     $qb->andWhere(implode($operator == '!' ? " and " : " or ", $or));
                                     break;
@@ -498,6 +528,21 @@ class CardsData
                                             $qb->setParameter($i++, new \DateTime($arg));
                                     }
                                     $qb->andWhere(implode(" or ", $or));
+                                    break;
+                                }
+                            case 's': // subtype (subplots)
+                                {
+                                    $or = [];
+                                    foreach($condition as $arg) {
+                                        switch($operator) {
+                                            case ':': $or[] = "(c.subplots like ?$i)";
+                                                break;
+                                            case '!': $or[] = "(c.subplots is null or c.subplots not like ?$i)";
+                                                break;
+                                        }
+                                        $qb->setParameter($i++, "%$arg%");
+                                    }
+                                    $qb->andWhere(implode($operator == '!' ? " and " : " or ", $or));
                                     break;
                                 }
                         }

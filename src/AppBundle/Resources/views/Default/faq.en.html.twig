@@ -65,20 +65,34 @@ i		{ font-weight:bold }
 		Since I removed the search modal that pops up and lists the short handed key, I am going to post it here as it is very quick and easy way to get really advanced search results:
 		All of these are typed directly into the search box:
 		<ul>
-		<li> : Default search is Card name. For Adventure Cards, the Contract Name is searched. String/Text</li>
+		<li> : Default search is Captain's Deck card name. For Adventure Cards, the <span class="contract"></span> name is searched. String/Text</li>
 		<li>'': Searches the card code, this is the sites internal card numbers, since <strong><em>TravellerCCG</em></strong> does not have card numbers. Integer</li>
-		<li>a: Searches the flavor text. String/Text</li>
-		<li>c: Returns all of the cards in the cycle. Cycles are usually sets of releases of cards.  At the moment, not sure how this is going to be implemented in the future. String/Text</li>
+		<li>a: Searches the <em>flavor</em> text. String/Text</li>
+		<li>b: Searches <span class="complication"></span><span class="abandonment"></span> modifier, Adventure Cards only, may be negative. Integer</li>
+		<li>c: Returns all of the cards in the cycle. Cycles are usually sets of releases of cards.  At the moment, not sure how this is going to be implemented in the future, everything currently is in the Initial Launch cycle. String/Text</li>
+		<li>d: Searches Adventure Cards for <span class="contract"></span><span class="distance"></span>. Integer </li>
 		<li>e: Returns all of the cards in a pack. This can be combined with other searches to limit card pools to just these packs of cards. String/Text</li>
-		<li>f: This is a list of the Ships, which is a quick way to return them. Each ship is setup as its own color branding. Every other card not a ship is listed under Neutral. Cards that can only be used by specific ships are assigned to their ship faction. String/Text</li>
-		<li>g: Searches the Complication Name. Only searches Adventure Cards. String/Text</li>
+		<li>f: This is a list of the Ships, which is a quick way to return them. Each ship is setup as its own color branding / faction. Every other card not a ship is listed under Neutral. Cards that can only be used by specific ships are assigned to their ship faction. String/Text</li>
+		<li>g: Searches the <span class="complication"></span> name. Only searches Adventure Cards. String/Text</li>
+		<li>h: Searches the Adventure Cards for <span class="complication"></span> requirements. String/Text</li>
 		<li>i: Searches the illustrator's name. String/Text</li>
-		<li>k: Searches all of the card traits, currently does <em>NOT</em> search complication traits. String/Text. </li>
-		<li>n: Searches card's Expense Value, also supports < or >. Integer</li>
+		<li>j: Searches <span class="contract"></span><span class="complication"></span> slots for quantity. Integer</li>
+		<li>k: Searches all of the card <strong><em>traits</em></strong>, currently does <em>NOT</em> search <span class="complication"></span> traits. String/Text</li>
+		<li>l: Searches <span class="contract"></span> for <span class="abandonment"></span> penalty. Integer</li>
+		<li>m: Searches Adventure Cards for <span class="contract"></span> requirements. String/Text</li>
+		<li>n: Searches card's <span class="expenses"></span>, also supports < or >. Integer</li>
 		<li>o: Searches card's Cost, also supports < or >. Integer</li>
+		<li>p: Reserved for Pagination</li>
+		<li>q: Reserved for Query Code</li>
 		<li>r: Searches cards based on date released. Date Format</li>
+		<li>s: Searches Adventure Card <span class="contract"></span><span class="subplot"></span> for requirements. String/Text</li>
 		<li>t: Searches cards based on type (adv, conn, gear, ship, heroic, crew, upgrade, event, ship). String/Text</li>
+		<li>u:</li>
+		<li>v: Searches Adventure Cards for <span class="contract"></span><span class="vp"></span> points. Integer</li>
+		<li>w:</li>
 		<li>x: Searches the cards Text box area. Does <em>NOT</em> search Adventure Cards. String/Text</li>
+		<li>y: </li>
+		<li>z: </li>
 		</ul>
 		So the real power comes in with combining search function like, if you wanted all of the 0 cost cards with an <span class="expenses"></span> > 0.  Which in the search box you would enter o:0 n>0. Or you say you have a great card that you want to play that needs an Aslan, k:Aslan.
 	</p>

@@ -31,33 +31,13 @@
 <fieldset>
 <legend>{{ 'search.nametexts' | trans }}</legend>
 <div class="row">
-    <div class="col-sm-12">
+    <div class="col-sm-6">
         <div class="form-group">
-			<label for="q">{{ 'card.info.name' | trans }}</label>
+			<label for="q">{{ 'card.info.name' | trans }} / Contract Name</label>
 			<div>
 				<input class="form-control" size="30" id="q" name="q" value="">
 			</div>
 		</div>
-	</div>
-</div>
-<div class="row">
-    <div class="col-sm-6">
-		<div class="form-group">
-			<label for="x">{{ 'card.info.text' | trans }}</label>
-			<div>
-				<input class="form-control" size="40" id="x" name="x" value="">
-			</div>
-		</div>
-    </div>
-    <div class="col-sm-6">
-		<div class="form-group">
-			<label for="a">{{ 'card.info.complication' | trans }}</label>
-			<div>
-				<input class="form-control" size="30" id="g" name="g" value="">
-			</div>
-		</div>
-	</div>
-	<div class="col-sm-6">
 		<div class="form-group">
 			<label for="a">{{ 'card.info.flavor' | trans }}</label>
 			<div>
@@ -65,10 +45,134 @@
 			</div>
 		</div>
 	</div>
+    <div class="col-sm-6">
+		<div class="form-group">
+			<label for="x">{{ 'card.info.text' | trans }} Box</label>
+			<div>
+				<input class="form-control" size="40" id="x" name="x" value="">
+			</div>
+		</div>
+
+	</div>
 </div>
 </fieldset>
+
 <fieldset>
-<legend>{{ 'card.info.faction' | trans }}</legend>
+	<legend>{{ 'search.contracttexts' | trans }}</legend>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label for="q">{{ 'card.info.contractname' | trans }}</label>
+				<div>
+					<input class="form-control" size="30" id="q" name="q" value="">
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label for="g">{{ 'card.info.complication' | trans }} Name</label>
+				<div>
+					<input class="form-control" size="30" id="g" name="g" value="">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label for="m">{{ 'card.info.contractrequirements' | trans }}</label>
+				<div>
+					<input class="form-control" size="40" id="m" name="m" value="">
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label for="h">{{ 'card.info.complicationtext' | trans }}</label>
+				<div>
+					<input class="form-control" size="30" id="h" name="h" value="">
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label for="s">{{ 'card.info.subplots' | trans }}</label>
+				<div>
+					<input class="form-control" size="30" id="s" name="s" value="">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label for="y">{{ 'card.info.distance' | trans }}</label>
+				<div class="row">
+					<div class="col-xs-4">
+						<select name="d" id="d" class="form-control"><option value=":">=</option><option value="<">&lt;</option><option value=">">&gt;</option></select>
+					</div>
+					<div class="col-xs-8">
+						<input id="d" name="d" value="" class="form-control">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label for="y">{{ 'card.info.compslots' | trans }}</label>
+				<div class="row">
+					<div class="col-xs-4">
+						<select name="j" id="j" class="form-control"><option value=":">=</option><option value="<">&lt;</option><option value=">">&gt;</option></select>
+					</div>
+					<div class="col-xs-8">
+						<input id="j" name="j" value="" class="form-control">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label for="y">{{ 'card.info.victorypoints' | trans }}</label>
+				<div class="row">
+					<div class="col-xs-4">
+						<select name="v" id="v" class="form-control"><option value=":">=</option><option value="<">&lt;</option><option value=">">&gt;</option></select>
+					</div>
+					<div class="col-xs-8">
+						<input id="v" name="v" value="" class="form-control">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label for="y">{{ 'card.info.abandmod' | trans }}</label>
+				<div class="row">
+					<div class="col-xs-4">
+						<select name="b" id="b" class="form-control"><option value=":">=</option><option value="<">&lt;</option><option value=">">&gt;</option></select>
+					</div>
+					<div class="col-xs-8">
+						<input id="b" name="b" value="" class="form-control">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label for="y">{{ 'card.info.abandonment' | trans }}</label>
+				<div class="row">
+					<div class="col-xs-4">
+						<select name="l" id="l" class="form-control"><option value=":">=</option><option value="<">&lt;</option><option value=">">&gt;</option></select>
+					</div>
+					<div class="col-xs-8">
+						<input id="l" name="l" value="" class="form-control">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</fieldset>
+<fieldset>
+<legend>{{ 'search.faction' | trans }}</legend>
 <div class="row">
     <div class="col-sm-12">
         <div class="form-group">
@@ -124,8 +228,6 @@
 			</div>
 		</div>
     </div> #}
-</div>
-<div class="row">
     <div class="col-sm-4">
         <div class="form-group">
 			<label for="t">{{ 'card.info.type' | trans }}</label>
@@ -153,8 +255,6 @@
 			</div>
 		</div>
     </div> #}
-</div>
-<div class="row">
     <div class="col-sm-4">
         <div class="form-group">
 			<label for="k">{{ 'card.info.traits' | trans }}</label>
@@ -210,7 +310,7 @@
 			</div>
 		</div>
     </div>
-    <div class="col-sm-6">
+	<div class="col-sm-6">
         <div class="form-group">
 			<label for="n">{{ 'card.info.expense' | trans }}</label>
 			<div class="row">
@@ -224,6 +324,7 @@
 		</div>
     </div>
 </div>
+<div class="row">
 {#<div class="row">
     <div class="col-sm-6">
         <div class="form-group">
@@ -251,7 +352,7 @@
 			</div>
 		</div>
     </div>
-</div> #}
+</div>
 <div class="row">
     <div class="col-sm-6">
         <div class="form-group">
@@ -266,7 +367,7 @@
 			</div>
 		</div>
     </div>
- {#   <div class="col-sm-6">
+   <div class="col-sm-6">
         <div class="form-group">
 			<label for="b">{{ 'card.info.claim' | trans }}</label>
 			<div class="row">
