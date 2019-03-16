@@ -339,6 +339,7 @@ t.add("card.info.requiredskill","Required Skill","messages","en");
 t.add("card.info.skill","Skills","messages","en");
 t.add("card.info.wound","Wounds","messages","en");
 t.add("card.info.species","Species","messages","en");
+t.add("card.info.capabilites","Capabilities","messages","en");
 t.add("challenges.military", "Military", "messages", "en");
 t.add("challenges.intrigue", "Intrigue", "messages", "en");
 t.add("challenges.power", "Power", "messages", "en");
