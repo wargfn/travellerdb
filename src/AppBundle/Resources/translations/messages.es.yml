@@ -419,6 +419,7 @@ card:
     quantity: Cantidad
     illustrator: Ilustrador
     wound: Wounds
+    species: Species
     short:
       cost: C.
       expense: Fu.

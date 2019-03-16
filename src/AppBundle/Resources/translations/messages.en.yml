@@ -433,6 +433,7 @@ card:
     distance: Contract Jump Distance
     compslots: Complication Slots
     wound: Wounds
+    species: Species
     short:
       cost: C.
       expense: E.

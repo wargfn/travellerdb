@@ -2045,7 +2045,7 @@ if (typeof jQuery === 'undefined') {
      */
     format.info = function info(card)
     {
-        var text = '<span class="card-type">' + card.type_name + '. </span>';
+        var text = '<span class="card-type">' + card.type_name + '</span>';
         switch(card.type_code) {
             case 'character':
                 text += Translator.trans('card.info.cost') + ': ' + (card.cost != null ? card.cost : 'X') + '. ';
@@ -2068,6 +2068,30 @@ if (typeof jQuery === 'undefined') {
                 text += Translator.trans('card.info.claim') + ': ' + card.claim + '. ';
                 text += Translator.trans('card.info.reserve') + ': ' + card.reserve + '. ';
                 text += Translator.trans('card.info.plotlimit') + ': ' + card.deck_limit + '. ';
+                break;
+            case 'adv':
+                break;
+            case 'conn':
+                text += ' - <span class="card-type">'+ card.subtype_name +'</span>';
+                text += '<p><span class="card-traits">' + card.traits + '</span></p>';
+                text += Translator.trans('card.info.cost') + ': ' + (card.cost != null ? card.cost : 'X') + '. ';
+                text += Translator.trans('card.info.expense') + ': ' + (card.expense != null ? card.expense : 'X') + '. ';
+                break;
+            case 'crew':
+                text += '<p><span class="card-traits">' + card.traits + '</span></p>';
+                text += '<p><span class="card-info">' + Translator.trans('card.info.species') + ': ' + (card.species != null ? card.species: '<em>Classified</em>' ) + '</span><br />';
+                text += '<span class="card-info">' + Translator.trans('card.info.skill') + ': ' + (card.skills != null ? card.skills: '<em>Classified</em>' ) + '</span></p>';
+                text += Translator.trans('card.info.wound') + ': ' + (card.wound != null ? card.wound : 'X') + '<span class="wounds"></span>. <br />';
+                text += Translator.trans('card.info.cost') + ': ' + (card.cost != null ? card.cost : 'X') + '. ';
+                text += Translator.trans('card.info.expense') + ': ' +(card.expense != null ? card.expense : 'X') + '<span class="expenses"></span>';
+                break;
+            case 'gear':
+                break;
+            case 'heroic':
+                break;
+            case 'upgrade':
+                break;
+            case 'ship':
                 break;
         }
         return text;
