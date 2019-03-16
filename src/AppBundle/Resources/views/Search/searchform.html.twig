@@ -54,6 +54,14 @@
 		</div>
 
 	</div>
+	<div class="col-sm-6">
+		<div class="form-group">
+			<label for="x">{{ 'card.info.skill' | trans }}</label>
+			<div>
+				<input class="form-control" size="40" id="u" name="u" value="">
+			</div>
+		</div>
+	</div>
 </div>
 </fieldset>
 
@@ -310,6 +318,19 @@
 			</div>
 		</div>
     </div>
+	<div class="col-sm-6">
+		<div class="form-group">
+			<label for="o">{{ 'card.info.wound' | trans }}</label>
+			<div class="row">
+				<div class="col-xs-4">
+					<select name="w" id="w" class="form-control"><option value=":">=</option><option value="<">&lt;</option><option value=">">&gt;</option></select>
+				</div>
+				<div class="col-xs-8">
+					<input id="w" name="w" value="" class="form-control">
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="col-sm-6">
         <div class="form-group">
 			<label for="n">{{ 'card.info.expense' | trans }}</label>

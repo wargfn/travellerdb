@@ -412,7 +412,7 @@ card:
     str: STR
     strini: Strength/Initiative
     traits: Traits
-    set: Set
+    skill: Crew Skill
     loyal: Loyal
     nonloyal: Non-Loyal
     income: Income
@@ -432,6 +432,7 @@ card:
     abandmod: Complication Abandonment Modifier
     distance: Contract Jump Distance
     compslots: Complication Slots
+    wound: Wounds
     short:
       cost: C.
       expense: E.

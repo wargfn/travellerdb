@@ -546,6 +546,21 @@ class CardsData
                                     $qb->andWhere(implode($operator == '!' ? " and " : " or ", $or));
                                     break;
                                 }
+                            case 'u': // subtype (traits)
+                                {
+                                    $or = [];
+                                    foreach($condition as $arg) {
+                                        switch($operator) {
+                                            case ':': $or[] = "(c.skills like ?$i)";
+                                                break;
+                                            case '!': $or[] = "(c.skills is null or c.skills not like ?$i)";
+                                                break;
+                                        }
+                                        $qb->setParameter($i++, "%$arg%");
+                                    }
+                                    $qb->andWhere(implode($operator == '!' ? " and " : " or ", $or));
+                                    break;
+                                }
                         }
                         break;
                     }

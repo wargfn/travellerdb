@@ -29,7 +29,9 @@ class SearchController extends Controller
 			'r' => 'date_release',
 			's' => 'subplots',
 			't' => 'type',
+			'u' => 'skills',
 			'v' => 'victorypoints',
+			'w' => 'wound',
 			'x' => 'text',
 			'y' => 'quantity',
 	);
@@ -56,8 +58,9 @@ class SearchController extends Controller
             'r' => 'string',
             's' => 'string',
             't' => 'code',
-			'u' => 'boolean',
+			'u' => 'string',
             'v' => 'integer',
+            'w' => 'integer',
             'x' => 'string',
             'y' => 'integer',
 	);
