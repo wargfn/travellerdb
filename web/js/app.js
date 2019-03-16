@@ -2072,6 +2072,17 @@ if (typeof jQuery === 'undefined') {
                 text += Translator.trans('card.info.plotlimit') + ': ' + card.deck_limit + '. ';
                 break;
             case 'adv':
+                text += '<p><span class="distance"></span>: ' + card.distance +'     <span class="card-type">   ' + card.contractname + '</span></p>';
+                text += '<p><span class="card-traits">' + card.traits + '</span></p>';
+                text += '<p>' + (card.compslots != null ? card.compslots : '') + '<span class="complication"></span>  '
+                text +=  + (card.abandpenalty != null ? card.abandpenalty : '') + '<span class="abandonment"></span>  '
+                text +=  + (card.victorypoints != null ? card.victorypoints : '') + '<span class="victoryppoint"></span></p>';
+                text += '<p>' + Translator.trans('card.info.contractrequirements') + ': ' + card.contractrequirements  + '</p>';
+                text += '<p>' + Translator.trans('card.info.subplots') + ': ' + (card.subplots != null ? card.subplots : '') + '</p>';
+                text += '<p><span class="card-type">' + card.complicationname + '</span><br />';
+                text += '<span class="card-traits">' + (card.complicationtraits != null ? card.complicationtraits : '') + '</span><br />';
+                text += '<span class="card-info">' + Translator.trans('card.complicationtext') + ': ' + card.complicationtext + '</span></p>';
+                text += '<p><span class="abandonment"></span><span class="card-info">: ' + (card.abandpenmodifier != null ? card.abandpenmodifier : '') + '</span></p>';
                 break;
             case 'conn':
                 text += ' - <span class="card-type">'+ card.subtype_name +'</span>';
@@ -2108,10 +2119,51 @@ if (typeof jQuery === 'undefined') {
                 text += Translator.trans('card.info.expense') + ': ' +(card.expense != null ? card.expense : 'X') + '<span class="expenses"></span>';
                 break;
             case 'ship':
+                text += '<p><span class="card-traits">' + card.traits + '</span>     <span class="card-type">' + Translator.trans('card.info.tonnage') + ': ' + (card.tonnage != null ? card.tonnage: '<em>Classified</em>' ) + '</span></p>';
+                text += '<p><span class="card-info">' + Translator.trans('card.info.capabilities') + ': ' + (card.capabilities != null ? card.capabilities: '<em>Classified</em>' ) + '</span></p>';
+                text += '<p><span class="initiative"></span>: ' + (card.initiative != null ? card.initiative : 'X') + '  ';
+                text += '<span class="jump"></span>: '+ (card.jump != null ? card.jump : 'X') + '  ';
+                text += '<span class="attack"></span>: ' + (card.attack != null ? card.attack : 'X') + '  ';
+                text += '<span class="defense"></span>: '+ (card.defense != null ? card.defense : 'X') + '</p>';
+                text += '<p>'
+                    + ' <span class="crew"></span>: ' + (card.crew != null ? card.crew : 'X') + '  '
+                    + ' <span class="computer"></span>: ' + (card.computer != null ? card.computer : 'X') + '  '
+                    + ' <span class="hardpoint"></span>: ' + (card.hardpoint != null ? card.hardpoint : 'X') + '  '
+                    + ' <span class="hull"></span>: ' + (card.hull != null ? card.hull : 'X') + '  '
+                    + ' <span class="internal"></span>: ' + (card.internal != null ? card.internal : 'X') + '  '
+                    + '</p>';
                 break;
         }
 
         text = text.replace(/\[(\w+)\]/g, '<span class="$1"></span>');
+        text = text.replace(/\[Cargo\/Passenger\]/g, '<span class="CargoPassenger"></span>');
+        text = text.replace(/\[Military\/Passenger\]/g, '<span class="PassengerMilitary"></span>');
+        text = text.replace(/\[Military\/Survey\]/g, '<span class="MilitarySurvey"></span>');
+        text = text.replace(/\[Passenger\/Survey\]/g, '<span class="PassengerSurvey"></span>');
+        text = text.replace(/\[Cargo\/Survey\]/g, '<span class="CargoSurvey"></span>');
+        text = text.replace(/\[Cargo\/Military\]/g, '<span class="CargoMilitary"></span>');
+        text = text.replace(/\[Trained\:Admin\]/g, '<span class="admintrained"></span>');
+        text = text.replace(/\[Expert\:Admin\]/g, '<span class="adminexpert"></span>');
+        text = text.replace(/\[Trained\:Combat\]/g, '<span class="combattrained"></span>');
+        text = text.replace(/\[Expert\:Combat\]/g, '<span class="combatexpert"></span>');
+        text = text.replace(/\[Trained\:Jack\]/g, '<span class="jacktrained"></span>');
+        text = text.replace(/\[Expert\:Jack\]/g, '<span class="jackexpert"></span>');
+        text = text.replace(/\[Trained\:Medical\]/g, '<span class="medicaltrained"></span>');
+        text = text.replace(/\[Expert\:Medical\]/g, '<span class="medicalexpert"></span>');
+        text = text.replace(/\[Trained\:Psionics\]/g, '<span class="psionicstrained"></span>');
+        text = text.replace(/\[Expert\:Psionics\]/g, '<span class="psionicsexpert"></span>');
+        text = text.replace(/\[Trained\:Psionic\]/g, '<span class="psionictrained"></span>');
+        text = text.replace(/\[Expert\:Psionic\]/g, '<span class="psionicexpert"></span>');
+        text = text.replace(/\[Trained\:Science\]/g, '<span class="sciencetrained"></span>');
+        text = text.replace(/\[Expert\:Science\]/g, '<span class="scienceexpert"></span>');
+        text = text.replace(/\[Trained\:Social\]/g, '<span class="socialtrained"></span>');
+        text = text.replace(/\[Expert\:Social\]/g, '<span class="socialexpert"></span>');
+        text = text.replace(/\[Trained\:StarshipOps\]/g, '<span class="staropstrained"></span>');
+        text = text.replace(/\[Expert\:StarshipOps\]/g, '<span class="staropsexpert"></span>');
+        text = text.replace(/\[Trained\:Tech\]/g, '<span class="techtrained"></span>');
+        text = text.replace(/\[Expert\:Tech\]/g, '<span class="techexpert"></span>');
+        text = text.replace(/\[Trained\:Underworld\]/g, '<span class="underworldtrained"></span>');
+        text = text.replace(/\[Expert\:Underworld\]/g, '<span class="underworldexpert"></span>');
 
         return text;
     };
@@ -2125,6 +2177,34 @@ if (typeof jQuery === 'undefined') {
         text = text.replace(/\[(\w+)\]/g, '<span class="$1"></span>');
         text = text.split("\\n").join('</p><p>');
         /* text = text.replace(/\\n/g, '<br />');*/
+        text = text.replace(/\[Cargo\/Passenger\]/g, '<span class="CargoPassenger"></span>');
+        text = text.replace(/\[Military\/Passenger\]/g, '<span class="PassengerMilitary"></span>');
+        text = text.replace(/\[Military\/Survey\]/g, '<span class="MilitarySurvey"></span>');
+        text = text.replace(/\[Passenger\/Survey\]/g, '<span class="PassengerSurvey"></span>');
+        text = text.replace(/\[Cargo\/Survey\]/g, '<span class="CargoSurvey"></span>');
+        text = text.replace(/\[Cargo\/Military\]/g, '<span class="CargoMilitary"></span>');
+        text = text.replace(/\[Trained\:Admin\]/g, '<span class="admintrained"></span>');
+        text = text.replace(/\[Expert\:Admin\]/g, '<span class="adminexpert"></span>');
+        text = text.replace(/\[Trained\:Combat\]/g, '<span class="combattrained"></span>');
+        text = text.replace(/\[Expert\:Combat\]/g, '<span class="combatexpert"></span>');
+        text = text.replace(/\[Trained\:Jack\]/g, '<span class="jacktrained"></span>');
+        text = text.replace(/\[Expert\:Jack\]/g, '<span class="jackexpert"></span>');
+        text = text.replace(/\[Trained\:Medical\]/g, '<span class="medicaltrained"></span>');
+        text = text.replace(/\[Expert\:Medical\]/g, '<span class="medicalexpert"></span>');
+        text = text.replace(/\[Trained\:Psionics\]/g, '<span class="psionicstrained"></span>');
+        text = text.replace(/\[Expert\:Psionics\]/g, '<span class="psionicsexpert"></span>');
+        text = text.replace(/\[Trained\:Psionic\]/g, '<span class="psionictrained"></span>');
+        text = text.replace(/\[Expert\:Psionic\]/g, '<span class="psionicexpert"></span>');
+        text = text.replace(/\[Trained\:Science\]/g, '<span class="sciencetrained"></span>');
+        text = text.replace(/\[Expert\:Science\]/g, '<span class="scienceexpert"></span>');
+        text = text.replace(/\[Trained\:Social\]/g, '<span class="socialtrained"></span>');
+        text = text.replace(/\[Expert\:Social\]/g, '<span class="socialexpert"></span>');
+        text = text.replace(/\[Trained\:StarshipOps\]/g, '<span class="starsopstrained"></span>');
+        text = text.replace(/\[Expert\:StarshipOps\]/g, '<span class="staropsexpert"></span>');
+        text = text.replace(/\[Trained\:Tech\]/g, '<span class="techtrained"></span>');
+        text = text.replace(/\[Expert\:Tech\]/g, '<span class="techexpert"></span>');
+        text = text.replace(/\[Trained\:Underworld\]/g, '<span class="underworldtrained"></span>');
+        text = text.replace(/\[Expert\:Underworld\]/g, '<span class="underworldexpert"></span>');
         return '<p>' + text + '</p>';
     };
 
@@ -2147,9 +2227,7 @@ if (typeof jQuery === 'undefined') {
 
             content = image
                     + '<h4 class="card-name">' + app.format.name(card) + '</h4>'
-                    + '<div class="card-faction">' + app.format.faction(card) + '</div>'
                     + '<div class="card-info">' + app.format.info(card) + '</div>'
-                    + '<div class="card-traits">' + app.format.traits(card) + '</div>'
                     + '<div class="card-text border-' + card.faction_code + '">' + app.format.text(card) + '</div>'
                     + '<div class="card-pack">' + app.format.pack(card) + '</div>'
                     ;

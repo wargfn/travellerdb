@@ -423,6 +423,7 @@ card:
     requiredskill: Required Skill
     tonnage: Tonnage
     structure: Structure
+    capabilites: Capabilities
     short:
       cost: C.
       expense: Fu.
