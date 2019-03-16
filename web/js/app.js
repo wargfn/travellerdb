@@ -2060,7 +2060,9 @@ if (typeof jQuery === 'undefined') {
             case 'attachment':
             case 'location':
             case 'event':
+                text += '<p><span class="card-traits">' + card.traits + '</span></p>';
                 text += Translator.trans('card.info.cost') + ': ' + (card.cost != null ? card.cost : 'X') + '. ';
+                text += Translator.trans('card.info.expense') + ': ' +(card.expense != null ? card.expense : 'X') + '<span class="expenses"></span>';
                 break;
             case 'plot':
                 text += Translator.trans('card.info.income') + ': ' + card.income + '. ';
@@ -2075,7 +2077,7 @@ if (typeof jQuery === 'undefined') {
                 text += ' - <span class="card-type">'+ card.subtype_name +'</span>';
                 text += '<p><span class="card-traits">' + card.traits + '</span></p>';
                 text += Translator.trans('card.info.cost') + ': ' + (card.cost != null ? card.cost : 'X') + '. ';
-                text += Translator.trans('card.info.expense') + ': ' + (card.expense != null ? card.expense : 'X') + '. ';
+                text += Translator.trans('card.info.expense') + ': ' +(card.expense != null ? card.expense : 'X') + '<span class="expenses"></span>';
                 break;
             case 'crew':
                 text += '<p><span class="card-traits">' + card.traits + '</span></p>';
@@ -2086,14 +2088,29 @@ if (typeof jQuery === 'undefined') {
                 text += Translator.trans('card.info.expense') + ': ' +(card.expense != null ? card.expense : 'X') + '<span class="expenses"></span>';
                 break;
             case 'gear':
+                text += ' - <span class="card-type">'+ card.subtype_name +'</span>';
+                text += '<p><span class="card-traits">' + card.traits + '</span></p>';
+                text += Translator.trans('card.info.cost') + ': ' + (card.cost != null ? card.cost : 'X') + '. ';
+                text += Translator.trans('card.info.expense') + ': ' +(card.expense != null ? card.expense : 'X') + '<span class="expenses"></span>';
                 break;
             case 'heroic':
+                text += '<p><span class="card-traits">' + card.traits + '</span></p>';
+                text += '<span class="card-info">' + Translator.trans('card.info.requiredskill') + ': ' + (card.requiredskill != null ? card.requiredskill: '<em>Classified</em>' ) + '</span></p>';
+                text += Translator.trans('card.info.cost') + ': ' + (card.cost != null ? card.cost : 'X') + '. ';
+                text += Translator.trans('card.info.expense') + ': ' +(card.expense != null ? card.expense : 'X') + '<span class="expenses"></span>';
                 break;
             case 'upgrade':
+                text += ' - <span class="card-type">'+ card.subtype_name +'</span>';
+                text += '<p><span class="card-traits">' + card.traits + '</span></p>';
+                text += Translator.trans('card.info.cost') + ': ' + (card.cost != null ? card.cost : 'X') + '. ';
+                text += Translator.trans('card.info.expense') + ': ' +(card.expense != null ? card.expense : 'X') + '<span class="expenses"></span>';
                 break;
             case 'ship':
                 break;
         }
+
+        text = text.replace(/\[(\w+)\]/g, '<span class="$1"></span>');
+
         return text;
     };
 

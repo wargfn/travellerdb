@@ -420,6 +420,7 @@ card:
     illustrator: Ilustrador
     wound: Wounds
     species: Species
+    requiredskill: Required Skill
     short:
       cost: C.
       expense: Fu.

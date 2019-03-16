@@ -434,6 +434,7 @@ card:
     compslots: Complication Slots
     wound: Wounds
     species: Species
+    requiredskill: Required Skill
     short:
       cost: C.
       expense: E.
