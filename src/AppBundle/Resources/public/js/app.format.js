@@ -79,7 +79,7 @@
                 text += '<p>' + Translator.trans('card.info.subplots') + ': ' + (card.subplots != null ? card.subplots : '') + '</p>';
                 text += '<p><span class="card-type">' + card.complicationname + '</span><br />';
                 text += '<span class="card-traits">' + (card.complicationtraits != null ? card.complicationtraits : '') + '</span><br />';
-                text += '<span class="card-info">' + Translator.trans('card.complicationtext') + ': ' + card.complicationtext + '</span></p>';
+                text += '<span class="card-info">' + Translator.trans('card.info.complicationtext') + ': ' + card.complicationtext + '</span></p>';
                 text += '<p><span class="abandonment"></span><span class="card-info">: ' + (card.abandpenmodifier != null ? card.abandpenmodifier : '') + '</span></p>';
                 break;
             case 'conn':
@@ -164,7 +164,7 @@
         text = text.replace(/\[Expert\:Underworld\]/g, '<span class="underworldexpert"></span>');
         text = text.replace(/\[Trained\:StarshipOperation\]/g, '<span class="staropstrained"></span>');
         text = text.replace(/\[Expert\:StarshipOperation\]/g, '<span class="staropsexpert"></span>');
-        
+
         return text;
     };
 
