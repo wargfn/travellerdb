@@ -2079,11 +2079,9 @@ if (typeof jQuery === 'undefined') {
     format.text = function text(card)
     {
         var text = card.text || '';
-        text = text.replace(/\[(\w+)\]/g, '<span class="icon-$1"></span>')
-        text = text.split("\n").join('</p><p>');
-        if(card.designer) {
-            text = text + '<p class="card-designer">' + card.designer + '</p>';
-        }
+        text = text.replace(/\[(\w+)\]/g, '<span class="$1"></span>');
+        text = text.split("\\n").join('</p><p>');
+        /* text = text.replace(/\\n/g, '<br />');*/
         return '<p>' + text + '</p>';
     };
 
@@ -2237,14 +2235,19 @@ if (typeof jQuery === 'undefined') {
         modal.find('.card-modal-link').attr('href', card.url);
         modal.find('h3.modal-title').html(app.format.name(card));
         modal.find('.modal-image').html('<img class="img-responsive" src="' + card.imagesrc + '">');
-        modal.find('.modal-info').html(
+        modal.find('.modal-info').html (
+            '<div class="card-info">' + app.format.info(card)+ '<div>'
+            + '<div class="card-text border-' + card.faction_code + '">' + app.format.text(card) + '</div>'
+            + '<div class="card-pack">' + app.format.pack(card) + '</div>'
+        );
+        /* modal.find('.modal-info').html(
                 '<div class="card-faction">' + app.format.faction(card) + '</div>'
                 + '<div class="card-info">' + app.format.info(card) + '</div>'
                 + '<div class="card-traits">' + app.format.traits(card) + '</div>'
                 + '<div class="card-text border-' + card.faction_code + '">' + app.format.text(card) + '</div>'
                 + '<div class="card-pack">' + app.format.pack(card) + '</div>'
                 );
-
+        */
         var qtyelt = modal.find('.modal-qty');
         if(qtyelt) {
 

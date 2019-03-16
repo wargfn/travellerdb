@@ -27,7 +27,7 @@
         $('#table-adv-draw-simulator').on('click', 'img, div.card-proxy', adv_draw_simulator.toggle_opacity);
         container = $('#table-adv-draw-simulator-content');
 
-        $('#oddsModal').on({change: adv_draw_simulator.compute_odds}, 'input');
+        $('#advOddsModal').on({change: adv_draw_simulator.compute_odds}, 'input');
     }
 
     /**

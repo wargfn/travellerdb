@@ -77,11 +77,9 @@
     format.text = function text(card)
     {
         var text = card.text || '';
-        text = text.replace(/\[(\w+)\]/g, '<span class="icon-$1"></span>')
-        text = text.split("\n").join('</p><p>');
-        if(card.designer) {
-            text = text + '<p class="card-designer">' + card.designer + '</p>';
-        }
+        text = text.replace(/\[(\w+)\]/g, '<span class="$1"></span>');
+        text = text.split("\\n").join('</p><p>');
+        /* text = text.replace(/\\n/g, '<br />');*/
         return '<p>' + text + '</p>';
     };
 
