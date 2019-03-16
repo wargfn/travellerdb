@@ -145,4 +145,10 @@ web/bundles/app/images/cards/97022.png
 web/bundles/app/images/cards/97023.png
 web/bundles/app/images/cards/98006.png
 web/bundles/app/images/cards/98006a.png
+src/AppBundle/Resources/public/images/factions/broadswordpto.png
+src/AppBundle/Resources/public/images/factions/gazellepto.png
+src/AppBundle/Resources/public/images/factions/patrolcruiserpto.png
+web/bundles/app/images/factions/broadswordpto.png
+web/bundles/app/images/factions/gazellepto.png
+web/bundles/app/images/factions/patrolcruiserpto.png
 
