@@ -421,6 +421,45 @@ div.site-slogan {
     border-color: #0033cc !important;
 }
 
+.bg-broadswordpto {
+    background-color: #808080 !important;
+    background: url(../images/broadsword-background.png);
+    color: #FFFFFF !important;
+}
+
+.fg-broadswordpto {
+    color: #808080 !important;
+}
+.border-broadswordpto {
+    border-color: #808080 !important;
+}
+
+.bg-patrolcruiserpto {
+    background-color: #c0c0c0 !important;
+    background: url(../images/typesscout-background.png);
+    color: #FFFFFF !important;
+}
+
+.fg-patrolcruiserpto {
+    color: #c0c0c0 !important;
+}
+.border-patrolcruiserpto {
+    border-color: #c0c0c0 !important;
+}
+
+.bg-gazellepto {
+    background-color: #ff9933 !important;
+    background: url(../images/typesscout-background.png);
+    color: #FFFFFF !important;
+}
+
+.fg-gazellepto {
+    color: #ff9933 !important;
+}
+.border-gazellepto {
+    border-color: #ff9933 !important;
+}
+
 .icon-adv{
     color: #de9c3b !important;
 }

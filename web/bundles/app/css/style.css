@@ -241,6 +241,7 @@ ol {
 #table-draw-simulator-content div.card-proxy div{position: relative;top: 50%; transform: translateY(-50%);text-align:center}
 #draw-simulator-special {display: none;}
 
+/*********** TYPEAHEAD **************/
 /********* ADV DRAW SIMULATOR ************/
 
 #table-adv-draw-simulator-content img {width:136px;height:98px;float:left;margin:5px;box-shadow: black 0px 0px 5px;border-radius: 5px;}
@@ -418,6 +419,45 @@ div.site-slogan {
 }
 .border-typesscout {
     border-color: #0033cc !important;
+}
+
+.bg-broadswordpto {
+    background-color: #808080 !important;
+    background: url(../images/broadsword-background.png);
+    color: #FFFFFF !important;
+}
+
+.fg-broadswordpto {
+    color: #808080 !important;
+}
+.border-broadswordpto {
+    border-color: #808080 !important;
+}
+
+.bg-patrolcruiserpto {
+    background-color: #c0c0c0 !important;
+    background: url(../images/typesscout-background.png);
+    color: #FFFFFF !important;
+}
+
+.fg-patrolcruiserpto {
+    color: #c0c0c0 !important;
+}
+.border-patrolcruiserpto {
+    border-color: #c0c0c0 !important;
+}
+
+.bg-gazellepto {
+    background-color: #ff9933 !important;
+    background: url(../images/typesscout-background.png);
+    color: #FFFFFF !important;
+}
+
+.fg-gazellepto {
+    color: #ff9933 !important;
+}
+.border-gazellepto {
+    border-color: #ff9933 !important;
 }
 
 .icon-adv{
