@@ -435,6 +435,8 @@ card:
     wound: Wounds
     species: Species
     requiredskill: Required Skill
+    tonnage: Tonnage
+    structure: Structure
     short:
       cost: C.
       expense: E.

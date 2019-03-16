@@ -2102,6 +2102,8 @@ if (typeof jQuery === 'undefined') {
             case 'upgrade':
                 text += ' - <span class="card-type">'+ card.subtype_name +'</span>';
                 text += '<p><span class="card-traits">' + card.traits + '</span></p>';
+                text += '<span class="card-info">' + Translator.trans('card.info.tonnage') + ': ' + (card.tonnagerequirement != null ? card.tonnagerequirement: '<em>Classified</em>' ) + '</span></p>';
+                text += Translator.trans('card.info.structure') + ': ' + (card.structure != null ? card.structure: '<em>Classified</em>' ) + '<span class="structure"></span><br />';
                 text += Translator.trans('card.info.cost') + ': ' + (card.cost != null ? card.cost : 'X') + '. ';
                 text += Translator.trans('card.info.expense') + ': ' +(card.expense != null ? card.expense : 'X') + '<span class="expenses"></span>';
                 break;
