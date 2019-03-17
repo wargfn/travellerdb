@@ -20,7 +20,7 @@
     {% if card.type_code == 'ship' %}
         <div>
             <span class="card-type"> {{'card.info.tonnage' | trans}}: {{ macros.integer_or_x(card.tonnage) }}</span>
-        <br>{{'card.info.capabilities' | trans}}: {{ card.capabilities }}
+        <br>Capabilities: {{ card.capabilities }}
         <br><span class="initiative"></span>: {{ macros.integer_or_x(card.initiative) }}
         <br><span class="jump"></span>: {{ macros.integer_or_x(card.jump) }}
         <br><span class="attack"></span>: {{ macros.integer_or_x(card.attack) }}
@@ -45,20 +45,21 @@
     {% endif %}
     {% if card.type_code == 'adv' %}
         <div>
-            <p>{{ card.contractrequirements }}
-           <br>{{ card.subplots }}</p>
+            <p>{{ macros.integer_or_x(card.distance) }}<span class="distance"></span></p>
+            <p>{{'card.info.contractrequirements' | trans}}: {{ card.contractrequirements }}
+           <br>{{'card.info.subplots' | trans}}:{{ card.subplots }}</p>
         </div>
-        <div align=""right">
-            <p>{{ macros.integer_or_x(card.compslots) }} [Compslot]
-            {{ macros.integer_or_x(card.abandpenalty) }} [ContractAbandonment]
-            {{ macros.integer_or_x(card.victorypoints) }} [VictoryPoint]</p>
+        <div align="right">
+            <p>{{ macros.integer_or_x(card.compslots) }} <span class="complication"></span>
+            {{ macros.integer_or_x(card.abandpenalty) }} <span class="Abandonment"></span>
+            {{ macros.integer_or_x(card.victorypoints) }} <span class="victoryppoint"></span></p>
         </div>
         <div>
             <p></p>
             <p class="card-type">{{ card.complicationname }}</p>
             <p class="card-traits">{{ card.complicationtraits }}</p>
-            {{ card.complicationtext }}
-            <br>{{ card.abandpenmodifier }} [AbandPenModifier]
+            {{'card.info.complicationtext' | trans}}: {{ card.complicationtext }}
+            <br>{{ card.abandpenmodifier }} <span class="abandonment"></span>
             <div class="card-flavor small">{{ card.compflavortext }}</div>
             <p></p>
         </div>
