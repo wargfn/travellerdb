@@ -1,24 +1,38 @@
 {% import "AppBundle::macros.html.twig" as macros %}
 <span class="card-content">
-{% if card.type_code == 'character' or card.type_code == 'attachment' or card.type_code == 'event' or card.type_code == 'location' %}
-    {{'card.info.cost' | trans}}: {{ macros.integer_or_x(card.cost) }}.
-{% endif %}
+
+    {% if card.type_code == 'crew' %}
+        <p><span class="species"></span> {{ card.species }}</p>
+        <p>{{'card.info.skill' | trans}}: {{ card.skills }}</p>
+        <p>{{'card.info.wound' | trans}}: {{ macros.integer_or_x(card.cost) }}<span class="wounds"></span></p>
+    {%  endif %}
+    {% if card.type_code == 'heroic' %}
+        <p>{{'card.info.requiredskill' | trans}}: {{ card.requiredskill }}</p>
+    {%  endif %}
+    {% if card.type_code == 'upgrade' %}
+        <p>{{'card.info.tonnage' | trans}}: {{ card.tonnagerequirement }}</p>
+        <p>{{'card.info.structure' | trans}}: {{ card.structure }}<span class="structure"></span></p>
+    {%  endif %}
+    {% if card.type_code == 'character' or card.type_code == 'attachment' or card.type_code == 'conn' or card.type_code == 'crew' or card.type_code == 'gear' or card.type_code == 'upgrade' or card.type_code == 'event' or card.type_code == 'heroic' or card.type_code == 'location' %}
+        <p>{{'card.info.cost' | trans}}: <span class="Cost' +{{ macros.integer_or_x(card.cost) }} + '"></span>.
+            {{'card.info.expense' | trans}}: {{ macros.integer_or_x(card.expense) }}<span class="expenses"></span>.</p>
+    {% endif %}
     {% if card.type_code == 'ship' %}
         <div>
-        <p>Tonnage: {{ macros.integer_or_x(card.tonnage) }}
-        <br>Capabilities: {{ card.capabilities }}
-        <br>Initiative: {{ card.initiative }}
-        <br>Jump: {{ card.jump }}
-        <br>Attack: {{ card.attack }}
-        <br>Defense: {{ card.defense }}</p>
+            <span class="card-type"> {{'card.info.tonnage' | trans}}: {{ macros.integer_or_x(card.tonnage) }}</span>
+        <br>{{'card.info.capabilities' | trans}}: {{ card.capabilities }}
+        <br><span class="initiative"></span>: {{ macros.integer_or_x(card.initiative) }}
+        <br><span class="jump"></span>: {{ macros.integer_or_x(card.jump) }}
+        <br><span class="attack"></span>: {{ macros.integer_or_x(card.attack) }}
+        <br><span class="defense"></span>: {{ macros.integer_or_x(card.defense) }}</p>
         </div>
         <div align="right">
             <p>
-                Crew: {{ card.crew }}
-                Computer : {{ card.computer }}
-                Hardpoints: {{ card.hardpoint }}
-                Hull: {{ card.hull }}
-                Internal: {{ card.internal }}
+                <span class="crew"></span>: {{ macros.integer_or_x(card.crew) }}
+                <span class="computer"></span>: {{ macros.integer_or_x(card.computer) }}
+                <span class="hardpoint"></span>: {{ macros.integer_or_x(card.hardpoint) }}
+                <span class="hull"></span>: {{ macros.integer_or_x(card.hull) }}
+                <span class="internal"></span>: {{ macros.integer_or_x(card.internal) }}
             </p>
         </div>
     {% endif %}

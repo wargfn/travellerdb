@@ -1,6 +1,9 @@
 <div class="card-info">
-	<span class="card-type">{{ card.type_name }}.</span>
+	<span class="card-type">{{ card.type_name }} </span>
+	{% if card.type_code == 'conn' or card.type_code == 'gear' or card.type_code == 'upgrade'%}
+		 -  <span class="card-type">{{ card.subtype_name }} </span>
+	{% endif %}
+	<p class="card-traits">{{ card.traits }}</p>
 	<span class="card-props">{% include 'AppBundle:Search:card-props.html.twig' %}</span>
 	<span class="card-template">{% include 'AppBundle:Search:card-template.html.twig' %}</span>
-	<p class="card-traits">{{ card.traits }}</p>
 </div>
