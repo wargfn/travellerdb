@@ -4,7 +4,7 @@
     {% if card.type_code == 'crew' %}
         <p><span class="species"></span> {{ card.species }}</p>
         <p>{{'card.info.skill' | trans}}: {{ card.skills }}</p>
-        <p>{{'card.info.wound' | trans}}: {{ macros.integer_or_x(card.cost) }}<span class="wounds"></span></p>
+        <p>{{'card.info.wound' | trans}}: {{ macros.integer_or_x(card.wound) }}<span class="wounds"></span></p>
     {%  endif %}
     {% if card.type_code == 'heroic' %}
         <p>{{'card.info.requiredskill' | trans}}: {{ card.requiredskill }}</p>
