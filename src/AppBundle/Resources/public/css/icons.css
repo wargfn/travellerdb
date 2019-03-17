@@ -1000,6 +1000,14 @@
 	background-repeat: no-repeat;
 	padding: 16px 10px 0px;
 }
+.AbandPenalty {
+	display: inline-block;
+	background-size: contain;
+	background-image: url('/bundles/app/images/icons/abandonment.png');
+	background-position: 1px 100% ;
+	background-repeat: no-repeat;
+	padding: 16px 10px 0px;
+}
 .Action {
 	display: inline-block;
 	background-size: contain;
@@ -1505,6 +1513,22 @@
 	padding: 16px 10px 0px;
 }
 .LinkedOpen {
+	display: inline-block;
+	background-size: contain;
+	background-image: url('/bundles/app/images/icons/linkedopen.png');
+	background-position: 1px 100% ;
+	background-repeat: no-repeat;
+	padding: 16px 10px 0px;
+}
+.LinkClosed {
+	display: inline-block;
+	background-size: contain;
+	background-image: url('/bundles/app/images/icons/linkedclosed.png');
+	background-position: 1px 100% ;
+	background-repeat: no-repeat;
+	padding: 16px 10px 0px;
+}
+.LinkOpen {
 	display: inline-block;
 	background-size: contain;
 	background-image: url('/bundles/app/images/icons/linkedopen.png');

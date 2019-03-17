@@ -28,11 +28,11 @@
         </div>
         <div align="right">
             <p>
-                <span class="crew"></span>: {{ macros.integer_or_x(card.crew) }}
-                <span class="computer"></span>: {{ macros.integer_or_x(card.computer) }}
-                <span class="hardpoint"></span>: {{ macros.integer_or_x(card.hardpoint) }}
-                <span class="hull"></span>: {{ macros.integer_or_x(card.hull) }}
-                <span class="internal"></span>: {{ macros.integer_or_x(card.internal) }}
+                {{ macros.integer_or_x(card.crew) }}:<span class="crew"></span>
+                {{ macros.integer_or_x(card.computer) }}:<span class="computer"></span>
+                {{ macros.integer_or_x(card.hardpoint) }}:<span class="hardpoint"></span>
+                {{ macros.integer_or_x(card.hull) }}:<span class="hull"></span>
+                {{ macros.integer_or_x(card.internal) }}:<span class="internal"></span>
             </p>
         </div>
     {% endif %}

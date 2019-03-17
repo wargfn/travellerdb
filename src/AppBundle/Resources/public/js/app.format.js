@@ -72,11 +72,11 @@
             case 'adv':
                 text += '<p><span class="distance"></span>: ' + card.distance +'     <span class="card-type">   ' + card.contractname + '</span></p>';
                 text += '<p><span class="card-traits">' + card.traits + '</span></p>';
+                text += '<p>' + Translator.trans('card.info.contractrequirements') + ': ' + card.contractrequirements  + '</p>';
+                text += '<p>' + Translator.trans('card.info.subplots') + ': ' + (card.subplots != null ? card.subplots : '') + '</p>';
                 text += '<p>' + (card.compslots != null ? card.compslots : '') + '<span class="complication"></span>  '
                 text +=  + (card.abandpenalty != null ? card.abandpenalty : '') + '<span class="abandonment"></span>  '
                 text +=  + (card.victorypoints != null ? card.victorypoints : '') + '<span class="victoryppoint"></span></p>';
-                text += '<p>' + Translator.trans('card.info.contractrequirements') + ': ' + card.contractrequirements  + '</p>';
-                text += '<p>' + Translator.trans('card.info.subplots') + ': ' + (card.subplots != null ? card.subplots : '') + '</p>';
                 text += '<p><span class="card-type">' + card.complicationname + '</span><br />';
                 text += '<span class="card-traits">' + (card.complicationtraits != null ? card.complicationtraits : '') + '</span><br />';
                 text += '<span class="card-info">' + Translator.trans('card.info.complicationtext') + ': ' + card.complicationtext + '</span></p>';
@@ -134,6 +134,7 @@
         }
 
         text = text.replace(/\[(\w+)\]/g, '<span class="$1"></span>');
+        text = text.split("\\n").join('</p><p>');
         text = text.replace(/\[Cargo\/Passenger\]/g, '<span class="CargoPassenger"></span>');
         text = text.replace(/\[Military\/Passenger\]/g, '<span class="PassengerMilitary"></span>');
         text = text.replace(/\[Military\/Survey\]/g, '<span class="MilitarySurvey"></span>');
