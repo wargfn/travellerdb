@@ -3452,13 +3452,14 @@ if (typeof jQuery === 'undefined') {
             deck.update_layout_section(data, 'images', $('<div><img src="' + adv.imagesrc + '" class="img-responsive">'));
         }); */
 
-        deck.update_layout_section(data, 'meta', $('<h4 style="font-weight:bold">' + faction_name + '</h4>'));
+        /*deck.update_layout_section(data, 'meta', $('<img src="/bundles/app/images/broadswordpto.png" class="img-responsive>'));*/
+        deck.update_layout_section(data, 'meta', $('<img src="/bundles/app/images/cards/' + deck.get_faction_code() + '.png" class="img-responsive">'));
         /*adv.forEach(function (adv) {
             var adv_line = $('<h5>').append($(card_line_tpl({card: adv})));
             adv_line.find('.icon').remove();
             deck.update_layout_section(data, 'meta', adva_line);
         });*/
-        var drawDeckSection = $('<div>' + Translator.transChoice('decks.edit.meta.adventuredeck', deck.get_adventure_deck_size(), {count: deck.get_adventure_deck_size()}) + '</div>');
+        var drawDeckSection = $('<div><h4 style="font-weight:bold">' + faction_name + '</h4>' + Translator.transChoice('decks.edit.meta.adventuredeck', deck.get_adventure_deck_size(), {count: deck.get_adventure_deck_size()}) + '</div>');
         drawDeckSection.addClass(problem && problem.indexOf('cards') !== -1 ? 'text-danger' : '');
         deck.update_layout_section(data, 'meta', drawDeckSection);
         var plotDeckSection = $('<div>' + Translator.transChoice('decks.edit.meta.captaindeck', deck.get_captain_deck_size(), {count: deck.get_captain_deck_size()}) + '</div>');

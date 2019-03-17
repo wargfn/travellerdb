@@ -1,7 +1,8 @@
- <?php
-
+<?php
 
 namespace AppBundle\Services;
+
+
 
 class Texts
 {
@@ -61,7 +62,7 @@ class Texts
     {
         return $this->purify($this->img_responsive($this->transform($string)));
     }
-    
+
     /**
      * removes any dangerous code from a HTML string
      * @param unknown $string
@@ -91,7 +92,7 @@ class Texts
     {
     	return preg_replace('/<img/', '<img class="img-responsive"', $string);
     }
-    
+
     /**
      * Transforms the string into a valid filename, lower-case, no spaces, pure ASCII, etc.
      * @param string $filename
