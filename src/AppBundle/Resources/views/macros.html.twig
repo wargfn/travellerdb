@@ -48,3 +48,237 @@
 {% macro slot_with_icons(slot) %}
 {{ slot.quantity }}x <span class="icon {{ slot.card.type.code }} fg-{{ slot.card.faction.code }}"></span> <a href="{{ path('cards_zoom', {card_code: slot.card.code }) }}" class="card card-tip" data-code="{{ slot.card.code }}">{{ slot.card.name }}</a>
 {% endmacro %}
+
+{% macro icon_replace_heroic(text) %}
+	{% set content = text %}
+	{% set replace_admin = '[Admin]' %}
+	{% set span_admin = 'Admin' %}
+	{% set replace_combat = '[Combat]' %}
+	{% set span_combat = 'Combat' %}
+	{% set replace_jack = '[Jack]' %}
+	{% set span_jack = 'Jack' %}
+	{% set replace_medical = '[Medical]' %}
+	{% set span_medical = 'Medical' %}
+	{% set replace_psionic = '[Psionic]' %}
+	{% set span_psionic = 'Psionic' %}
+	{% set replace_science = '[Science]' %}
+	{% set span_science = 'Science' %}
+	{% set replace_social = '[Social]' %}
+	{% set span_social = 'Social' %}
+	{% set replace_starship = '[StarshipOperation]' %}
+	{% set span_starship = 'StarshipOperation' %}
+	{% set replace_tech = '[Tech]' %}
+	{% set span_tech = 'Tech' %}
+	{% set replace_underworld = '[Underworld]' %}
+	{% set span_underworld = 'Underworld' %}
+	{{ content|replace({ (replace_admin): span_admin,(replace_combat): span_combat,(replace_jack): span_jack,(replace_medical): span_medical,(replace_psionic): span_psionic,(replace_science): span_science,(replace_social): span_social,(replace_starship): span_starship,(replace_tech): span_tech,(replace_underworld): span_underworld}) }}
+{% endmacro %}
+
+{% macro icon_replace_crewskill(text) %}
+	{% set content = text %}
+	{% set replace_admin = '[Admin]' %}
+	{% set span_admin = '<span class="Admin"></span>' %}
+	{% set replace_adminexpert = '[Expert:Admin]' %}
+	{% set span_adminexpert = '<span class="AdminExpert"></span>' %}
+	{% set replace_admintrained = '[Trained:Admin]' %}
+	{% set span_admintrained = '<span class="AdminTrained"></span>' %}
+	{% set replace_combat = '[Combat]' %}
+	{% set span_combat = '<span class="Combat"></span>' %}
+	{% set replace_combatexpert = '[Expert:Combat]' %}
+	{% set span_combatexpert = '<span class="CombatExpert"></span>' %}
+	{% set replace_combattrained = '[Trained:Combat]' %}
+	{% set span_combattrained = '<span class="CombatTrained"></span>' %}
+	{% set replace_jack = '[Jack]' %}
+	{% set span_jack = '<span class="Jack"></span>' %}
+	{% set replace_jackexpert = '[Expert:Jack]' %}
+	{% set span_jackexpert = '<span class="JackExpert"></span>' %}
+	{% set replace_jacktrained = '[Trained:Jack]' %}
+	{% set span_jacktrained = '<span class="JackTrained"></span>' %}
+	{% set replace_medical = '[Medical]' %}
+	{% set span_medical = '<span class="Medical"></span>' %}
+	{% set replace_medicalexpert = '[Expert:Medical]' %}
+	{% set span_medicalexpert = '<span class="MedicalExpert"></span>' %}
+	{% set replace_medicaltrained = '[Trained:Medical]' %}
+	{% set span_medicaltrained = '<span class="MedicalTrained"></span>' %}
+	{% set replace_psionic = '[Psionic]' %}
+	{% set span_psionic = '<span class="Psionic"></span>' %}
+	{% set replace_psionicexpert = '[Expert:Psionic]' %}
+	{% set span_psionicexpert = '<span class="PsionicExpert"></span>' %}
+	{% set replace_psionictrained = '[Trained:Psionic]' %}
+	{% set span_psionictrained = '<span class="PsionicTrained"></span>' %}
+	{% set replace_science = '[Science]' %}
+	{% set span_science = '<span class="Science"></span>' %}
+	{% set replace_scienceexpert = '[Expert:Science]' %}
+	{% set span_scienceexpert = '<span class="ScienceExpert"></span>' %}
+	{% set replace_sciencetrained = '[Trained:Science]' %}
+	{% set span_sciencetrained = '<span class="ScienceTrained"></span>' %}
+	{% set replace_social = '[Social]' %}
+	{% set span_social = '<span class="Social"></span>' %}
+	{% set replace_socialexpert = '[Expert:Social]' %}
+	{% set span_socialexpert = '<span class="SocialExpert"></span>' %}
+	{% set replace_socialtrained = '[Trained:Social]' %}
+	{% set span_socialtrained = '<span class="SocialTrained"></span>' %}
+	{% set replace_starship = '[StarshipOperation]' %}
+	{% set span_starship = '<span class="StarshipOperation"></span>' %}
+	{% set replace_starshipexpert = '[Expert:StarshipOperation]' %}
+	{% set span_starshipexpert = '<span class="StarshipOperationExpert"></span>' %}
+	{% set replace_starshiptrained = '[Trained:StarshipOperation]' %}
+	{% set span_starshiptrained = '<span class="StarshipOperationTrained"></span>' %}
+	{% set replace_tech = '[Tech]' %}
+	{% set span_tech = '<span class="Tech"></span>' %}
+	{% set replace_techexpert = '[Expert:Tech]' %}
+	{% set span_techexpert = '<span class="TechExpert"></span>' %}
+	{% set replace_techtrained = '[Trained:Tech]' %}
+	{% set span_techtrained = '<span class="TechTrained"></span>' %}
+	{% set replace_underworld = '[Underworld]' %}
+	{% set span_underworld = '<span class="Underworld"></span>' %}
+	{% set replace_underworldexpert = '[Expert:Underworld]' %}
+	{% set span_underworldexpert = '<span class="UnderworldExpert"></span>' %}
+	{% set replace_underworldtrained = '[Trained:Underworld]' %}
+	{% set span_underworldtrained = '<span class="UnderworldTrained"></span>' %}
+	{{ content|replace({ (replace_admin): span_admin,(replace_adminexpert): span_adminexpert,(replace_admintrained): span_admintrained,(replace_combat): span_combat,(replace_combatexpert): span_combatexpert,(replace_combattrained): span_combattrained,(replace_jack): span_jack,(replace_jackexpert): span_jackexpert,(replace_jacktrained): span_jacktrained,(replace_medical): span_medical,(replace_medicalexpert): span_medicalexpert,(replace_medicaltrained): span_medicaltrained,(replace_psionic): span_psionic,(replace_psionicexpert): span_psionicexpert,(replace_psionictrained): span_psionictrained,(replace_science): span_science,(replace_scienceexpert): span_scienceexpert,(replace_sciencetrained): span_sciencetrained,(replace_social): span_social,(replace_socialexpert): span_socialexpert,(replace_socialtrained): span_socialtrained,(replace_starship): span_starship,(replace_starshipexpert): span_starshipexpert,(replace_starshiptrained): span_starshiptrained,(replace_tech): span_tech,(replace_techexpert): span_techexpert,(replace_techtrained): span_techtrained,(replace_underworld): span_underworld,(replace_underworldexpert): span_underworldexpert,(replace_underworldtrained): span_underworldtrained})|raw }}
+{% endmacro %}
+
+{% macro icon_replace(text) %}
+	{% set content = text %}
+	{% set replace_cargo = '[Cargo]' %}
+	{% set span_cargo = '<span class="Cargo"></span>' %}
+	{% set replace_cargopassenger = '[Cargo/Passenger]' %}
+	{% set span_cargopassenger = '<span class="CargoPassenger"></span>' %}
+	{% set replace_cargomilitary = '[Cargo/Military]' %}
+	{% set span_cargomilitary = '<span class="CargoMilitary"></span>' %}
+	{% set replace_cargosurvey = '[Cargo/Survey]' %}
+	{% set span_cargosurvey = '<span class="CargoSurvey"></span>' %}
+	{% set replace_military = '[Military]' %}
+	{% set span_military = '<span class="Military"></span>' %}
+	{% set replace_militarypassenger = '[Military/Passenger]' %}
+	{% set span_militarypassenger = '<span class="PassengerMilitary"></span>' %}
+	{% set replace_militarysurvey = '[Military/Survey]' %}
+	{% set span_militarysurvey = '<span class="MilitarySurvey"></span>' %}
+	{% set replace_passenger = '[Passenger]' %}
+	{% set span_passenger = '<span class="Passenger"></span>' %}
+	{% set replace_passengermilitary = '[Passenger/Military]' %}
+	{% set span_passengermilitary = '<span class="PassengerMilitary"></span>' %}
+	{% set replace_passengersurvey = '[Passenger/Survey]' %}
+	{% set span_passengersurvey = '<span class="PassengerSurvey"></span>' %}
+	{% set replace_survey = '[Survey]' %}
+	{% set span_survey = '<span class="Survey"></span>' %}
+	{% set replace_admin = '[Admin]' %}
+	{% set span_admin = '<span class="Admin"></span>' %}
+	{% set replace_adminexpert = '[Expert:Admin]' %}
+	{% set span_adminexpert = '<span class="AdminExpert"></span>' %}
+	{% set replace_admintrained = '[Trained:Admin]' %}
+	{% set span_admintrained = '<span class="AdminTrained"></span>' %}
+	{% set replace_combat = '[Combat]' %}
+	{% set span_combat = '<span class="Combat"></span>' %}
+	{% set replace_combatexpert = '[Expert:Combat]' %}
+	{% set span_combatexpert = '<span class="CombatExpert"></span>' %}
+	{% set replace_combattrained = '[Trained:Combat]' %}
+	{% set span_combattrained = '<span class="CombatTrained"></span>' %}
+	{% set replace_jack = '[Jack]' %}
+	{% set span_jack = '<span class="Jack"></span>' %}
+	{% set replace_jackexpert = '[Expert:Jack]' %}
+	{% set span_jackexpert = '<span class="JackExpert"></span>' %}
+	{% set replace_jacktrained = '[Trained:Jack]' %}
+	{% set span_jacktrained = '<span class="JackTrained"></span>' %}
+	{% set replace_medical = '[Medical]' %}
+	{% set span_medical = '<span class="Medical"></span>' %}
+	{% set replace_medicalexpert = '[Expert:Medical]' %}
+	{% set span_medicalexpert = '<span class="MedicalExpert"></span>' %}
+	{% set replace_medicaltrained = '[Trained:Medical]' %}
+	{% set span_medicaltrained = '<span class="MedicalTrained"></span>' %}
+	{% set replace_psionic = '[Psionic]' %}
+	{% set span_psionic = '<span class="Psionic"></span>' %}
+	{% set replace_psionicexpert = '[Expert:Psionic]' %}
+	{% set span_psionicexpert = '<span class="PsionicExpert"></span>' %}
+	{% set replace_psionictrained = '[Trained:Psionic]' %}
+	{% set span_psionictrained = '<span class="PsionicTrained"></span>' %}
+	{% set replace_psionics = '[Psionics]' %}
+	{% set replace_psionicsexpert = '[Expert:Psionics]' %}
+	{% set replace_psionicstrained = '[Trained:Psionics]' %}
+	{% set replace_science = '[Science]' %}
+	{% set span_science = '<span class="Science"></span>' %}
+	{% set replace_scienceexpert = '[Expert:Science]' %}
+	{% set span_scienceexpert = '<span class="ScienceExpert"></span>' %}
+	{% set replace_sciencetrained = '[Trained:Science]' %}
+	{% set span_sciencetrained = '<span class="ScienceTrained"></span>' %}
+	{% set replace_social = '[Social]' %}
+	{% set span_social = '<span class="Social"></span>' %}
+	{% set replace_socialexpert = '[Expert:Social]' %}
+	{% set span_socialexpert = '<span class="SocialExpert"></span>' %}
+	{% set replace_socialtrained = '[Trained:Social]' %}
+	{% set span_socialtrained = '<span class="SocialTrained"></span>' %}
+	{% set replace_starship = '[StarshipOperation]' %}
+	{% set replace_starops = '[StarshipOps]' %}
+	{% set span_starship = '<span class="StarshipOperation"></span>' %}
+	{% set replace_starshipexpert = '[Expert:StarshipOperation]' %}
+	{% set replace_staropsexpert = '[Expert:StarshipOps]' %}
+	{% set span_starshipexpert = '<span class="StarshipOperationExpert"></span>' %}
+	{% set replace_starshiptrained = '[Trained:StarshipOperation]' %}
+	{% set replace_staropstrained = '[Trained:StarshipOps]' %}
+	{% set span_starshiptrained = '<span class="StarshipOperationTrained"></span>' %}
+	{% set replace_tech = '[Tech]' %}
+	{% set span_tech = '<span class="Tech"></span>' %}
+	{% set replace_techexpert = '[Expert:Tech]' %}
+	{% set span_techexpert = '<span class="TechExpert"></span>' %}
+	{% set replace_techtrained = '[Trained:Tech]' %}
+	{% set span_techtrained = '<span class="TechTrained"></span>' %}
+	{% set replace_underworld = '[Underworld]' %}
+	{% set span_underworld = '<span class="Underworld"></span>' %}
+	{% set replace_underworldexpert = '[Expert:Underworld]' %}
+	{% set span_underworldexpert = '<span class="UnderworldExpert"></span>' %}
+	{% set replace_underworldtrained = '[Trained:Underworld]' %}
+	{% set span_underworldtrained = '<span class="UnderworldTrained"></span>' %}
+	{% set replace_subplot = '[Subplot]' %}
+	{% set replace_subplots = '[Subplots]' %}
+	{% set span_subplot= '<span class="Subplot"></span>' %}
+	{% set replace_ship = '[Ship]' %}
+	{% set span_ship= '<span class="Ship"></span>' %}
+	{% set replace_init = '[Initiative]' %}
+	{% set span_init= '<span class="Initiative"></span>' %}
+	{% set replace_attack = '[Attack]' %}
+	{% set span_attack= '<span class="Attack"></span>' %}
+	{% set replace_defense = '[Defense]' %}
+	{% set span_defense= '<span class="Defense"></span>' %}
+	{% set replace_structure = '[Structure]' %}
+	{% set span_structure= '<span class="Structure"></span>' %}
+	{% set replace_vp = '[VictoryPoint]' %}
+	{% set replace_vps = '[VictoryPoints]' %}
+	{% set span_vp= '<span class="VictoryPoint"></span>' %}
+	{% set replace_upgrade = '[Upgrade]' %}
+	{% set span_upgrade= '<span class="Upgrade"></span>' %}
+	{% set replace_one ='[1]' %}
+	{% set span_one = '<span class="Cost1"></span>' %}
+	{% set replace_two ='[2]' %}
+	{% set span_two = '<span class="Cost2"></span>' %}
+	{% set replace_three ='[3]' %}
+	{% set span_three = '<span class="Cost3"></span>' %}
+	{% set replace_four ='[4]' %}
+	{% set span_four = '<span class="Cost4"></span>' %}
+	{% set replace_five ='[5]' %}
+	{% set span_five = '<span class="Cost5"></span>' %}
+	{% set replace_six ='[6]' %}
+	{% set span_six = '<span class="Cost6"></span>' %}
+	{% set replace_crew ='[Crew]' %}
+	{% set span_crew = '<span class="Crew"></span>' %}
+	{% set replace_conn ='[Connection]' %}
+	{% set span_conn = '<span class="Connection"></span>' %}
+	{% set replace_event ='[Event]' %}
+	{% set span_event = '<span class="Event"></span>' %}
+	{% set replace_gear ='[Gear]' %}
+	{% set span_gear = '<span class="Gear"></span>' %}
+	{% set replace_heroic ='[Heroic]' %}
+	{% set span_heroic = '<span class="Heroic"></span>' %}
+	{% set replace_expense ='[Expense]' %}
+	{% set span_expense = '<span class="Expense"></span>' %}
+	{% set replace_contract ='[Contract]' %}
+	{% set span_contract = '<span class="Contract"></span>' %}
+	{% set replace_abandon ='[Abandonment]' %}
+	{% set span_abandon = '<span class="Abandonment"></span>' %}
+	{% set replace_ready ='[Ready]' %}
+	{% set span_ready = '<span class="Ready"></span>' %}
+	{% set replace_exert ='[Exert]' %}
+	{% set span_exert = '<span class="Exert"></span>' %}
+	{{ content|replace({ (replace_ready): span_ready,(replace_exert): span_exert,(replace_expense): span_expense,(replace_contract): span_contract,(replace_abandon): span_abandon,(replace_one): span_one,(replace_two): span_two,(replace_three): span_three,(replace_four): span_four,(replace_five): span_five,(replace_six): span_six,(replace_ship): span_ship,(replace_init): span_init,(replace_attack): span_attack,(replace_defense): span_defense,(replace_structure): span_structure,(replace_upgrade): span_upgrade,(replace_conn): span_conn,(replace_crew): span_crew,(replace_gear): span_gear,(replace_event): span_event,(replace_heroic): span_heroic,(replace_subplot): span_subplot,(replace_subplots): span_subplot,(replace_vps): span_vp,(replace_vp): span_vp,(replace_cargo): span_cargo,(replace_cargopassenger): span_cargopassenger,(replace_cargomilitary): span_cargomilitary,(replace_cargosurvey): span_cargosurvey,(replace_military): span_military,(replace_militarypassenger): span_militarypassenger,(replace_militarysurvey): span_militarysurvey,(replace_passenger): span_passenger,(replace_passengermilitary): span_passengermilitary,(replace_passengersurvey): span_passengersurvey,(replace_survey): span_survey,(replace_admin): span_admin,(replace_adminexpert): span_adminexpert,(replace_admintrained): span_admintrained,(replace_combat): span_combat,(replace_combatexpert): span_combatexpert,(replace_combattrained): span_combattrained,(replace_jack): span_jack,(replace_jackexpert): span_jackexpert,(replace_jacktrained): span_jacktrained,(replace_medical): span_medical,(replace_medicalexpert): span_medicalexpert,(replace_medicaltrained): span_medicaltrained,(replace_psionic): span_psionic,(replace_psionicexpert): span_psionicexpert,(replace_psionictrained): span_psionictrained,(replace_psionics): span_psionic,(replace_psionicsexpert): span_psionicexpert,(replace_psionicstrained): span_psionictrained,(replace_science): span_science,(replace_scienceexpert): span_scienceexpert,(replace_sciencetrained): span_sciencetrained,(replace_social): span_social,(replace_socialexpert): span_socialexpert,(replace_socialtrained): span_socialtrained,(replace_starship): span_starship,(replace_starshipexpert): span_starshipexpert,(replace_starshiptrained): span_starshiptrained,(replace_starops): span_starship,(replace_staropsexpert): span_starshipexpert,(replace_staropstrained): span_starshiptrained,(replace_tech): span_tech,(replace_techexpert): span_techexpert,(replace_techtrained): span_techtrained,(replace_underworld): span_underworld,(replace_underworldexpert): span_underworldexpert,(replace_underworldtrained): span_underworldtrained})|raw }}
+{% endmacro %}
+

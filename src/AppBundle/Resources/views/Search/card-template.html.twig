@@ -3,11 +3,11 @@
 
     {% if card.type_code == 'crew' %}
         <p><span class="species"></span> {{ card.species }}</p>
-        <p>{{'card.info.skill' | trans}}: {{ card.skills }}</p>
+        <p>{{'card.info.skill' | trans}}: {{ macros.icon_replace_crewskill(card.skills) }}
         <p>{{'card.info.wound' | trans}}: {{ macros.integer_or_x(card.wound) }}<span class="wounds"></span></p>
     {%  endif %}
     {% if card.type_code == 'heroic' %}
-        <p>{{'card.info.requiredskill' | trans}}: {{ card.requiredskill }}</p>
+        <p>{{'card.info.requiredskill' | trans}}: {{ macros.icon_replace_crewskill(card.requiredskill) }} </p>
     {%  endif %}
     {% if card.type_code == 'upgrade' %}
         <p>{{'card.info.tonnage' | trans}}: {{ card.tonnagerequirement }}</p>
@@ -18,9 +18,9 @@
             {{'card.info.expense' | trans}}: {{ macros.integer_or_x(card.expense) }}<span class="expenses"></span>.</p>
     {% endif %}
     {% if card.type_code == 'ship' %}
-        <div>
-            <span class="card-type"> {{'card.info.tonnage' | trans}}: {{ macros.integer_or_x(card.tonnage) }}</span>
-        <br>Capabilities: {{ card.capabilities }}
+        <div class="card-content">
+        <span class="card-type"> {{'card.info.tonnage' | trans}}: {{ macros.integer_or_x(card.tonnage) }}</span>
+            <br>Capabilities: {{ macros.icon_replace(card.capabilities) }}
         <br><span class="initiative"></span>: {{ macros.integer_or_x(card.initiative) }}
         <br><span class="jump"></span>: {{ macros.integer_or_x(card.jump) }}
         <br><span class="attack"></span>: {{ macros.integer_or_x(card.attack) }}
@@ -46,8 +46,8 @@
     {% if card.type_code == 'adv' %}
         <div>
             <p>{{ macros.integer_or_x(card.distance) }}<span class="distance"></span></p>
-            <p>{{'card.info.contractrequirements' | trans}}: {{ card.contractrequirements }}
-           <br>{{'card.info.subplots' | trans}}:{{ card.subplots }}</p>
+            <p>{{'card.info.contractrequirements' | trans}}: {{ macros.icon_replace(card.contractrequirements) }}
+           <br>{{'card.info.subplots' | trans}}:{{ macros.icon_replace(card.subplots) }}</p>
         </div>
         <div align="right">
             <p>{{ macros.integer_or_x(card.compslots) }} <span class="complication"></span>
@@ -58,7 +58,7 @@
             <p></p>
             <p class="card-type">{{ card.complicationname }}</p>
             <p class="card-traits">{{ card.complicationtraits }}</p>
-            {{'card.info.complicationtext' | trans}}: {{ card.complicationtext }}
+            {{'card.info.complicationtext' | trans}}: {{ macros.icon_replace(card.complicationtext) }}
             <br>{{ card.abandpenmodifier }} <span class="abandonment"></span>
             <div class="card-flavor small">{{ card.compflavortext }}</div>
             <p></p>
