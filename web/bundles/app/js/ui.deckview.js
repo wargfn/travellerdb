@@ -75,6 +75,7 @@
     {
         app.deck.display('#deck');
         app.draw_simulator && app.draw_simulator.reset();
+        app.adv_draw_simulator && app.adv_draw_simulator.reset();
         app.deck_charts && app.deck_charts.setup();
     };
 
@@ -86,6 +87,7 @@
     {
         ui.setup_event_handlers();
         app.draw_simulator && app.draw_simulator.on_dom_loaded();
+        app.adv_draw_simulator && app.adv_draw_simulator.on_dom_loaded();
     };
 
     /**

@@ -626,6 +626,7 @@
     {
         app.deck.display('#deck');
         app.draw_simulator && app.draw_simulator.reset();
+        app.adv_draw_simulator && app.adv_draw_simulator.reset();
         app.deck_charts && app.deck_charts.setup();
     };
 
@@ -686,6 +687,7 @@
         app.textcomplete && app.textcomplete.setup('#description');
         app.markdown && app.markdown.setup('#description', '#description-preview');
         app.draw_simulator && app.draw_simulator.on_dom_loaded();
+        app.adv_draw_simulator && app.adv_draw_simulator.on_dom_loaded();
         app.card_modal && $('#filter-text').on('typeahead:selected typeahead:autocompleted', app.card_modal.typeahead);
     };
 
@@ -698,6 +700,7 @@
         ui.remove_melee_titles();
         ui.set_max_qty();
         app.draw_simulator && app.draw_simulator.on_data_loaded();
+        app.adv_draw_simulator && app.adv_draw_simulator.on_data_loaded();
     };
 
     /**

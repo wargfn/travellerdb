@@ -278,6 +278,7 @@
     {
         ui.refresh_deck();
         app.draw_simulator && app.draw_simulator.reset();
+        app.adv_draw_simulator && app.adv_draw_simulator.reset();
 
         app.user.loaded.done(function ()
         {

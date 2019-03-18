@@ -1,13 +1,13 @@
 (function app_adv_draw_simulator(adv_draw_simulator, $)
 {
 
-    var deck = null,
+    var advdeck = null,
             initial_size = 0,
             draw_count = 0,
             container = null;
 
     /**
-     * @memberOf draw_simulator
+     * @memberOf adv_draw_simulator
      */
     adv_draw_simulator.reset = function reset()
     {
@@ -19,7 +19,7 @@
     };
 
     /**
-     * @memberOf draw_simulator
+     * @memberOf adv_draw_simulator
      */
     adv_draw_simulator.on_dom_loaded = function on_dom_loaded()
     {
@@ -31,7 +31,7 @@
     }
 
     /**
-     * @memberOf draw_simulator
+     * @memberOf adv_draw_simulator
      */
     adv_draw_simulator.compute_odds = function compute_odds()
     {
@@ -44,24 +44,24 @@
     }
 
     /**
-     * @memberOf draw_simulator
+     * @memberOf adv_draw_simulator
      */
     adv_draw_simulator.on_data_loaded = function on_data_loaded()
     {
-        deck = [];
+        advdeck = [];
 
         var cards = app.deck.get_adventure_deck();
         cards.forEach(function (card)
         {
             for(var ex = 0; ex < card.indeck; ex++) {
-                deck.push(card);
+                advdeck.push(card);
             }
         });
-        initial_size = deck.length;
+        initial_size = advdeck.length;
     }
 
     /**
-     * @memberOf draw_simulator
+     * @memberOf adv_draw_simulator
      */
     adv_draw_simulator.update_odds = function update_odds()
     {
@@ -72,14 +72,14 @@
     }
 
     /**
-     * @memberOf draw_simulator
+     * @memberOf adv_draw_simulator
      * @param draw integer
      */
     adv_draw_simulator.do_draw = function do_draw(draw)
     {
-        for(var pick = 0; pick < draw && deck.length > 0; pick++) {
-            var rand = Math.floor(Math.random() * deck.length);
-            var spliced = deck.splice(rand, 1);
+        for(var pick = 0; pick < draw && advdeck.length > 0; pick++) {
+            var rand = Math.floor(Math.random() * advdeck.length);
+            var spliced = advdeck.splice(rand, 1);
             var card = spliced[0];
             var card_element;
             if(card.imagesrc) {
@@ -94,7 +94,7 @@
     }
 
     /**
-     * @memberOf draw_simulator
+     * @memberOf adv_draw_simulator
      */
     adv_draw_simulator.handle_click = function handle_click(event)
     {
@@ -112,7 +112,7 @@
         }
         var draw;
         if(command === 'all') {
-            draw = deck.length;
+            draw = advdeck.length;
         } else {
             draw = command;
         }
@@ -124,7 +124,7 @@
     };
 
     /**
-     * @memberOf draw_simulator
+     * @memberOf adv_draw_simulator
      */
     adv_draw_simulator.toggle_opacity = function toggle_opacity(event)
     {
