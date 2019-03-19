@@ -138,10 +138,10 @@ class SearchController extends Controller
 
 	public function listAction($pack_code, $view, $sort, $page, Request $request)
 	{
-		$pack = $this->getDoctrine()->getRepository('AppBundle:Pack')->findByCode($pack_code);
-		if(!$pack) {
-			throw $this->createNotFoundException('This pack does not exist');
-		}
+		//$pack = $this->getDoctrine()->getRepository('AppBundle:Pack')->findByCode($pack_code);
+        $pack = $this->getDoctrine()->getRepository('AppBundle:Pack')->findByCode($pack_code);
+		if(!$pack) throw $this->createNotFoundException('This pack does not exist');
+
 
 		$game_name = $this->container->getParameter('game_name');
 		$publisher_name = $this->container->getParameter('publisher_name');

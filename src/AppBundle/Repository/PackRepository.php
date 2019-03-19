@@ -28,6 +28,6 @@ class PackRepository extends TranslatableRepository
 
 		$qb->setParameter(1, $code);
 
-		return $this->getOneOrNullResult($qb);
+		return $qb->getQuery()->getOneOrNullResult();
 	}
 }
