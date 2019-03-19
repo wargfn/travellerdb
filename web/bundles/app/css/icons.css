@@ -177,6 +177,15 @@
 .icon-broadsword:before {
 	content: "\e909";
 }
+.icon-broadswordpto:before {
+	content: "\e909";
+}
+.icon-gazellepto:before {
+	content: "\e909";
+}
+.icon-patrolcruiserpto:before {
+	content: "\e909";
+}
 .icon-neutral:before {
 	content: "\e916";
 }
