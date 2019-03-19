@@ -1,4 +1,5 @@
 .idea/
+app/sessions/
 app/config/travellerdbdev.parameters.yml
 app/config/parameters.yml
 src/AppBundle/Resources/public/images/cards/98001.png
