@@ -95,4 +95,9 @@ tournamentregulations:
 ffg:
     path: /ffg
     defaults:
-        _controller: AppBundle:Default:ffg
+        _controller: AppBundle:Default:horizon
+
+horizon:
+    path: /horizon
+    defaults:
+        _controller: AppBundle:Default:horizon

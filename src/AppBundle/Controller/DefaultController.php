@@ -136,6 +136,30 @@ class DefaultController extends Controller
     	), $response);
     }
 
+    function ffgAction()
+    {
+        $response = new Response();
+        $response->setPublic();
+        $response->setMaxAge($this->container->getParameter('cache_expiration'));
+
+        return $this->render('AppBundle:Default:ffg.html.twig', array(
+            "pagetitle" => "Horizon Games",
+            "game_name" => $this->container->getParameter('game_name'),
+        ), $response);
+    }
+
+    function horizonAction()
+    {
+        $response = new Response();
+        $response->setPublic();
+        $response->setMaxAge($this->container->getParameter('cache_expiration'));
+
+        return $this->render('AppBundle:Default:horizon.html.twig', array(
+            "pagetitle" => "Horizon Games",
+            "game_name" => $this->container->getParameter('game_name'),
+        ), $response);
+    }
+
     function apiIntroAction()
     {
     	$response = new Response();

@@ -1,0 +1,20 @@
+{% extends 'AppBundle::layout.html.twig' %}
+{% import "AppBundle::macros.html.twig" as macros %}
+
+{% block body %}
+    <div class="main white container">
+        <div>
+            <p>TravellerDB is a Deck Building website dedicated to the support of <a herf="https://www.travellerccg.com/">TravellerCCG</a> by Horizon Enterprises International.</p>
+            <p>Please support the game by purchasing your <a herf="https://www.travellerccg.com/">TravellerCCG</a> directly from their website or via trusted OFGS / FLGS. </p>
+            <p>Special Thank You to Ian Lee and Jeff Yin, for allowing me to publish this card database and their enthusiasm and support for TravellerDB.</p>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <ul data-toc="div#rules" data-toc-headings="h1,h2,h3,h4,h5"></ul>
+            </div>
+
+            <div class="col-md-8" id="rules">
+            </div>
+        </div>
+    </div>
+{% endblock %}
