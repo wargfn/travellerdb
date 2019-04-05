@@ -1,0 +1,14 @@
+{% extends 'AppBundle:Admin:base.html.twig' %}
+
+{% block body -%}
+    <div class="container">
+    <h1>Blog creation</h1>
+
+    {{ form(form) }}
+
+        <p></p>
+        <a href="{{ path('blog') }}"  class="btn btn-default btn-primary" role="button">
+            Back to the list
+        </a>
+    </div>
+{% endblock %}

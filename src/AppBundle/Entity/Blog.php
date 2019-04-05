@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Log
+ * Blog
  *
- * @ORM\Table()
+ * @ORM\Table(name="blog")
  * @ORM\Entity
  */
-class Log
+class Blog
 {
     /**
      * @var integer
@@ -51,7 +51,7 @@ class Log
      *
      * @param string $description
      *
-     * @return Log
+     * @return Blog
      */
     public function setDescription($description)
     {
@@ -75,7 +75,7 @@ class Log
      *
      * @param \DateTime $date
      *
-     * @return Log
+     * @return Blog
      */
     public function setDate($date)
     {

@@ -1,0 +1,32 @@
+{% extends 'AppBundle:Admin:base.html.twig' %}
+
+{% block body -%}
+    <div class="container">
+    <h1>Blog</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ entity.description }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ entity.date|date('Y-m-d H:i:s') }}</td>
+            </tr>
+        </tbody>
+    </table>
+        <p></p>
+        <a href="{{ path('blog_edit', { 'id': entity.id }) }}" class="btn btn-warning btn-default" role="button">
+            Edit
+        </a>
+        <p></p>
+        <a href="{{ path('blog') }}" class="btn btn-default" role="button">
+            Back to the list
+        </a>
+    </div>
+{% endblock %}

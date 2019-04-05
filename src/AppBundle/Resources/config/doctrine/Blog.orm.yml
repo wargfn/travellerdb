@@ -1,6 +1,6 @@
-AppBundle\Entity\Log:
+AppBundle\Entity\Blog:
     type: entity
-      table: log
+    table: blog
     fields:
       id:
         type: integer
