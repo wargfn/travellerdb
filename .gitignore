@@ -204,5 +204,7 @@ web/bundles/app/images/cards/broadswordpto.png
 web/bundles/app/images/cards/gazellepto.png
 web/bundles/app/images/cards/patrolcruiserpto.png
 web/bundles/app/images/cards/typesscoutalt.png
+vendor/doctrine/orm/lib/Doctrine/ORM/UnitOfWork.php
+vendor/friendsofsymfony/user-bundle
 
 
