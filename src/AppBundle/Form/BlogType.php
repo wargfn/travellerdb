@@ -15,6 +15,7 @@ class BlogType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('title')
             ->add('description')
             ->add('date', 'datetime', array('required' => false))
         ;

@@ -27,4 +27,14 @@ class BlogRepository extends TranslatableRepository
         $qb->setParameter(1, $id);
         return $this->getOneOrNullResult($qb);
     }
+
+    public function topFeed()
+    {
+        $qb = $this->createQueryBuilder('b')
+            ->select('b')
+            ->orderBy('b.id', 'DSC')
+            ->getMaxResults('5');
+        return $this->getResult($qb);
+
+    }
 }

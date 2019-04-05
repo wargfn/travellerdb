@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Model\DecklistManager;
 use AppBundle\Entity\Decklist;
+use AppBundle\Entity\Blog;
+use AppBundle\Repository\BlogRepository;
 
 class DefaultController extends Controller
 {
@@ -33,6 +35,7 @@ class DefaultController extends Controller
             $subtypeNames[$subtype->getCode()] = $subtype->getName();
         }
 
+        $news = $this->getDoctrine()->getRepository('AppBundle:Blog')->findBy( array(), ['id' => 'DESC'],5);
 
         $decklists_by_faction = [];
         $factions = $this->getDoctrine()->getRepository('AppBundle:Faction')->findBy(['isPrimary' => true], ['code' => 'ASC']);
@@ -84,7 +87,8 @@ class DefaultController extends Controller
         return $this->render('AppBundle:Default:index.html.twig', [
             'pagetitle' =>  "$game_name Deckbuilder",
             'pagedescription' => "Build your deck for $game_name by $publisher_name. Browse the cards and the thousand of decklists submitted by the community. Publish your own decks and get feedback.",
-            'decklists_by_faction' => $decklists_by_faction
+            'decklists_by_faction' => $decklists_by_faction,
+            'news' => $news
         ], $response);
     }
 	

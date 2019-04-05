@@ -53,42 +53,14 @@
 <div class="main container">
     <h3>Recent Updates</h3>
     <ul>
+        {% for data in news %}
         <li>
-            <h4>Rules Updates 3/29/2019</h4>
-            Updates made into the Rules Reference pages from answered questions on the <a href="https://boardgamegeek.com/boardgame/216630/traveller-customizable-card-game-two-player-starte/forums/0">BGG Forums</a> and <a href="https://www.travellerccg.com/forums/viewforum.php?f=15">TravellerCCG Forums</a>.
+            <h4> {{ data.title }} - {{ data.date|date('d M Y') }}</h4>
+            {{ data.description|raw }}
         </li>
-        <li>
-            <h4>Card Display and Modals 3/18/2019</h4>
-            After some great thought about removing the text card displays and pop-ups and replacing them with only card
-            views, I consulted a more seasoned UI expert whom told me to go look at the display on my phone. Since <a href="http://travellerdb.com">TravellerDB</a>
-            is also available on mobile devices in a format that is formatted to their screen sizes, the graphic cards just were not easily readable on the pop-up
-            windows.  So having devoted a Large amount of time, the text modals and deck cards text version has been brought fully up to date with complete icon replacements.
-        </li>
-        <li>
-            <h4>Search Updates for <span class="crew"></span> 3/16/2019</h4>
-            Updated all of the search properties to include being able to search for a <span class="crew"></span> skills or <span class="crew"></span><span class="wounds"></span>.
-        </li>
-        <li>
-            <h4>Minor Fixes 3/15/2019</h4>
-            <ul>
-                <li>Fixed the deck downloads to allow plain text decks lists to be downloaded.</li>
-                <li>Added <span class="victoryppoint"></span> graph to the published decklists and personal decks.</li>
-                <li>Added <span class="contract"></span> parameters search section.</li>
-                <li>Added Search shortcut key to the <a href="/faq#Search_Key">FAQ.</a> Now it is possible to get a very granular search.</li>
-                <li>Adjusted the Advance Search Form, to include UI searching of parameters.</li>
-            </ul>
-        </li>
-        <li>
-            <h4>Search Updates 3/13/2019</h4>
-            Updated all of the search properties to return valid results.
-        </li>
-        <li>
-            <h4>Card Image Updates 3/5/2019</h4>
-            All cards should now have appropriate images in the deck builder and will display when cards are clicked on in decklists.
-        </li>
+        {% endfor %}
     </ul>
 </div>
-
 
 {% endblock %}
 

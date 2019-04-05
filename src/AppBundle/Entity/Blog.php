@@ -23,6 +23,12 @@ class Blog
 
     /**
      * @var string
+     * @ORM\Column(name="title", type="string", length=255)
+     */
+    private $title;
+
+    /**
+     * @var string
      *
      * @ORM\Column(name="description", type="string", length=1024)
      */
@@ -44,6 +50,29 @@ class Blog
     public function getId()
     {
         return $this->id;
+    }
+    /**
+     * Set title
+     *
+     * @param string $title
+     *
+     * @return Blog
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
     }
 
     /**
