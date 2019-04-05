@@ -1,0 +1,20 @@
+AppBundle\Entity\Log:
+    type: entity
+      table: log
+    fields:
+      id:
+        type: integer
+        id: true
+        generator:
+          strategy: AUTO
+      description:
+        type: string
+        length: 1024
+        nullable: false
+      date:
+        type: datetime
+        nullable: false
+        column: date
+        gedmo:
+          timestampable:
+            on: create
