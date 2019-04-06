@@ -1,6 +1,6 @@
 {% extends 'AppBundle:Admin:base.html.twig' %}
 
-{% block body -%}
+{% block content -%}
     <div class="container">
     <h1>Blog</h1>
 
@@ -21,11 +21,11 @@
         </tbody>
     </table>
         <p></p>
-        <a href="{{ path('blog_edit', { 'id': entity.id }) }}" class="btn btn-warning btn-default" role="button">
+        <a href="{{ path('admin_blog_edit', { 'id': entity.id }) }}" class="btn btn-warning btn-default" role="button">
             Edit
         </a>
         <p></p>
-        <a href="{{ path('blog') }}" class="btn btn-default" role="button">
+        <a href="{{ path('admin_blog') }}" class="btn btn-default" role="button">
             Back to the list
         </a>
     </div>

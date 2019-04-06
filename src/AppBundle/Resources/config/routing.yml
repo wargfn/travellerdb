@@ -30,10 +30,6 @@ app_user:
     resource: "@AppBundle/Resources/config/routing/routing_user.yml"
     prefix: /user
 
-app_blog:
-    resource: "@AppBundle/Resources/config/routing/routing_blog.yml"
-    prefix: /blog
-
 
 index:
     path: /

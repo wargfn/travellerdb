@@ -1,43 +1,42 @@
-blog:
+admin_blog:
   path: /
   defaults:
     _controller: AppBundle:Blog:index
 
-blog_new:
+admin_blog_new:
   path: /new
   defaults:
     _controller: AppBundle:Blog:new
 
-blog_show:
+admin_blog_show:
   path: /{id}/show
   defaults:
     _controller: AppBundle:Blog:show
 
-blog_index:
+admin_blog_index:
   path: /
   defaults:
     _controller: AppBundle:Blog:index
 
-blog_create:
+admin_blog_create:
   path: /create
   defaults:
     _controller: AppBundle:Blog:create
   methods: [ post ]
 
-blog_edit:
+admin_blog_edit:
   path: /{id}/edit
   defaults:
     _controller: AppBundle:Blog:edit
 
-blog_update:
+admin_blog_update:
   path: /{id}/update
   defaults:
     _controller: AppBundle:Blog:update
   methods: [ post, put ]
 
-blog_delete:
+admin_blog_delete:
   path: /{id}/delete
   defaults:
     _controller: AppBundle:Blog:delete
   methods: [ post, delete ]
-

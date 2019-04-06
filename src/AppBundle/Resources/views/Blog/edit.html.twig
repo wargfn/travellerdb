@@ -1,12 +1,12 @@
 {% extends 'AppBundle:Admin:base.html.twig' %}
 
-{% block body -%}
+{% block content -%}
     <div class="container">
     <h1>Blog edit</h1>
 
     {{ form(edit_form) }}
 
-        <a href="{{ path('blog') }}"  class="btn btn-default btn-primary" role="button">
+        <a href="{{ path('admin_blog') }}"  class="btn btn-default btn-primary" role="button">
             Back to the list
         </a>
         <p></p>

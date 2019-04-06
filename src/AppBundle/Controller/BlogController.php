@@ -21,7 +21,7 @@ class BlogController extends Controller
     /**
      * Lists all Blog entities.
      *
-     * @Route("/", name="blog")
+     * @Route("/", name="admin_blog")
      * @Method("GET")
      * @Template()
      */
@@ -38,7 +38,7 @@ class BlogController extends Controller
     /**
      * Creates a new Blog entity.
      *
-     * @Route("/", name="blog_create")
+     * @Route("/", name="admin_blog_create")
      * @Method("POST")
      * @Template("AppBundle:Blog:new.html.twig")
      */
@@ -55,7 +55,7 @@ class BlogController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('blog_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('admin_blog_show', array('id' => $entity->getId())));
         }
 
         if ($form->isSubmitted()) {
@@ -63,7 +63,7 @@ class BlogController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('blog_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('admin_blog_show', array('id' => $entity->getId())));
 
         }
 
@@ -83,7 +83,7 @@ class BlogController extends Controller
     private function createCreateForm(Blog $entity)
     {
         $form = $this->createForm(new BlogType(), $entity, array(
-            'action' => $this->generateUrl('blog_create'),
+            'action' => $this->generateUrl('admin_blog_create'),
             'method' => 'POST',
         ));
 
@@ -95,7 +95,7 @@ class BlogController extends Controller
     /**
      * Displays a form to create a new Blog entity.
      *
-     * @Route("/new", name="blog_new")
+     * @Route("/new", name="admin_blog_new")
      * @Method("GET")
      * @Template()
      */
@@ -113,7 +113,7 @@ class BlogController extends Controller
     /**
      * Finds and displays a Blog entity.
      *
-     * @Route("/{id}", name="blog_show")
+     * @Route("/{id}", name="admin_blog_show")
      * @Method("GET")
      * @Template()
      */
@@ -138,7 +138,7 @@ class BlogController extends Controller
     /**
      * Displays a form to edit an existing Blog entity.
      *
-     * @Route("/{id}/edit", name="blog_edit")
+     * @Route("/{id}/edit", name="admin_blog_edit")
      * @Method("GET")
      * @Template()
      */
@@ -172,7 +172,7 @@ class BlogController extends Controller
     private function createEditForm(Blog $entity)
     {
         $form = $this->createForm(new BlogType(), $entity, array(
-            'action' => $this->generateUrl('blog_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('admin_blog_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -183,7 +183,7 @@ class BlogController extends Controller
     /**
      * Edits an existing Blog entity.
      *
-     * @Route("/{id}", name="blog_update")
+     * @Route("/{id}", name="admin_blog_update")
      * @Method("PUT")
      * @Template("AppBundle:Blog:edit.html.twig")
      */
@@ -204,7 +204,7 @@ class BlogController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('blog_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('admin_blog_edit', array('id' => $id)));
         }
 
         return array(
@@ -216,7 +216,7 @@ class BlogController extends Controller
     /**
      * Deletes a Blog entity.
      *
-     * @Route("/{id}", name="blog_delete")
+     * @Route("/{id}", name="admin_blog_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
@@ -236,7 +236,7 @@ class BlogController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('blog'));
+        return $this->redirect($this->generateUrl('admin_blog'));
     }
 
     /**
@@ -249,7 +249,7 @@ class BlogController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('blog_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('admin_blog_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

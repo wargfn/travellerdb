@@ -30,6 +30,10 @@ AppBundle_excel:
     resource: "@AppBundle/Resources/config/routing/admin/routing_admin_excel.yml"
     prefix:   /excel
 
+AppBundle_admin_blog:
+    resource: "@AppBundle/Resources/config/routing/admin/routing_admin_blog.yml"
+    prefix: /blog
+
 admin:
     path: /
     methods: [GET]
@@ -89,4 +93,15 @@ admin_comment_delete:
     methods: [GET]
     defaults:
         _controller: AppBundle:UserAdmin:deleteComment
-        
+
+admin_user_list:
+    path: /user/list
+    methods: [GET]
+    defaults:
+        _controller: AppBundle:UserAdmin:index
+
+admin_list_user:
+    path: /user/show/{user_id}
+    methods: [GET]
+    defaults:
+        _controller: AppBundle:UserAdmin:list

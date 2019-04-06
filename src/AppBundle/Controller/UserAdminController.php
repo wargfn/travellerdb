@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -13,6 +14,15 @@ class UserAdminController extends Controller
 				'pagetitle' => "Admin"
 		]);
 	}
+
+	public function indexAction()
+    {
+        $users = $this->getDoctrine()->getRepository('AppBundle:User')->findAll();
+        return $this->render('AppBundle:Admin:user_list.html.twig', [
+            'pagetitle' => "Admin",
+            'users' => $users
+        ]);
+    }
 
 	public function processAction(Request $request)
 	{
@@ -162,4 +172,19 @@ class UserAdminController extends Controller
 	
 		return $this->redirect($this->generateUrl('admin_user_comments_show', [ 'user_id' => $comment->getUser()->getId() ]));
 	}
+
+	public function listAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('AppBundle:User')->find($id);
+
+        if(!$entity) {
+            throw $this->createNotFoundException('Unable to find User entity.');
+        }
+
+        return $this->render('AppBundle:Admin:user_admin.html.twig', array(
+            'pagetitle' => "User Admin",
+            'user' => $entity,
+        ));
+    }
 }

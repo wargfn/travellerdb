@@ -1,0 +1,27 @@
+{% extends 'AppBundle:Admin:base.html.twig' %}
+
+
+{% block content -%}
+    <h1>Users </h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Last Login</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td><a href="{{ path('admin_show_user', { 'user_id': user.id }) }}">{{ user.id }}</a></td>
+                <td> {{ user.username }} </td>
+                <td> {{ user.email }} </td>
+                <td>{% if user.dateUpdate %}{{ user.dateUpdate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
