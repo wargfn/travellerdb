@@ -417,6 +417,11 @@ class Card implements \Gedmo\Translatable\Translatable, \Serializable
     private $reviews;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $erratas;
+
+    /**
      * @var \AppBundle\Entity\Pack
      */
     private $pack;
@@ -1600,6 +1605,40 @@ class Card implements \Gedmo\Translatable\Translatable, \Serializable
     public function getReviews()
     {
         return $this->reviews;
+    }
+
+    /**
+     * Add errata
+     *
+     * @param \AppBundle\Entity\Errata $errata
+     *
+     * @return Card
+     */
+    public function addErrata(\AppBundle\Entity\Errata $errata)
+    {
+        $this->erratas[] = $errata;
+
+        return $this;
+    }
+
+    /**
+     * Remove errata
+     *
+     * @param \AppBundle\Entity\Errata $errata
+     */
+    public function removeErrata(\AppBundle\Entity\Errata $errata)
+    {
+        $this->erratas->removeElement($errata);
+    }
+
+    /**
+     * Get erratas
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getErratas()
+    {
+        return $this->erratas;
     }
 
     /**

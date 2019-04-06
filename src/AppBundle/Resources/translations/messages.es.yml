@@ -392,6 +392,23 @@ card:
       posted: Tu comentario se ha enviado. Aparecerá en unos pocos minutos.
     alerts:
       minimum: Tu reseña debe tener al menos %min% caracteres.
+  erratas:
+    title: Errata y Aclaraciones
+    none: Aún no se necesita errata para esta tarjeta.
+    unreleased: Las erratas se habilitarán para esta tarjeta cuando se lance oficialmente.
+    like: Como la errata
+    edit: Editar errata
+    write: Nueva errata
+    hint: "Escribe tu análisis de esta carta en al menos %min% caracteres. Puedes escribir tantas reseñas como tu reputación. Éste no es lugar para preguntas o comentarios. Escribe # para introducir el nombre de una carta. Escribe $ para introducir un símbolo."
+    submit: Enviar reseña
+    posted: Tu errata ha sido publicada. Aparecerá en el sitio en unos minutos.
+    comments:
+      add: Añadir un comentario
+      hint: Tu comentario
+      post: Enviar
+      posted: Tu comentario se ha enviado. Aparecerá en unos pocos minutos.
+    alerts:
+      minimum: Tu reseña debe tener al menos %min% caracteres.
   info:
     name: Nombre
     unique: Único

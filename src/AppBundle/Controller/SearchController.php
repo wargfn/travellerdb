@@ -308,6 +308,7 @@ class SearchController extends Controller
 			'short' => 1000,
 		);
 		$includeReviews = FALSE;
+		$includeErratas = FALSE;
 		
 		if(!array_key_exists($view, $pagesizes))
 		{
@@ -325,6 +326,7 @@ class SearchController extends Controller
 			{
 				$view = 'card';
 				$includeReviews = TRUE;
+				$includeErratas = TRUE;
 			}
 
 			if($pagetitle == "") {
@@ -363,6 +365,9 @@ class SearchController extends Controller
 				if($includeReviews) {
 				    $cardinfo['reviews'] = $this->get('cards_data')->get_reviews($card);
 				}
+                if($includeErratas) {
+                    $cardinfo['erratas'] = $this->get('cards_data')->get_erratas($card);
+                }
 				$cards[] = $cardinfo;
 			}
 
@@ -422,6 +427,7 @@ class SearchController extends Controller
 			"pagetitle" => $pagetitle,
 			"metadescription" => $meta,
 			"includeReviews" => $includeReviews,
+            "includeErratas" => $includeErratas,
 		), $response);
 	}
 
