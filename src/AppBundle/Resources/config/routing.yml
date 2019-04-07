@@ -30,6 +30,9 @@ app_user:
     resource: "@AppBundle/Resources/config/routing/routing_user.yml"
     prefix: /user
 
+app_errata:
+    resource: "@AppBundle/Resources/config/routing/routing_errata.yml"
+    prefix: /errata
 
 index:
     path: /
@@ -69,6 +72,14 @@ card_reviews_list:
     path: /reviews/{page}
     defaults:
         _controller: AppBundle:Review:list
+        page: 1
+    requirements:
+        page: \d+
+
+card_erratas_list:
+    path: /erratas/{page}
+    defaults:
+        _controller: AppBundle:Errata:list
         page: 1
     requirements:
         page: \d+

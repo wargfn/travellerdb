@@ -1,0 +1,29 @@
+
+card_errata_post:
+  path: /post
+  methods: [POST]
+  defaults:
+    _controller: AppBundle:Errata:post
+
+card_errata_edit:
+  path: /edit
+  methods: [POST]
+  defaults:
+    _controller: AppBundle:Errata:edit
+
+card_errata_like:
+  path: /like
+  methods: [POST]
+  defaults:
+    _controller: AppBundle:Errata:like
+
+card_errata_remove:
+  path: /remove/{id}
+  defaults:
+    _controller: AppBundle:Errata:remove
+
+card_erratacomment_post:
+  path: /comment
+  methods: [POST]
+  defaults:
+    _controller: AppBundle:Errata:comment

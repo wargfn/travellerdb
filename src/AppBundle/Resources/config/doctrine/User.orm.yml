@@ -18,6 +18,10 @@ AppBundle\Entity\User:
             targetEntity: Review
             orderBy: {'dateCreation':'DESC'}
             mappedBy: user
+        erratas:
+            targetEntity: Errata
+            orderBy: {'dateCreation':'DESC'}
+            mappedBy: user
     manyToMany:
         favorites:
             targetEntity: Decklist

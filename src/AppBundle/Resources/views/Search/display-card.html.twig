@@ -50,6 +50,9 @@
 					{%  endif %}
         		</div>
         	</div>
+		{% if includeErratas %}
+			{% include 'AppBundle:Search:display-card-erratas.html.twig' %}
+		{% endif %}
         {% if includeReviews %}
    	    	{% include 'AppBundle:Search:display-card-reviews.html.twig' %}
         {% endif %}

@@ -775,6 +775,15 @@ class CardsData
         return $response;
     }
 
+    public function get_erratas ($card)
+    {
+        $erratas = $this->doctrine->getRepository('AppBundle:Errata')->findBy(array('card' => $card), array());
+
+        $response = $erratas;
+
+        return $response;
+    }
+
     public function getDistinctTraits ()
     {
         /**

@@ -97,6 +97,11 @@ class User extends BaseUser
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
+    private $erratas;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
     private $favorites;
 
     /**
@@ -539,6 +544,41 @@ class User extends BaseUser
     public function getReviews()
     {
         return $this->reviews;
+    }
+
+
+    /**
+     * Add errata
+     *
+     * @param \AppBundle\Entity\Errata $errata
+     *
+     * @return User
+     */
+    public function addErrata(\AppBundle\Entity\Errata $errata)
+    {
+        $this->erratas[] = $errata;
+
+        return $this;
+    }
+
+    /**
+     * Remove errata
+     *
+     * @param \AppBundle\Entity\Errata $errata
+     */
+    public function removeErrata(\AppBundle\Entity\Errata $errata)
+    {
+        $this->erratas->removeElement($errata);
+    }
+
+    /**
+     * Get erratas
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getErratas()
+    {
+        return $this->erratas;
     }
 
     /**
