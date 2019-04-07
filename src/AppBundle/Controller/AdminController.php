@@ -65,7 +65,7 @@ class AdminController extends Controller
             );
         }
 
-        return $this->render('AppBundle:Erratas:erratas.html.twig', array(
+        return $this->render('AppBundle:Admin:errataIndex.html.twig', array(
             'pagetitle' => $pagetitle,
             'pagedescription' => "Read the latest user-submitted erratas on the cards.",
             'erratas' => $erratas,
