@@ -28,7 +28,7 @@ i		{ font-weight:bold }
 <h3><strong><u><a href="../rulesreference#KW_Reflec"><span class="new">REFLEC</span></a></u></strong></h3>
 <p>An <strong><u><a href="../rulesreference#KW_Armor">ARMOR</a></u></strong> source with this keyword ignores any <strong><u><a href="./rulesreference#KW_Armor_Penetration">ARMOR PENETRATION</a></u></strong> from a wounding source with <strong><em>Laser</em></strong>.</p>
 
-<h2 id="Specific_Card_Errata">Specific Card Errata</h2>
+<h2 id="Specific_Card_Errata">Recent Specific Card Errata</h2>
 <p>New or corrected text displayed in <span class="new">red font</span></p>
 
 <h3><strong>Redlining</strong></h3>
@@ -39,47 +39,14 @@ i		{ font-weight:bold }
 
 </br>
 
-<h2 id="Card_Clarifications"><em>Clarifications</em></h2>
-<p></p>
-<h3><strong>Advanced Solutions, Inc.</strong></h3>
-<p>So in the Adventure Phase, Stage 1, you get to draw one complication and look at it without revealing it to your opponents, and then play it on one of the the contracts. With this card, if you exert it, you get to draw two cards instead. IN SOLO PLAY, Stage 1, you draw one complication and play it face down. However, in Stage 2, you get to draw an adventure card and place it face up. So with ASI, you get to draw two and decide which to play. Since there is no Phase Restriction, you can also use it during other times when you're required to draw from the adventure deck.</p>
-
-<h3><strong>Contingency</strong></h3>
-<p>The captain leaves the <span class="Event"></span> attached to the <span class="Crew"></span> until it is played, at which point, as a cost, the <span class="Crew"></span> is returned to the captain's hand and the <span class="Event"></span> is played for <span class="Cost0"></span>. The <span class="Event"></span> may be played at any time it would otherwise have been eligible if it had been played normally. So an <span class="Event"></span> with a Phase Restriction can still only be played in the appropriate phase. Note, there's nothing to stop you from playing the <span class="Event"></span> immediately, if no other condition prevents it.</p>
-<p>So Contingency serves three separate, but related purposes:</p>
-<ol>
-<li>It lets you search for an <span class="Event"></span>, which can be a handy way to solve a particular problem.</li>
-<li>You have <span class="UnderworldExpert"></span>, you can get an <span class="Event"></span> from your discard pile, so if you ended up expending it for <span class="Expense"></span> or using it, you can get it back.</li>
-<li>It reduces the cost to :credit0 by returning the attached :crew. Of course, you'd have to pay to bring that :crew out again if you wanted to, but there are instances where bringing a card back to your hand may be advantageous. For instance, if they have an ability that generates on being played...</li>
-</ol>
-
-
-<h3><strong>Fatimah Noori</strong></h3>
-<p>Fatimah's <span class="Action"></span> to gain <span class="UnderworldExpert"></span> upgrades her <span class="UnderworldTrained"></span>skill. You do not get both skills at the same time.</p>
-
-<h3><strong>Lt. Cmdr Sir Sandar van Othlezee</strong></h3>
-<p>Some versions have the keyword <strong><u><a href="../rulesreference#KW_Replenish">REPLENISH</a></u></strong> printed in <strong><em>trait</em></strong> format, as <strong><em>Replenish</em></strong>. Both versions of the card use the <strong><u><a href="../rulesreference#KW_Replenish">REPLENISH</a></u></strong> mechanic, and the <strong><u>underline bold</u></strong> format is correct.</p>
-
-<h3><strong>Mark Appleton</strong></h3>
-<p>Mark’s ability allowing his controller to jettison him for 3<span class="ev"></span> permits the captain to expend him to meet an expense, as though Mark were a card in hand.</p>
-
-<h3><strong>Ranke’s Razor</strong></h3>
-<p>Captains may only select Captain’s Card types, and are forbidden from selecting either a <span class="contract"></span> or a <span class="complication"></span>.
-
-<h3><strong>Reliance on Professionals</strong></h3>
-<p>The requirement <em>added</em> by <strong>Reliance on Professionals</strong> can be met by any skill token of the requisite level. The reference to “any Trained Skill” and “any Expert Skill” does not allow the controller to name a skill of choice, but rather indicates that any skill token is sufficient to meet the requirement.</p>
-
-<h3><strong>The Pretty Penny</strong></h3>
-<p>Reference to “Ship card” should be treated the same as if it displayed the <span class="ship"></span> icon.</p>
-
-<h3><strong>There's Always Something...</strong></h3>
-<p>When you choose to encounter and resolve this complication, you choose a Captain's adventure deck - that's the target. So, in a four-player game, you could pick any of the four adventure decks to reveal the top 5 cards and attach 2 of those cards. Now, the question as to how it works when there are already other complications came up in today's tournament at DunDraCon. We may review the ruling to make sure it it consistent, but here's how it worked today.</p>
-<p>Contract has 2 complications and a limit of 2, one of which is this one:</p>
-<ul>
-	<li>If the captain removes the other complication, leaving only this one, then this complication is encountered, it is on the way to the discard pile as it's being resolved to where two of the five revealed complications are added to the contract.</li>
-	<li>If the captain resolves this complication first, the five complications are revealed and one of them will definitely be added to the contract as this complication is no longer considered attached while it's being resolved. A second complication from the five revealed may be chosen to replace the other, original complication or the other four cards revealed may be discarded if the captain resolving "There is Always Something ..." would rather not replace the other, original complication.</li>
-</ul>
-
+<h2 id="Card_Clarifications"><em>Clarifications and Errata</em></h2>
+	<p>Most Recent at Top</p>
+{% if erratas|length > 0 %}
+	{% for i in 0..erratas|length-1 %}{% set errata = erratas[i] %}{% set card = errata.card %}
+		<h3><strong> {{ errata.card.name }}</strong></h3>
+		<p> {{ errata.textHtml|raw }}</p>
+	{% endfor %}
+{% endif %}
 </br>
 
 

@@ -110,10 +110,18 @@ class DefaultController extends Controller
     	$response->setPublic();
     	$response->setMaxAge($this->container->getParameter('cache_expiration'));
 
-    	$page = $this->renderView('AppBundle:Default:faq.html.twig',
-    			array("pagetitle" => $this->get("translator")->trans("nav.rules"), "pagedescription" => "F.A.Q"));
-    	$response->setContent($page);
-    	return $response;
+
+        $erratas = $this->getDoctrine()->getRepository('AppBundle:Errata')->findBy(array(), ['dateCreation' => 'DESC']);
+
+    	// $page = $this->renderView('AppBundle:Default:faq.html.twig',
+    	// 		array("pagetitle" => $this->get("translator")->trans("nav.rules"), "pagedescription" => "F.A.Q", $erratas));
+    	// $response->setContent($page);
+    	//return $response;
+        return $this->render('AppBundle:Default:faq.html.twig', [
+            'pagetitle' =>  $this->get("translator")->trans("nav.rules"),
+            'pagedescription' => "F.A.Q",
+            'erratas' => $erratas
+        ], $response);
     }
 
     function tournamentregulationsAction()
