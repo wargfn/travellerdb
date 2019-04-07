@@ -12,5 +12,5 @@ class DeckRepository extends EntityRepository
 	{
 		parent::__construct($entityManager, $entityManager->getClassMetadata('AppBundle\Entity\Deck'));
 	}
-	
+
 }

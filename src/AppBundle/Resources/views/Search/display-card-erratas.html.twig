@@ -4,10 +4,6 @@
     <div style="line-height:34px" id="erratas-header">
         <span style="font-size:24px">{{ 'card.erratas.title' | trans }}</span>
     </div>
-    <form method="POST" action="{{ path('card_errata_post') }}" style="clear:right" id="errata-edit-form">
-        <input type="hidden" name="card_id" value="{{ card.id }}">
-        <input type="hidden" name="errata_id" value="">
-    </form>
     {% if card.erratas|length %}
         {% for errata in card.erratas %}
             <article class="errata" data-id="{{ errata.id }}" id="errata-{{ errata.id }}">
@@ -21,10 +17,6 @@
                     <div class="errata-author">
                         <span class="username">{{ macros.username(errata.user) }}</span>
                     </div>
-                    <form action="{{ path('card_erratacomment_post') }}" method="POST" class="form-comment">
-                        <input type="hidden" name="comment_errata_id" value="{{ errata.id }}">
-                        <button class="btn btn-link btn-write-comment">{{ 'card.erratas.comments.add' | trans }}</button>
-                    </form>
                 </div>
             </article>
         {% endfor %}
