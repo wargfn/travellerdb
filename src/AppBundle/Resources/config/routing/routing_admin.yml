@@ -105,3 +105,9 @@ admin_list_user:
     methods: [GET]
     defaults:
         _controller: AppBundle:UserAdmin:list
+
+admin_list_errata:
+    path: /errata
+    methods: [GET]
+    defaults:
+        _controller: AppBundle:Admin:errataIndex

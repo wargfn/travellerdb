@@ -412,7 +412,7 @@ class ErrataController extends Controller
         /* @var $em EntityManager */
         $em = $this->getDoctrine()->getManager();
 
-        $dql = "SELECT r FROM AppBundle:Errata r JOIN r.card c JOIN c.pack p ORDER BY r.createdData DESC";
+        $dql = "SELECT r FROM AppBundle:Errata r JOIN r.card c JOIN c.pack p ORDER BY r.date_creation DESC";
         $query = $em->createQuery($dql)->setFirstResult($start)->setMaxResults($limit);
 
         $paginator = new Paginator($query, false);
