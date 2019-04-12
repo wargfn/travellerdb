@@ -41,6 +41,12 @@ src/AppBundle/Resources/public/images/cards/98028.png
 src/AppBundle/Resources/public/images/cards/98029.png
 src/AppBundle/Resources/public/images/cards/98030.png
 src/AppBundle/Resources/public/images/cards/98031.png
+src/AppBundle/Resources/public/images/cards/94001.png
+src/AppBundle/Resources/public/images/cards/95001.png
+src/AppBundle/Resources/public/images/cards/96002.png
+web/bundles/app/images/cards/94001.png
+web/bundles/app/images/cards/95001.png
+web/bundles/app/images/cards/96002.png
 web/bundles/app/images/cards/98001.png
 web/bundles/app/images/cards/98002.png
 web/bundles/app/images/cards/98002a.png
