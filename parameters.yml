@@ -4,11 +4,11 @@ parameters:
     database_port: '3306'
     database_name: travellerdb
     database_user: wargfn
-    database_password: Darkn3ss01
+    database_password: 
     mailer_transport: smtp
     mailer_host: localhost
     mailer_user: wargfndev@hotmail.com
-    mailer_password: Darkness01
+    mailer_password: 
     secret: ThisTokenReallyIsNotAnyBetterForASecret
     cache_expiration: 300
     email_sender_address: wargfndev@hotmail.com
