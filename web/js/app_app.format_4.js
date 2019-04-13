@@ -165,6 +165,7 @@
         text = text.replace(/\[Expert\:Underworld\]/g, '<span class="underworldexpert"></span>');
         text = text.replace(/\[Trained\:StarshipOperation\]/g, '<span class="staropstrained"></span>');
         text = text.replace(/\[Expert\:StarshipOperation\]/g, '<span class="staropsexpert"></span>');
+        text = text.replace(/\[Jump\]/g, '<span class="jump"></span>span>');
 
         return text;
     };
@@ -208,6 +209,7 @@
         text = text.replace(/\[Expert\:Underworld\]/g, '<span class="underworldexpert"></span>');
         text = text.replace(/\[Trained\:StarshipOperation\]/g, '<span class="staropstrained"></span>');
         text = text.replace(/\[Expert\:StarshipOperation\]/g, '<span class="staropsexpert"></span>');
+        text = text.replace(/\[Jump\]/g, '<span class="jump"></span>span>');
         return '<p>' + text + '</p>';
     };
 
