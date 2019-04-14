@@ -98,10 +98,19 @@ class DefaultController extends Controller
     	$response->setPublic();
     	$response->setMaxAge($this->container->getParameter('cache_expiration'));
 
-    	$page = $this->renderView('AppBundle:Default:rulesreference.html.twig',
-    			array("pagetitle" => $this->get("translator")->trans("nav.rules"), "pagedescription" => "Rules Reference"));
-    	$response->setContent($page);
-    	return $response;
+    	$glossary = $this->getDoctrine()->getRepository('AppBundle:Glossary')->findAll();
+    	$keywords = $this->getDoctrine()->getRepository('AppBundle:Keyword')->findAll();
+
+    	//$page = $this->renderView('AppBundle:Default:rulesreference.html.twig',
+    	//		array("pagetitle" => $this->get("translator")->trans("nav.rules"), "pagedescription" => "Rules Reference"));
+    	//$response->setContent($page);
+    	//return $response;
+    	return $this->render('AppBundle:Default:rulesreference.html.twig', [
+    	        'pagetitle' => $this->get("translator")->trans("nav.rules"),
+                "pagedescription" => "Rules Reference",
+                "glossary" => $glossary,
+                "keywords" => $keywords
+        ], $response);
     }
 
     function faqAction()

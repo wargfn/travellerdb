@@ -1,0 +1,20 @@
+AppBundle\Entity\Keyword:
+  type: entity
+  table: keyword
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    title:
+      type: string
+      length: 255
+      nullable: false
+    keyword:
+      type: string
+      length: 255
+      nullable: false
+    text:
+      type: text
+      nullable: false

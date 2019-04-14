@@ -1,0 +1,42 @@
+admin_glossary:
+  path: /
+  defaults:
+    _controller: AppBundle:Glossary:index
+
+admin_glossary_new:
+  path: /new
+  defaults:
+    _controller: AppBundle:Glossary:new
+
+admin_glossary_show:
+  path: /{id}/show
+  defaults:
+    _controller: AppBundle:Glossary:show
+
+admin_glossary_index:
+  path: /
+  defaults:
+    _controller: AppBundle:Glossary:index
+
+admin_glossary_create:
+  path: /create
+  defaults:
+    _controller: AppBundle:Glossary:create
+  methods: [ post ]
+
+admin_glossary_edit:
+  path: /{id}/edit
+  defaults:
+    _controller: AppBundle:Glossary:edit
+
+admin_glossary_update:
+  path: /{id}/update
+  defaults:
+    _controller: AppBundle:Glossary:update
+  methods: [ post, put ]
+
+admin_glossary_delete:
+  path: /{id}/delete
+  defaults:
+    _controller: AppBundle:Glossary:delete
+  methods: [ post, delete ]

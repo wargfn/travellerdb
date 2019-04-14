@@ -1,0 +1,14 @@
+{% extends 'AppBundle:Admin:base.html.twig' %}
+
+{% block content -%}
+    <div class="container">
+    <h1>Glossary edit</h1>
+
+    {{ form(edit_form) }}
+
+        <p></p>
+        <a href="{{ path('admin_glossary') }}" class="btn btn-default btn-primary" role="button">
+            Back to the list
+        </a>
+    </div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'AppBundle:Admin:base.html.twig' %}
+
+{% block content -%}
+    <div class="container">
+    <h1>Glossary creation</h1>
+
+    {{ form(form) }}
+
+        <p></p>
+        <a href="{{ path('admin_glossary') }}">
+            Back to the list
+        </a>
+    </div>
+{% endblock %}

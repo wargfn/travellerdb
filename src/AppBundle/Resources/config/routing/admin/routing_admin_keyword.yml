@@ -1,0 +1,42 @@
+admin_keyword:
+  path: /
+  defaults:
+    _controller: AppBundle:Keyword:index
+
+admin_keyword_new:
+  path: /new
+  defaults:
+    _controller: AppBundle:Keyword:new
+
+admin_keyword_show:
+  path: /{id}/show
+  defaults:
+    _controller: AppBundle:Keyword:show
+
+admin_keyword_index:
+  path: /
+  defaults:
+    _controller: AppBundle:Keyword:index
+
+admin_keyword_create:
+  path: /create
+  defaults:
+    _controller: AppBundle:Keyword:create
+  methods: [ post ]
+
+admin_keyword_edit:
+  path: /{id}/edit
+  defaults:
+    _controller: AppBundle:Keyword:edit
+
+admin_keyword_update:
+  path: /{id}/update
+  defaults:
+    _controller: AppBundle:Keyword:update
+  methods: [ post, put ]
+
+admin_keyword_delete:
+  path: /{id}/delete
+  defaults:
+    _controller: AppBundle:Keyword:delete
+  methods: [ post, delete ]

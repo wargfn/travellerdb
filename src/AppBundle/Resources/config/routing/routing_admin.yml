@@ -34,6 +34,16 @@ AppBundle_admin_blog:
     resource: "@AppBundle/Resources/config/routing/admin/routing_admin_blog.yml"
     prefix: /blog
 
+AppBundle_admin_keyword:
+    resource: "@AppBundle/Resources/config/routing/admin/routing_admin_keyword.yml"
+    prefix: /keyword
+
+AppBundle_admin_glossary:
+    resource: "@AppBundle/Resources/config/routing/admin/routing_admin_glossary.yml"
+    prefix: /glossary
+
+
+
 admin:
     path: /
     methods: [GET]
