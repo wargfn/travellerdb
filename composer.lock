@@ -4804,6 +4804,7 @@
                 }
             ],
             "description": "This bundle generates code for you",
+            "abandoned": "symfony/maker-bundle",
             "time": "2015-03-17T06:36:52+00:00"
         }
     ],
