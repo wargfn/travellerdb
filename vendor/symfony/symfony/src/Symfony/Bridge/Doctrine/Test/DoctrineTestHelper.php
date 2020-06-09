@@ -12,8 +12,8 @@
 namespace Symfony\Bridge\Doctrine\Test;
 
 use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -30,7 +30,7 @@ class DoctrineTestHelper
      */
     public static function createTestEntityManager()
     {
-        if (!extension_loaded('pdo_sqlite')) {
+        if (!\extension_loaded('pdo_sqlite')) {
             TestCase::markTestSkipped('Extension pdo_sqlite is required.');
         }
 

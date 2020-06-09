@@ -428,6 +428,7 @@ abstract class AbstractNumberFormatterTest extends TestCase
             // array(1.125, '1.13'),
             array(1.127, '1.13'),
             array(1.129, '1.13'),
+            array(1020 / 100, '10.20'),
         );
     }
 
@@ -451,6 +452,7 @@ abstract class AbstractNumberFormatterTest extends TestCase
             array(1.125, '1.12'),
             array(1.127, '1.13'),
             array(1.129, '1.13'),
+            array(1020 / 100, '10.20'),
         );
     }
 
@@ -474,6 +476,7 @@ abstract class AbstractNumberFormatterTest extends TestCase
             array(1.125, '1.12'),
             array(1.127, '1.13'),
             array(1.129, '1.13'),
+            array(1020 / 100, '10.20'),
         );
     }
 
@@ -498,6 +501,7 @@ abstract class AbstractNumberFormatterTest extends TestCase
             array(-1.123, '-1.12'),
             array(-1.125, '-1.12'),
             array(-1.127, '-1.12'),
+            array(1020 / 100, '10.20'),
         );
     }
 
@@ -522,6 +526,7 @@ abstract class AbstractNumberFormatterTest extends TestCase
             array(-1.123, '-1.13'),
             array(-1.125, '-1.13'),
             array(-1.127, '-1.13'),
+            array(1020 / 100, '10.20'),
         );
     }
 
@@ -546,6 +551,7 @@ abstract class AbstractNumberFormatterTest extends TestCase
             array(-1.123, '-1.12'),
             array(-1.125, '-1.12'),
             array(-1.127, '-1.12'),
+            array(1020 / 100, '10.20'),
         );
     }
 
@@ -570,6 +576,7 @@ abstract class AbstractNumberFormatterTest extends TestCase
             array(-1.123, '-1.13'),
             array(-1.125, '-1.13'),
             array(-1.127, '-1.13'),
+            array(1020 / 100, '10.20'),
         );
     }
 
@@ -647,6 +654,7 @@ abstract class AbstractNumberFormatterTest extends TestCase
             array('-123,4567', false, '->parse() does not parse when invalid grouping used.', 9),
             array('-123,,456', false, '->parse() does not parse when invalid grouping used.', 4),
             array('-123,,456', -123.0, '->parse() parses when grouping is disabled.', 4, false),
+            array('239.', 239.0, '->parse() parses when string ends with decimal separator.', 4, false),
         );
     }
 
@@ -701,7 +709,7 @@ abstract class AbstractNumberFormatterTest extends TestCase
 
         // Bug #59597 was fixed on PHP 5.3.14 and 5.4.4
         // The negative PHP_INT_MAX was being converted to float
-        if ((\PHP_VERSION_ID < 50400 && \PHP_VERSION_ID >= 50314) || \PHP_VERSION_ID >= 50404 || (extension_loaded('intl') && method_exists('IntlDateFormatter', 'setTimeZone'))) {
+        if ((\PHP_VERSION_ID < 50400 && \PHP_VERSION_ID >= 50314) || \PHP_VERSION_ID >= 50404 || (\extension_loaded('intl') && method_exists('IntlDateFormatter', 'setTimeZone'))) {
             $this->assertInternalType('int', $parsedValue);
         } else {
             $this->assertInternalType('float', $parsedValue);

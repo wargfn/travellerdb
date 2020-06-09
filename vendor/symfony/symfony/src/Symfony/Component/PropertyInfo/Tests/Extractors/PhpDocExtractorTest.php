@@ -62,6 +62,8 @@ class PhpDocExtractorTest extends TestCase
             array('bal', array(new Type(Type::BUILTIN_TYPE_OBJECT, false, 'DateTime')), null, null),
             array('parent', array(new Type(Type::BUILTIN_TYPE_OBJECT, false, 'Symfony\Component\PropertyInfo\Tests\Fixtures\ParentDummy')), null, null),
             array('collection', array(new Type(Type::BUILTIN_TYPE_ARRAY, false, null, true, new Type(Type::BUILTIN_TYPE_INT), new Type(Type::BUILTIN_TYPE_OBJECT, false, 'DateTime'))), null, null),
+            array('mixedCollection', array(new Type(Type::BUILTIN_TYPE_ARRAY, false, null, true, null, null)), null, null),
+            array('nestedCollection', array(new Type(Type::BUILTIN_TYPE_ARRAY, false, null, true, new Type(Type::BUILTIN_TYPE_INT), new Type(Type::BUILTIN_TYPE_ARRAY, false, null, true, new Type(Type::BUILTIN_TYPE_INT), new Type(Type::BUILTIN_TYPE_STRING, false)))), null, null),
             array('a', array(new Type(Type::BUILTIN_TYPE_INT)), 'A.', null),
             array('b', array(new Type(Type::BUILTIN_TYPE_OBJECT, true, 'Symfony\Component\PropertyInfo\Tests\Fixtures\ParentDummy')), 'B.', null),
             array('c', array(new Type(Type::BUILTIN_TYPE_BOOL, true)), null, null),
@@ -73,5 +75,22 @@ class PhpDocExtractorTest extends TestCase
             array('staticGetter', null, null, null),
             array('staticSetter', null, null, null),
         );
+    }
+
+    public function testParamTagTypeIsOmitted()
+    {
+        $this->assertNull($this->extractor->getTypes('Symfony\Component\PropertyInfo\Tests\PhpDocExtractors\OmittedParamTagTypeDocBlock', 'omittedType'));
+    }
+}
+
+class OmittedParamTagTypeDocBlock
+{
+    /**
+     * The type is omitted here to ensure that the extractor doesn't choke on missing types.
+     *
+     * @param $omittedTagType
+     */
+    public function setOmittedType(array $omittedTagType)
+    {
     }
 }

@@ -11,19 +11,37 @@
 
 namespace FOS\OAuthServerBundle\Command;
 
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use FOS\OAuthServerBundle\Model\TokenManagerInterface;
 use FOS\OAuthServerBundle\Model\AuthCodeManagerInterface;
 
-class CleanCommand extends ContainerAwareCommand
+class CleanCommand extends Command
 {
+    private $accessTokenManager;
+    private $refreshTokenManager;
+    private $authCodeManager;
+
+    public function __construct(
+        TokenManagerInterface $accessTokenManager,
+        TokenManagerInterface $refreshTokenManager,
+        AuthCodeManagerInterface $authCodeManager)
+    {
+        parent::__construct();
+
+        $this->accessTokenManager = $accessTokenManager;
+        $this->refreshTokenManager = $refreshTokenManager;
+        $this->authCodeManager = $authCodeManager;
+    }
+
     /**
      * {@inheritdoc}
      */
     protected function configure()
     {
+        parent::configure();
+
         $this
             ->setName('fos:oauth-server:clean')
             ->setDescription('Clean expired tokens')
@@ -40,19 +58,9 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $services = array(
-            'fos_oauth_server.access_token_manager'  => 'Access token',
-            'fos_oauth_server.refresh_token_manager' => 'Refresh token',
-            'fos_oauth_server.auth_code_manager'     => 'Auth code',
-        );
-
-        foreach ($services as $service => $name) {
-            /** @var $instance TokenManagerInterface */
-            $instance = $this->getContainer()->get($service);
-            if ($instance instanceof TokenManagerInterface || $instance instanceof AuthCodeManagerInterface) {
-                $result = $instance->deleteExpired();
-                $output->writeln(sprintf('Removed <info>%d</info> items from <comment>%s</comment> storage.', $result, $name));
-            }
+        foreach ([$this->accessTokenManager, $this->refreshTokenManager, $this->authCodeManager] as $service) {
+            $result = $service->deleteExpired();
+            $output->writeln(sprintf('Removed <info>%d</info> items from <comment>%s</comment> storage.', $result, get_class($service)));
         }
     }
 }

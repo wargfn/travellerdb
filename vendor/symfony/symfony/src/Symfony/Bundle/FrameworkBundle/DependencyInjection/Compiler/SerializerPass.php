@@ -11,8 +11,8 @@
 
 namespace Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
@@ -65,6 +65,6 @@ class SerializerPass implements CompilerPassInterface
         krsort($sortedServices);
 
         // Flatten the array
-        return call_user_func_array('array_merge', $sortedServices);
+        return \call_user_func_array('array_merge', $sortedServices);
     }
 }

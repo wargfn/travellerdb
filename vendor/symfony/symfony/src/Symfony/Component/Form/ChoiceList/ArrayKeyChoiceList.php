@@ -29,16 +29,14 @@ use Symfony\Component\Form\Exception\InvalidArgumentException;
  *
  * Example:
  *
- * ```php
- * $choices = array('' => 'Don\'t know', 0 => 'No', 1 => 'Yes');
- * $choiceList = new ArrayKeyChoiceList(array_keys($choices));
+ *     $choices = array('' => 'Don\'t know', 0 => 'No', 1 => 'Yes');
+ *     $choiceList = new ArrayKeyChoiceList(array_keys($choices));
  *
- * $values = $choiceList->getValues()
- * // => array('', '0', '1')
+ *     $values = $choiceList->getValues()
+ *     // => array('', '0', '1')
  *
- * $selectedValues = $choiceList->getValuesForChoices(array(true));
- * // => array('1')
- * ```
+ *     $selectedValues = $choiceList->getValuesForChoices(array(true));
+ *     // => array('1')
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  *
@@ -72,13 +70,10 @@ class ArrayKeyChoiceList extends ArrayChoiceList
     public static function toArrayKey($choice)
     {
         if (!is_scalar($choice) && null !== $choice) {
-            throw new InvalidArgumentException(sprintf(
-                'The value of type "%s" cannot be converted to a valid array key.',
-                gettype($choice)
-            ));
+            throw new InvalidArgumentException(sprintf('The value of type "%s" cannot be converted to a valid array key.', \gettype($choice)));
         }
 
-        if (is_bool($choice) || (string) (int) $choice === (string) $choice) {
+        if (\is_bool($choice) || (string) (int) $choice === (string) $choice) {
             return (int) $choice;
         }
 
@@ -176,13 +171,13 @@ class ArrayKeyChoiceList extends ArrayChoiceList
         }
 
         foreach ($choices as $choice => $key) {
-            if (is_array($key)) {
+            if (\is_array($key)) {
                 $this->flatten($key, $value, $choicesByValues, $keysByValues, $structuredValues[$choice]);
 
                 continue;
             }
 
-            $choiceValue = (string) call_user_func($value, $choice);
+            $choiceValue = (string) \call_user_func($value, $choice);
             $choicesByValues[$choiceValue] = $choice;
             $keysByValues[$choiceValue] = $key;
             $structuredValues[$key] = $choiceValue;

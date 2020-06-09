@@ -11,9 +11,9 @@
 
 namespace Symfony\Component\Form\Tests;
 
+use Symfony\Component\Form\Extension\Csrf\CsrfExtension;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormView;
-use Symfony\Component\Form\Extension\Csrf\CsrfExtension;
 use Symfony\Component\Form\Test\FormIntegrationTestCase;
 
 abstract class AbstractLayoutTest extends FormIntegrationTestCase
@@ -23,7 +23,7 @@ abstract class AbstractLayoutTest extends FormIntegrationTestCase
 
     protected function setUp()
     {
-        if (!extension_loaded('intl')) {
+        if (!\extension_loaded('intl')) {
             $this->markTestSkipped('Extension intl is required.');
         }
 
@@ -113,7 +113,7 @@ abstract class AbstractLayoutTest extends FormIntegrationTestCase
 
     protected function renderEnctype(FormView $view)
     {
-        $this->markTestSkipped(sprintf('Legacy %s::renderEnctype() is not implemented.', get_class($this)));
+        $this->markTestSkipped(sprintf('Legacy %s::renderEnctype() is not implemented.', \get_class($this)));
     }
 
     abstract protected function renderLabel(FormView $view, $label = null, array $vars = array());
@@ -629,7 +629,7 @@ abstract class AbstractLayoutTest extends FormIntegrationTestCase
             'expanded' => false,
         ));
 
-        $classPart = in_array('choice_attr', $this->testableFeatures) ? '[@class="foo&bar"]' : '';
+        $classPart = \in_array('choice_attr', $this->testableFeatures) ? '[@class="foo&bar"]' : '';
 
         $this->assertWidgetMatchesXpath($form->createView(), array(),
 '/select
@@ -975,7 +975,7 @@ abstract class AbstractLayoutTest extends FormIntegrationTestCase
             'expanded' => false,
         ));
 
-        $classPart = in_array('choice_attr', $this->testableFeatures) ? '[@class="foo&bar"]' : '';
+        $classPart = \in_array('choice_attr', $this->testableFeatures) ? '[@class="foo&bar"]' : '';
 
         $this->assertWidgetMatchesXpath($form->createView(), array(),
 '/select
@@ -1095,7 +1095,7 @@ abstract class AbstractLayoutTest extends FormIntegrationTestCase
             'expanded' => true,
         ));
 
-        $classPart = in_array('choice_attr', $this->testableFeatures) ? '[@class="foo&bar"]' : '';
+        $classPart = \in_array('choice_attr', $this->testableFeatures) ? '[@class="foo&bar"]' : '';
 
         $this->assertWidgetMatchesXpath($form->createView(), array(),
 '/div
@@ -1253,7 +1253,7 @@ abstract class AbstractLayoutTest extends FormIntegrationTestCase
             'required' => true,
         ));
 
-        $classPart = in_array('choice_attr', $this->testableFeatures) ? '[@class="foo&bar"]' : '';
+        $classPart = \in_array('choice_attr', $this->testableFeatures) ? '[@class="foo&bar"]' : '';
 
         $this->assertWidgetMatchesXpath($form->createView(), array(),
 '/div
@@ -1500,9 +1500,9 @@ abstract class AbstractLayoutTest extends FormIntegrationTestCase
 
         $this->assertWidgetMatchesXpath($form->createView(), array(),
 '/input
-    [@type="datetime"]
+    [@type="datetime-local"]
     [@name="name"]
-    [@value="2011-02-03T04:05:06Z"]
+    [@value="2011-02-03T04:05:06"]
 '
         );
     }
@@ -1520,9 +1520,9 @@ abstract class AbstractLayoutTest extends FormIntegrationTestCase
 
         $this->assertWidgetMatchesXpath($form->createView(), array(),
 '/input
-    [@type="datetime"]
+    [@type="datetime-local"]
     [@name="name"]
-    [@value="2011-02-03T04:05:06Z"]
+    [@value="2011-02-03T04:05:06"]
 '
         );
     }

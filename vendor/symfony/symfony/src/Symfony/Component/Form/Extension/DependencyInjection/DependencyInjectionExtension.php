@@ -11,10 +11,10 @@
 
 namespace Symfony\Component\Form\Extension\DependencyInjection;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Form\Exception\InvalidArgumentException;
 use Symfony\Component\Form\FormExtensionInterface;
 use Symfony\Component\Form\FormTypeGuesserChain;
-use Symfony\Component\Form\Exception\InvalidArgumentException;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class DependencyInjectionExtension implements FormExtensionInterface
 {
@@ -42,14 +42,8 @@ class DependencyInjectionExtension implements FormExtensionInterface
         $type = $this->container->get($this->typeServiceIds[$name]);
 
         // BC: validate result of getName() for legacy names (non-FQCN)
-        if ($name !== get_class($type) && $type->getName() !== $name) {
-            throw new InvalidArgumentException(
-                sprintf('The type name specified for the service "%s" does not match the actual name. Expected "%s", given "%s"',
-                    $this->typeServiceIds[$name],
-                    $name,
-                    $type->getName()
-                )
-            );
+        if ($name !== \get_class($type) && $type->getName() !== $name) {
+            throw new InvalidArgumentException(sprintf('The type name specified for the service "%s" does not match the actual name. Expected "%s", given "%s"', $this->typeServiceIds[$name], $name, $type->getName()));
         }
 
         return $type;
@@ -70,13 +64,7 @@ class DependencyInjectionExtension implements FormExtensionInterface
 
                 // validate result of getExtendedType() to ensure it is consistent with the service definition
                 if ($extension->getExtendedType() !== $name) {
-                    throw new InvalidArgumentException(
-                        sprintf('The extended type specified for the service "%s" does not match the actual extended type. Expected "%s", given "%s".',
-                            $serviceId,
-                            $name,
-                            $extension->getExtendedType()
-                        )
-                    );
+                    throw new InvalidArgumentException(sprintf('The extended type specified for the service "%s" does not match the actual extended type. Expected "%s", given "%s".', $serviceId, $name, $extension->getExtendedType()));
                 }
             }
         }
@@ -99,7 +87,7 @@ class DependencyInjectionExtension implements FormExtensionInterface
                 $guessers[] = $this->container->get($serviceId);
             }
 
-            if (count($guessers) > 0) {
+            if (\count($guessers) > 0) {
                 $this->guesser = new FormTypeGuesserChain($guessers);
             }
         }

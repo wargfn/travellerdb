@@ -12,11 +12,11 @@
 namespace Symfony\Bundle\SecurityBundle\Tests\DependencyInjection;
 
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\DependencyInjection\Reference;
-use Symfony\Component\DependencyInjection\Parameter;
-use Symfony\Bundle\SecurityBundle\SecurityBundle;
 use Symfony\Bundle\SecurityBundle\DependencyInjection\SecurityExtension;
+use Symfony\Bundle\SecurityBundle\SecurityBundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Parameter;
+use Symfony\Component\DependencyInjection\Reference;
 
 abstract class CompleteConfigurationTest extends TestCase
 {
@@ -76,7 +76,6 @@ abstract class CompleteConfigurationTest extends TestCase
             array(),
             array(
                 'security.channel_listener',
-                'security.logout_listener.secure',
                 'security.authentication.listener.x509.secure',
                 'security.authentication.listener.remote_user.secure',
                 'security.authentication.listener.form.secure',
@@ -99,6 +98,13 @@ abstract class CompleteConfigurationTest extends TestCase
                 'security.context_listener.1',
                 'security.authentication.listener.basic.with_user_checker',
                 'security.authentication.listener.anonymous.with_user_checker',
+                'security.access_listener',
+            ),
+            array(
+                'security.channel_listener',
+                'security.context_listener.2',
+                'security.authentication.listener.simple_form.simple_auth',
+                'security.authentication.listener.anonymous.simple_auth',
                 'security.access_listener',
             ),
         ), $listeners);
@@ -149,7 +155,7 @@ abstract class CompleteConfigurationTest extends TestCase
             $this->assertArrayNotHasKey($matcherId, $matcherIds);
             $matcherIds[$matcherId] = true;
 
-            $i = count($matcherIds);
+            $i = \count($matcherIds);
             if (1 === $i) {
                 $this->assertEquals(array('ROLE_USER'), $attributes);
                 $this->assertEquals('https', $channel);
@@ -258,7 +264,7 @@ abstract class CompleteConfigurationTest extends TestCase
 
     protected function getContainer($file)
     {
-        $file = $file.'.'.$this->getFileExtension();
+        $file .= '.'.$this->getFileExtension();
 
         if (isset(self::$containerCache[$file])) {
             return self::$containerCache[$file];

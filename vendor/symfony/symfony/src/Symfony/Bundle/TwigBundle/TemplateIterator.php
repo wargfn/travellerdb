@@ -11,8 +11,8 @@
 
 namespace Symfony\Bundle\TwigBundle;
 
-use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * Iterator for all templates in bundles and in the application Resources directory.
@@ -57,7 +57,7 @@ class TemplateIterator implements \IteratorAggregate
             $this->templates = array_merge(
                 $this->templates,
                 $this->findTemplatesInDirectory($bundle->getPath().'/Resources/views', $name),
-                $this->findTemplatesInDirectory($this->rootDir.'/'.$bundle->getName().'/views', $name)
+                $this->findTemplatesInDirectory($this->rootDir.'/Resources/'.$bundle->getName().'/views', $name)
             );
         }
 

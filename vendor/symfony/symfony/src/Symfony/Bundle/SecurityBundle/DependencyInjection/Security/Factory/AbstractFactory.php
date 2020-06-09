@@ -12,8 +12,8 @@
 namespace Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory;
 
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
-use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
@@ -81,7 +81,7 @@ abstract class AbstractFactory implements SecurityFactoryInterface
         ;
 
         foreach (array_merge($this->options, $this->defaultSuccessHandlerOptions, $this->defaultFailureHandlerOptions) as $name => $default) {
-            if (is_bool($default)) {
+            if (\is_bool($default)) {
                 $builder->booleanNode($name)->defaultValue($default);
             } else {
                 $builder->scalarNode($name)->defaultValue($default);

@@ -44,7 +44,7 @@ class FixCheckboxInputListener implements EventSubscriberInterface
     {
         $data = $event->getData();
 
-        if (is_array($data)) {
+        if (\is_array($data)) {
             // Flip the submitted values for faster lookup
             // It's better to flip this array than $existingValues because
             // $submittedValues is generally smaller.
@@ -65,11 +65,8 @@ class FixCheckboxInputListener implements EventSubscriberInterface
                 }
             }
 
-            if (count($submittedValues) > 0) {
-                throw new TransformationFailedException(sprintf(
-                    'The following choices were not found: "%s"',
-                    implode('", "', array_keys($submittedValues))
-                ));
+            if (\count($submittedValues) > 0) {
+                throw new TransformationFailedException(sprintf('The following choices were not found: "%s"', implode('", "', array_keys($submittedValues))));
             }
         } elseif ('' === $data || null === $data) {
             // Empty values are always accepted.

@@ -52,7 +52,7 @@ class FormValidator extends ConstraintValidator
             // Validate the data against its own constraints
             if (self::allowDataWalking($form)) {
                 if ($validator) {
-                    if (is_array($groups) && count($groups) > 0 || $groups instanceof GroupSequence && count($groups->groups) > 0) {
+                    if (\is_array($groups) && \count($groups) > 0 || $groups instanceof GroupSequence && \count($groups->groups) > 0) {
                         $validator->atPath('data')->validate($form->getData(), null, $groups);
                     }
                 } else {
@@ -74,12 +74,12 @@ class FormValidator extends ConstraintValidator
                     // 2.4 API
                     foreach ($groups as $group) {
                         foreach ($constraints as $constraint) {
-                            if (in_array($group, $constraint->groups)) {
+                            if (\in_array($group, $constraint->groups)) {
                                 $this->context->validateValue($form->getData(), $constraint, 'data', $group);
                             }
                         }
 
-                        if (count($this->context->getViolations()) > 0) {
+                        if (\count($this->context->getViolations()) > 0) {
                             break;
                         }
                     }
@@ -101,7 +101,7 @@ class FormValidator extends ConstraintValidator
                     // Otherwise validate a constraint only once for the first
                     // matching group
                     foreach ($groups as $group) {
-                        if (in_array($group, $constraint->groups)) {
+                        if (\in_array($group, $constraint->groups)) {
                             if ($validator) {
                                 $validator->atPath('data')->validate($form->getData(), $constraint, $group);
                             } else {
@@ -136,9 +136,10 @@ class FormValidator extends ConstraintValidator
             if ($childrenSynchronized) {
                 $clientDataAsString = is_scalar($form->getViewData())
                     ? (string) $form->getViewData()
-                    : gettype($form->getViewData());
+                    : \gettype($form->getViewData());
 
                 if ($this->context instanceof ExecutionContextInterface) {
+                    $this->context->setConstraint($constraint);
                     $this->context->buildViolation($config->getOption('invalid_message'))
                         ->setParameters(array_replace(array('{{ value }}' => $clientDataAsString), $config->getOption('invalid_message_parameters')))
                         ->setInvalidValue($form->getViewData())
@@ -157,16 +158,17 @@ class FormValidator extends ConstraintValidator
         }
 
         // Mark the form with an error if it contains extra fields
-        if (!$config->getOption('allow_extra_fields') && count($form->getExtraData()) > 0) {
+        if (!$config->getOption('allow_extra_fields') && \count($form->getExtraData()) > 0) {
             if ($this->context instanceof ExecutionContextInterface) {
+                $this->context->setConstraint($constraint);
                 $this->context->buildViolation($config->getOption('extra_fields_message'))
-                    ->setParameter('{{ extra_fields }}', implode('", "', array_keys($form->getExtraData())))
+                    ->setParameter('{{ extra_fields }}', '"'.implode('", "', array_keys($form->getExtraData())).'"')
                     ->setInvalidValue($form->getExtraData())
                     ->setCode(Form::NO_SUCH_FIELD_ERROR)
                     ->addViolation();
             } else {
                 $this->buildViolation($config->getOption('extra_fields_message'))
-                    ->setParameter('{{ extra_fields }}', implode('", "', array_keys($form->getExtraData())))
+                    ->setParameter('{{ extra_fields }}', '"'.implode('", "', array_keys($form->getExtraData())).'"')
                     ->setInvalidValue($form->getExtraData())
                     ->setCode(Form::NO_SUCH_FIELD_ERROR)
                     ->addViolation();
@@ -186,7 +188,7 @@ class FormValidator extends ConstraintValidator
         $data = $form->getData();
 
         // Scalar values cannot have mapped constraints
-        if (!is_object($data) && !is_array($data)) {
+        if (!\is_object($data) && !\is_array($data)) {
             return false;
         }
 
@@ -209,7 +211,7 @@ class FormValidator extends ConstraintValidator
     /**
      * Returns the validation groups of the given form.
      *
-     * @return array The validation groups
+     * @return string|GroupSequence|(string|GroupSequence)[] The validation groups
      */
     private static function getValidationGroups(FormInterface $form)
     {
@@ -244,15 +246,15 @@ class FormValidator extends ConstraintValidator
     /**
      * Post-processes the validation groups option for a given form.
      *
-     * @param array|callable $groups The validation groups
-     * @param FormInterface  $form   The validated form
+     * @param string|GroupSequence|(string|GroupSequence)[]|callable $groups The validation groups
+     * @param FormInterface                                          $form   The validated form
      *
-     * @return array The validation groups
+     * @return (string|GroupSequence)[] The validation groups
      */
     private static function resolveValidationGroups($groups, FormInterface $form)
     {
-        if (!is_string($groups) && is_callable($groups)) {
-            $groups = call_user_func($groups, $form);
+        if (!\is_string($groups) && \is_callable($groups)) {
+            $groups = \call_user_func($groups, $form);
         }
 
         if ($groups instanceof GroupSequence) {

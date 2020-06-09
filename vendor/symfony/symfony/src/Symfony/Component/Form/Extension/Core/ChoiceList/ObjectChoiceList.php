@@ -13,12 +13,12 @@ namespace Symfony\Component\Form\Extension\Core\ChoiceList;
 
 @trigger_error('The '.__NAMESPACE__.'\ObjectChoiceList class is deprecated since Symfony 2.7 and will be removed in 3.0. Use Symfony\Component\Form\ChoiceList\ArrayChoiceList instead.', E_USER_DEPRECATED);
 
-use Symfony\Component\Form\Exception\StringCastException;
 use Symfony\Component\Form\Exception\InvalidArgumentException;
-use Symfony\Component\PropertyAccess\PropertyPath;
+use Symfony\Component\Form\Exception\StringCastException;
 use Symfony\Component\PropertyAccess\Exception\NoSuchPropertyException;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
+use Symfony\Component\PropertyAccess\PropertyPath;
 
 /**
  * A choice list for object choices.
@@ -26,12 +26,10 @@ use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
  * Supports generation of choice labels, choice groups and choice values
  * by calling getters of the object (or associated objects).
  *
- * <code>
- * $choices = array($user1, $user2);
+ *     $choices = array($user1, $user2);
  *
- * // call getName() to determine the choice labels
- * $choiceList = new ObjectChoiceList($choices, 'name');
- * </code>
+ *     // call getName() to determine the choice labels
+ *     $choiceList = new ObjectChoiceList($choices, 'name');
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  *
@@ -118,7 +116,7 @@ class ObjectChoiceList extends ChoiceList
             $groupedChoices = array();
 
             foreach ($choices as $i => $choice) {
-                if (is_array($choice)) {
+                if (\is_array($choice)) {
                     throw new InvalidArgumentException('You should pass a plain object array (without groups) when using the "groupPath" option.');
                 }
 
@@ -168,7 +166,7 @@ class ObjectChoiceList extends ChoiceList
 
         foreach ($choices as $i => $givenChoice) {
             // Ignore non-readable choices
-            if (!is_object($givenChoice) && !is_array($givenChoice)) {
+            if (!\is_object($givenChoice) && !\is_array($givenChoice)) {
                 continue;
             }
 
@@ -179,7 +177,7 @@ class ObjectChoiceList extends ChoiceList
                     $values[$i] = $value;
                     unset($choices[$i]);
 
-                    if (0 === count($choices)) {
+                    if (0 === \count($choices)) {
                         break 2;
                     }
                 }
@@ -208,7 +206,7 @@ class ObjectChoiceList extends ChoiceList
 
         foreach ($choices as $i => $givenChoice) {
             // Ignore non-readable choices
-            if (!is_object($givenChoice) && !is_array($givenChoice)) {
+            if (!\is_object($givenChoice) && !\is_array($givenChoice)) {
                 continue;
             }
 
@@ -219,7 +217,7 @@ class ObjectChoiceList extends ChoiceList
                     $indices[$i] = $j;
                     unset($choices[$i]);
 
-                    if (0 === count($choices)) {
+                    if (0 === \count($choices)) {
                         break 2;
                     }
                 }
@@ -252,7 +250,7 @@ class ObjectChoiceList extends ChoiceList
     private function extractLabels($choices, array &$labels)
     {
         foreach ($choices as $i => $choice) {
-            if (is_array($choice)) {
+            if (\is_array($choice)) {
                 $labels[$i] = array();
                 $this->extractLabels($choice, $labels[$i]);
             } elseif ($this->labelPath) {
@@ -260,7 +258,7 @@ class ObjectChoiceList extends ChoiceList
             } elseif (method_exists($choice, '__toString')) {
                 $labels[$i] = (string) $choice;
             } else {
-                throw new StringCastException(sprintf('A "__toString()" method was not found on the objects of type "%s" passed to the choice field. To read a custom getter instead, set the argument $labelPath to the desired property path.', get_class($choice)));
+                throw new StringCastException(sprintf('A "__toString()" method was not found on the objects of type "%s" passed to the choice field. To read a custom getter instead, set the argument $labelPath to the desired property path.', \get_class($choice)));
             }
         }
     }

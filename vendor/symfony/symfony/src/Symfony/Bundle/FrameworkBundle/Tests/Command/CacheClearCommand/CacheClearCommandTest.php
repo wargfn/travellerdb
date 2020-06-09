@@ -33,7 +33,7 @@ class CacheClearCommandTest extends TestCase
     {
         $this->fs = new Filesystem();
         $this->kernel = new TestAppKernel('test', true);
-        $this->rootDir = sys_get_temp_dir().DIRECTORY_SEPARATOR.uniqid('sf2_cache_', true);
+        $this->rootDir = sys_get_temp_dir().\DIRECTORY_SEPARATOR.uniqid('sf2_cache_', true);
         $this->kernel->setRootDir($this->rootDir);
         $this->fs->mkdir($this->rootDir);
     }
@@ -81,6 +81,6 @@ class CacheClearCommandTest extends TestCase
             }
         }
         $this->assertTrue($found, 'Kernel file should present as resource');
-        $this->assertRegExp(sprintf('/\'kernel.container_class\'\s*=>\s*\'%s\'/', get_class($this->kernel->getContainer())), file_get_contents($containerFile), 'kernel.container_class is properly set on the dumped container');
+        $this->assertRegExp(sprintf('/\'kernel.container_class\'\s*=>\s*\'%s\'/', \get_class($this->kernel->getContainer())), file_get_contents($containerFile), 'kernel.container_class is properly set on the dumped container');
     }
 }

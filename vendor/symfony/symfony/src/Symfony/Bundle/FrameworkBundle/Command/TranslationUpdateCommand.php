@@ -11,13 +11,13 @@
 
 namespace Symfony\Bundle\FrameworkBundle\Command;
 
-use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\Translation\Catalogue\TargetOperation;
-use Symfony\Component\Translation\Catalogue\MergeOperation;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Translation\Catalogue\MergeOperation;
+use Symfony\Component\Translation\Catalogue\TargetOperation;
 use Symfony\Component\Translation\MessageCatalogue;
 
 /**
@@ -82,7 +82,7 @@ EOF
         // check format
         $writer = $this->getContainer()->get('translation.writer');
         $supportedFormats = $writer->getFormats();
-        if (!in_array($input->getOption('output-format'), $supportedFormats)) {
+        if (!\in_array($input->getOption('output-format'), $supportedFormats)) {
             $io->error(array('Wrong output format', 'Supported formats are: '.implode(', ', $supportedFormats).'.'));
 
             return 1;
@@ -108,7 +108,7 @@ EOF
                 $currentName = $transPaths[0];
 
                 if (!is_dir($transPaths[0])) {
-                    throw new \InvalidArgumentException(sprintf('<error>"%s" is neither an enabled bundle nor a directory.</error>', $transPaths[0]));
+                    throw new \InvalidArgumentException(sprintf('"%s" is neither an enabled bundle nor a directory.', $transPaths[0]));
                 }
             }
         }
@@ -145,7 +145,7 @@ EOF
             : new MergeOperation($currentCatalogue, $extractedCatalogue);
 
         // Exit if no messages found.
-        if (!count($operation->getDomains())) {
+        if (!\count($operation->getDomains())) {
             $io->warning('No translation messages were found.');
 
             return;
@@ -171,7 +171,7 @@ EOF
                     }, array_keys($operation->getObsoleteMessages($domain)))
                 );
 
-                $domainMessagesCount = count($list);
+                $domainMessagesCount = \count($list);
 
                 $io->section(sprintf('Messages extracted for domain "<info>%s</info>" (%d message%s)', $domain, $domainMessagesCount, $domainMessagesCount > 1 ? 's' : ''));
                 $io->listing($list);

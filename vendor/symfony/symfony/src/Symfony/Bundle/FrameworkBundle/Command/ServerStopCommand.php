@@ -13,8 +13,8 @@ namespace Symfony\Bundle\FrameworkBundle\Command;
 
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
@@ -59,7 +59,7 @@ EOF
 
         $address = $input->getArgument('address');
         if (false === strpos($address, ':')) {
-            $address = $address.':'.$input->getOption('port');
+            $address .= ':'.$input->getOption('port');
         }
 
         $lockFile = $this->getLockFile($address);

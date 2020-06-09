@@ -12,8 +12,8 @@
 namespace Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory;
 
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
-use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
@@ -55,6 +55,7 @@ class SimpleFormFactory extends FormLoginFactory
             ->replaceArgument(0, new Reference($config['authenticator']))
             ->replaceArgument(1, new Reference($userProviderId))
             ->replaceArgument(2, $id)
+            ->replaceArgument(3, new Reference('security.user_checker.'.$id))
         ;
 
         return $provider;

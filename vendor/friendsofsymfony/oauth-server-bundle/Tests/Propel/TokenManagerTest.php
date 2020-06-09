@@ -15,6 +15,12 @@ use FOS\OAuthServerBundle\Propel\RefreshToken as Token;
 use FOS\OAuthServerBundle\Propel\RefreshTokenQuery as TokenQuery;
 use FOS\OAuthServerBundle\Propel\TokenManager;
 
+/**
+ * @group time-sensitive
+ *
+ * Class TokenManagerTest
+ * @package FOS\OAuthServerBundle\Tests\Propel
+ */
 class TokenManagerTest extends PropelTestCase
 {
     const TOKEN_CLASS = 'FOS\OAuthServerBundle\Propel\RefreshToken';
@@ -42,7 +48,9 @@ class TokenManagerTest extends PropelTestCase
 
     public function testUpdate()
     {
-        $token = $this->getMock('FOS\OAuthServerBundle\Propel\Token');
+        $token = $this->getMockBuilder('FOS\OAuthServerBundle\Propel\Token')
+            ->disableOriginalConstructor()
+            ->getMock();
         $token
             ->expects($this->once())
             ->method('save');
@@ -52,7 +60,9 @@ class TokenManagerTest extends PropelTestCase
 
     public function testDelete()
     {
-        $token = $this->getMock('FOS\OAuthServerBundle\Propel\Token');
+        $token = $this->getMockBuilder('FOS\OAuthServerBundle\Propel\Token')
+            ->disableOriginalConstructor()
+            ->getMock();
         $token
             ->expects($this->once())
             ->method('delete');

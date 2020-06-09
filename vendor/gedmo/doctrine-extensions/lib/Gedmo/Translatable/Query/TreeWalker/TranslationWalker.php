@@ -104,8 +104,10 @@ class TranslationWalker extends SqlWalker
      */
     public function getExecutor($AST)
     {
+        // If it's not a Select, the TreeWalker ought to skip it, and just return the parent.
+        // @see https://github.com/Atlantic18/DoctrineExtensions/issues/2013
         if (!$AST instanceof SelectStatement) {
-            throw new \Gedmo\Exception\UnexpectedValueException('Translation walker should be used only on select statement');
+            return parent::getExecutor($AST);
         }
         $this->prepareTranslatedComponents();
 
@@ -428,7 +430,7 @@ class TranslationWalker extends SqlWalker
     private function replace(array $repl, $str)
     {
         foreach ($repl as $target => $result) {
-            $str = preg_replace_callback('/(\s|\()('.$target.')(,?)(\s|\))/smi', function ($m) use ($result) {
+            $str = preg_replace_callback('/(\s|\()('.$target.')(,?)(\s|\)|$)/smi', function ($m) use ($result) {
                 return $m[1].$result.$m[3].$m[4];
             }, $str);
         }

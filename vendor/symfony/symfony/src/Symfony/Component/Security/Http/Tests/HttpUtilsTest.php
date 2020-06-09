@@ -15,8 +15,8 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Exception\MethodNotAllowedException;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\HttpUtils;
 
 class HttpUtilsTest extends TestCase
@@ -54,12 +54,26 @@ class HttpUtilsTest extends TestCase
         $this->assertTrue($response->isRedirect('http://localhost/blog'));
     }
 
-    public function testCreateRedirectResponseWithBadRequestsDomain()
+    /**
+     * @dataProvider badRequestDomainUrls
+     */
+    public function testCreateRedirectResponseWithBadRequestsDomain($url)
     {
         $utils = new HttpUtils($this->getUrlGenerator(), null, '#^https?://%s$#i');
-        $response = $utils->createRedirectResponse($this->getRequest(), 'http://pirate.net/foo');
+        $response = $utils->createRedirectResponse($this->getRequest(), $url);
 
         $this->assertTrue($response->isRedirect('http://localhost/'));
+    }
+
+    public function badRequestDomainUrls()
+    {
+        return array(
+            array('http://pirate.net/foo'),
+            array('http:\\\\pirate.net/foo'),
+            array('http:/\\pirate.net/foo'),
+            array('http:\\/pirate.net/foo'),
+            array('http://////pirate.net/foo'),
+        );
     }
 
     public function testCreateRedirectResponseWithProtocolRelativeTarget()

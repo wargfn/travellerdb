@@ -12,15 +12,26 @@
 namespace Symfony\Component\HttpFoundation\Tests\File\MimeType;
 
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesser;
 use Symfony\Component\HttpFoundation\File\MimeType\FileBinaryMimeTypeGuesser;
+use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesser;
 
 /**
  * @requires extension fileinfo
  */
 class MimeTypeTest extends TestCase
 {
-    protected $path;
+    public function testGuessWithLeadingDash()
+    {
+        $cwd = getcwd();
+        chdir(__DIR__.'/../Fixtures');
+        try {
+            $this->assertEquals('image/gif', MimeTypeGuesser::getInstance()->guess('-test'));
+            chdir($cwd);
+        } catch(\Exception $e) {
+            chdir($cwd);
+            throw $e;
+        }
+    }
 
     public function testGuessImageWithoutExtension()
     {
@@ -59,7 +70,7 @@ class MimeTypeTest extends TestCase
 
     public function testGuessWithNonReadablePath()
     {
-        if ('\\' === DIRECTORY_SEPARATOR) {
+        if ('\\' === \DIRECTORY_SEPARATOR) {
             $this->markTestSkipped('Can not verify chmod operations on Windows');
         }
 

@@ -15,9 +15,9 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Form\Extension\Csrf\CsrfProvider\CsrfProviderAdapter;
 use Symfony\Component\Form\Extension\Csrf\CsrfProvider\CsrfProviderInterface;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\Util\ServerParams;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
@@ -51,7 +51,7 @@ class CsrfValidationListener implements EventSubscriberInterface
      *                                                     same session and with the same tokenId
      * @param string                    $errorMessage      The message displayed in case of an error
      * @param TranslatorInterface       $translator
-     * @param null|string               $translationDomain
+     * @param string|null               $translationDomain
      * @param ServerParams              $serverParams
      */
     public function __construct($fieldName, $tokenManager, $tokenId, $errorMessage, TranslatorInterface $translator = null, $translationDomain = null, ServerParams $serverParams = null)
@@ -89,7 +89,7 @@ class CsrfValidationListener implements EventSubscriberInterface
                 $form->addError(new FormError($errorMessage));
             }
 
-            if (is_array($data)) {
+            if (\is_array($data)) {
                 unset($data[$this->fieldName]);
                 $event->setData($data);
             }

@@ -13,9 +13,9 @@ namespace Symfony\Component\Console\Tests\Helper;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Formatter\OutputFormatter;
-use Symfony\Component\Console\Helper\QuestionHelper;
-use Symfony\Component\Console\Helper\HelperSet;
 use Symfony\Component\Console\Helper\FormatterHelper;
+use Symfony\Component\Console\Helper\HelperSet;
+use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Output\StreamOutput;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
@@ -90,6 +90,63 @@ class QuestionHelperTest extends TestCase
         $this->assertEquals('Superman', $questionHelper->ask($this->createInputInterfaceMock(true), $this->createOutputInterface(), $question));
     }
 
+    public function testAskChoiceNonInteractive()
+    {
+        $questionHelper = new QuestionHelper();
+
+        $helperSet = new HelperSet(array(new FormatterHelper()));
+        $questionHelper->setHelperSet($helperSet);
+        $questionHelper->setInputStream($this->getInputStream("\n1\n  1  \nFabien\n1\nFabien\n1\n0,2\n 0 , 2  \n\n\n"));
+
+        $heroes = array('Superman', 'Batman', 'Spiderman');
+
+        $question = new ChoiceQuestion('What is your favorite superhero?', $heroes, '0');
+
+        $this->assertSame('Superman', $questionHelper->ask($this->createInputInterfaceMock(false), $this->createOutputInterface(), $question));
+
+        $question = new ChoiceQuestion('What is your favorite superhero?', $heroes, 'Batman');
+        $this->assertSame('Batman', $questionHelper->ask($this->createInputInterfaceMock(false), $this->createOutputInterface(), $question));
+
+        $question = new ChoiceQuestion('What is your favorite superhero?', $heroes, null);
+        $this->assertNull($questionHelper->ask($this->createInputInterfaceMock(false), $this->createOutputInterface(), $question));
+
+        $question = new ChoiceQuestion('What is your favorite superhero?', $heroes, '0');
+        $question->setValidator(null);
+        $this->assertSame('Superman', $questionHelper->ask($this->createInputInterfaceMock(false), $this->createOutputInterface(), $question));
+
+        try {
+            $question = new ChoiceQuestion('What is your favorite superhero?', $heroes, null);
+            $questionHelper->ask($this->createInputInterfaceMock(false), $this->createOutputInterface(), $question);
+        } catch (\InvalidArgumentException $e) {
+            $this->assertSame('Value "" is invalid', $e->getMessage());
+        }
+
+        $question = new ChoiceQuestion('Who are your favorite superheros?', $heroes, '0, 1');
+        $question->setMultiselect(true);
+        $this->assertSame(array('Superman', 'Batman'), $questionHelper->ask($this->createInputInterfaceMock(false), $this->createOutputInterface(), $question));
+
+        $question = new ChoiceQuestion('Who are your favorite superheros?', $heroes, '0, 1');
+        $question->setMultiselect(true);
+        $question->setValidator(null);
+        $this->assertSame(array('Superman', 'Batman'), $questionHelper->ask($this->createInputInterfaceMock(false), $this->createOutputInterface(), $question));
+
+        $question = new ChoiceQuestion('Who are your favorite superheros?', $heroes, '0, Batman');
+        $question->setMultiselect(true);
+        $this->assertSame(array('Superman', 'Batman'), $questionHelper->ask($this->createInputInterfaceMock(false), $this->createOutputInterface(), $question));
+
+        $question = new ChoiceQuestion('Who are your favorite superheros?', $heroes, null);
+        $question->setMultiselect(true);
+        $this->assertNull($questionHelper->ask($this->createInputInterfaceMock(false), $this->createOutputInterface(), $question));
+
+        try {
+            $question = new ChoiceQuestion('Who are your favorite superheros?', $heroes, '');
+            $question->setMultiselect(true);
+            $questionHelper->ask($this->createInputInterfaceMock(false), $this->createOutputInterface(), $question);
+        } catch (\InvalidArgumentException $e) {
+            $this->assertSame('Value "" is invalid', $e->getMessage());
+        }
+    }
+
     public function testAsk()
     {
         $dialog = new QuestionHelper();
@@ -160,6 +217,30 @@ class QuestionHelperTest extends TestCase
         $this->assertEquals('AsseticBundle', $dialog->ask($this->createInputInterfaceMock(), $this->createOutputInterface(), $question));
     }
 
+    public function testAskWithAutocompleteWithExactMatch()
+    {
+        if (!$this->hasSttyAvailable()) {
+            $this->markTestSkipped('`stty` is required to test autocomplete functionality');
+        }
+
+        $inputStream = $this->getInputStream("b\n");
+
+        $possibleChoices = array(
+            'a' => 'berlin',
+            'b' => 'copenhagen',
+            'c' => 'amsterdam',
+        );
+
+        $dialog = new QuestionHelper();
+        $dialog->setInputStream($inputStream);
+        $dialog->setHelperSet(new HelperSet(array(new FormatterHelper())));
+
+        $question = new ChoiceQuestion('Please select a city', $possibleChoices);
+        $question->setMaxAttempts(1);
+
+        $this->assertSame('b', $dialog->ask($this->createInputInterfaceMock(), $this->createOutputInterface(), $question));
+    }
+
     public function testAutocompleteWithTrailingBackslash()
     {
         if (!$this->hasSttyAvailable()) {
@@ -202,7 +283,7 @@ class QuestionHelperTest extends TestCase
 
     public function testAskHiddenResponse()
     {
-        if ('\\' === DIRECTORY_SEPARATOR) {
+        if ('\\' === \DIRECTORY_SEPARATOR) {
             $this->markTestSkipped('This test is not supported on Windows');
         }
 
@@ -258,7 +339,7 @@ class QuestionHelperTest extends TestCase
 
         $error = 'This is not a color!';
         $validator = function ($color) use ($error) {
-            if (!in_array($color, array('white', 'black'))) {
+            if (!\in_array($color, array('white', 'black'))) {
                 throw new \InvalidArgumentException($error);
             }
 

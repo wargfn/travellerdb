@@ -111,7 +111,7 @@ class PhpDocExtractor implements PropertyDescriptionExtractorInterface, Property
             $nullable = false !== $nullKey;
 
             // Remove the null type from the type if other types are defined
-            if ($nullable && count($varTypes) > 1) {
+            if ($nullable && \count($varTypes) > 1) {
                 unset($varTypes[$nullKey]);
             }
 
@@ -127,7 +127,7 @@ class PhpDocExtractor implements PropertyDescriptionExtractorInterface, Property
             return;
         }
 
-        if (!in_array($prefix, ReflectionExtractor::$arrayMutatorPrefixes)) {
+        if (!\in_array($prefix, ReflectionExtractor::$arrayMutatorPrefixes)) {
             return $types;
         }
 
@@ -319,28 +319,26 @@ class PhpDocExtractor implements PropertyDescriptionExtractorInterface, Property
     {
         // Cannot guess
         if (!$docType || 'mixed' === $docType) {
-            return;
+            return null;
         }
 
-        if ($collection = '[]' === substr($docType, -2)) {
-            $docType = substr($docType, 0, -2);
+        if ('[]' === substr($docType, -2)) {
+            if ('mixed[]' === $docType) {
+                $collectionKeyType = null;
+                $collectionValueType = null;
+            } else {
+                $collectionKeyType = new Type(Type::BUILTIN_TYPE_INT);
+                $collectionValueType = $this->createType(substr($docType, 0, -2), $nullable);
+            }
+
+            return new Type(Type::BUILTIN_TYPE_ARRAY, $nullable, null, true, $collectionKeyType, $collectionValueType);
         }
 
         $docType = $this->normalizeType($docType);
         list($phpType, $class) = $this->getPhpTypeAndClass($docType);
 
-        $array = 'array' === $docType;
-
-        if ($collection || $array) {
-            if ($array || 'mixed' === $docType) {
-                $collectionKeyType = null;
-                $collectionValueType = null;
-            } else {
-                $collectionKeyType = new Type(Type::BUILTIN_TYPE_INT);
-                $collectionValueType = new Type($phpType, $nullable, $class);
-            }
-
-            return new Type(Type::BUILTIN_TYPE_ARRAY, $nullable, null, true, $collectionKeyType, $collectionValueType);
+        if ('array' === $docType) {
+            return new Type(Type::BUILTIN_TYPE_ARRAY, $nullable, null, true, null, null);
         }
 
         return new Type($phpType, $nullable, $class);
@@ -386,7 +384,7 @@ class PhpDocExtractor implements PropertyDescriptionExtractorInterface, Property
      */
     private function getPhpTypeAndClass($docType)
     {
-        if (in_array($docType, Type::$builtinTypes)) {
+        if (\in_array($docType, Type::$builtinTypes)) {
             return array($docType, null);
         }
 

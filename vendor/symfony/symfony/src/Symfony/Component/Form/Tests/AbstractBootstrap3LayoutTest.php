@@ -375,7 +375,7 @@ abstract class AbstractBootstrap3LayoutTest extends AbstractLayoutTest
             'expanded' => false,
         ));
 
-        $classPart = in_array('choice_attr', $this->testableFeatures) ? '[@class="foo&bar"]' : '';
+        $classPart = \in_array('choice_attr', $this->testableFeatures) ? '[@class="foo&bar"]' : '';
 
         $this->assertWidgetMatchesXpath($form->createView(), array('attr' => array('class' => 'my&class')),
 '/select
@@ -678,7 +678,7 @@ abstract class AbstractBootstrap3LayoutTest extends AbstractLayoutTest
             'expanded' => false,
         ));
 
-        $classPart = in_array('choice_attr', $this->testableFeatures) ? '[@class="foo&bar"]' : '';
+        $classPart = \in_array('choice_attr', $this->testableFeatures) ? '[@class="foo&bar"]' : '';
 
         $this->assertWidgetMatchesXpath($form->createView(), array('attr' => array('class' => 'my&class')),
 '/select
@@ -949,7 +949,7 @@ abstract class AbstractBootstrap3LayoutTest extends AbstractLayoutTest
             'expanded' => true,
         ));
 
-        $classPart = in_array('choice_attr', $this->testableFeatures) ? '[@class="foo&bar"]' : '';
+        $classPart = \in_array('choice_attr', $this->testableFeatures) ? '[@class="foo&bar"]' : '';
 
         $this->assertWidgetMatchesXpath($form->createView(), array(),
 '/div
@@ -1336,7 +1336,7 @@ abstract class AbstractBootstrap3LayoutTest extends AbstractLayoutTest
             'required' => true,
         ));
 
-        $classPart = in_array('choice_attr', $this->testableFeatures) ? '[@class="foo&bar"]' : '';
+        $classPart = \in_array('choice_attr', $this->testableFeatures) ? '[@class="foo&bar"]' : '';
 
         $this->assertWidgetMatchesXpath($form->createView(), array(),
 '/div
@@ -1600,10 +1600,10 @@ abstract class AbstractBootstrap3LayoutTest extends AbstractLayoutTest
 
         $this->assertWidgetMatchesXpath($form->createView(), array('attr' => array('class' => 'my&class')),
 '/input
-    [@type="datetime"]
+    [@type="datetime-local"]
     [@name="name"]
     [@class="my&class form-control"]
-    [@value="2011-02-03T04:05:06Z"]
+    [@value="2011-02-03T04:05:06"]
 '
         );
     }
@@ -1621,10 +1621,10 @@ abstract class AbstractBootstrap3LayoutTest extends AbstractLayoutTest
 
         $this->assertWidgetMatchesXpath($form->createView(), array('attr' => array('class' => 'my&class')),
 '/input
-    [@type="datetime"]
+    [@type="datetime-local"]
     [@name="name"]
     [@class="my&class form-control"]
-    [@value="2011-02-03T04:05:06Z"]
+    [@value="2011-02-03T04:05:06"]
 '
         );
     }

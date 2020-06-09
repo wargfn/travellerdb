@@ -12,8 +12,8 @@
 namespace Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory;
 
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
-use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
@@ -39,6 +39,7 @@ class X509Factory implements SecurityFactoryInterface
         $listener->replaceArgument(2, $id);
         $listener->replaceArgument(3, $config['user']);
         $listener->replaceArgument(4, $config['credentials']);
+        $listener->addMethodCall('setSessionAuthenticationStrategy', array(new Reference('security.authentication.session_strategy.'.$id)));
 
         return array($providerId, $listenerId, $defaultEntryPoint);
     }

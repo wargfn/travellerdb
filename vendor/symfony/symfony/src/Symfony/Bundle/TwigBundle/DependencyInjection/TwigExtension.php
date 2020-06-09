@@ -14,8 +14,8 @@ namespace Symfony\Bundle\TwigBundle\DependencyInjection;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Resource\FileExistenceResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
@@ -46,7 +46,7 @@ class TwigExtension extends Extension
         foreach ($configs as $key => $config) {
             if (isset($config['globals'])) {
                 foreach ($config['globals'] as $name => $value) {
-                    if (is_array($value) && isset($value['key'])) {
+                    if (\is_array($value) && isset($value['key'])) {
                         $configs[$key]['globals'][$name] = array(
                             'key' => $name,
                             'value' => $value,
@@ -131,6 +131,11 @@ class TwigExtension extends Extension
         unset($config['autoescape_service'], $config['autoescape_service_method']);
 
         $container->getDefinition('twig')->replaceArgument(1, $config);
+
+        if (false === $config['cache']) {
+            $container->removeDefinition('twig.cache_warmer');
+            $container->removeDefinition('twig.template_cache_warmer');
+        }
 
         $this->addClassesToCompile(array(
             'Twig_Environment',

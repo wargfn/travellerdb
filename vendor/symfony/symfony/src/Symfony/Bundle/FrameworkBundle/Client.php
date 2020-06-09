@@ -11,14 +11,14 @@
 
 namespace Symfony\Bundle\FrameworkBundle;
 
+use Symfony\Component\BrowserKit\CookieJar;
+use Symfony\Component\BrowserKit\History;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpKernel\KernelInterface;
-use Symfony\Component\HttpKernel\Client as BaseClient;
-use Symfony\Component\HttpKernel\Profiler\Profile as HttpProfile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\BrowserKit\History;
-use Symfony\Component\BrowserKit\CookieJar;
+use Symfony\Component\HttpKernel\Client as BaseClient;
+use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\HttpKernel\Profiler\Profile as HttpProfile;
 
 /**
  * Client simulates a browser and makes requests to a Kernel object.
@@ -161,19 +161,19 @@ class Client extends BaseClient
      */
     protected function getScript($request)
     {
-        $kernel = str_replace("'", "\\'", serialize($this->kernel));
-        $request = str_replace("'", "\\'", serialize($request));
+        $kernel = var_export(serialize($this->kernel), true);
+        $request = var_export(serialize($request), true);
 
         $r = new \ReflectionObject($this->kernel);
 
-        $autoloader = dirname($r->getFileName()).'/autoload.php';
+        $autoloader = \dirname($r->getFileName()).'/autoload.php';
         if (is_file($autoloader)) {
-            $autoloader = str_replace("'", "\\'", $autoloader);
+            $autoloader = var_export($autoloader, true);
         } else {
-            $autoloader = '';
+            $autoloader = 'false';
         }
 
-        $path = str_replace("'", "\\'", $r->getFileName());
+        $path = var_export($r->getFileName(), true);
 
         $profilerCode = '';
         if ($this->profiler) {
@@ -187,16 +187,16 @@ class Client extends BaseClient
 
 error_reporting($errorReporting);
 
-if ('$autoloader') {
-    require_once '$autoloader';
+if ($autoloader) {
+    require_once $autoloader;
 }
-require_once '$path';
+require_once $path;
 
-\$kernel = unserialize('$kernel');
+\$kernel = unserialize($kernel);
 \$kernel->boot();
 $profilerCode
 
-\$request = unserialize('$request');
+\$request = unserialize($request);
 EOF;
 
         return $code.$this->getHandleScript();

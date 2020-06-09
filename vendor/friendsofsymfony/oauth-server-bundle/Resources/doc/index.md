@@ -3,7 +3,7 @@ Getting Started With FOSOAuthServerBundle
 
 ## Prerequisites
 
-This version of the bundle requires Symfony 2.1.
+This version of the bundle requires Symfony 2.8.
 If you are using Symfony 2.0.x, please use the 1.1.1 release of the bundle (or lower), and follow
 [this documentation](https://github.com/FriendsOfSymfony/FOSOAuthServerBundle/blob/1.1.1/README.md).
 
@@ -533,7 +533,7 @@ Add FOSOAuthServerBundle settings in app/config/config.yml:
 ``` yaml
 # app/config/config.yml
 fos_oauth_server:
-    db_driver: orm       # Driver availables: orm, mongodb, or propel
+    db_driver: orm       # Drivers available: orm, mongodb, or propel
     client_class:        Acme\ApiBundle\Entity\Client
     access_token_class:  Acme\ApiBundle\Entity\AccessToken
     refresh_token_class: Acme\ApiBundle\Entity\RefreshToken
@@ -566,10 +566,20 @@ fos_oauth_server:
 
 ## Creating A Client
 
+### Console Command
+
+The most convenient way to create a client is to use the console command.
+
+    $ php app/console fos:oauth-server:create-client --redirect-uri="..." --grant-type="..."
+    
+Note: you can use `--redirect-uri` and `--grant-type` multiple times to add additional values.
+
+### Programatically
+
 Before you can generate tokens, you need to create a Client using the ClientManager.
 
 ``` php
-$clientManager = $this->getContainer()->get('fos_oauth_server.client_manager.default');
+$clientManager = $this->container->get('fos_oauth_server.client_manager.default');
 $client = $clientManager->createClient();
 $client->setRedirectUris(array('http://www.example.com'));
 $client->setAllowedGrantTypes(array('token', 'authorization_code'));
@@ -609,3 +619,5 @@ The `authorize` endpoint is at `/oauth/v2/auth` by default (see `Resources/confi
 [The OAuthEvent class](the_oauth_event_class.md)
 
 [Adding Grant Extensions](adding_grant_extensions.md)
+
+[Custom DB Driver](custom_db_driver.md)

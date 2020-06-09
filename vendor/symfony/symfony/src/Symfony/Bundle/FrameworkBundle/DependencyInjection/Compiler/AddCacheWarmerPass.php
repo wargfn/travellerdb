@@ -11,8 +11,8 @@
 
 namespace Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
@@ -43,7 +43,7 @@ class AddCacheWarmerPass implements CompilerPassInterface
 
         // sort by priority and flatten
         krsort($warmers);
-        $warmers = call_user_func_array('array_merge', $warmers);
+        $warmers = \call_user_func_array('array_merge', $warmers);
 
         $container->getDefinition('cache_warmer')->replaceArgument(0, $warmers);
     }

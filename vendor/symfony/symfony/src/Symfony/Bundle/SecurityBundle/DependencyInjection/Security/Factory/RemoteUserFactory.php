@@ -12,8 +12,8 @@
 namespace Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory;
 
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
-use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
@@ -38,6 +38,7 @@ class RemoteUserFactory implements SecurityFactoryInterface
         $listener = $container->setDefinition($listenerId, new DefinitionDecorator('security.authentication.listener.remote_user'));
         $listener->replaceArgument(2, $id);
         $listener->replaceArgument(3, $config['user']);
+        $listener->addMethodCall('setSessionAuthenticationStrategy', array(new Reference('security.authentication.session_strategy.'.$id)));
 
         return array($providerId, $listenerId, $defaultEntryPoint);
     }

@@ -7,6 +7,7 @@ namespace Composer\Autoload;
 class ComposerStaticInitd548eeb653926ff94b64ffe2b665a790
 {
     public static $files = array (
+        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
@@ -43,6 +44,7 @@ class ComposerStaticInitd548eeb653926ff94b64ffe2b665a790
             'Symfony\\Polyfill\\Php55\\' => 23,
             'Symfony\\Polyfill\\Php54\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Symfony\\Polyfill\\Ctype\\' => 23,
             'Symfony\\Polyfill\\Apcu\\' => 22,
             'Symfony\\Component\\Security\\Acl\\' => 31,
             'Symfony\\Component\\' => 18,
@@ -62,6 +64,7 @@ class ComposerStaticInitd548eeb653926ff94b64ffe2b665a790
         'P' => 
         array (
             'Psr\\Log\\' => 8,
+            'Prophecy\\' => 9,
         ),
         'O' => 
         array (
@@ -81,6 +84,10 @@ class ComposerStaticInitd548eeb653926ff94b64ffe2b665a790
         array (
             'Incenteev\\ParameterHandler\\' => 27,
         ),
+        'G' => 
+        array (
+            'Gedmo\\' => 6,
+        ),
         'F' => 
         array (
             'FOS\\UserBundle\\' => 15,
@@ -90,7 +97,10 @@ class ComposerStaticInitd548eeb653926ff94b64ffe2b665a790
         'D' => 
         array (
             'Doctrine\\Instantiator\\' => 22,
+            'Doctrine\\Inflector\\' => 19,
+            'Doctrine\\Common\\Lexer\\' => 22,
             'Doctrine\\Common\\Inflector\\' => 26,
+            'Doctrine\\Common\\Collections\\' => 28,
             'Doctrine\\Common\\Cache\\' => 22,
             'Doctrine\\Common\\Annotations\\' => 28,
             'Doctrine\\Common\\' => 16,
@@ -99,6 +109,7 @@ class ComposerStaticInitd548eeb653926ff94b64ffe2b665a790
         ),
         'B' => 
         array (
+            'Behat\\Transliterator\\' => 21,
             'Bazinga\\Bundle\\JsTranslationBundle\\' => 35,
         ),
     );
@@ -145,6 +156,10 @@ class ComposerStaticInitd548eeb653926ff94b64ffe2b665a790
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
+        'Symfony\\Polyfill\\Ctype\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
         ),
         'Symfony\\Polyfill\\Apcu\\' => 
         array (
@@ -210,6 +225,10 @@ class ComposerStaticInitd548eeb653926ff94b64ffe2b665a790
         array (
             0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
         ),
+        'Prophecy\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy',
+        ),
         'OAuth2\\' => 
         array (
             0 => __DIR__ . '/..' . '/friendsofsymfony/oauth2-php/lib',
@@ -234,6 +253,10 @@ class ComposerStaticInitd548eeb653926ff94b64ffe2b665a790
         array (
             0 => __DIR__ . '/..' . '/incenteev/composer-parameter-handler',
         ),
+        'Gedmo\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/gedmo/doctrine-extensions/lib/Gedmo',
+        ),
         'FOS\\UserBundle\\' => 
         array (
             0 => __DIR__ . '/..' . '/friendsofsymfony/user-bundle',
@@ -250,9 +273,21 @@ class ComposerStaticInitd548eeb653926ff94b64ffe2b665a790
         array (
             0 => __DIR__ . '/..' . '/doctrine/instantiator/src/Doctrine/Instantiator',
         ),
+        'Doctrine\\Inflector\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector',
+        ),
+        'Doctrine\\Common\\Lexer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/lexer/lib/Doctrine/Common/Lexer',
+        ),
         'Doctrine\\Common\\Inflector\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Common/Inflector',
+        ),
+        'Doctrine\\Common\\Collections\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/collections/lib/Doctrine/Common/Collections',
         ),
         'Doctrine\\Common\\Cache\\' => 
         array (
@@ -273,6 +308,10 @@ class ComposerStaticInitd548eeb653926ff94b64ffe2b665a790
         'Doctrine\\Bundle\\DoctrineBundle\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/doctrine-bundle',
+        ),
+        'Behat\\Transliterator\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/behat/transliterator/src/Behat/Transliterator',
         ),
         'Bazinga\\Bundle\\JsTranslationBundle\\' => 
         array (
@@ -313,10 +352,6 @@ class ComposerStaticInitd548eeb653926ff94b64ffe2b665a790
         ),
         'P' => 
         array (
-            'Prophecy\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/phpspec/prophecy/src',
-            ),
             'Parsedown' => 
             array (
                 0 => __DIR__ . '/..' . '/erusev/parsedown',
@@ -355,13 +390,6 @@ class ComposerStaticInitd548eeb653926ff94b64ffe2b665a790
                 0 => __DIR__ . '/..' . '/ezyang/htmlpurifier/library',
             ),
         ),
-        'G' => 
-        array (
-            'Gedmo\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/gedmo/doctrine-extensions/lib',
-            ),
-        ),
         'D' => 
         array (
             'Doctrine\\ORM\\' => 
@@ -371,21 +399,6 @@ class ComposerStaticInitd548eeb653926ff94b64ffe2b665a790
             'Doctrine\\DBAL\\' => 
             array (
                 0 => __DIR__ . '/..' . '/doctrine/dbal/lib',
-            ),
-            'Doctrine\\Common\\Lexer\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/doctrine/lexer/lib',
-            ),
-            'Doctrine\\Common\\Collections\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/doctrine/collections/lib',
-            ),
-        ),
-        'B' => 
-        array (
-            'Behat\\Transliterator' => 
-            array (
-                0 => __DIR__ . '/..' . '/behat/transliterator/src',
             ),
         ),
         'A' => 

@@ -11,9 +11,9 @@
 
 namespace Symfony\Component\Form\Extension\HttpFoundation\EventListener;
 
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -69,7 +69,7 @@ class BindRequestListener implements EventSubscriberInterface
                     $files = $request->files->get($name, $default);
                 }
 
-                if (is_array($params) && is_array($files)) {
+                if (\is_array($params) && \is_array($files)) {
                     $data = array_replace_recursive($params, $files);
                 } else {
                     $data = $params ?: $files;

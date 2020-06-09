@@ -15,6 +15,12 @@ use FOS\OAuthServerBundle\Propel\AuthCode;
 use FOS\OAuthServerBundle\Propel\AuthCodeQuery;
 use FOS\OAuthServerBundle\Propel\AuthCodeManager;
 
+/**
+ * @group time-sensitive
+ *
+ * Class AuthCodeManagerTest
+ * @package FOS\OAuthServerBundle\Tests\Propel
+ */
 class AuthCodeManagerTest extends PropelTestCase
 {
     const AUTH_CODE_CLASS = 'FOS\OAuthServerBundle\Propel\AuthCode';
@@ -41,7 +47,9 @@ class AuthCodeManagerTest extends PropelTestCase
 
     public function testUpdate()
     {
-        $authCode = $this->getMock('FOS\OAuthServerBundle\Propel\AuthCode');
+        $authCode = $this->getMockBuilder('FOS\OAuthServerBundle\Propel\AuthCode')
+            ->disableOriginalConstructor()
+            ->getMock();
         $authCode
             ->expects($this->once())
             ->method('save');
@@ -51,7 +59,9 @@ class AuthCodeManagerTest extends PropelTestCase
 
     public function testDelete()
     {
-        $authCode = $this->getMock('FOS\OAuthServerBundle\Propel\AuthCode');
+        $authCode = $this->getMockBuilder('FOS\OAuthServerBundle\Propel\AuthCode')
+            ->disableOriginalConstructor()
+            ->getMock();
         $authCode
             ->expects($this->once())
             ->method('delete');

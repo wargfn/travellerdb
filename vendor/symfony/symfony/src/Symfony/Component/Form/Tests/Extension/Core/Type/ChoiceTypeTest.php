@@ -148,7 +148,7 @@ class ChoiceTypeTest extends BaseTypeTest
             'choices_as_values' => true,
         ));
 
-        $this->assertCount(count($this->choices), $form, 'Each choice should become a new field');
+        $this->assertCount(\count($this->choices), $form, 'Each choice should become a new field');
     }
 
     /**
@@ -161,7 +161,7 @@ class ChoiceTypeTest extends BaseTypeTest
             'choices' => array_flip($this->choices),
         ));
 
-        $this->assertCount(count($this->choices), $form, 'Each choice should become a new field');
+        $this->assertCount(\count($this->choices), $form, 'Each choice should become a new field');
     }
 
     public function testChoiceListWithScalarValues()
@@ -253,7 +253,7 @@ class ChoiceTypeTest extends BaseTypeTest
         ));
 
         $this->assertArrayHasKey('placeholder', $form);
-        $this->assertCount(count($this->choices) + 1, $form, 'Each choice should become a new field');
+        $this->assertCount(\count($this->choices) + 1, $form, 'Each choice should become a new field');
     }
 
     public function testPlaceholderNotPresentIfRequired()
@@ -267,7 +267,7 @@ class ChoiceTypeTest extends BaseTypeTest
         ));
 
         $this->assertArrayNotHasKey('placeholder', $form);
-        $this->assertCount(count($this->choices), $form, 'Each choice should become a new field');
+        $this->assertCount(\count($this->choices), $form, 'Each choice should become a new field');
     }
 
     public function testPlaceholderNotPresentIfMultiple()
@@ -281,7 +281,7 @@ class ChoiceTypeTest extends BaseTypeTest
         ));
 
         $this->assertArrayNotHasKey('placeholder', $form);
-        $this->assertCount(count($this->choices), $form, 'Each choice should become a new field');
+        $this->assertCount(\count($this->choices), $form, 'Each choice should become a new field');
     }
 
     public function testPlaceholderNotPresentIfEmptyChoice()
@@ -684,12 +684,28 @@ class ChoiceTypeTest extends BaseTypeTest
         $this->assertTrue($form->isSynchronized());
     }
 
-    public function testSubmitSingleChoiceWithEmptyData()
+    public function testSubmitNullUsesDefaultEmptyData($emptyData = 'empty', $expectedData = null)
     {
         $form = $this->factory->create(static::TESTED_TYPE, null, array(
             'multiple' => false,
             'expanded' => false,
-            'choices' => array('test'),
+            // empty data must match string choice value
+            'choices' => array($emptyData),
+            'choices_as_values' => true,
+            'empty_data' => $emptyData,
+        ));
+
+        $form->submit(null);
+
+        $this->assertSame($emptyData, $form->getData());
+    }
+
+    public function testSubmitSingleChoiceWithEmptyDataAndInitialData()
+    {
+        $form = $this->factory->create(static::TESTED_TYPE, 'initial', array(
+            'multiple' => false,
+            'expanded' => false,
+            'choices' => array('initial', 'test'),
             'choices_as_values' => true,
             'empty_data' => 'test',
         ));
@@ -714,6 +730,36 @@ class ChoiceTypeTest extends BaseTypeTest
         $this->assertSame(array('test'), $form->getData());
     }
 
+    public function testSubmitMultipleChoiceWithEmptyDataAndInitialEmptyArray()
+    {
+        $form = $this->factory->create(static::TESTED_TYPE, array(), array(
+            'multiple' => true,
+            'expanded' => false,
+            'choices' => array('test'),
+            'choices_as_values' => true,
+            'empty_data' => array('test'),
+        ));
+
+        $form->submit(null);
+
+        $this->assertSame(array('test'), $form->getData());
+    }
+
+    public function testSubmitMultipleChoiceWithEmptyDataAndInitialData()
+    {
+        $form = $this->factory->create(static::TESTED_TYPE, array('initial'), array(
+            'multiple' => true,
+            'expanded' => false,
+            'choices' => array('initial', 'test'),
+            'choices_as_values' => true,
+            'empty_data' => array('test'),
+        ));
+
+        $form->submit(null);
+
+        $this->assertSame(array('test'), $form->getData());
+    }
+
     public function testSubmitSingleChoiceExpandedWithEmptyData()
     {
         $form = $this->factory->create(static::TESTED_TYPE, null, array(
@@ -729,12 +775,57 @@ class ChoiceTypeTest extends BaseTypeTest
         $this->assertSame('test', $form->getData());
     }
 
+    public function testSubmitSingleChoiceExpandedWithEmptyDataAndInitialData()
+    {
+        $form = $this->factory->create(static::TESTED_TYPE, 'initial', array(
+            'multiple' => false,
+            'expanded' => true,
+            'choices' => array('initial', 'test'),
+            'choices_as_values' => true,
+            'empty_data' => 'test',
+        ));
+
+        $form->submit(null);
+
+        $this->assertSame('test', $form->getData());
+    }
+
     public function testSubmitMultipleChoiceExpandedWithEmptyData()
     {
         $form = $this->factory->create(static::TESTED_TYPE, null, array(
             'multiple' => true,
             'expanded' => true,
             'choices' => array('test'),
+            'choices_as_values' => true,
+            'empty_data' => array('test'),
+        ));
+
+        $form->submit(null);
+
+        $this->assertSame(array('test'), $form->getData());
+    }
+
+    public function testSubmitMultipleChoiceExpandedWithEmptyDataAndInitialEmptyArray()
+    {
+        $form = $this->factory->create(static::TESTED_TYPE, array(), array(
+            'multiple' => true,
+            'expanded' => true,
+            'choices' => array('test'),
+            'choices_as_values' => true,
+            'empty_data' => array('test'),
+        ));
+
+        $form->submit(null);
+
+        $this->assertSame(array('test'), $form->getData());
+    }
+
+    public function testSubmitMultipleChoiceExpandedWithEmptyDataAndInitialData()
+    {
+        $form = $this->factory->create(static::TESTED_TYPE, array('init'), array(
+            'multiple' => true,
+            'expanded' => true,
+            'choices' => array('init', 'test'),
             'choices_as_values' => true,
             'empty_data' => array('test'),
         ));
@@ -2476,5 +2567,60 @@ class ChoiceTypeTest extends BaseTypeTest
         $this->assertEquals('name', $view->vars['id']);
         $this->assertEquals('_09name', $view->vars['name']);
         $this->assertEquals('_09name', $view->vars['full_name']);
+    }
+
+    /**
+     * @dataProvider provideTrimCases
+     */
+    public function testTrimIsDisabled($multiple, $expanded)
+    {
+        $form = $this->factory->create(static::TESTED_TYPE, null, array(
+            'multiple' => $multiple,
+            'expanded' => $expanded,
+            'choices' => array(
+                'a' => '1',
+            ),
+            'choices_as_values' => true,
+        ));
+
+        $submittedData = ' 1';
+
+        $form->submit($multiple ? (array) $submittedData : $submittedData);
+
+        // When the choice does not exist the transformation fails
+        $this->assertFalse($form->isSynchronized());
+        $this->assertNull($form->getData());
+    }
+
+    /**
+     * @dataProvider provideTrimCases
+     */
+    public function testSubmitValueWithWhiteSpace($multiple, $expanded)
+    {
+        $valueWhitWhiteSpace = '1 ';
+
+        $form = $this->factory->create(static::TESTED_TYPE, null, array(
+            'multiple' => $multiple,
+            'expanded' => $expanded,
+            'choices' => array(
+                'a' => $valueWhitWhiteSpace,
+            ),
+            'choices_as_values' => true,
+        ));
+
+        $form->submit($multiple ? (array) $valueWhitWhiteSpace : $valueWhitWhiteSpace);
+
+        $this->assertTrue($form->isSynchronized());
+        $this->assertSame($multiple ? (array) $valueWhitWhiteSpace : $valueWhitWhiteSpace, $form->getData());
+    }
+
+    public function provideTrimCases()
+    {
+        return array(
+            'Simple' => array(false, false),
+            'Multiple' => array(true, false),
+            'Simple expanded' => array(false, true),
+            'Multiple expanded' => array(true, true),
+        );
     }
 }

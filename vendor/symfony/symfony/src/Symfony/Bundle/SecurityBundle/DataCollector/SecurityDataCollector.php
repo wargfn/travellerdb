@@ -11,11 +11,11 @@
 
 namespace Symfony\Bundle\SecurityBundle\DataCollector;
 
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
 use Symfony\Component\Security\Core\Role\RoleInterface;
 use Symfony\Component\Security\Http\Logout\LogoutUrlGenerator;
 
@@ -69,7 +69,7 @@ class SecurityDataCollector extends DataCollector
             if (null !== $this->roleHierarchy) {
                 $allRoles = $this->roleHierarchy->getReachableRoles($assignedRoles);
                 foreach ($allRoles as $role) {
-                    if (!in_array($role, $assignedRoles, true)) {
+                    if (!\in_array($role, $assignedRoles, true)) {
                         $inheritedRoles[] = $role;
                     }
                 }
@@ -87,7 +87,7 @@ class SecurityDataCollector extends DataCollector
             $this->data = array(
                 'enabled' => true,
                 'authenticated' => $token->isAuthenticated(),
-                'token_class' => get_class($token),
+                'token_class' => \get_class($token),
                 'logout_url' => $logoutUrl,
                 'user' => $token->getUsername(),
                 'roles' => array_map(function (RoleInterface $role) { return $role->getRole(); }, $assignedRoles),

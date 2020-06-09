@@ -7,6 +7,223 @@ in 2.8 minor versions.
 To get the diff for a specific change, go to https://github.com/symfony/symfony/commit/XXX where XXX is the change hash
 To get the diff between two versions, go to https://github.com/symfony/symfony/compare/v2.8.0...v2.8.1
 
+* 2.8.52 (2019-11-13)
+
+ * security #cve-2019-18888 [HttpFoundation] fix guessing mime-types of files with leading dash (nicolas-grekas)
+ * security #cve-2019-18887 [HttpKernel] Use constant time comparison in UriSigner (stof)
+
+* 2.8.51 (2019-04-17)
+
+ * no changes
+
+* 2.8.50 (2019-04-17)
+
+ * security #cve-2019-10910 [DI] Check service IDs are valid (nicolas-grekas)
+ * security #cve-2019-10909 [FrameworkBundle][Form] Fix XSS issues in the form theme of the PHP templating engine (stof)
+ * security #cve-2019-10912 [PHPUnit Bridge] Prevent destructors with side-effects from being unserialized (nicolas-grekas)
+ * security #cve-2019-10911 [Security] Add a separator in the remember me cookie hash (pborreli)
+ * security #cve-2019-10913 [HttpFoundation] reject invalid method override (nicolas-grekas)
+
+* 2.8.49 (2018-12-06)
+
+ * security #cve-2018-19790 [Security\Http] detect bad redirect targets using backslashes (xabbuh)
+ * security #cve-2018-19789 [Form] Filter file uploads out of regular form types (nicolas-grekas)
+
+* 2.8.48 (2018-11-26)
+
+ * bug #28917 [DoctrineBridge] catch errors while converting to db values in data collector (alekitto)
+ * bug #27314 [DoctrineBridge] fix case sensitivity issue in RememberMe\DoctrineTokenProvider (PF4Public)
+ * bug #29308 [Translation] Use XLIFF source rather than resname when there's no target (thewilkybarkid)
+ * bug #26244 [BrowserKit] fixed BC Break for HTTP_HOST header (brizzz)
+ * bug #28147 [DomCrawler] exclude fields inside "template" tags (Gorjunov)
+ * bug #29271 [HttpFoundation] Fix trailing space for mime-type with parameters (Sascha Dens)
+ * bug #29223 [Validator] Added the missing constraints instance checks (thomasbisignani)
+ * bug #29182 [Form] Fixed empty data for compound date types (HeahDude)
+ * bug #29185 [Form] Fixed keeping hash of equal \DateTimeInterface on submit (HeahDude)
+ * bug #28731 [Form] invalidate forms on transformation failures (xabbuh)
+ * bug #29152 [Config] Unset key during normalization (ro0NL)
+ * bug #29057 [HttpFoundation] replace any preexisting Content-Type headers (nicolas-grekas)
+
+* 2.8.47 (2018-11-03)
+
+ * bug #29020 Fix ini_get() for boolean values (deguif)
+ * bug #28861 [DependencyInjection] Skip empty proxy code (olvlvl)
+ * bug #28801 Convert InsufficientAuthenticationException to HttpException with 401 status code (vincentchalamon)
+ * bug #28840 add missing double-quotes to extra_fields output message (danielkay)
+ * bug #28712 [Form] reverse transform RFC 3339 formatted dates (xabbuh)
+ * bug #28813 Fix for race condition in console output stream write (rudolfratusinski)
+ * bug #27772 [Console] Fixes multiselect choice question defaults in non-interactive mode (veewee)
+ * bug #28689 [Process] fix locking of pipe files on Windows (nicolas-grekas)
+ * bug #28704 [Form] fix multi-digit seconds fraction handling (xabbuh)
+ * bug #28648 [PHPUnitBridge] Fix ClockMock microtime() format (acasademont)
+
+* 2.8.46 (2018-09-30)
+
+ * bug #28376 [TwigBundle] Fixed caching of templates in src/Resources/<BundleName>/views on cache warmup (yceruto)
+ * bug #28565 [HttpFoundation][Security] forward locale and format to subrequests (nicolas-grekas)
+ * bug #28545 [Console] Send the right exit code to console.terminate listeners (mpdude)
+ * bug #28466 [Form] fail reverse transforming invalid RFC 3339 dates (xabbuh)
+ * bug #28540 [Intl] parse numbers terminated with decimal separator (xabbuh)
+ * bug #28548 [Console] Fixed boxed table style with colspan (ro0NL)
+ * bug #28433 [HttpFoundation] Allow reuse of Session between requests if ID did not change (tgalopin)
+ * bug #28508 [Form] forward false label option to nested types (xabbuh)
+ * bug #28464 [Form] forward the invalid_message option in date types (xabbuh)
+ * bug #28499 [Ldap] Use shut up operator on connection errors at ldap_start_tls (Andras Debreczeni)
+ * bug #28372 [Form] Fix DateTimeType html5 input format (franzwilding, mcfedr)
+ * bug #28396 [Intl] Blacklist Eurozone and United Nations in Region Data Generator (gregurco)
+ * bug #28393 [Console] fixed corrupt error output for unknown multibyte short option (downace)
+ * bug #28401 [Console] Fix SymfonyQuestionHelper::askQuestion() with choice value as default (chalasr)
+ * bug #28377 fix fopen flags (SpacePossum)
+ * bug #27970 [FileValidator] Format file size in validation message according to binaryFormat option (jfredon)
+ * bug #28029 [TwigBundle] remove cache warmers when Twig cache is disabled (xabbuh)
+ * bug #28344 [HttpKernel][FrameworkBundle] Fix escaping of serialized payloads passed to test clients (nicolas-grekas)
+
+* 2.8.45 (2018-08-27)
+
+ * bug #28278 [HttpFoundation] Fix unprepared BinaryFileResponse sends empty file (wackymole)
+ * bug #28241 [HttpKernel] fix forwarding trusted headers as server parameters (nicolas-grekas)
+ * bug #28220 [PropertyAccess] fix type error handling when writing values (xabbuh)
+ * bug #28100 [Security] Call AccessListener after LogoutListener (chalasr)
+ * bug #28144 [HttpFoundation] fix false-positive ConflictingHeadersException (nicolas-grekas)
+ * bug #28055 [PropertyInfo] Allow nested collections (jderusse)
+ * bug #28083 Remove the Expires header when calling Response::expire() (javiereguiluz)
+
+* 2.8.44 (2018-08-01)
+
+ * security #cve-2018-14774 [HttpKernel] fix trusted headers management in HttpCache and InlineFragmentRenderer (nicolas-grekas)
+ * security #cve-2018-14773 [HttpFoundation] Remove support for legacy and risky HTTP headers (nicolas-grekas)
+ * bug #28003 [HttpKernel] Fixes invalid REMOTE_ADDR in inline subrequest when configuring trusted proxy with subnet (netiul)
+ * bug #28045 [HttpFoundation] Fix Cookie::isCleared (ro0NL)
+ * bug #28080 [HttpFoundation] fixed using _method parameter with invalid type (Phobetor)
+
+* 2.8.43 (2018-07-23)
+
+ * bug #28005 [HttpKernel] Fixed templateExists on parse error of the template name (yceruto)
+ * bug #27997 Serbo-Croatian has Serbian plural rule (kylekatarnls)
+ * bug #27941 [WebProfilerBundle] Fixed icon alignment issue using Bootstrap 4.1.2 (jmsche)
+ * bug #27937 [HttpFoundation] reset callback on StreamedResponse when setNotModified() is called (rubencm)
+ * bug #27927 [HttpFoundation] Suppress side effects in 'get' and 'has' methods of NamespacedAttributeBag (webnet-fr)
+ * bug #27904 [Filesystem] fix lock file permissions (fritzmg)
+ * bug #27758 [WebProfilerBundle] Prevent toolbar links color override by css (alcalyn)
+ * bug #27831  Check for Hyper terminal on all operating systems.  (azjezz)
+ * bug #27794 Add color support for Hyper terminal . (azjezz)
+ * bug #27809 [HttpFoundation] Fix tests: new message for status 425 (dunglas)
+ * bug #27716 [DI] fix dumping deprecated service in yaml (nicolas-grekas)
+
+* 2.8.42 (2018-06-25)
+
+ * bug #27669 [Filesystem] fix file lock on SunOS (fritzmg)
+ * bug #27309 Fix surrogate not using original request (Toflar)
+ * bug #27630 [Validator][Form] Remove BOM in some xlf files (gautierderuette)
+ * bug #27591 [VarDumper] Fix dumping ArrayObject and ArrayIterator instances (nicolas-grekas)
+ * bug #27581 Fix bad method call with guard authentication + session migration (weaverryan)
+ * bug #27452 Avoid migration on stateless firewalls (weaverryan)
+ * bug #27514 [Debug] Pass previous exception to FatalErrorException (pmontoya)
+ * bug #26973 [HttpKernel] Set first trusted proxy as REMOTE_ADDR in InlineFragmentRenderer. (kmadejski)
+ * bug #27303 [Process] Consider "executable" suffixes first on Windows (sanmai)
+ * bug #27297 Triggering RememberMe's loginFail() when token cannot be created (weaverryan)
+ * bug #27366 [DI] never inline lazy services (nicolas-grekas)
+
+* 2.8.41 (2018-05-25)
+
+ * bug #27359 [HttpFoundation] Fix perf issue during MimeTypeGuesser intialization (nicolas-grekas)
+ * security #cve-2018-11408 [SecurityBundle] Fail if security.http_utils cannot be configured
+ * security #cve-2018-11406 clear CSRF tokens when the user is logged out
+ * security #cve-2018-11385 Adding session authentication strategy to Guard to avoid session fixation
+ * security #cve-2018-11385 Adding session strategy to ALL listeners to avoid *any* possible fixation
+ * security #cve-2018-11386 [HttpFoundation] Break infinite loop in PdoSessionHandler when MySQL is in loose mode
+
+* 2.8.40 (2018-05-21)
+
+ * bug #26781 [Form] Fix precision of MoneyToLocalizedStringTransformer's divisions on transform() (syastrebov)
+ * bug #27286 [Translation] Add Occitan plural rule (kylekatarnls)
+ * bug #27246 Disallow invalid characters in session.name (ostrolucky)
+ * bug #24805 [Security] Fix logout (MatTheCat)
+ * bug #27141 [Process] Suppress warnings when open_basedir is non-empty (cbj4074)
+ * bug #27250 [Session] limiting :key for GET_LOCK to 64 chars (oleg-andreyev)
+ * bug #27237 [Debug] Fix populating error_get_last() for handled silent errors (nicolas-grekas)
+ * bug #27236 [Filesystem] Fix usages of error_get_last() (nicolas-grekas)
+ * bug #27152 [HttpFoundation] use brace-style regex delimiters (xabbuh)
+ * feature #24896 Add CODE_OF_CONDUCT.md (egircys)
+
+* 2.8.39 (2018-04-30)
+
+ * bug #27067 [HttpFoundation] Fix setting session-related ini settings (e-moe)
+ * bug #27016 [Security][Guard] GuardAuthenticationProvider::authenticate cannot return null (biomedia-thomas)
+ * bug #26831 [Bridge/Doctrine] count(): Parameter must be an array or an object that implements Countable (gpenverne)
+ * bug #27044 [Security] Skip user checks if not implementing UserInterface (chalasr)
+ * bug #26014 [Security] Fixed being logged out on failed attempt in guard (iltar)
+ * bug #26910 Use new PHP7.2 functions in hasColorSupport (johnstevenson)
+ * bug #26999 [VarDumper] Fix dumping of SplObjectStorage (corphi)
+ * bug #25841 [DoctrineBridge] Fix bug when indexBy is meta key in PropertyInfo\DoctrineExtractor (insekticid)
+ * bug #26886 Don't assume that file binary exists on *nix OS (teohhanhui)
+ * bug #26643 Fix that ESI/SSI processing can turn a "private" response "public" (mpdude)
+ * bug #26932 [Form] Fixed trimming choice values (HeahDude)
+ * bug #26875 [Console] Don't go past exact matches when autocompleting (nicolas-grekas)
+ * bug #26823 [Validator] Fix LazyLoadingMetadataFactory with PSR6Cache for non classname if tested values isn't existing class (Pascal Montoya, pmontoya)
+ * bug #26834 [Yaml] Throw parse error on unfinished inline map (nicolas-grekas)
+
+* 2.8.38 (2018-04-06)
+
+ * bug #26788 [Security] Load the user before pre/post auth checks when needed (chalasr)
+ * bug #26774 [SecurityBundle] Add missing argument to security.authentication.provider.simple (i3or1s, chalasr)
+ * bug #26763 [Finder] Remove duplicate slashes in filenames (helhum)
+ * bug #26749 Add PHPDbg support to HTTP components (hkdobrev)
+ * bug #26609 [Console] Fix check of color support on Windows (mlocati)
+
+* 2.8.37 (2018-04-02)
+
+ * bug #26727 [HttpCache] Unlink tmp file on error (Chansig)
+ * bug #26675 [HttpKernel] DumpDataCollector: do not flush when a dumper is provided (ogizanagi)
+ * bug #26663 [TwigBridge] Fix rendering of currency by MoneyType (ro0NL)
+ * bug #26677 Support phpdbg SAPI in Debug::enable() (hkdobrev)
+ * bug #26589 [Ldap] cast to string when checking empty passwords (ismail1432)
+ * bug #26621 [Form] no type errors with invalid submitted data types (xabbuh)
+ * bug #26337 [Finder] Fixed leading/trailing / in filename (lyrixx)
+ * bug #26584 [TwigBridge] allow html5 compatible rendering of forms with null names (systemist)
+ * bug #24401 [Form] Change datetime to datetime-local for HTML5 datetime input (pierredup)
+ * bug #26370 [Security] added userChecker to SimpleAuthenticationProvider (i3or1s)
+ * bug #26569 [BrowserKit] Fix cookie path handling when $domain is null (dunglas)
+ * bug #26598 Fixes #26563 (open_basedir restriction in effect) (temperatur)
+ * bug #26568 [Debug] Reset previous exception handler earlier to prevent infinite loop (nicolas-grekas)
+ * bug #26567 [DoctrineBridge] Don't rely on ClassMetadataInfo->hasField in DoctrineOrmTypeGuesser anymore (fancyweb)
+ * bug #26356 [FrameworkBundle] HttpCache is not longer abstract (lyrixx)
+ * bug #26548 [DomCrawler] Change bad wording in ChoiceFormField::untick (dunglas)
+ * bug #26433 [DomCrawler] extract(): fix a bug when the attribute list is empty (dunglas)
+ * bug #26452 [Intl] Load locale aliases to support alias fallbacks (jakzal)
+ * bug #26450 [CssSelector] Fix CSS identifiers parsing - they can start with dash (jakubkulhan)
+
+* 2.8.36 (2018-03-05)
+
+ * bug #26368 [WebProfilerBundle] Fix Debug toolbar breaks app (xkobal)
+
+* 2.8.35 (2018-03-01)
+
+ * bug #26338 [Debug] Keep previous errors of Error instances (Philipp91)
+ * bug #26312 [Routing] Don't throw 405 when scheme requirement doesn't match (nicolas-grekas)
+ * bug #26298 Fix ArrayInput::toString() for InputArgument::IS_ARRAY args (maximium)
+ * bug #26236 [PropertyInfo] ReflectionExtractor: give a chance to other extractors if no properties (dunglas)
+ * bug #25557 [WebProfilerBundle] add a way to limit ajax request (Simperfit)
+ * bug #26228 [HttpFoundation] Fix missing "throw" in JsonResponse (nicolas-grekas)
+ * bug #26211 [Console] Suppress warning from sapi_windows_vt100_support (adawolfa)
+ * bug #26156 Fixes #26136: Avoid emitting warning in hasParameterOption() (greg-1-anderson)
+ * bug #26183 [DI] Add null check for removeChild (changmin.keum)
+ * bug #26173 [Security] fix accessing request values (xabbuh)
+ * bug #26159 created validator.tl.xlf for Form/Translations (ergiegonzaga)
+ * bug #26100 [Routing] Throw 405 instead of 404 when redirect is not possible (nicolas-grekas)
+ * bug #26040 [Process] Check PHP_BINDIR before $PATH in PhpExecutableFinder (nicolas-grekas)
+ * bug #26012 Exit as late as possible (greg0ire)
+ * bug #26111 [Security] fix merge of 2.7 into 2.8 + add test case (dmaicher)
+ * bug #25893 [Console] Fix hasParameterOption / getParameterOption when used with multiple flags (greg-1-anderson)
+ * bug #25940 [Form] keep the context when validating forms (xabbuh)
+ * bug #25373 Use the PCRE_DOLLAR_ENDONLY modifier in route regexes (mpdude)
+ * bug #26010 [CssSelector] For AND operator, the left operand should have parentheses, not only right operand (Arnaud CHASSEUX)
+ * bug #25971 [Debug] Fix bad registration of exception handler, leading to mem leak (nicolas-grekas)
+ * bug #25962 [Routing] Fix trailing slash redirection for non-safe verbs (nicolas-grekas)
+ * bug #25948 [Form] Fixed empty data on expanded ChoiceType and FileType (HeahDude)
+ * bug #25972 support sapi_windows_vt100_support for php 7.2+ (jhdxr)
+ * bug #25744 [TwigBridge] Allow label translation to be safe (MatTheCat)
+
 * 2.8.34 (2018-01-29)
 
  * bug #25922 [HttpFoundation] Use the correct syntax for session gc based on Pdo driver (tanasecosminromeo)

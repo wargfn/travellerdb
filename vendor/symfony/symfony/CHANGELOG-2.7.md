@@ -7,6 +7,129 @@ in 2.7 minor versions.
 To get the diff for a specific change, go to https://github.com/symfony/symfony/commit/XXX where XXX is the change hash
 To get the diff between two versions, go to https://github.com/symfony/symfony/compare/v2.7.0...v2.7.1
 
+* 2.7.49 (2018-08-01)
+
+ * security #cve-2018-14774 [HttpKernel] fix trusted headers management in HttpCache and InlineFragmentRenderer (nicolas-grekas)
+ * security #cve-2018-14773 [HttpFoundation] Remove support for legacy and risky HTTP headers (nicolas-grekas)
+
+* 2.7.48 (2018-05-25)
+
+ * bug #27359 [HttpFoundation] Fix perf issue during MimeTypeGuesser intialization (nicolas-grekas)
+ * security #cve-2018-11408 [SecurityBundle] Fail if security.http_utils cannot be configured
+ * security #cve-2018-11406 clear CSRF tokens when the user is logged out
+ * security #cve-2018-11385 Adding session strategy to ALL listeners to avoid *any* possible fixation
+ * security #cve-2018-11386 [HttpFoundation] Break infinite loop in PdoSessionHandler when MySQL is in loose mode
+
+* 2.7.47 (2018-05-21)
+
+ * bug #26781 [Form] Fix precision of MoneyToLocalizedStringTransformer's divisions on transform() (syastrebov)
+ * bug #27286 [Translation] Add Occitan plural rule (kylekatarnls)
+ * bug #27246 Disallow invalid characters in session.name (ostrolucky)
+ * bug #24805 [Security] Fix logout (MatTheCat)
+ * bug #27141 [Process] Suppress warnings when open_basedir is non-empty (cbj4074)
+ * bug #27250 [Session] limiting :key for GET_LOCK to 64 chars (oleg-andreyev)
+ * bug #27237 [Debug] Fix populating error_get_last() for handled silent errors (nicolas-grekas)
+ * bug #27236 [Filesystem] Fix usages of error_get_last() (nicolas-grekas)
+ * bug #27152 [HttpFoundation] use brace-style regex delimiters (xabbuh)
+ * feature #24896 Add CODE_OF_CONDUCT.md (egircys)
+ * bug #27067 [HttpFoundation] Fix setting session-related ini settings (e-moe)
+
+* 2.7.46 (2018-04-27)
+
+ * bug #26831 [Bridge/Doctrine] count(): Parameter must be an array or an object that implements Countable (gpenverne)
+ * bug #27044 [Security] Skip user checks if not implementing UserInterface (chalasr)
+ * bug #26910 Use new PHP7.2 functions in hasColorSupport (johnstevenson)
+ * bug #26999 [VarDumper] Fix dumping of SplObjectStorage (corphi)
+ * bug #26886 Don't assume that file binary exists on *nix OS (teohhanhui)
+ * bug #26643 Fix that ESI/SSI processing can turn a "private" response "public" (mpdude)
+ * bug #26932 [Form] Fixed trimming choice values (HeahDude)
+ * bug #26875 [Console] Don't go past exact matches when autocompleting (nicolas-grekas)
+ * bug #26823 [Validator] Fix LazyLoadingMetadataFactory with PSR6Cache for non classname if tested values isn't existing class (Pascal Montoya, pmontoya)
+ * bug #26834 [Yaml] Throw parse error on unfinished inline map (nicolas-grekas)
+
+* 2.7.45 (2018-04-06)
+
+ * bug #26763 [Finder] Remove duplicate slashes in filenames (helhum)
+ * bug #26749 Add PHPDbg support to HTTP components (hkdobrev)
+ * bug #26609 [Console] Fix check of color support on Windows (mlocati)
+
+* 2.7.44 (2018-04-02)
+
+ * bug #26727 [HttpCache] Unlink tmp file on error (Chansig)
+ * bug #26675 [HttpKernel] DumpDataCollector: do not flush when a dumper is provided (ogizanagi)
+ * bug #26663 [TwigBridge] Fix rendering of currency by MoneyType (ro0NL)
+ * bug #26677 Support phpdbg SAPI in Debug::enable() (hkdobrev)
+ * bug #26621 [Form] no type errors with invalid submitted data types (xabbuh)
+ * bug #26337 [Finder] Fixed leading/trailing / in filename (lyrixx)
+ * bug #26584 [TwigBridge] allow html5 compatible rendering of forms with null names (systemist)
+ * bug #24401 [Form] Change datetime to datetime-local for HTML5 datetime input (pierredup)
+ * bug #26370 [Security] added userChecker to SimpleAuthenticationProvider (i3or1s)
+ * bug #26569 [BrowserKit] Fix cookie path handling when $domain is null (dunglas)
+ * bug #26598 Fixes #26563 (open_basedir restriction in effect) (temperatur)
+ * bug #26568 [Debug] Reset previous exception handler earlier to prevent infinite loop (nicolas-grekas)
+ * bug #26567 [DoctrineBridge] Don't rely on ClassMetadataInfo->hasField in DoctrineOrmTypeGuesser anymore (fancyweb)
+ * bug #26356 [FrameworkBundle] HttpCache is not longer abstract (lyrixx)
+ * bug #26548 [DomCrawler] Change bad wording in ChoiceFormField::untick (dunglas)
+ * bug #26433 [DomCrawler] extract(): fix a bug when the attribute list is empty (dunglas)
+ * bug #26452 [Intl] Load locale aliases to support alias fallbacks (jakzal)
+ * bug #26450 [CssSelector] Fix CSS identifiers parsing - they can start with dash (jakubkulhan)
+
+* 2.7.43 (2018-03-05)
+
+ * bug #26368 [WebProfilerBundle] Fix Debug toolbar breaks app (xkobal)
+
+* 2.7.42 (2018-02-28)
+
+ * bug #26338 [Debug] Keep previous errors of Error instances (Philipp91)
+ * bug #26312 [Routing] Don't throw 405 when scheme requirement doesn't match (nicolas-grekas)
+ * bug #26298 Fix ArrayInput::toString() for InputArgument::IS_ARRAY args (maximium)
+ * bug #25557 [WebProfilerBundle] add a way to limit ajax request (Simperfit)
+ * bug #26228 [HttpFoundation] Fix missing "throw" in JsonResponse (nicolas-grekas)
+ * bug #26211 [Console] Suppress warning from sapi_windows_vt100_support (adawolfa)
+ * bug #26156 Fixes #26136: Avoid emitting warning in hasParameterOption() (greg-1-anderson)
+ * bug #26183 [DI] Add null check for removeChild (changmin.keum)
+ * bug #26159 created validator.tl.xlf for Form/Translations (ergiegonzaga)
+ * bug #26100 [Routing] Throw 405 instead of 404 when redirect is not possible (nicolas-grekas)
+ * bug #26040 [Process] Check PHP_BINDIR before $PATH in PhpExecutableFinder (nicolas-grekas)
+ * bug #26012 Exit as late as possible (greg0ire)
+ * bug #25893 [Console] Fix hasParameterOption / getParameterOption when used with multiple flags (greg-1-anderson)
+ * bug #25940 [Form] keep the context when validating forms (xabbuh)
+ * bug #25373 Use the PCRE_DOLLAR_ENDONLY modifier in route regexes (mpdude)
+ * bug #26010 [CssSelector] For AND operator, the left operand should have parentheses, not only right operand (Arnaud CHASSEUX)
+ * bug #25971 [Debug] Fix bad registration of exception handler, leading to mem leak (nicolas-grekas)
+ * bug #25962 [Routing] Fix trailing slash redirection for non-safe verbs (nicolas-grekas)
+ * bug #25948 [Form] Fixed empty data on expanded ChoiceType and FileType (HeahDude)
+ * bug #25972 support sapi_windows_vt100_support for php 7.2+ (jhdxr)
+ * bug #25744 [TwigBridge] Allow label translation to be safe (MatTheCat)
+
+* 2.7.41 (2018-01-29)
+
+ * bug #25922 [HttpFoundation] Use the correct syntax for session gc based on Pdo driver (tanasecosminromeo)
+ * bug #25933 Disable CSP header on exception pages only in debug (ostrolucky)
+ * bug #25926 [Form] Fixed Button::setParent() when already submitted (HeahDude)
+ * bug #25927 [Form] Fixed submitting disabled buttons (HeahDude)
+ * bug #25891 [DependencyInjection] allow null values for root nodes in YAML configs (xabbuh)
+ * bug #25848 [Validator] add missing parent isset and add test (Simperfit)
+ * bug #25861 do not conflict with egulias/email-validator 2.0+ (xabbuh)
+ * bug #25851 [Validator] Conflict with egulias/email-validator 2.0 (emodric)
+ * bug #25837 [SecurityBundle] Don't register in memory users as services (chalasr)
+ * bug #25835 [HttpKernel] DebugHandlersListener should always replace the existing exception handler (nicolas-grekas)
+ * bug #25829 [Debug] Always decorate existing exception handlers to deal with fatal errors (nicolas-grekas)
+ * bug #25824 Fixing a bug where the dump() function depended on bundle ordering (weaverryan)
+ * bug #25789  Enableable ArrayNodeDefinition is disabled for empty configuration (kejwmen)
+ * bug #25816 Problem in phar see mergerequest #25579 (betzholz)
+ * bug #25781 [Form] Disallow transform dates beyond the year 9999 (curry684)
+ * bug #25812 Copied NO language files to the new NB locale (derrabus)
+ * bug #25801 [Router] Skip anonymous classes when loading annotated routes (pierredup)
+ * bug #25657 [Security] Fix fatal error on non string username (chalasr)
+ * bug #25799 Fixed Request::__toString ignoring cookies (Toflar)
+ * bug #25755 [Debug] prevent infinite loop with faulty exception handlers (nicolas-grekas)
+ * bug #25771 [Validator] 19 digits VISA card numbers are valid (xabbuh)
+ * bug #25751 [FrameworkBundle] Add the missing `enabled` session attribute (sroze)
+ * bug #25750 [HttpKernel] Turn bad hosts into 400 instead of 500 (nicolas-grekas)
+ * bug #25490 [Serializer] Fixed throwing exception with option JSON_PARTIAL_OUTPUT_ON_ERROR (diversantvlz)
+ * feature #25669 [Security] Fail gracefully if the security token cannot be unserialized from the session (thewilkybarkid)
+
 * 2.7.40 (2018-01-05)
 
  * bug #25532 [HttpKernel] Disable CSP header on exception pages (ostrolucky)

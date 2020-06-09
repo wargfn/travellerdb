@@ -2167,6 +2167,17 @@ if (typeof jQuery === 'undefined') {
         text = text.replace(/\[Expert\:Underworld\]/g, '<span class="underworldexpert"></span>');
         text = text.replace(/\[Trained\:StarshipOperation\]/g, '<span class="staropstrained"></span>');
         text = text.replace(/\[Expert\:StarshipOperation\]/g, '<span class="staropsexpert"></span>');
+        text = text.replace(/\[Admin\]/g, '<span class="expert"></span>');
+        text = text.replace(/\[Combat\]/g, '<span class="combat"></span>');
+        text = text.replace(/\[Jack\]/g, '<span class="jack"></span>');
+        text = text.replace(/\[Medical\]/g, '<span class="medical"></span>');
+        text = text.replace(/\[Psionic\]/g, '<span class="psionic"></span>');
+        text = text.replace(/\[Science\]/g, '<span class="science"></span>');
+        text = text.replace(/\[Social\]/g, '<span class="social"></span>');
+        text = text.replace(/\[StarshipOps\]/g, '<span class="starops"></span>');
+        text = text.replace(/\[Tech\]/g, '<span class="tech"></span>');
+        text = text.replace(/\[Underworld\]/g, '<span class="underworld"></span>');
+        text = text.replace(/\[StarshipOperation\]/g, '<span class="starops"></span>');
         text = text.replace(/\[Jump\]/g, '<span class="jump"></span>span>');
 
         return text;

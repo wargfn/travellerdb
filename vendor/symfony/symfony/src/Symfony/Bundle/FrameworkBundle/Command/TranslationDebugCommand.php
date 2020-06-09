@@ -12,17 +12,17 @@
 namespace Symfony\Bundle\FrameworkBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Translation\TranslationLoader;
-use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Translation\Catalogue\MergeOperation;
-use Symfony\Component\Translation\MessageCatalogue;
-use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\DataCollectorTranslator;
 use Symfony\Component\Translation\LoggingTranslator;
+use Symfony\Component\Translation\MessageCatalogue;
+use Symfony\Component\Translation\Translator;
 
 /**
  * Helps finding unused or missing translation messages in a given locale
@@ -181,8 +181,8 @@ EOF
                     $states[] = self::MESSAGE_UNUSED;
                 }
 
-                if (!in_array(self::MESSAGE_UNUSED, $states) && true === $input->getOption('only-unused')
-                    || !in_array(self::MESSAGE_MISSING, $states) && true === $input->getOption('only-missing')) {
+                if (!\in_array(self::MESSAGE_UNUSED, $states) && true === $input->getOption('only-unused')
+                    || !\in_array(self::MESSAGE_MISSING, $states) && true === $input->getOption('only-missing')) {
                     continue;
                 }
 
@@ -246,7 +246,7 @@ EOF
             if (mb_strlen($string, $encoding) > $length) {
                 return mb_substr($string, 0, $length - 3, $encoding).'...';
             }
-        } elseif (strlen($string) > $length) {
+        } elseif (\strlen($string) > $length) {
             return substr($string, 0, $length - 3).'...';
         }
 
@@ -263,7 +263,7 @@ EOF
     {
         $extractedCatalogue = new MessageCatalogue($locale);
         foreach ($transPaths as $path) {
-            $path = $path.'views';
+            $path .= 'views';
             if (is_dir($path)) {
                 $this->getContainer()->get('translation.extractor')->extract($path, $extractedCatalogue);
             }
@@ -283,7 +283,7 @@ EOF
     {
         $currentCatalogue = new MessageCatalogue($locale);
         foreach ($transPaths as $path) {
-            $path = $path.'translations';
+            $path .= 'translations';
             if (is_dir($path)) {
                 $loader->loadMessages($path, $currentCatalogue);
             }
@@ -311,7 +311,7 @@ EOF
 
                 $fallbackCatalogue = new MessageCatalogue($fallbackLocale);
                 foreach ($transPaths as $path) {
-                    $path = $path.'translations';
+                    $path .= 'translations';
                     if (is_dir($path)) {
                         $loader->loadMessages($path, $fallbackCatalogue);
                     }
