@@ -90,7 +90,7 @@ class SlotCollectionDecorator implements \AppBundle\Model\SlotCollectionInterfac
 
     public function getSlotsByType ()
     {
-        $slotsByType = ['adv' => [], 'conn' => [], 'crew' => [], 'event' => [], 'gear' => [], 'heroic' => [], 'upgrade' => [] ];
+        $slotsByType = ['ship' => [], 'adv' => [], 'conn' => [], 'crew' => [], 'event' => [], 'gear' => [], 'heroic' => [], 'upgrade' => [] ];
         foreach($this->slots as $slot) {
             if(array_key_exists($slot->getCard()->getType()->getCode(), $slotsByType)) {
                 $slotsByType[$slot->getCard()->getType()->getCode()][] = $slot;
@@ -250,6 +250,31 @@ class SlotCollectionDecorator implements \AppBundle\Model\SlotCollectionInterfac
         }
         ksort($arr);
         return $arr;
+    }
+
+
+    public function getCountByFaction() {
+        $countByFaction = ['red' => 0, 'yellow' => 0, 'blue' => 0];
+
+        foreach($this->slots as $slot) {
+            $code = $slot->getCard()->getFaction()->getCode();
+            if(array_key_exists($code, $countByFaction)) {
+                $countByFaction[$code] += max($slot->getQuantity(), $slot->getDice());
+            }
+        }
+        return $countByFaction;
+    }
+
+    public function getCountByAffiliation() {
+        $countByAffiliation = ['villain' => 0, 'hero' => 0];
+
+        foreach($this->slots as $slot) {
+            $code = $slot->getCard()->getAffiliation()->getCode();
+            if(array_key_exists($code, $countByAffiliation)) {
+                $countByAffiliation[$code] += max($slot->getQuantity(), $slot->getDice());
+            }
+        }
+        return $countByAffiliation;
     }
 
 }

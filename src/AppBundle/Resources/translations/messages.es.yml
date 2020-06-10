@@ -139,6 +139,7 @@ decks:
     download:
       text: Fichero de texto
       octgn: Fichero OCTGN
+      tts: Fichero TTS
   modals:
     card:
       go: Ir a la página de la carta
@@ -152,6 +153,7 @@ decks:
           auto: Automático
           octgn: OCTGN
           text: Texto
+          tts: TTS
     delete:
       title: Borrar mazo
       question: ¿Estás seguro de que deseas borrar el mazo %name%?

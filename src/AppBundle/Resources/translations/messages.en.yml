@@ -140,6 +140,7 @@ decks:
     download:
       text: Text file
       octgn: Octgn file
+      tts: Table Top Simulator file
   modals:
     card:
       go: Go to card page
@@ -153,6 +154,7 @@ decks:
           auto: Auto
           octgn: OCTGN
           text: Text
+          tts: TTS
     delete:
       title: Delete deck
       question: Are you sure you want to delete the deck %name%?

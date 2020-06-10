@@ -1752,7 +1752,7 @@ output {
 .form-control {
   display: block;
   width: 100%;
-  height: 34px;
+  height: 30px;
   padding: 6px 12px;
   font-size: 14px;
   line-height: 1.42857143;
@@ -3477,10 +3477,10 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar-brand {
   float: left;
-  padding: 30px 15px;
-  font-size: 18px;
+  padding: 13px 15px;
+  font-size: 16px;
   line-height: 20px;
-  height: 80px;
+  height: 40px;
 }
 .navbar-brand:hover,
 .navbar-brand:focus {
@@ -3564,8 +3564,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     float: left;
   }
   .navbar-nav > li > a {
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding-top: 13px;
+    padding-bottom: 10px;
   }
 }
 .navbar-form {
@@ -3576,8 +3576,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   border-bottom: 1px solid transparent;
   -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
-  margin-top: 23px;
-  margin-bottom: 23px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 @media (min-width: 768px) {
   .navbar-form .form-group {
