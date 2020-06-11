@@ -75,7 +75,7 @@
                     "CardID": {{ ship.card.octgnId }},
                     "SidewaysCard": false,
                     "CustomDeck": {
-                        {# All ships use CustomDeck 1 #}
+                        {% if ship.card.octgnId|length == 3 and ship.card.octgnId[:1] == 1 %}
                         "1": {
                             "FaceURL": "http://cloud-3.steamusercontent.com/ugc/1046471563485951250/1C7E717A8E1E0CAF4518CB78B920FCA879CB86D8/",
                             "BackURL": "http://cloud-3.steamusercontent.com/ugc/1046471563485951250/1C7E717A8E1E0CAF4518CB78B920FCA879CB86D8/",
@@ -84,6 +84,79 @@
                             "BackIsHidden": true,
                             "UniqueBack": true
                         }
+                        {% elseif ship.card.octgnId|length == 3 and ship.card.octgnId[:1] == 2 %}
+                        "2": {
+                            "FaceURL": "http://cloud-3.steamusercontent.com/ugc/1046471563481723621/AAE2F2FCA62849F718D3FA35DA82D00CDDC683D7/",
+                            "BackURL": "{{backAdvUrl}}",
+                            "NumWidth": 10,
+                            "NumHeight": 7,
+                            "BackIsHidden": true,
+                            "UniqueBack": false
+                        }
+                        {% elseif ship.card.octgnId|length == 3 and ship.card.octgnId[:1] == 3 %}
+                        "3": {
+                            "FaceURL": "http://cloud-3.steamusercontent.com/ugc/1018317382896881190/BBD17D9D5071350F66FD8683E694DD764011CF55/",
+                            "BackURL": "{{backUrl}}",
+                            "NumWidth": 10,
+                            "NumHeight": 7,
+                            "BackIsHidden": true,
+                            "UniqueBack": false
+                        }
+                        {% elseif ship.card.octgnId|length == 3 and ship.card.octgnId[:1] == 4 %}
+                        "4": {
+                            "FaceURL": "http://cloud-3.steamusercontent.com/ugc/1018317382896887997/C29A692377E5F8F81FE5599B1CD40C6A30047AED/",
+                            "BackURL": "{{backUrl}}",
+                            "NumWidth": 10,
+                            "NumHeight": 7,
+                            "BackIsHidden": true,
+                            "UniqueBack": false
+                        }
+                        {% elseif ship.card.octgnId|length == 3 and ship.card.octgnId[:1] == 5 %}
+                        "5": {
+                            "FaceURL": "http://cloud-3.steamusercontent.com/ugc/1018317382896890809/33BAF06D1330A780A6E5D2D4244F896A1F795079/",
+                            "BackURL": "{{backUrl}}",
+                            "NumWidth": 10,
+                            "NumHeight": 7,
+                            "BackIsHidden": true,
+                            "UniqueBack": false
+                        }
+                        {% elseif ship.card.octgnId|length == 3 and ship.card.octgnId[:1] == 6 %}
+                        "6": {
+                            "FaceURL": "http://cloud-3.steamusercontent.com/ugc/1018317382896896205/BF6E56396827DE91BD9995A470306AC93CEF7BCC/",
+                            "BackURL": "{{backUrl}}",
+                            "NumWidth": 10,
+                            "NumHeight": 7,
+                            "BackIsHidden": true,
+                            "UniqueBack": false
+                        }
+                        {% elseif ship.card.octgnId|length == 3 and ship.card.octgnId[:1] == 7 %}
+                        "7": {
+                            "FaceURL": "http://cloud-3.steamusercontent.com/ugc/1046471752320933107/EA8708F44420606FFD4E66A1CDD9A197B6B1BB0C/",
+                            "BackURL": "{{backAdvUrl}}",
+                            "NumWidth": 10,
+                            "NumHeight": 7,
+                            "BackIsHidden": true,
+                            "UniqueBack": false
+                        }
+                        {% elseif ship.card.octgnId|length == 3 and ship.card.octgnId[:1] == 8 %}
+                        "8": {
+                            "FaceURL": "http://cloud-3.steamusercontent.com/ugc/1046471752321048383/954CC9709406EB0FB5A18D742262C06F1789B332/",
+                            "BackURL": "{{backUrl}}",
+                            "NumWidth": 10,
+                            "NumHeight": 7,
+                            "BackIsHidden": true,
+                            "UniqueBack": false
+                        }
+                        {% elseif ship.card.octgnId|length == 3 and ship.card.octgnId[:1] == 9 %}
+                        "9": {
+                            "FaceURL": "http://cloud-3.steamusercontent.com/ugc/1046471752321052040/D0450311BBBF1B517AEF4854C33A90D0B17D4B7A/",
+                            "BackURL": "{{backUrl}}",
+                            "NumWidth": 10,
+                            "NumHeight": 7,
+                            "BackIsHidden": true,
+                            "UniqueBack": false
+                        }
+                        {% endif %}
                     },
                     "LuaScript": "",
                     "LuaScriptState": "",
@@ -91,24 +164,22 @@
                     {% set guidCount = guidCount + 1 %}
                 },
                 {% endfor %}
-                {# Adventure Cards #}
-                {% for adv in deck.slots_by_type.adv %}
-                {% for i in range (1,adv.quantity) %}
+                {# Deck of Adv Cards #}
                 {
-                    "Name": "Card",
+                    "Name": "Deck",
                     "Transform": {
                         "posX": {{ random(999) /1000 }},
                         "posY": {{ random(999) /1000 }},
                         "posZ": {{ random(999) /1000 }},
                         "rotX": {{ random(999) /1000 }},
                         "rotY": {{ random(999) /1000 }},
-                        "rotZ": {{ random(999) /1000 }},
+                        "rotZ": 180,
                         "scaleX": 1.42055011,
                         "scaleY": 1,
                         "scaleZ": 1.42055011
                     },
-                    "Nickname": "{{ adv.card.name|replace({"\"":"\\\""})|raw }}",
-                    "Description": "adventure",
+                    "Nickname": "Adventure Cards",
+                    "Description": "",
                     "ColorDiffuse": {
                         "r": 0.713235259,
                         "g": 0.713235259,
@@ -119,14 +190,86 @@
                     "Snap": true,
                     "Autoraise": true,
                     "Sticky": true,
-                    "Tooltip": false,
-                    "CardID": {{ adv.card.octgnId }},
+                    "Tooltip": true,
                     "SidewaysCard": false,
+                    "DeckIDs": [
+                        {% set allAdvSlots = deck.slots_by_type.adv %}
+                        {% for slot in allAdvSlots %}
+                        {% for i in range (1,slot.quantity) %}
+                        {{ slot.card.octgnId }}{% if (not loop.parent.loop.last) or (loop.parent.loop.last and not loop.last) %},
+                        {% endif %}
+                        {% endfor %}
+                        {% endfor %}
+
+                    ],
                     "CustomDeck": {
-                        {# All Adventure Cards use CustomDeck 2 #}
+                        "1": {
+                            "FaceURL": "http://cloud-3.steamusercontent.com/ugc/1046471563485951250/1C7E717A8E1E0CAF4518CB78B920FCA879CB86D8/",
+                            "BackURL": "http://cloud-3.steamusercontent.com/ugc/1046471563485951250/1C7E717A8E1E0CAF4518CB78B920FCA879CB86D8/",
+                            "NumWidth": 10,
+                            "NumHeight": 7,
+                            "BackIsHidden": true,
+                            "UniqueBack": true
+                        },
                         "2": {
                             "FaceURL": "http://cloud-3.steamusercontent.com/ugc/1046471563481723621/AAE2F2FCA62849F718D3FA35DA82D00CDDC683D7/",
                             "BackURL": "{{backAdvUrl}}",
+                            "NumWidth": 10,
+                            "NumHeight": 7,
+                            "BackIsHidden": true,
+                            "UniqueBack": false
+                        },
+                        "3": {
+                            "FaceURL": "http://cloud-3.steamusercontent.com/ugc/1018317382896881190/BBD17D9D5071350F66FD8683E694DD764011CF55/",
+                            "BackURL": "{{backUrl}}",
+                            "NumWidth": 10,
+                            "NumHeight": 7,
+                            "BackIsHidden": true,
+                            "UniqueBack": false
+                        },
+                        "4": {
+                            "FaceURL": "http://cloud-3.steamusercontent.com/ugc/1018317382896887997/C29A692377E5F8F81FE5599B1CD40C6A30047AED/",
+                            "BackURL": "{{backUrl}}",
+                            "NumWidth": 10,
+                            "NumHeight": 7,
+                            "BackIsHidden": true,
+                            "UniqueBack": false
+                        },
+                        "5": {
+                            "FaceURL": "http://cloud-3.steamusercontent.com/ugc/1018317382896890809/33BAF06D1330A780A6E5D2D4244F896A1F795079/",
+                            "BackURL": "{{backUrl}}",
+                            "NumWidth": 10,
+                            "NumHeight": 7,
+                            "BackIsHidden": true,
+                            "UniqueBack": false
+                        },
+                        "6": {
+                            "FaceURL": "http://cloud-3.steamusercontent.com/ugc/1018317382896896205/BF6E56396827DE91BD9995A470306AC93CEF7BCC/",
+                            "BackURL": "{{backUrl}}",
+                            "NumWidth": 10,
+                            "NumHeight": 7,
+                            "BackIsHidden": true,
+                            "UniqueBack": false
+                        },
+                        "7": {
+                            "FaceURL": "http://cloud-3.steamusercontent.com/ugc/1046471752320933107/EA8708F44420606FFD4E66A1CDD9A197B6B1BB0C/",
+                            "BackURL": "{{backAdvUrl}}",
+                            "NumWidth": 10,
+                            "NumHeight": 7,
+                            "BackIsHidden": true,
+                            "UniqueBack": false
+                        },
+                        "8": {
+                            "FaceURL": "http://cloud-3.steamusercontent.com/ugc/1046471752321048383/954CC9709406EB0FB5A18D742262C06F1789B332/",
+                            "BackURL": "{{backUrl}}",
+                            "NumWidth": 10,
+                            "NumHeight": 7,
+                            "BackIsHidden": true,
+                            "UniqueBack": false
+                        },
+                        "9": {
+                            "FaceURL": "http://cloud-3.steamusercontent.com/ugc/1046471752321052040/D0450311BBBF1B517AEF4854C33A90D0B17D4B7A/",
+                            "BackURL": "{{backUrl}}",
                             "NumWidth": 10,
                             "NumHeight": 7,
                             "BackIsHidden": true,
@@ -135,12 +278,134 @@
                     },
                     "LuaScript": "",
                     "LuaScriptState": "",
+                    "ContainedObjects": [
+                        {% for slot in allAdvSlots %}
+                        {% set slotLabel = slot.card.name~(slot.card.subtitle is defined and slot.card.subtitle != "" ? ", "~slot.card.subtitle : "")%}
+                        {% for i in range (1,slot.quantity) %}
+                        {
+                            "Name": "Card",
+                            "Transform": {
+                                "posX": {{ random(999) /1000 }},
+                                "posY": {{ random(999) /1000 }},
+                                "posZ": {{ random(999) /1000 }},
+                                "rotX": {{ random(999) /1000 }},
+                                "rotY": {{ random(999) /1000 }},
+                                "rotZ": {{ random(999) /1000 }},
+                                "scaleX": 1.42055011,
+                                "scaleY": 1.0,
+                                "scaleZ": 1.42055011
+                            },
+                            "Nickname": "{{ slotLabel|replace({"\"":"\\\""})|raw }}",
+                            "Description": "",
+                            "ColorDiffuse": {
+                                "r": 0.713235259,
+                                "g": 0.713235259,
+                                "b": 0.713235259
+                            },
+                            "Locked": false,
+                            "Grid": true,
+                            "Snap": true,
+                            "Autoraise": true,
+                            "Sticky": true,
+                            "Tooltip": false,
+                            "CardID": {{ slot.card.octgnId }},
+                            "SidewaysCard": false,
+                            "CustomDeck": {
+                                {% if slot.card.octgnId|length == 3 and slot.card.octgnId[:1] == 1 %}
+                                "1": {
+                                    "FaceURL": "http://cloud-3.steamusercontent.com/ugc/1046471563485951250/1C7E717A8E1E0CAF4518CB78B920FCA879CB86D8/",
+                                    "BackURL": "http://cloud-3.steamusercontent.com/ugc/1046471563485951250/1C7E717A8E1E0CAF4518CB78B920FCA879CB86D8//",
+                                    "NumWidth": 10,
+                                    "NumHeight": 7,
+                                    "BackIsHidden": true,
+                                    "UniqueBack": true
+                                }
+                                {% elseif slot.card.octgnId|length == 3 and slot.card.octgnId[:1] == 2 %}
+                                "2": {
+                                    "FaceURL": "http://cloud-3.steamusercontent.com/ugc/1046471563481723621/AAE2F2FCA62849F718D3FA35DA82D00CDDC683D7/",
+                                    "BackURL": "{{backAdvUrl}}",
+                                    "NumWidth": 10,
+                                    "NumHeight": 7,
+                                    "BackIsHidden": true,
+                                    "UniqueBack": false
+                                }
+                                {% elseif slot.card.octgnId|length == 3 and slot.card.octgnId[:1] == 3 %}
+                                "3": {
+                                    "FaceURL": "http://cloud-3.steamusercontent.com/ugc/1018317382896881190/BBD17D9D5071350F66FD8683E694DD764011CF55/",
+                                    "BackURL": "{{backUrl}}",
+                                    "NumWidth": 10,
+                                    "NumHeight": 7,
+                                    "BackIsHidden": true,
+                                    "UniqueBack": false
+                                }
+                                {% elseif slot.card.octgnId|length == 3 and slot.card.octgnId[:1] == 4 %}
+                                "4": {
+                                    "FaceURL": "http://cloud-3.steamusercontent.com/ugc/1018317382896887997/C29A692377E5F8F81FE5599B1CD40C6A30047AED/",
+                                    "BackURL": "{{backUrl}}",
+                                    "NumWidth": 10,
+                                    "NumHeight": 7,
+                                    "BackIsHidden": true,
+                                    "UniqueBack": false
+                                }
+                                {% elseif slot.card.octgnId|length == 3 and slot.card.octgnId[:1] == 5 %}
+                                "5": {
+                                    "FaceURL": "http://cloud-3.steamusercontent.com/ugc/1018317382896890809/33BAF06D1330A780A6E5D2D4244F896A1F795079/",
+                                    "BackURL": "{{backUrl}}",
+                                    "NumWidth": 10,
+                                    "NumHeight": 7,
+                                    "BackIsHidden": true,
+                                    "UniqueBack": false
+                                }
+                                {% elseif slot.card.octgnId|length == 3 and slot.card.octgnId[:1] == 6 %}
+                                "6": {
+                                    "FaceURL": "http://cloud-3.steamusercontent.com/ugc/1018317382896896205/BF6E56396827DE91BD9995A470306AC93CEF7BCC/",
+                                    "BackURL": "{{backUrl}}",
+                                    "NumWidth": 10,
+                                    "NumHeight": 7,
+                                    "BackIsHidden": true,
+                                    "UniqueBack": false
+                                }
+                                {% elseif slot.card.octgnId|length == 3 and slot.card.octgnId[:1] == 7 %}
+                                "7": {
+                                    "FaceURL": "http://cloud-3.steamusercontent.com/ugc/1046471752320933107/EA8708F44420606FFD4E66A1CDD9A197B6B1BB0C/",
+                                    "BackURL": "{{backAdvUrl}}",
+                                    "NumWidth": 10,
+                                    "NumHeight": 7,
+                                    "BackIsHidden": true,
+                                    "UniqueBack": false
+                                }
+                                {% elseif slot.card.octgnId|length == 3 and slot.card.octgnId[:1] == 8 %}
+                                "8": {
+                                    "FaceURL": "http://cloud-3.steamusercontent.com/ugc/1046471752321048383/954CC9709406EB0FB5A18D742262C06F1789B332/",
+                                    "BackURL": "{{backUrl}}",
+                                    "NumWidth": 10,
+                                    "NumHeight": 7,
+                                    "BackIsHidden": true,
+                                    "UniqueBack": false
+                                }
+                                {% elseif slot.card.octgnId|length == 3 and slot.card.octgnId[:1] == 9 %}
+                                "9": {
+                                    "FaceURL": "http://cloud-3.steamusercontent.com/ugc/1046471752321052040/D0450311BBBF1B517AEF4854C33A90D0B17D4B7A/",
+                                    "BackURL": "{{backUrl}}",
+                                    "NumWidth": 10,
+                                    "NumHeight": 7,
+                                    "BackIsHidden": true,
+                                    "UniqueBack": false
+                                }
+                                {% endif %}
+                            },
+                            "LuaScript": "",
+                            "LuaScriptState": "",
+                            "GUID": "{{ deck.guidArray[guidCount] }}"
+                            {% set guidCount = guidCount + 1 %}
+                        }{% if (not loop.parent.loop.last) or (loop.parent.loop.last and not loop.last) %},{% endif %}
+                        {% endfor %}
+                        {% endfor %}
+                    ],
                     "GUID": "{{ deck.guidArray[guidCount] }}"
                     {% set guidCount = guidCount + 1 %}
                 },
-                {% endfor %}
-                {% endfor %}
-                {# Deck of Other Cards #}
+                {# Deck of Cpt Cards #}
                 {
                     "Name": "Deck",
                     "Transform": {
@@ -295,11 +560,11 @@
                                 {% if slot.card.octgnId|length == 3 and slot.card.octgnId[:1] == 1 %}
                                 "1": {
                                     "FaceURL": "http://cloud-3.steamusercontent.com/ugc/858354911724386771/892B79793EE86A4BAB29B487F313BA2F1D86E16B/",
-                                    "BackURL": "{{backUrl}}",
+                                    "BackURL": "http://cloud-3.steamusercontent.com/ugc/858354911724386771/892B79793EE86A4BAB29B487F313BA2F1D86E16B/",
                                     "NumWidth": 10,
                                     "NumHeight": 7,
                                     "BackIsHidden": true,
-                                    "UniqueBack": false
+                                    "UniqueBack": true
                                 }
                                 {% elseif slot.card.octgnId|length == 3 and slot.card.octgnId[:1] == 2 %}
                                 "2": {
