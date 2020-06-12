@@ -1,6 +1,6 @@
 <plugin>
-	<pluginversion>0.1</pluginversion>
-	<pluginname>travellerccg</pluginname>
+	<pluginversion>0.4</pluginversion>
+	<pluginname>travellerccg-dev</pluginname>
 	
 	<globalstats>
 		<label>Turn</label>
@@ -14,19 +14,21 @@
 		<label>Infamy</label>
 		<initialvalue>0</initialvalue>
 	</playerstat>
+
+	<deckzone>
+		<label>Captain Deck</label>
+		<gamezonetoloadto>Captain Deck</gamezonetoloadto>
+		<shuffle>yes</shuffle>
+	</deckzone>	
 	<deckzone>
 		<label>Adventure Deck</label>
 		<gamezonetoloadto>Adventure Deck</gamezonetoloadto>
 		<shuffle>yes</shuffle>
 	</deckzone>
-	<deckzone>
-		<label>Captain Deck</label>
-		<gamezonetoloadto>Captain Deck</gamezonetoloadto>
-		<shuffle>yes</shuffle>
-	</deckzone>		
+		
 	<gamezone>
 	<label>Hand</label>
-		<visbiletoowner>yes</visibletoowner>
+		<visibletoowner>yes</visibletoowner>
 		<visibletoothers>no</visibletoothers>
 	</gamezone>
 	<gamezone>
@@ -36,7 +38,7 @@
 	</gamezone>
 	<gamezone>
 		<label>Adventure Deck Discard</label>
-		<visbiletoowner>yes</visibletoowner>
+		<visibletoowner>yes</visibletoowner>
 		<visibletoothers>yes</visibletoothers>
 	</gamezone>
 	<gamezone>
@@ -46,12 +48,12 @@
 	</gamezone>
 	<gamezone>
 		<label>Captain Deck Discard</label>
-		<visbiletoowner>yes</visibletoowner>
+		<visibletoowner>yes</visibletoowner>
 		<visibletoothers>yes</visibletoothers>
 	</gamezone>
 	<gamezone>
 		<label>Removed</label>
-		<visbiletoowner>yes</visibletoowner>
+		<visibletoowner>yes</visibletoowner>
 		<visibletoothers>yes</visibletoothers>
 	</gamezone>
 	<phase>
@@ -74,7 +76,11 @@
 	</phase>
 	
 	<generalfunction><label>Refresh All</label><kind>ALLYOURCARDSMAKERIGHT0DEGREES</kind><includeasbutton>yes</includeasbutton></generalfunction>
-	<generalfunction><label>Draw</label><kind>DRAWCARD</kind><includeasbutton>yes</includeasbutton></generalfunction>
+	<generalfunction><label>Draw Cpt Card</label><kind>TRANSFERCARD</kind><includeasbutton>yes</includeasbutton><sourceowner>performer</sourceowner><sourcegamezone>Captain Deck</sourcegamezone><sourceposition>top</sourceposition><destinationowner>performer</destinationowner><destinationgamezone>Hand</destinationgamezone><destinationposition>top</destinationposition></generalfunction>
+	<generalfunction><label>Draw Adv Card</label><kind>DRAWCARD</kind><includeasbutton>yes</includeasbutton></generalfunction>
+	<generalfunction><label>Draw Adv Card Blind</label><kind>TRANSFERCARD</kind><sourceowner>performer</sourceowner><sourcegamezone>Adventure Deck</sourcegamezone><sourceposition>top</sourceposition>
+		<destinationowner>table</destinationowner><destinationposition>facedown</destinationposition><includeasbutton>yes</includeasbutton>
+	</generalfunction>
 	<generalfunction><label>Previous Phase</label><kind>PREVIOUSPHASE</kind><includeasbutton>no</includeasbutton></generalfunction>
 	<generalfunction><label>Next Phase</label><kind>NEXTPHASE</kind><includeasbutton>no</includeasbutton></generalfunction>
 	<generalfunction><label>Spawn Card</label><kind>SPAWNCARD</kind><includeasbutton>no</includeasbutton></generalfunction>
@@ -84,6 +90,7 @@
 
 	<cardfunction><label>Refresh</label><kind>MAKERIGHT0DEGREES</kind><includeasbutton>yes</includeasbutton></cardfunction>
 	<cardfunction><label>Exhaust</label><kind>MAKERIGHT90DEGREES</kind><includeasbutton>yes</includeasbutton></cardfunction>
+	<cardfunction><label>Adv Complication</label><kind>MAKERIGHT270DEGREES</kind><includeasbutton>yes</includeasbutton></cardfunction>
 	<cardfunction><label>Edit Note</label><kind>EDITNOTE</kind><includeasbutton>yes</includeasbutton><PositionX>.4</PositionX><PositionY>.95</PositionY></cardfunction>
 	<cardfunction><label>Turn Over</label><kind>TURNOVER</kind><includeasbutton>yes</includeasbutton></cardfunction>
 	<cardfunction><label>Doesn't Refresh</label><kind>TOGGLETURNALLIMMUNITY</kind><includeasbutton>no</includeasbutton></cardfunction>

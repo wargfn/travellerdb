@@ -476,9 +476,9 @@ class ApiController extends Controller
         /* @var $deck \AppBundle\Entity\Deck */
         $deck = $this->getDoctrine()->getRepository('AppBundle:Deck')->find($deck_id);
 
-        if(!$deck || !$deck->getUser() || !$deck->getUser()->getIsShareDecks()) {
-            throw $this->createAccessDeniedException("Access denied to this object.");
-        }
+        //if(!$deck || !$deck->getUser() || !$deck->getUser()->getIsShareDecks()) {
+        //    throw $this->createAccessDeniedException("Access denied to this object.");
+        //}
 
         $response->setLastModified($deck->getDateUpdate());
         if ($response->isNotModified($request)) {
