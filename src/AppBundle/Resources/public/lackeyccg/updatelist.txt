@@ -1,0 +1,18 @@
+travellerccg	06-10-20
+plugins/travellerccg/plugininfo.txt	https://travellerdb.com/lackeyccg/plugininfo.txt	382899
+plugins/travellerccg/sets/carddata.txt	https://travellerdb.com/lackeyccg/carddata.txt	6844825
+plugins/travellerccg/cardback.png	https://travellerdb.com/lackeyccg/cardback.png	8542531
+plugins/travellerccg/spawned.png	https://travellerdb.com/lackeyccg/spawned.png	8542531
+plugins/travellerccg/CardImageURLs1.txt	https://travellerdb.com/lackeyccg/CardImageURLs1.txt	1612102
+plugins/travellerccg/version.txt	https://travellerdb.com/lackeyccg/version.txt	25601
+CardImageURLs:
+plugins/travellerccg/sets/setimages/general/AdventureCardBack.png	https://travellerdb.com/lackeyccg/general/AdventureCardBack.png
+plugins/travellerccg/sets/setimages/general/CaptainCardBack.png	https://travellerdb.com/lackeyccg/CaptainCardBack.png
+plugins/travellerccg/sets/setimages/general/cardback.png	https://travellerdb.com/lackeyccg/general/cardback.png
+plugins/travellerccg/sets/setimages/general/spawned.png	https://travellerdb.com/lackeyccg/general/spawned.png
+
+CardURLFiles:
+CardImageURLs1.txt
+
+CardGeneralURLs:
+https://travellerdb.com/lackeyccg/general/

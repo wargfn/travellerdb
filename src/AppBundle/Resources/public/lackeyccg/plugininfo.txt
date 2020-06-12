@@ -1,0 +1,111 @@
+<plugin>
+	<pluginversion>0.1</pluginversion>
+	<pluginname>travellerccg</pluginname>
+	
+	<globalstats>
+		<label>Turn</label>
+		<initialvalue>0</initialvaluee>
+	</globalstats>
+	<playerstat>
+		<label>Victory Points</label>
+		<initialvalue>0</initialvalue>
+	</playerstat>
+	<playerstat>
+		<label>Infamy</label>
+		<initialvalue>0</initialvalue>
+	</playerstat>
+	<deckzone>
+		<label>Adventure Deck</label>
+		<gamezonetoloadto>Adventure Deck</gamezonetoloadto>
+		<shuffle>yes</shuffle>
+	</deckzone>
+	<deckzone>
+		<label>Captain Deck</label>
+		<gamezonetoloadto>Captain Deck</gamezonetoloadto>
+		<shuffle>yes</shuffle>
+	</deckzone>		
+	<gamezone>
+	<label>Hand</label>
+		<visbiletoowner>yes</visibletoowner>
+		<visibletoothers>no</visibletoothers>
+	</gamezone>
+	<gamezone>
+		<label>Adventure Deck</label>
+		<visbiletoowner>no</visibletoowner>
+		<visibletoothers>no</visibletoothers>
+	</gamezone>
+	<gamezone>
+		<label>Adventure Deck Discard</label>
+		<visbiletoowner>yes</visibletoowner>
+		<visibletoothers>yes</visibletoothers>
+	</gamezone>
+	<gamezone>
+		<label>Captain Deck</label>
+		<visbiletoowner>no</visibletoowner>
+		<visibletoothers>no</visibletoothers>
+	</gamezone>
+	<gamezone>
+		<label>Captain Deck Discard</label>
+		<visbiletoowner>yes</visibletoowner>
+		<visibletoothers>yes</visibletoothers>
+	</gamezone>
+	<gamezone>
+		<label>Removed</label>
+		<visbiletoowner>yes</visibletoowner>
+		<visibletoothers>yes</visibletoothers>
+	</gamezone>
+	<phase>
+		<label>Ready Phase</label>
+	</phase>
+	<phase>
+		<label>Adventure Phase</label>
+	</phase>
+	<phase>
+		<label>Procurement Phase</label>
+	</phase>
+	<phase>
+		<label>Action Phase</label>
+	</phase>
+	<phase>
+		<label>Resource Phase</label>
+	</phase>
+	<phase>
+		<label>Resolution Phase</label>
+	</phase>
+	
+	<generalfunction><label>Refresh All</label><kind>ALLYOURCARDSMAKERIGHT0DEGREES</kind><includeasbutton>yes</includeasbutton></generalfunction>
+	<generalfunction><label>Draw</label><kind>DRAWCARD</kind><includeasbutton>yes</includeasbutton></generalfunction>
+	<generalfunction><label>Previous Phase</label><kind>PREVIOUSPHASE</kind><includeasbutton>no</includeasbutton></generalfunction>
+	<generalfunction><label>Next Phase</label><kind>NEXTPHASE</kind><includeasbutton>no</includeasbutton></generalfunction>
+	<generalfunction><label>Spawn Card</label><kind>SPAWNCARD</kind><includeasbutton>no</includeasbutton></generalfunction>
+	<generalfunction><label>Next Turn</label><kind>NEXTTURN</kind><includeasbutton>no</includeasbutton></generalfunction>
+	<generalfunction><label>Previous Turn</label><kind>PEREVIOUSTURN</kind><includeasbutton>no</includeasbutton></generalfunction>
+	<generalfunction><label>Flip Coin</label><kind>FLIPCOIN</kind><includeasbutton>no</includeasbutton></generalfunction>
+
+	<cardfunction><label>Refresh</label><kind>MAKERIGHT0DEGREES</kind><includeasbutton>yes</includeasbutton></cardfunction>
+	<cardfunction><label>Exhaust</label><kind>MAKERIGHT90DEGREES</kind><includeasbutton>yes</includeasbutton></cardfunction>
+	<cardfunction><label>Edit Note</label><kind>EDITNOTE</kind><includeasbutton>yes</includeasbutton><PositionX>.4</PositionX><PositionY>.95</PositionY></cardfunction>
+	<cardfunction><label>Turn Over</label><kind>TURNOVER</kind><includeasbutton>yes</includeasbutton></cardfunction>
+	<cardfunction><label>Doesn't Refresh</label><kind>TOGGLETURNALLIMMUNITY</kind><includeasbutton>no</includeasbutton></cardfunction>
+	<cardfunction><label>Take Control</label><kind>CHANGEOWNER</kind><includeasbutton>yes</includeasbutton></cardfunction>
+	<cardfunction><label>Hover</label><kind>HOVER</kind><includeasbutton>yes</includeasbutton></cardfunction>
+	<cardfunction><label>Clear</label><kind>CLEARCARD</kind><includeasbutton>yes</includeasbutton></cardfunction>
+
+	<definition><kind>ISYOURFACEDOWNVISIBLE</kind></definition>
+	<definition><kind>ISALLOWINGMULTIPLECARDBACKS</kind></definition>
+	<definition><kind>BACKVISIBILITY</kind><value>BACKVISIBILITYHIDEBACKINZONES</value></definition>
+</plugin>
+
+// Lackey Plugin for Horizon Games TravellerCCG
+// created by: wargfn@hotmail.com  6/10/2020
+// updated: 6/11/2020
+// Beowulf Freetrader Solo setup
+// Heirarchy of the file
+//   Global Stats
+//   Players Stats
+//   DeckZones
+//   GameZones
+// 	 Phases (of the turn)
+//   General Functions
+//   Card Functions
+//   All other defintions

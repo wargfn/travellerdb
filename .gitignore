@@ -310,5 +310,16 @@ vendor/doctrine/orm/lib/Doctrine/ORM/UnitOfWork.php
 vendor/friendsofsymfony/user-bundle
 vendor/
 app/cache/
-
+web/lackeyccg/CardImageURLs1.txt
+web/lackeyccg/cardback.png
+web/lackeyccg/carddata.txt
+web/lackeyccg/general/AdventureCardBack.png
+web/lackeyccg/general/CaptainCardBack.png
+web/lackeyccg/general/cardback.png
+web/lackeyccg/general/spawned.png
+web/lackeyccg/plugininfo.txt
+web/lackeyccg/pluginpreferences.txt
+web/lackeyccg/spawned.png
+web/lackeyccg/updatelist.txt
+web/lackeyccg/version.txt
 

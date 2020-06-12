@@ -1,0 +1,70 @@
+<pluginpreferences>
+
+<counterstyleimagesizetextoverimage>16</counterstyleimagesizetextoverimage>
+<counterstyleimagesizeimagesonly>25</counterstyleimagesizeimagesonly>
+<recentskins>default</recentskins>
+<canned>PoP? (Pass or Play?)</canned>
+<canned>Pass.</canned>
+<canned>Proceed.</canned>
+<canned>Thinking....</canned>
+<canned>Attack!</canned>
+<canned>In response...</canned>
+<canned>End of turn...</canned>
+<canned>Done.</canned>
+<canned>You done?</canned>
+<canned>Mulligan.</canned>
+<canned>MISE!</canned>
+<canned>/draw7</canned>
+<canned>/flip 1</canned>
+<canned>/roll</canned>
+<canned>/clear</canned>
+<canned>/draw7</canned>
+<canned>/rolld20</canned>
+<canned>/draw6</canned>
+<canned>/draw8</canned>
+<canned>Good game.</canned>
+<fontkind0pos0>Lato-Reg.ttf</fontkind0pos0>
+<fontkind0pos1>times.ttf</fontkind0pos1>
+<fontkind1pos0>Lato-Reg.ttf</fontkind1pos0>
+<fontkind1pos1>times.ttf</fontkind1pos1>
+<fontkind2pos0>Lato-Reg.ttf</fontkind2pos0>
+<fontkind2pos1>times.ttf</fontkind2pos1>
+<fontkind3pos0>Lato-Reg.ttf</fontkind3pos0>
+<fontkind3pos1>times.ttf</fontkind3pos1>
+<fontsize0>12</fontsize0>
+<fontsize1>11</fontsize1>
+<fontsize2>11</fontsize2>
+<fontsize3>20</fontsize3>
+<bindingmain0>CMD+h</bindingmain0>
+<bindingmain1>CMD+j</bindingmain1>
+<bindingmain4>CMD+n</bindingmain4>
+<bindingmain5>CMD+s</bindingmain5>
+<bindingmain6>CMD+l</bindingmain6>
+<bindingmain9>CMD+f</bindingmain9>
+<bindingmain11>CTRL+ALT+c</bindingmain11>
+<bindingmain15>SHIFT+CMD+s</bindingmain15>
+<bindingmain18>SHIFT+CMD+t</bindingmain18>
+<bindingmain19>CTRL+r</bindingmain19>
+<bindinggeneral0>CMD+u</bindinggeneral0>
+<bindinggeneral1>CMD+r</bindinggeneral1>
+<bindinggeneral2>CMD+UP</bindinggeneral2>
+<bindinggeneral3>CMD+DOWN</bindinggeneral3>
+<bindingcanned0>CMD+1</bindingcanned0>
+<bindingcanned1>CMD+2</bindingcanned1>
+<bindingcanned2>CMD+3</bindingcanned2>
+<bindingcanned3>CMD+4</bindingcanned3>
+<bindingcanned4>CMD+5</bindingcanned4>
+<bindingcanned5>CMD+6</bindingcanned5>
+<bindingcanned6>CMD+7</bindingcanned6>
+<bindingcanned7>CMD+8</bindingcanned7>
+<bindingcanned8>CMD+9</bindingcanned8>
+<libraryignoredoubles>1</libraryignoredoubles>
+<recentformat>-1</recentformat>
+<filterkeystroke>1</filterkeystroke>
+<deckeditorloadtozoneiscollapse>0</deckeditorloadtozoneiscollapse>
+<scalefactor>1.000000</scalefactor>
+<zoomfactor>1.000000</zoomfactor>
+<quickzoom>4.000000</quickzoom>
+<isdownloadallmissing>1</isdownloadallmissing>
+
+</pluginpreferences>
