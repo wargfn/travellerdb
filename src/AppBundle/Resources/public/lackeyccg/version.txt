@@ -1,5 +1,5 @@
 <version>
-	<lastupdateYYMMDD>200610</lastupdateYYMMDD>
+	<lastupdateYYMMDD>200611</lastupdateYYMMDD>
 	<versionurl>https://travellerdb.com/lackeyccg/version.txt</versionurl>
 	<updateurl>https://travellerdb.com/lackeyccg/updatelist.txt</updateurl>
 	<message>Initial Deployment for First Wave Cards.</message>
