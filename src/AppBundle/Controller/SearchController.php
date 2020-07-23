@@ -34,6 +34,7 @@ class SearchController extends Controller
 			'w' => 'wound',
 			'x' => 'text',
 			'y' => 'subtype',
+            'z' => 'code',
 	);
 
 	public static $searchTypes = array(
@@ -63,6 +64,7 @@ class SearchController extends Controller
             'w' => 'integer',
             'x' => 'string',
             'y' => 'code',
+            'z' => 'string',
 	);
 
 	public function formAction()
