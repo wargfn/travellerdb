@@ -198,7 +198,7 @@ The Lucky Star	submerchant	04013.png	Connection	"Corporate, Extravagant"	NULL	0	
 Restricted Tech Vendor	submerchant	04014.png	Connection	"Mercantile, Primitive, Unsavory"	NULL	2	1	"After you gain [VictoryPoint] for completing a [Subplot], <strong><u><a href=""../rulesreference#KW_Replenish"">Replenish 1</a></u></strong>."	NULL	Julijana Mijallovic
 Bhavana Patil	submerchant	04015.png	Crew	"Imperial, Government"	NULL	2	1	Gain 1 [VictoryPoint] after resolving [LinkOpen] [Subplot][Admin] [LinkClosed].	Why fight the system when you can use it?	Paolo Puggioni
 "Dr. Peter L.S. Trevor, Xenobiologist"	submerchant	04016.png	Crew	"Imperial, Professional"	NULL	3	1	[Limited] - [1]: Copy the crew abilities of a target non-human [Crew] until end of round.	NULL	Julijana Mijallovic
-Fatimah Noori	submerchant	04017.png	Crew	"Solomani, Unsavory"	NULL	2	2	"While Fatimah is exerted, your other [Crew] gain <strong><u><a href=""../rulesreference#KW_Invulnerable"">Invulnerable</a> to opponents' crew abilities and Heroic Actions</u></strong> unless the opposing [Crew] has [Admin] or [Underworld] \n <strong>Action Phase</strong> \n [Action]-[Exert]: Gain [Expert:Underworld] until end of round."	NULL	Mandy JѴ˚orgens
+Fatimah Noori	submerchant	04017.png	Crew	"Solomani, Unsavory"	NULL	2	2	"While Fatimah is exerted, your other [Crew] gain <strong><u><a href=""../rulesreference#KW_Invulnerable"">Invulnerable</a> to opponents' crew abilities and Heroic Actions</u></strong> unless the opposing [Crew] has [Admin] or [Underworld] \n <strong>Action Phase</strong> \n [Action]-[Exert]: Gain [Expert:Underworld] until end of round."	NULL	Mandy J???�orgens
 "Liam ""A.I."" Simons"	submerchant	04018.png	Crew	"Imperial, Gearhead, Spiritualist"	NULL	3	1	<strong>Action Phase</strong> \n [Action][Limited] - Jettison [Gear] or [Upgrade]: Return target [Gear] or [Upgrade] card from your discard pile to hand.	Gueseppe asked what A.I. stood for. I told him...all in.	Nick Avallone
 Mahmoud Czenik	submerchant	04019.png	Crew	"Solomani, Unsavory"	NULL	3	1	[Heroic] cost Mahmoud an additional [1].	Waste no part of the prey.	Aleksandar Mihajlovic
 Teodoro Weinstein	submerchant	04020.png	Crew	"Imperial, Spacehand"	NULL	1	1	<strong>Action Phase</strong> \n [Action]-[Exert]: Gain [Trained:Social] until end of round.	This guy...in spaaaace!	Tan Ho Sim
@@ -274,3 +274,31 @@ False Registry Markings	typesscout	02029.png	Ship Upgrade	"Corsair, Unsavory"	NU
 RVD Overtuned Thruster Plate	typesscout	02030.png	Ship Upgrade	"Maneuver Drive, Mil-Grade"	NULL	2	2	[Initiative] +1 \n [Attack] +1 against [Ship] with lower [Initiative].	Slow is dead.	Nicholas Lim
 Stellar Anomaly Log	typesscout	02031.png	Ship Upgrade	Sensors	NULL	2	1	"Jettison: When you resolve a [LinkOpen] [Contract][Survey] [LinkClosed], gain 1 [VictoryPoint]."	NULL	Nicholas Lim
 SureShot Missile Turret	typesscout	02032.png	Ship Upgrade	Missile	NULL	0	2	"[Reaction]-[Exert],[1]: [Attack] +1 until end of round. \n Jettison: Resolve target <strong><em>Corsair</strong></em> [Complication]."	NULL	Nicholas Lim
+Cargo	token	cargo.png	Token							
+Cargo / Military	token	cargomilitary.png	Token							
+Cargo / Passenger	token	cargopassenger.png	Token							
+Cargo / Survey	token	cargosurvey.png	Token							
+Military	token	military.png	Token							
+Military / Survey	token	militarysurvey.png	Token							
+Passenger	token	passenger.png	Token							
+Passenger / Military	token	passengermilitary.png	Token							
+Passenger / Survey	token	passengersurvey.png	Token							
+Survey	token	survey.png	Token							
+Trained: Admin	token	admin-.png	Token							
+Expert: Admin	token	admin+.png	Token							
+Trained: Combat	token	combat-.png	Token							
+Expert: Combat	token	combat+.png	Token							
+Trained: Medical	token	medical-.png	Token							
+Expert: Medical	token	medical+.png	Token							
+Trained: Psionics	token	psionics-.png	Token							
+Expert: Psionics	token	psionics+.png	Token							
+Trained: Science	token	science-.png	Token							
+Expert: Science	token	science+.png	Token							
+Trained: Social	token	social-.png	Token							
+Expert: Social	token	social+.png	Token							
+Trained: Starship Operations	token	starops-.png	Token							
+Expert: Starship Operations	token	starops+.png	Token							
+Trained: Tech	token	tech-.png	Token							
+Expert: tech	token	tech+.png	Token							
+Trained: Underworld	token	underworld-.png	Token							
+Expert: Underworld	token	underworld+.png	Token							

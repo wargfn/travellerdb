@@ -1,6 +1,6 @@
 <plugin>
-	<pluginversion>0.4</pluginversion>
-	<pluginname>travellerccg-dev</pluginname>
+	<pluginversion>0.5</pluginversion>
+	<pluginname>travellerccgv</pluginname>
 	
 	<globalstats>
 		<label>Turn</label>

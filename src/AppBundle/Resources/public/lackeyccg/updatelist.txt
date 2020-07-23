@@ -1,4 +1,4 @@
-travellerccg	06-11-20
+travellerccg	06-14-20
 plugins/travellerccg/plugininfo.txt	https://travellerdb.com/bundles/app/lackeyccg/plugininfo.txt	468061
 plugins/travellerccg/sets/carddata.txt	https://travellerdb.com/bundles/app/lackeyccg/carddata.txt	6844297
 plugins/travellerccg/cardback.png	https://travellerdb.com/bundles/app/lackeyccg/cardback.png	8542531

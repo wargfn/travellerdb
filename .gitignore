@@ -144,6 +144,9 @@ src/AppBundle/Resources/public/images/cards/92009.png
 src/AppBundle/Resources/public/images/cards/92009a.png
 src/AppBundle/Resources/public/images/cards/92010.png
 src/AppBundle/Resources/public/images/cards/92010a.png
+src/AppBundle/Resources/public/images/cards/91001.png
+src/AppBundle/Resources/public/images/cards/labpto.png
+src/AppBundle/Resources/public/images/factions/labpto.png
 src/AppBundle/Resources/public/images/cards/Gazelle Close Escort.png
 src/AppBundle/Resources/public/images/cards/Patrol Cruiser.png
 src/AppBundle/Resources/public/images/cards/Type S Scout Alt.png
@@ -154,6 +157,8 @@ src/AppBundle/Resources/public/images/cards/typesscoutalt.png
 src/AppBundle/Resources/public/images/factions/broadswordpto.png
 src/AppBundle/Resources/public/images/factions/gazellepto.png
 src/AppBundle/Resources/public/images/factions/patrolcruiserpto.png
+src/AppBundle/Resources/public/lackeyccg/TravellerCCGPlaytestV0.010.vmdx
+src/AppBundle/Resources/public/lackeyccg/TravellerCCGV0.020.vmod
 web/bundles/app/images/cards/92001.png
 web/bundles/app/images/cards/92001a.png
 web/bundles/app/images/cards/92002.png
@@ -296,6 +301,9 @@ web/bundles/app/images/cards/98039.png
 web/bundles/app/images/cards/98040.png
 web/bundles/app/images/cards/98041.png
 web/bundles/app/images/cards/98042.png
+web/images/cards/91001.png
+web/images/cards/labpto.png
+web/images/factions/labpto.png
 web/bundles/app/images/factions/broadswordpto.png
 web/bundles/app/images/factions/gazellepto.png
 web/bundles/app/images/factions/patrolcruiserpto.png
