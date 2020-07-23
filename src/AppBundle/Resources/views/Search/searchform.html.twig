@@ -237,13 +237,26 @@
 		</div>
     </div> #}
     <div class="col-sm-4">
-        <div class="form-group">
+		<div class="form-group">
 			<label for="t">{{ 'card.info.type' | trans }}</label>
 			<div>
 				<select class="form-control" name="t" id="t">
 					<option value="">{{ 'search.any' | trans }}</option>
 					{% for type in types %}
-					<option value="{{ type.code }}">{{ type.name }}</option>
+						<option value="{{ type.code }}">{{ type.name }}</option>
+					{% endfor %}
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-4">
+		<div class="form-group">
+			<label for="y">{{ 'card.info.subtype' | trans }}</label>
+			<div>
+				<select class="form-control" name="y" id="y">
+					<option value="">{{ 'search.any' | trans }}</option>
+					{% for subtype in subtypes %}
+						<option value="{{ subtype.code }}">{{ subtype.name }}</option>
 					{% endfor %}
 				</select>
 			</div>

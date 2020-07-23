@@ -427,6 +427,7 @@ card:
     costgold: Cost/Gold
     expense: Expense
     type: Type
+    subtype: Subtype
     strength: Strength
     str: STR
     strini: Strength/Initiative

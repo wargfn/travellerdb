@@ -33,7 +33,7 @@ class SearchController extends Controller
 			'v' => 'victorypoints',
 			'w' => 'wound',
 			'x' => 'text',
-			'y' => 'quantity',
+			'y' => 'subtype',
 	);
 
 	public static $searchTypes = array(
@@ -62,7 +62,7 @@ class SearchController extends Controller
             'v' => 'integer',
             'w' => 'integer',
             'x' => 'string',
-            'y' => 'integer',
+            'y' => 'code',
 	);
 
 	public function formAction()

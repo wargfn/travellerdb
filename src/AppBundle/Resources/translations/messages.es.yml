@@ -423,6 +423,7 @@ card:
     costgold: Coste/Oro
     expense: Gastos
     type: Tipo
+    subtype: Subtipo
     strength: Fuerza
     str: FUE
     strini: Fuerza/Iniciativa
