@@ -14,7 +14,7 @@
         o: [add_integer_sf, 'cost', Translator.trans('decks.smartfilter.filters.cost')],
         t: [add_string_sf, 'type_code', Translator.trans('decks.smartfilter.filters.type_code')],
         x: [add_string_sf, 'text', Translator.trans('decks.smartfilter.filters.text')],
-        y: [add_string_sf, 'type_code', Translator.trans('decks.smartfilter.filters.subtype_code')],
+        z: [add_string_sf, 'type_code', Translator.trans('decks.smartfilter.filters.subtype_code')],
     };
 
     /**

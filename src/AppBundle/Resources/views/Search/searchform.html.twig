@@ -253,10 +253,10 @@
 		<div class="form-group">
 			<label for="y">{{ 'card.info.subtype' | trans }}</label>
 			<div>
-				<select class="form-control" name="y" id="y">
+				<select class="form-control" name="z" id="z">
 					<option value="">{{ 'search.any' | trans }}</option>
 					{% for subtype in subtypes %}
-						<option value="{{ subtype.code }}">{{ subtype.name }}</option>
+						<option value="{{ subtype.id }}">{{ subtype.name }}</option>
 					{% endfor %}
 				</select>
 			</div>
